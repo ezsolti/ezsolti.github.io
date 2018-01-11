@@ -5,7 +5,7 @@ date:   2016-11-29 20:11:07 +0100
 categories: jekyll update
 ---
 
-<p>Hej,<\p>
+Hej,
 
 this blog is dedicated mostly to collect some of the programming/computing/other related things I came across during my work and my freetime. You shouldn't expect really huge, breakthrough things, rather just a modest repository of stuff I wanna lookup sometimes. Nevertheless, I hope, somebody else can find here something interesting as well.
 
