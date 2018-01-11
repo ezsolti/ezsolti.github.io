@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Opening"
+title:  "Random defect function"
 date:   2018-01-11 14:00:00 +0100
 categories: nuclear python
 ---
