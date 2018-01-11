@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "Opening"
+excerpt_separator: <!--more-->
 date:   2016-11-29 20:11:07 +0100
 categories: jekyll update
 ---
