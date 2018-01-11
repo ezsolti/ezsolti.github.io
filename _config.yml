@@ -25,6 +25,7 @@ github_username:  ezsolti
 # Build settings
 markdown: kramdown
 theme: minima
+excerpt_separator: <!--more-->
 gems:
   - jekyll-feed
 exclude:
