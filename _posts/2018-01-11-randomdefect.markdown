@@ -2,7 +2,8 @@
 layout: post
 title:  "Random defect function"
 date:   2018-01-11 14:00:00 +0100
-categories: nuclear python
+categories: blog
+permalink: /blog/
 ---
 
 Currently, I'm working with methods to identify partial defects in nuclear fuel assemblies. Long story short, partial defect means that some parts of a spent nuclear fuel assembly are removed or replaced with some dummies (may be a steel rod, or a fresh fuel rod), and we are planning to do gamma spectroscopy measurements in order to detect such replacements. Currently, I am running [MCNP](https://mcnp.lanl.gov/) simulations to compute the gamma particle transport from a spent fuel source. MCNP is a particle transport code, which allows the user to define generic geometries in which the particle transport takes place. Since I have to run a large amount of simulations (for different Burnup and Cooling times of the spent fuel), I usually use python to script my MCNP inputs and code calls.
@@ -27,7 +28,7 @@ I would like to run simulations for random partial defect patterns in 17x17 type
          1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
          1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 
-Now, I wanted to have a python function which can create such strings what I can later replace into some reference input file. I define the positions of each pin with one number (from 1 to 289 -that is 17X17-, logically as one would read from left to right and then jump to the next row). The function below calculates the number of pins to be replaced with dummies from the size of the defect (given as an input in percentage), then creates a list to hold all the possible fuel rod positions (based on the 25 given control rod positions). Then it creates a random sample of these positions with random.sample() (keep in mind that the python2 version of this function requires an intager as the size of the random subset), then finally it builds up a string to match the above given input structure (the control rod insert is decided with random.choice()).
+Now, I wanted to have a python function which can create such strings what I can later replace into some reference input file. This in itself is not a huge task, nevertheless I wanted to write up this post, because it is going to be a prerequisite for a coming post. I define the positions of each pin with one number (from 1 to 289 -that is 17X17-, logically as one would read from left to right and then jump to the next row). The function below calculates the number of pins to be replaced with dummies from the size of the defect (given as an input in percentage), then creates a list to hold all the possible fuel rod positions (based on the 25 given control rod positions). Then it creates a random sample of these positions with random.sample() (keep in mind that the python2 version of this function requires an intager as the size of the random subset), then finally it builds up a string to match the above given input structure (the control rod insert is decided with random.choice()).
 
 {% highlight python %}
 def createRandomDefect(perc):
