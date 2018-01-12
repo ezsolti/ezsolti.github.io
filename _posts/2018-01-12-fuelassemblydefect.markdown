@@ -2,7 +2,7 @@
 layout: post
 title:  "Fuel Assembly defecter"
 date:   2018-01-11 14:00:00 +0100
-categories: nuclear processing
+categories: scripts
 ---
 
 In my previous post about creating [random defects for MCNP input]({{ site.baseurl }}{% post_url 2018-01-11-randomdefect %})
