@@ -5,7 +5,7 @@ permalink: /thoughts/
 ---
 
 {% for post in site.categories.thoughts %}
- # [{{ post.title }}]({{ page.url }})
+ <h3> [{{ post.title }}]({{ page.url }}) <\h3>
  
  {{ post.excerpt }}
 {% endfor %}
