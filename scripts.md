@@ -4,13 +4,6 @@ title: Scripts
 permalink: /blog/
 ---
 
-<ul>
-  {% for post in site.posts %}
-    {% if post.category == scripts %}
-      <li>
-        <a href="{{ post.url }}">{{ post.title }}</a>
-        {{ post.excerpt }}
-      </li>
-    {% endif %}
-  {% endfor %}
-</ul>
+{% for post in site.categories.scripts %}
+ + [{{ post.title }}]({{ page.url }})
+{% endfor %}
