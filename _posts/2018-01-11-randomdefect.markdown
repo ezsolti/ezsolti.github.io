@@ -2,7 +2,7 @@
 layout: post
 title:  "Random defect function"
 date:   2018-01-11 14:00:00 +0100
-categories: scripts
+category: scripts
 tags: nuclear scripts
 ---
 
