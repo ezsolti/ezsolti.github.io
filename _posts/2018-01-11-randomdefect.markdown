@@ -2,8 +2,8 @@
 layout: post
 title:  "Random defect function"
 date:   2018-01-11 14:00:00 +0100
-categories: blog
-permalink: /blog/
+categories: scripts
+tags: nuclear scripts
 ---
 
 Currently, I'm working with methods to identify partial defects in nuclear fuel assemblies. Long story short, partial defect means that some parts of a spent nuclear fuel assembly are removed or replaced with some dummies (may be a steel rod, or a fresh fuel rod), and we are planning to do gamma spectroscopy measurements in order to detect such replacements. Currently, I am running [MCNP](https://mcnp.lanl.gov/) simulations to compute the gamma particle transport from a spent fuel source. MCNP is a particle transport code, which allows the user to define generic geometries in which the particle transport takes place. Since I have to run a large amount of simulations (for different Burnup and Cooling times of the spent fuel), I usually use python to script my MCNP inputs and code calls.
