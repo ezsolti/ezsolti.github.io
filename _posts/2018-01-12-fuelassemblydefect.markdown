@@ -11,6 +11,6 @@ So, instead I was thinking to make a small application where I can just click on
 
 Few years back I took a course on Coursera (Introduction to Computational Arts), where the first few tasks were done in Processing. I took the course only for fun, didn't think that it may help me sometime in my professional life. But now when I started to think about how the application would look like and work, the Processing knowledge immedietly came back to me, and I realized it would be a piece of cake to make it in Processing. Of course now I found that the language evolved quite a bit since I last used it, and most of the help found by google is outdated, so I finally used some mixture of Processing and p5.js, and even I don't really know when I'm using which one, but I cared only about the end product.
 
-I developed the application on [openprocessing.org]{{
+I developed the application on [openprocessing.org](https://www.openprocessing.org/). Probably the easiest way to discuss how it works is to include it here at the beginning:
 
-<iframe src="https://www.openprocessing.org/sketch/495110/embed/" width="680" height="680"></iframe>
+<iframe src="https://www.openprocessing.org/sketch/495110/embed/" width="720" height="720"></iframe>
