@@ -23,10 +23,8 @@ So let us just quickly review how a Processing application looks like code-wise:
 function setup() {
 	createCanvas(170*4, 170*4);
 	background(255);
-	DummyPos=[]
-	/*historyPos=[]*/
-	DummyPosDummy=[];
-  CrPos=[40,43,46,55,65,88,91,94,97,100,139,142,145,148,151,190,193,196,199,202,225,235,244,247,250];
+	DummyPos=[];
+        CrPos=[40,43,46,55,65,88,91,94,97,100,139,142,145,148,151,190,193,196,199,202,225,235,244,247,250];
 	k=1;
 	for(i=0;i<17;i++){
 		for(j=0;j<17;j++){
