@@ -13,4 +13,4 @@ Few years back I took a course on Coursera (Introduction to Computational Arts),
 
 I developed the application on [openprocessing.org](https://www.openprocessing.org/). Probably the easiest way to discuss how it works is to include it here at the beginning:
 
-<iframe src="https://www.openprocessing.org/sketch/495110/embed/" width="720" height="720"></iframe>
+<iframe src="https://www.openprocessing.org/sketch/495110/embed/" width="750" height="750"></iframe>
