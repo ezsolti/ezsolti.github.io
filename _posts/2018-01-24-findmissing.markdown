@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Find where my computations stopped"
-date:   2018-01-11 14:00:00 +0100
+date:   2018-01-24 20:00:00 +0100
 categories: scripts
 tags: file handling
 ---
