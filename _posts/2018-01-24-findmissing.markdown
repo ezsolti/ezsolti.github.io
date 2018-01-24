@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Find where my computations stopped"
+title:  "Finding where my computations stopped"
 date:   2018-01-24 20:00:00 +0100
 categories: scripts
 tags: file handling
@@ -41,9 +41,9 @@ for file in files:
 
 missing=[i for i in range(120) if i not in indices]
 print(missing)
-{% highlight python %}
+{% endhighlight %}
 
-(Note: for the given task actually there was some extra checks needed: check whether for a given index all the three files - ie. input, output, runtape - were created, and if yes check whether the output was actually fully completed, nevertheless I skipped that part here.)
+(Note: for the given task actually there were some extra checks needed: check whether for a given index all the three files - ie. input, output, runtape - were created, and if yes check whether the output was actually fully completed, nevertheless I skipped that part here.)
 
 ### Explanation
 
@@ -51,6 +51,6 @@ There is not much to explain here. Because the code explains itself. Maybe I wou
 
 {% highlight python %}
 index=int(re.findall(r'\d+', file)[1])
-{% highlight python %}
+{% endhighlight %}
 
 So again file can be for example 'm5O115o', the regexp will find all the numbers in the string, and gives back ['5','115'], out of which I need the second element (since the first element '5' is irrelevant), what I want to convert into an integer. 
