@@ -29,7 +29,7 @@ Honestly, I have done this two times, and I am not proud of myself. But today I 
 {% highlight python %}
 import os
 import re
-os.chdir(path)
+path=os.getcwd()
 os.chdir(path+'/mcnpf5_files/Orig')
 
 files=os.listdir()
