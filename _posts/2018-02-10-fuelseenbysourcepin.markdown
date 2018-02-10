@@ -113,6 +113,7 @@ for i in range(-8,9):
 {% endhighlight %}
 
 [1]: https://latex.codecogs.com/gif.latex?\center&space;(x-x_c)^2&plus;(y-y_c)^2=r^2&space;\newline&space;\center&space;a&plus;mx=y&space;\newline&space;\center&space;(x-x_c)^2&plus;(a&plus;mx-y_c)^2=r^2&space;\newline&space;\center&space;(1&plus;m^2)x^2&plus;\Big(2(a-y_c)m-2x_c)\Big)x&plus;\Big(x_c^2&plus;(a-y_c)^2-r^2\Big)=0
+
 [fuel]: https://github.com/ezsolti/ezsolti.github.io/blob/master/_posts/images/thicknessseenby.png "thickness seen by pins"
 
 
