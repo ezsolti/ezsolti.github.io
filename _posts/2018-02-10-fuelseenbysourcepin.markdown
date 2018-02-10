@@ -45,4 +45,4 @@ def circlelineintersect(m, a, c, r):
         return [[x1,y1],[x2,y2]]
 {% endhighlight %}
 
-[1]: https://latex.codecogs.com/gif.latex?\center&space;(x-x_c)^2&plus;(y-y_c)^2=r^2&space;\newline&space;\center&space;a&plus;mx=y&space;\newline&space;\center&space;(x-x_c)^2&plus;(a&plus;mx-y_c)^2=r^2&space;\newline&space;\center&space;(1&plus;m^2)x^2&plus;\Big(2(a-y_c)m-2x_c)\Big
+[1]: https://latex.codecogs.com/gif.latex?\center&space;(x-x_c)^2&plus;(y-y_c)^2=r^2&space;\newline&space;\center&space;a&plus;mx=y&space;\newline&space;\center&space;(x-x_c)^2&plus;(a&plus;mx-y_c)^2=r^2&space;\newline&space;\center&space;(1&plus;m^2)x^2&plus;\Big(2(a-y_c)m-2x_c)\Big)x&plus;\Big(x_c^2&plus;(a-y_c)^2-r^2\Big)=0
