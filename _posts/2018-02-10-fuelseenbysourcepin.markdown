@@ -38,8 +38,8 @@ def circlelineintersect(m, a, c, r):
     elif D == 0:
         return []
     else:
-        x1 = (-B+np.sqrt(B**2-4*A*C))/(2*A)
-        x2 = (-B-np.sqrt(B**2-4*A*C))/(2*A)
+        x1 = (-B+math.sqrt(B**2-4*A*C))/(2*A)
+        x2 = (-B-math.sqrt(B**2-4*A*C))/(2*A)
         y1 = a + m*x1
         y2 = a + m*x2
         return [[x1,y1],[x2,y2]]
@@ -47,10 +47,11 @@ def circlelineintersect(m, a, c, r):
 
 Finally we can take a look at the
 
-![alt text][Fuel]
+![alt text][fuel]
+
 ### Appendix
 
-Here comes the slow numerical solution. The units are kept as 0.1mm, in order to use integers for coordinates, it is useful, when checking whether a coordinate is in the fuel region.
+Here comes the slow numerical solution. The units are kept as 0.1mm, in order to use integers for coordinates, it is useful, when checking whether a coordinate is in the fuel region. Also, I could have used numpy directly to create a mesh.
 
 {% highlight python %}
 import numpy as np
