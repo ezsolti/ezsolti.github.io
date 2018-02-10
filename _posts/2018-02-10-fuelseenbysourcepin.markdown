@@ -47,6 +47,8 @@ def circlelineintersect(m, a, c, r):
 
 Finally we can take a look at the
 
+!["Thickness seen" distribution in the assembly]({{ "/images/thicknessseenby.png"}})
+
 ![alt text][fuel]
 
 ### Appendix
