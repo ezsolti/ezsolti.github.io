@@ -47,7 +47,7 @@ def circlelineintersect(m, a, c, r):
 
 Finally we can take a look at the
 
-![]({{https://github.com/ezsolti/ezsolti.github.io/blob/master/_posts/images/thicknessseenby.png}})
+![](https://github.com/ezsolti/ezsolti.github.io/blob/master/_posts/images/thicknessseenby.png)
 
 ![alt text][fuel]
 
