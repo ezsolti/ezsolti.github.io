@@ -25,7 +25,7 @@ def distance(p1,p2):
     return np.sqrt((p2[0]-p1[0])**2+(p2[1]-p1[1])**2)
 {% endhighlight %}
 
-Second, the intersections between a line and circle (the line is defined by the slope _m_ and the intercept _a_, and the circle is defined by the center _c_ and the radius _r_). Interestingly I haven't got a formula after quick googling, so [here][1] one can find the quadratic equation after plugging the line equation into the circle equation. One just needs to solve this, and since  
+Second, the intersections between a line and circle (the line is defined by the slope _m_ and the intercept _a_, and the circle is defined by the center _c_ and the radius _r_). Interestingly, I haven't found a formula after quick googling, so [here][1] one can find the quadratic equation after plugging the line equation into the circle equation. One just needs to solve this, and since I don't care about cases when there is only one intersection (ie the line is a tangent line), I will not return any thing for those case.
 
 {% highlight python %}
 def circlelineintersect(m, a, c, r):
@@ -45,4 +45,74 @@ def circlelineintersect(m, a, c, r):
         return [[x1,y1],[x2,y2]]
 {% endhighlight %}
 
+Finally we can take a look at the
+
+![alt text][Fuel]
+### Appendix
+
+Here comes the slow numerical solution. The units are kept as 0.1mm, in order to use integers for coordinates, it is useful, when checking whether a coordinate is in the fuel region.
+
+{% highlight python %}
+import numpy as np
+import matplotlib.pyplot as plt
+#create mesh geometry goes -12, -12 till something else:)
+def distance(p1,p2):
+    return np.sqrt((p2[0]-p1[0])**2+(p2[1]-p1[1])**2)
+    
+h=1
+pitch=126  #1.26 cm, 12.6 mm, 126 0.1mm
+p=63
+r=41
+detx=3889
+dety=3889
+watercoord=[]
+fuelcoord=[]
+center=[]
+#first create coordinates of grid points
+for i in range(-8,9):
+    for j in range(-8,9):
+        x=i*2*p-p
+        y=j*2*p-p
+        center=[i*2*p,j*2*p]
+        
+        for xi in np.arange(x,x+2*p,h):
+            for yi in np.arange(y,y+2*p,h):
+                if ((xi-center[0])**2+(yi-center[1])**2)<=r**2:
+                    fuelcoord.append([xi,yi])
+                else:
+                    watercoord.append([xi,yi])
+fc=np.array(fuelcoord)
+wc=np.array(watercoord)
+
+
+waterseen=[]
+fuelseen=[]
+for i in range(-8,9):
+    print(i)
+    for j in range(-8,9):
+        print(j)
+        ws=0
+        fs=0
+        center=[i*2*p,j*2*p]
+        slope=(dety-center[1])/(detx-center[0])
+        intercept=center[1]-slope*center[0]
+        x=[]
+        y=[]
+        x.append(center[0])
+        y.append(center[1])
+        while x[-1]<=1071 or y[-1]<=1071:
+            x.append(x[-1]+h)
+            y.append(round(intercept+slope*x[-1]))
+            if [x[-1],y[-1]] in fuelcoord:  #cheating here
+                fs=fs+distance([x[-1],y[-1]],[x[-2],y[-2]])
+            else:
+                ws=ws+distance([x[-1],y[-1]],[x[-2],y[-2]])
+        ws=ws+distance([x[-1],y[-1]],[detx,dety])
+        waterseen.append(ws)
+        fuelseen.append(fs)
+{% endhighlight %}
+
 [1]: https://latex.codecogs.com/gif.latex?\center&space;(x-x_c)^2&plus;(y-y_c)^2=r^2&space;\newline&space;\center&space;a&plus;mx=y&space;\newline&space;\center&space;(x-x_c)^2&plus;(a&plus;mx-y_c)^2=r^2&space;\newline&space;\center&space;(1&plus;m^2)x^2&plus;\Big(2(a-y_c)m-2x_c)\Big)x&plus;\Big(x_c^2&plus;(a-y_c)^2-r^2\Big)=0
+[fuel]: https://github.com/ezsolti/ezsolti.github.io/blob/master/_posts/images/thicknessseenby.png "thickness seen by pins"
+
+
