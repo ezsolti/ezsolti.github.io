@@ -25,7 +25,7 @@ def distance(p1,p2):
     return np.sqrt((p2[0]-p1[0])**2+(p2[1]-p1[1])**2)
 {% endhighlight %}
 
-Second, the intersections between a line and circle (the line is defined by the slope _m_ and the intercept _a_, and the circle is defined by the center _c_ and the radius _r_). Interestingly I haven't got a formula after quick googling, so [here](https://www.codecogs.com/eqnedit.php?latex=\center&space;(x-x_c)^2&plus;(y-y_c)^2=r^2&space;\newline&space;\center&space;a&plus;mx=y&space;\newline&space;\center&space;(x-x_c)^2&plus;(a&plus;mx-y_c)^2=r^2&space;\newline&space;\center&space;(1&plus;m^2)x^2&plus;\Big(2(a-y_c)m-2x_c)\Big)x&plus;\Big(x_c^2&plus;(a-y_c)^2-r^2\Big)=0" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\center&space;(x-x_c)^2&plus;(y-y_c)^2=r^2&space;\newline&space;\center&space;a&plus;mx=y&space;\newline&space;\center&space;(x-x_c)^2&plus;(a&plus;mx-y_c)^2=r^2&space;\newline&space;\center&space;(1&plus;m^2)x^2&plus;\Big(2(a-y_c)m-2x_c)\Big)x&plus;\Big(x_c^2&plus;(a-y_c)^2-r^2\Big)=0" title="\center (x-x_c)^2+(y-y_c)^2=r^2 \newline \center a+mx=y \newline \center (x-x_c)^2+(a+mx-y_c)^2=r^2 \newline \center (1+m^2)x^2+\Big(2(a-y_c)m-2x_c)\Big)x+\Big(x_c^2+(a-y_c)^2-r^2\Big)=0) one can find the quadratic equation after plugging the line equation into the circle equation. One just needs to solve this, and since  
+Second, the intersections between a line and circle (the line is defined by the slope _m_ and the intercept _a_, and the circle is defined by the center _c_ and the radius _r_). Interestingly I haven't got a formula after quick googling, so [here][1] one can find the quadratic equation after plugging the line equation into the circle equation. One just needs to solve this, and since  
 
 {% highlight python %}
 def circlelineintersect(m, a, c, r):
@@ -45,3 +45,4 @@ def circlelineintersect(m, a, c, r):
         return [[x1,y1],[x2,y2]]
 {% endhighlight %}
 
+[1]: https://latex.codecogs.com/gif.latex?\center&space;(x-x_c)^2&plus;(y-y_c)^2=r^2&space;\newline&space;\center&space;a&plus;mx=y&space;\newline&space;\center&space;(x-x_c)^2&plus;(a&plus;mx-y_c)^2=r^2&space;\newline&space;\center&space;(1&plus;m^2)x^2&plus;\Big(2(a-y_c)m-2x_c)\Big
