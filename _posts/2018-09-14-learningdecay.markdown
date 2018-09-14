@@ -12,7 +12,7 @@ Nevertheless, after a while I started to read the number of views on each chapte
 
 ![useful image]({{ site.url }}/assets/learningdecay.png)
 
-There is a slight bump of at the chapter "handling missing values", which me be due to the fact, that many people wanna handle missing values, or because that is the first chapter of the Level 2 part, and many people just jumped there after couple of Level 1 chapters. Also, the ticks are farther between some chapters, the reason is, because I did not include the "exercises" between the chapters, however I kept the original index, since maybe some people lost enthusiasm during those parts...:) Just in case the code being the plot. Values of the views are recorded today (2018. september 14.)
+There is a slight bump of at the chapter "handling missing values", which may be due to the fact, that many people wanna handle missing values, or because that is the first chapter of the Level 2 part, and many people just jumped there after couple of Level 1 chapters. Also, the ticks are farther between some chapters, the reason is, because I did not include the "exercises" between the chapters (no views were easily available for those), however I kept the original index, since maybe some people lost enthusiasm during those parts...:) Also, trend in the number of forks could have been a better representation of the actual decay... Just in case the code behind the plot is below. Values of the views are recorded today (2018. september 14.).
 
 {% highlight python %}
 data=[[1, 282405,  'How Models Work'],
