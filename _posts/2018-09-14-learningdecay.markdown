@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Decay of learning"
-date:   2018-03-21 11:00:00 +0100
+date:   2018-09-14 11:00:00 +0100
 categories: scripts
 ---
 
