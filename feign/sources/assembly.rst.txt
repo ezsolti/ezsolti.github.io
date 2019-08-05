@@ -1,4 +1,4 @@
-feign.geometry.Assembly()
+blocks.Assembly()
 =================================
 .. toctree::
    :maxdepth: 2

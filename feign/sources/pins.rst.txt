@@ -1,4 +1,4 @@
-feign.geometry.Pins()
+geometry.Pins()
 =================================
 .. toctree::
    :maxdepth: 2

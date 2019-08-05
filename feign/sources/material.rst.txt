@@ -1,4 +1,4 @@
-feign.geometry.Material()
+blocks.Material()
 =================================
 .. toctree::
    :maxdepth: 2

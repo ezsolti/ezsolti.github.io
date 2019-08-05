@@ -1,4 +1,4 @@
-feign.geometry.Circle()
+geometry.Circle()
 =================================
 .. toctree::
    :maxdepth: 2

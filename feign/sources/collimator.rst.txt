@@ -1,4 +1,4 @@
-feign.geometry.Collimator()
+blocks.Collimator()
 =================================
 .. toctree::
    :maxdepth: 2

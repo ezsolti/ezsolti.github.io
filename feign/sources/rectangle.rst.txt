@@ -1,4 +1,4 @@
-feign.geometry.Rectangle()
+geometry.Rectangle()
 =================================
 .. toctree::
    :maxdepth: 2

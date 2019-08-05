@@ -1,4 +1,4 @@
-feign.geometry.Point()
+geometry.Point()
 =================================
 .. toctree::
    :maxdepth: 2

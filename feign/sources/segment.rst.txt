@@ -1,4 +1,4 @@
-feign.geometry.Segment()
+geometry.Segment()
 =================================
 .. toctree::
    :maxdepth: 2

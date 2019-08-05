@@ -1,4 +1,4 @@
-feign.geometry.Absorber()
+blocks.Absorber()
 =================================
 .. toctree::
    :maxdepth: 2

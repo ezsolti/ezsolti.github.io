@@ -1,4 +1,4 @@
-feign.geometry.Detector()
+blocks.Detector()
 =================================
 .. toctree::
    :maxdepth: 2

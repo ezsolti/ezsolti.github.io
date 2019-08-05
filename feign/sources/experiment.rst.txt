@@ -1,4 +1,4 @@
-feign.geometry.Experiment()
+blocks.Experiment()
 =================================
 .. toctree::
    :maxdepth: 2
