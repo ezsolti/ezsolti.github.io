@@ -1,4 +1,4 @@
-geometry.Pin()
+blocks.Pin()
 =================================
 .. toctree::
    :maxdepth: 2

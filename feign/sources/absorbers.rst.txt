@@ -1,4 +1,4 @@
-geometry.Absorbers()
+blocks.Absorbers()
 =================================
 .. toctree::
    :maxdepth: 2
