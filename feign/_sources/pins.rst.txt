@@ -1,0 +1,9 @@
+feign.geometry.Pins()
+=================================
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+.. autoclass:: feign.blocks.Pins
+    :members:
+

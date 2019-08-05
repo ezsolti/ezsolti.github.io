@@ -1,0 +1,11 @@
+feign.geometry.Rectangle()
+=================================
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+.. autoclass:: feign.geometry.Rectangle
+    :members:
+
+
+

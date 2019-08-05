@@ -1,0 +1,213 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>feign.geometry.Material() &#8212; feign 1.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="feign.geometry.Materials()" href="materials.html" />
+    <link rel="prev" title="feign.blocks" href="blocks.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="feign-geometry-material">
+<h1>feign.geometry.Material()<a class="headerlink" href="#feign-geometry-material" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<dl class="class">
+<dt id="feign.blocks.Material">
+<em class="property">class </em><code class="sig-prename descclassname">feign.blocks.</code><code class="sig-name descname">Material</code><span class="sig-paren">(</span><em class="sig-param">matID=None</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Material" title="Permalink to this definition">¶</a></dt>
+<dd><p>A class used to represent a Material.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>matID</strong> (<em>str</em>) – ID of the material</p>
+</dd>
+</dl>
+<dl class="attribute">
+<dt id="feign.blocks.Material.matID">
+<code class="sig-name descname">matID</code><a class="headerlink" href="#feign.blocks.Material.matID" title="Permalink to this definition">¶</a></dt>
+<dd><p>ID of the material</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="feign.blocks.Material.density">
+<code class="sig-name descname">density</code><a class="headerlink" href="#feign.blocks.Material.density" title="Permalink to this definition">¶</a></dt>
+<dd><p>density of material in (g/cm3)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="feign.blocks.Material.path">
+<code class="sig-name descname">path</code><a class="headerlink" href="#feign.blocks.Material.path" title="Permalink to this definition">¶</a></dt>
+<dd><p>path to attenuation coefficient file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="feign.blocks.Material.color">
+<code class="sig-name descname">color</code><a class="headerlink" href="#feign.blocks.Material.color" title="Permalink to this definition">¶</a></dt>
+<dd><p>color of material when plotting</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="feign.blocks.Material.set_color">
+<code class="sig-name descname">set_color</code><span class="sig-paren">(</span><em class="sig-param">color=None</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Material.set_color" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function to set the color of Material in case the geometry is plotted.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>color</strong> (<em>str</em>) – Color of the material in hex format</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="feign.blocks.Material.set_density">
+<code class="sig-name descname">set_density</code><span class="sig-paren">(</span><em class="sig-param">density=None</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Material.set_density" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function to set the density of the Material</p>
+<dl class="simple">
+<dt>density<span class="classifier">float</span></dt><dd><p>density of material in g/cm2</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="feign.blocks.Material.set_path">
+<code class="sig-name descname">set_path</code><span class="sig-paren">(</span><em class="sig-param">path=None</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Material.set_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function to set the path to the attenuation data of the Material.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>tuple</em><em> (</em><em>str</em><em>,</em><em>int</em><em>)</em>) – the path of the file, and the column which contains the data.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">feign</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="geometry.html">feign.geometry</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="blocks.html">feign.blocks</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">feign.geometry.Material()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="materials.html">feign.geometry.Materials()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pin.html">feign.geometry.Pin()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pins.html">feign.geometry.Pins()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assembly.html">feign.geometry.Assembly()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="detector.html">feign.geometry.Detector()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="detectors.html">feign.geometry.Detectors()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collimator.html">feign.geometry.Collimator()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="absorber.html">feign.geometry.Absorber()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="absorbers.html">feign.geometry.Absorbers()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="experiment.html">feign.geometry.Experiment()</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="blocks.html">feign.blocks</a><ul>
+      <li>Previous: <a href="blocks.html" title="previous chapter">feign.blocks</a></li>
+      <li>Next: <a href="materials.html" title="next chapter">feign.geometry.Materials()</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Zs. Elter.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/material.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

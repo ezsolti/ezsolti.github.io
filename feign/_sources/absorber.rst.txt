@@ -1,0 +1,9 @@
+feign.geometry.Absorber()
+=================================
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+.. autoclass:: feign.blocks.Absorber
+    :members:
+

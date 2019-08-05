@@ -1,0 +1,213 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>feign.geometry.Pin() &#8212; feign 1.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="feign.geometry.Pins()" href="pins.html" />
+    <link rel="prev" title="feign.geometry.Materials()" href="materials.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="feign-geometry-pin">
+<h1>feign.geometry.Pin()<a class="headerlink" href="#feign-geometry-pin" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<dl class="class">
+<dt id="feign.blocks.Pin">
+<em class="property">class </em><code class="sig-prename descclassname">feign.blocks.</code><code class="sig-name descname">Pin</code><span class="sig-paren">(</span><em class="sig-param">pinID=None</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Pin" title="Permalink to this definition">¶</a></dt>
+<dd><p>A class used to represent a Pin.
+With <code class="xref py py-meth docutils literal notranslate"><span class="pre">Pin..add_region()</span></code> coaxial circles can be  added to describe
+the content (eg. fuel pellet, helium gap, clad).
+In case no region is added, the Pin() object will behave as an empty channel
+filled with the coolant material.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pinID</strong> (<em>str</em>) – ID of the pin</p>
+</dd>
+</dl>
+<dl class="attribute">
+<dt id="feign.blocks.Pin.pinID">
+<code class="sig-name descname">pinID</code><a class="headerlink" href="#feign.blocks.Pin.pinID" title="Permalink to this definition">¶</a></dt>
+<dd><p>ID of the pin</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="feign.blocks.Pin.regions">
+<code class="sig-name descname">regions</code><a class="headerlink" href="#feign.blocks.Pin.regions" title="Permalink to this definition">¶</a></dt>
+<dd><p>(Material, radius) pairs to describe coaxial regions within pin.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list of tuples</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="feign.blocks.Pin.materials">
+<code class="sig-name descname">materials</code><a class="headerlink" href="#feign.blocks.Pin.materials" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of matIDs within the pin</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list of str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="feign.blocks.Pin.radii">
+<code class="sig-name descname">radii</code><a class="headerlink" href="#feign.blocks.Pin.radii" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of radii of regions within the pin</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list of floats</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="feign.blocks.Pin.add_region">
+<code class="sig-name descname">add_region</code><span class="sig-paren">(</span><em class="sig-param">material=None</em>, <em class="sig-param">radius=None</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Pin.add_region" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function to add coaxial circles and rings to a pin.
+In case of consecutive calls (ie. more regions added), the radii has to
+increase.</p>
+<dl class="simple">
+<dt>material<span class="classifier">Material</span></dt><dd><p>material filled into new region</p>
+</dd>
+<dt>radius :</dt><dd><p>radius of new region</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">uo2</span> <span class="o">=</span> <span class="n">Material</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">he</span> <span class="o">=</span> <span class="n">Material</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zr</span> <span class="o">=</span> <span class="n">Material</span><span class="p">(</span><span class="s1">&#39;3&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fuel</span> <span class="o">=</span> <span class="n">Pin</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fuel</span><span class="o">.</span><span class="n">add_region</span><span class="p">(</span><span class="n">uo2</span><span class="p">,</span><span class="mf">0.41</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fuel</span><span class="o">.</span><span class="n">add_region</span><span class="p">(</span><span class="n">he</span><span class="p">,</span><span class="mf">0.42</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fuel</span><span class="o">.</span><span class="n">add_region</span><span class="p">(</span><span class="n">zr</span><span class="p">,</span><span class="mf">0.48</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fuel</span><span class="o">.</span><span class="n">regions</span>
+<span class="go">[(Material(matID=1), 0.41),</span>
+<span class="go"> (Material(matID=2), 0.42),</span>
+<span class="go"> (Material(matID=3), 0.48)]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">feign</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="geometry.html">feign.geometry</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="blocks.html">feign.blocks</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="material.html">feign.geometry.Material()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="materials.html">feign.geometry.Materials()</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">feign.geometry.Pin()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pins.html">feign.geometry.Pins()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assembly.html">feign.geometry.Assembly()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="detector.html">feign.geometry.Detector()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="detectors.html">feign.geometry.Detectors()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collimator.html">feign.geometry.Collimator()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="absorber.html">feign.geometry.Absorber()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="absorbers.html">feign.geometry.Absorbers()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="experiment.html">feign.geometry.Experiment()</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="blocks.html">feign.blocks</a><ul>
+      <li>Previous: <a href="materials.html" title="previous chapter">feign.geometry.Materials()</a></li>
+      <li>Next: <a href="pins.html" title="next chapter">feign.geometry.Pins()</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Zs. Elter.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/pin.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

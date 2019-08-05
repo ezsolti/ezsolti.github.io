@@ -1,0 +1,9 @@
+feign.geometry.Assembly()
+=================================
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+.. autoclass:: feign.blocks.Assembly
+    :members:
+

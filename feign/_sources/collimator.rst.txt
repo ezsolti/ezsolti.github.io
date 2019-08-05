@@ -1,0 +1,9 @@
+feign.geometry.Collimator()
+=================================
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+.. autoclass:: feign.blocks.Collimator
+    :members:
+

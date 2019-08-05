@@ -1,0 +1,13 @@
+feign.geometry
+=================================
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+   point.rst
+   segment.rst
+   circle.rst
+   rectangle.rst
+
+
+

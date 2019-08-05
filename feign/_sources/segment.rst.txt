@@ -1,0 +1,11 @@
+feign.geometry.Segment()
+=================================
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+.. autoclass:: feign.geometry.Segment
+    :members:
+
+
+

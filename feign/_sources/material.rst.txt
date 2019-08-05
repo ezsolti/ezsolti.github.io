@@ -1,0 +1,9 @@
+feign.geometry.Material()
+=================================
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+.. autoclass:: feign.blocks.Material
+    :members:
+

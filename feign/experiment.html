@@ -1,0 +1,407 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>feign.geometry.Experiment() &#8212; feign 1.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="feign.geometry.Absorbers()" href="absorbers.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="feign-geometry-experiment">
+<h1>feign.geometry.Experiment()<a class="headerlink" href="#feign-geometry-experiment" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<dl class="class">
+<dt id="feign.blocks.Experiment">
+<em class="property">class </em><code class="sig-prename descclassname">feign.blocks.</code><code class="sig-name descname">Experiment</code><a class="headerlink" href="#feign.blocks.Experiment" title="Permalink to this definition">¶</a></dt>
+<dd><p>A class used to represent an Experiment. An experiment is a complete passive
+gamma spectroscopy measurment setup with an assembly and detectors (absorbers
+and collimators are optional).</p>
+<dl class="attribute">
+<dt id="feign.blocks.Experiment.assembly">
+<code class="sig-name descname">assembly</code><a class="headerlink" href="#feign.blocks.Experiment.assembly" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Assembly containing the source</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="assembly.html#feign.blocks.Assembly" title="feign.blocks.Assembly">Assembly</a>()</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="feign.blocks.Experiment.pins">
+<code class="sig-name descname">pins</code><a class="headerlink" href="#feign.blocks.Experiment.pins" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dictionary containing the available pin types. (Pins().pins)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dictionary</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="feign.blocks.Experiment.materials">
+<code class="sig-name descname">materials</code><a class="headerlink" href="#feign.blocks.Experiment.materials" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dictionary containing the available materials (Materials().materials)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dictionary</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="feign.blocks.Experiment.detectors">
+<code class="sig-name descname">detectors</code><a class="headerlink" href="#feign.blocks.Experiment.detectors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dictionary containing the detectors in the problem (Detectors().detectors)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dictionary</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="feign.blocks.Experiment.absorbers">
+<code class="sig-name descname">absorbers</code><a class="headerlink" href="#feign.blocks.Experiment.absorbers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dictionary containing the absorbers in the problem (Absorbers().absorbers)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dictionary (optional)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="feign.blocks.Experiment.elines">
+<code class="sig-name descname">elines</code><a class="headerlink" href="#feign.blocks.Experiment.elines" title="Permalink to this definition">¶</a></dt>
+<dd><p>Energy lines (in MeV) at which the geometric efficiency is computed (in case missing,
+only the distance travelled in various material is computed)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list of float (optional)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="feign.blocks.Experiment.mu">
+<code class="sig-name descname">mu</code><a class="headerlink" href="#feign.blocks.Experiment.mu" title="Permalink to this definition">¶</a></dt>
+<dd><p>The total attenuation coefficients for all the energies in elines, and for
+each material in the problem.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>nested dictionary</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="feign.blocks.Experiment.dTmap">
+<code class="sig-name descname">dTmap</code><a class="headerlink" href="#feign.blocks.Experiment.dTmap" title="Permalink to this definition">¶</a></dt>
+<dd><p>The distance travelled by a gamma ray from a lattice position to a detector
+given for each material in the problem. Outer keys are detIDs, inner keys
+are matIDs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dictionary of dictionaries of 2D arrays</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="feign.blocks.Experiment.contributionMap">
+<code class="sig-name descname">contributionMap</code><a class="headerlink" href="#feign.blocks.Experiment.contributionMap" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="feign.blocks.Experiment.geomEff">
+<code class="sig-name descname">geomEff</code><a class="headerlink" href="#feign.blocks.Experiment.geomEff" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="feign.blocks.Experiment.output">
+<code class="sig-name descname">output</code><a class="headerlink" href="#feign.blocks.Experiment.output" title="Permalink to this definition">¶</a></dt>
+<dd><p>filename (and path) where to print the geometric efficiency</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str (optional)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="feign.blocks.Experiment.Plot">
+<code class="sig-name descname">Plot</code><span class="sig-paren">(</span><em class="sig-param">out=None, dpi=600, xl=[-100, 100], yl=[-100, 100], detectorSize=0.4</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Experiment.Plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to plot the geometry of an Experiment() object.
+The function will randomly set colors to Material() objects for which colors
+were previously not defined.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>out</strong> (<em>str</em><em> (</em><em>default=None</em><em>)</em>) – name of output file</p></li>
+<li><p><strong>dpi</strong> (<em>int</em><em> (</em><em>default=600</em><em>)</em>) – dpi of the saved plot</p></li>
+<li><p><strong>xl</strong> (<em>list of float</em><em> (</em><em>default=</em><em>[</em><em>-100</em><em>,</em><em>100</em><em>]</em><em>)</em>) – x-direction limits of region of the geometry to plot (in cm)</p></li>
+<li><p><strong>yl</strong> (<em>list of float</em><em> (</em><em>default=</em><em>[</em><em>-100</em><em>,</em><em>100</em><em>]</em><em>)</em>) – y-direction limits of region of the geometry to plot (in cm)</p></li>
+<li><p><strong>detectorSize</strong> (<em>float</em><em> (</em><em>default=400</em><em>)</em>) – radius of white circle to illustrate the detector points</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="feign.blocks.Experiment.Run">
+<code class="sig-name descname">Run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Experiment.Run" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function to run an Experiment. It will update the dTmap, the
+contributionMap and the geomEff attributes.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="feign.blocks.Experiment.checkComplete">
+<code class="sig-name descname">checkComplete</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Experiment.checkComplete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to check whether everything is defined correctly in an
+Experiment() object.
+- checks whether assembly is complete
+- checks whether any pin contains any region with radius greater than</p>
+<blockquote>
+<div><p>the pitch</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>checks whether all the pins in the fuelmap are attributed to the assembly</p></li>
+<li><p>in case a pool is defined, it is checked whether the pool is around the assembly.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if everything is correct and complete, False otherwise</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="feign.blocks.Experiment.distanceTravelled">
+<code class="sig-name descname">distanceTravelled</code><span class="sig-paren">(</span><em class="sig-param">detector</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Experiment.distanceTravelled" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function to calculate the distanced travelled in any material
+by a gamma ray emitted from any pin positions of the Assembly to a detector</p>
+<p>detector : Detector()</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="feign.blocks.Experiment.get_MuTable">
+<code class="sig-name descname">get_MuTable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Experiment.get_MuTable" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function to create a nested dictionary to store the total
+attenuation coefficients.
+Outer keys are energies as defined in elines, inner keys are matIDs</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="feign.blocks.Experiment.set_absorbers">
+<code class="sig-name descname">set_absorbers</code><span class="sig-paren">(</span><em class="sig-param">absorbers</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Experiment.set_absorbers" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function to include Absorbers in an Experiment</p>
+<dl class="simple">
+<dt>absorbers<span class="classifier">Absorbers()</span></dt><dd><p>Absorbers container to be included</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">leadsheet</span> <span class="o">=</span> <span class="n">Absorber</span><span class="p">(</span><span class="s1">&#39;leadsheet&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">alusheet</span> <span class="o">=</span> <span class="n">Absorber</span><span class="p">(</span><span class="s1">&#39;alusheet&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">absorbers</span> <span class="o">=</span> <span class="n">Absorbers</span><span class="p">(</span><span class="n">alusheet</span><span class="p">,</span><span class="n">leadsheet</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span> <span class="o">=</span> <span class="n">Experiment</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">set_absorbers</span><span class="p">(</span><span class="n">absorbers</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">absorbers</span>
+<span class="go">{&#39;alusheet&#39;: Absorber(absID=alusheet), &#39;leadsheet&#39;: Absorber(absID=leadsheet)}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="feign.blocks.Experiment.set_assembly">
+<code class="sig-name descname">set_assembly</code><span class="sig-paren">(</span><em class="sig-param">assembly=None</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Experiment.set_assembly" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function to include Assembly in an Experiment</p>
+<dl class="simple">
+<dt>assembly<span class="classifier">Assembly</span></dt><dd><p>Assembly to be included in Experiment</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="feign.blocks.Experiment.set_detectors">
+<code class="sig-name descname">set_detectors</code><span class="sig-paren">(</span><em class="sig-param">detectors</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Experiment.set_detectors" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function to include Detectors in an Experiment</p>
+<dl class="simple">
+<dt>detectors<span class="classifier">Detector()</span></dt><dd><p>Detectors container to be included</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">F5</span> <span class="o">=</span> <span class="n">Detector</span><span class="p">(</span><span class="s1">&#39;F5&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">F15</span> <span class="o">=</span> <span class="n">Detector</span><span class="p">(</span><span class="s1">&#39;F15&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">detectors</span> <span class="o">=</span> <span class="n">Detectors</span><span class="p">(</span><span class="n">F5</span><span class="p">,</span><span class="n">F15</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span> <span class="o">=</span> <span class="n">Experiment</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">set_detectors</span><span class="p">(</span><span class="n">detectors</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">detectors</span>
+<span class="go">{&#39;F5&#39;: Detector(detID=F5), &#39;F15&#39;: Detector(detID=F15)}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">set_detectors</span><span class="p">(</span><span class="n">F5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">detectors</span>
+<span class="go">{&#39;F5&#39;: Detector(detID=F5)}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="feign.blocks.Experiment.set_elines">
+<code class="sig-name descname">set_elines</code><span class="sig-paren">(</span><em class="sig-param">elines=None</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Experiment.set_elines" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function to set energy lines at which the geometric efficiency is
+calculated</p>
+<dl class="simple">
+<dt>elines<span class="classifier">list of str</span></dt><dd><p>Energy lines (in MeV) at which the geometric efficiency is calculated.
+Note: values are strings, because they will be keys for the Experiment.mu
+attribute.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="feign.blocks.Experiment.set_materials">
+<code class="sig-name descname">set_materials</code><span class="sig-paren">(</span><em class="sig-param">materials</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Experiment.set_materials" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function to include Materials in an Experiment</p>
+<dl class="simple">
+<dt>materials<span class="classifier">Materials</span></dt><dd><p>Materials container to be included</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">uox</span> <span class="o">=</span> <span class="n">Material</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zr</span> <span class="o">=</span> <span class="n">Material</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mats</span> <span class="o">=</span> <span class="n">Materials</span><span class="p">(</span><span class="n">uox</span><span class="p">,</span><span class="n">zr</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span> <span class="o">=</span> <span class="n">Experiment</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">set_materials</span><span class="p">(</span><span class="n">mats</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">materials</span>
+<span class="go">{&#39;1&#39;: Material(matID=1), &#39;2&#39;: Material(matID=2)}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="feign.blocks.Experiment.set_output">
+<code class="sig-name descname">set_output</code><span class="sig-paren">(</span><em class="sig-param">output='output.dat'</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Experiment.set_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function to set the output file for printing the geometric efficiency</p>
+<dl class="simple">
+<dt>output<span class="classifier">str</span></dt><dd><p>filename and path where to print the geometric efficiency.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">feign</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="geometry.html">feign.geometry</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="blocks.html">feign.blocks</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="material.html">feign.geometry.Material()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="materials.html">feign.geometry.Materials()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pin.html">feign.geometry.Pin()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pins.html">feign.geometry.Pins()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assembly.html">feign.geometry.Assembly()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="detector.html">feign.geometry.Detector()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="detectors.html">feign.geometry.Detectors()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collimator.html">feign.geometry.Collimator()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="absorber.html">feign.geometry.Absorber()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="absorbers.html">feign.geometry.Absorbers()</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">feign.geometry.Experiment()</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="blocks.html">feign.blocks</a><ul>
+      <li>Previous: <a href="absorbers.html" title="previous chapter">feign.geometry.Absorbers()</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Zs. Elter.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/experiment.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,21 @@
+feign.blocks
+=================================
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+   material.rst
+   materials.rst
+   pin.rst
+   pins.rst
+   assembly.rst
+   detector.rst
+   detectors.rst
+   collimator.rst
+   absorber.rst
+   absorbers.rst
+   experiment.rst
+
+
+
+

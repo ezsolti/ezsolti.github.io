@@ -1,0 +1,11 @@
+feign.geometry.Point()
+=================================
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+.. autoclass:: feign.geometry.Point
+    :members:
+
+
+

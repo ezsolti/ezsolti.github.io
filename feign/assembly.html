@@ -1,0 +1,345 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>feign.geometry.Assembly() &#8212; feign 1.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="feign.geometry.Detector()" href="detector.html" />
+    <link rel="prev" title="feign.geometry.Pins()" href="pins.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="feign-geometry-assembly">
+<h1>feign.geometry.Assembly()<a class="headerlink" href="#feign-geometry-assembly" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<dl class="class">
+<dt id="feign.blocks.Assembly">
+<em class="property">class </em><code class="sig-prename descclassname">feign.blocks.</code><code class="sig-name descname">Assembly</code><span class="sig-paren">(</span><em class="sig-param">N</em>, <em class="sig-param">M</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Assembly" title="Permalink to this definition">¶</a></dt>
+<dd><p>A class used to represent a rectangular Assembly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>N</strong> (<em>int</em>) – number of positions in y direction</p></li>
+<li><p><strong>M</strong> (<em>int</em>) – number of positions in x direction</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="attribute">
+<dt id="feign.blocks.Assembly.N">
+<code class="sig-name descname">N</code><a class="headerlink" href="#feign.blocks.Assembly.N" title="Permalink to this definition">¶</a></dt>
+<dd><p>number of positions in y direction</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="feign.blocks.Assembly.M">
+<code class="sig-name descname">M</code><a class="headerlink" href="#feign.blocks.Assembly.M" title="Permalink to this definition">¶</a></dt>
+<dd><p>number of positions in x direction</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="feign.blocks.Assembly.pitch">
+<code class="sig-name descname">pitch</code><a class="headerlink" href="#feign.blocks.Assembly.pitch" title="Permalink to this definition">¶</a></dt>
+<dd><p>pitch size of the lattice</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="feign.blocks.Assembly.pins">
+<code class="sig-name descname">pins</code><a class="headerlink" href="#feign.blocks.Assembly.pins" title="Permalink to this definition">¶</a></dt>
+<dd><p>pins in the assembly</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="pins.html#feign.blocks.Pins" title="feign.blocks.Pins">Pins</a>()</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="feign.blocks.Assembly.fuelmap">
+<code class="sig-name descname">fuelmap</code><a class="headerlink" href="#feign.blocks.Assembly.fuelmap" title="Permalink to this definition">¶</a></dt>
+<dd><p>fuelmap to describe which pins are filled in the positions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>2D array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="feign.blocks.Assembly.coolant">
+<code class="sig-name descname">coolant</code><a class="headerlink" href="#feign.blocks.Assembly.coolant" title="Permalink to this definition">¶</a></dt>
+<dd><p>matID of the coolant (ie. materal filled between pins)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="feign.blocks.Assembly.pool">
+<code class="sig-name descname">pool</code><a class="headerlink" href="#feign.blocks.Assembly.pool" title="Permalink to this definition">¶</a></dt>
+<dd><p>pool in which the assembly is placed. Within the pool coolant material is
+filled, outside the pool surrounding material is filled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="rectangle.html#feign.geometry.Rectangle" title="feign.geometry.Rectangle">Rectangle</a>() (optional)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="feign.blocks.Assembly.surrounding">
+<code class="sig-name descname">surrounding</code><a class="headerlink" href="#feign.blocks.Assembly.surrounding" title="Permalink to this definition">¶</a></dt>
+<dd><p>matID of the surrounding material (ie. material filled around pool)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str (mandatory if pool is present)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="feign.blocks.Assembly.source">
+<code class="sig-name descname">source</code><a class="headerlink" href="#feign.blocks.Assembly.source" title="Permalink to this definition">¶</a></dt>
+<dd><p>matIDs of material emitting gamma particles</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list of str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="feign.blocks.Assembly.checkComplete">
+<code class="sig-name descname">checkComplete</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Assembly.checkComplete" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function to check whether everything is defined correctly in an
+Assembly() object. Prints messages indicating any problem.
+- checks whether any attribute is not defined (pool does not need to be defined)
+- checks whether any pin contains any region with radius greater than</p>
+<blockquote>
+<div><p>the pitch</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>checks whether all the pins in the fuelmap are attributed to the assembly</p></li>
+<li><p>in case a pool is defined, it is checked whether the pool is around the assembly.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if everything is correct and complete, False otherwise</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="feign.blocks.Assembly.set_coolant">
+<code class="sig-name descname">set_coolant</code><span class="sig-paren">(</span><em class="sig-param">coolant=None</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Assembly.set_coolant" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function to set the coolant material in the Assembly</p>
+<dl class="simple">
+<dt>coolant<span class="classifier">Material()</span></dt><dd><p>the coolant material</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="feign.blocks.Assembly.set_fuelmap">
+<code class="sig-name descname">set_fuelmap</code><span class="sig-paren">(</span><em class="sig-param">fuelmap=None</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Assembly.set_fuelmap" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function to set the fuelmap of the Assembly</p>
+<dl class="simple">
+<dt>fuelmap<span class="classifier">2D array (NxM shape)</span></dt><dd><p>fuelmap of the lattice</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fuel</span><span class="o">=</span><span class="n">Pin</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fuel</span><span class="o">.</span><span class="n">add_region</span><span class="p">(</span><span class="n">uo2</span><span class="p">,</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fuel</span><span class="o">.</span><span class="n">add_region</span><span class="p">(</span><span class="n">he</span><span class="p">,</span><span class="mf">0.51</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fuel</span><span class="o">.</span><span class="n">add_region</span><span class="p">(</span><span class="n">zr</span><span class="p">,</span><span class="mf">0.61</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fuelmap</span><span class="o">=</span><span class="p">[[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="s1">&#39;1&#39;</span><span class="p">],</span>
+<span class="go">             [&#39;1&#39;,&#39;1&#39;]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">assy</span><span class="o">=</span><span class="n">Assembly</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">assy</span><span class="o">.</span><span class="n">set_fuelmap</span><span class="p">(</span><span class="n">fuelmap</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="feign.blocks.Assembly.set_pins">
+<code class="sig-name descname">set_pins</code><span class="sig-paren">(</span><em class="sig-param">pins</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Assembly.set_pins" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function to set the pins of the Assembly</p>
+<dl class="simple">
+<dt>pins<span class="classifier">Pins()</span></dt><dd><p>pins container which collects the pins placed in the Assembly</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="feign.blocks.Assembly.set_pitch">
+<code class="sig-name descname">set_pitch</code><span class="sig-paren">(</span><em class="sig-param">pitch=None</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Assembly.set_pitch" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function to set the pitch of the lattice of Assembly</p>
+<dl class="simple">
+<dt>pitch<span class="classifier">float</span></dt><dd><p>pitch of lattice in cm</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="feign.blocks.Assembly.set_pool">
+<code class="sig-name descname">set_pool</code><span class="sig-paren">(</span><em class="sig-param">pool=None</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Assembly.set_pool" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function to set the pool around the Assembly</p>
+<dl class="simple">
+<dt>pool<span class="classifier">Rectangle()</span></dt><dd><p>the shape of the pool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="feign.blocks.Assembly.set_source">
+<code class="sig-name descname">set_source</code><span class="sig-paren">(</span><em class="sig-param">*args</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Assembly.set_source" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function to set the source material(s) in the Assembly</p>
+<dl class="simple">
+<dt><a href="#id1"><span class="problematic" id="id2">*</span></a>args<span class="classifier">Material() instances</span></dt><dd><p>the source material(s)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="feign.blocks.Assembly.set_surrounding">
+<code class="sig-name descname">set_surrounding</code><span class="sig-paren">(</span><em class="sig-param">surrounding=None</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Assembly.set_surrounding" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function to set the surrounding material around the Assembly</p>
+<dl class="simple">
+<dt>surrounding<span class="classifier">Material()</span></dt><dd><p>the surrounding material</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">feign</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="geometry.html">feign.geometry</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="blocks.html">feign.blocks</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="material.html">feign.geometry.Material()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="materials.html">feign.geometry.Materials()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pin.html">feign.geometry.Pin()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pins.html">feign.geometry.Pins()</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">feign.geometry.Assembly()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="detector.html">feign.geometry.Detector()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="detectors.html">feign.geometry.Detectors()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collimator.html">feign.geometry.Collimator()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="absorber.html">feign.geometry.Absorber()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="absorbers.html">feign.geometry.Absorbers()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="experiment.html">feign.geometry.Experiment()</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="blocks.html">feign.blocks</a><ul>
+      <li>Previous: <a href="pins.html" title="previous chapter">feign.geometry.Pins()</a></li>
+      <li>Next: <a href="detector.html" title="next chapter">feign.geometry.Detector()</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Zs. Elter.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/assembly.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
