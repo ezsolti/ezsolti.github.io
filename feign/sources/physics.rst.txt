@@ -5,4 +5,4 @@ Physics of feign
    :caption: Contents:
 
 
-   /home/zsolt/Documents/feign/README.md
+   README.md
