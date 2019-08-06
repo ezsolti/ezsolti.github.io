@@ -1,4 +1,4 @@
-feign's documentation!
+feign's documentation
 =================================
 
 .. toctree::
