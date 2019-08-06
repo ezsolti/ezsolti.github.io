@@ -5,4 +5,4 @@ Physics of feign
    :caption: Contents:
 
 
-   physics.md
+   feignphysics.md

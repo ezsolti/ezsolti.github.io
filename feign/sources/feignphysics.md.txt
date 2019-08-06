@@ -1,0 +1,7 @@
+# Intro
+
+feign calculates the geometric efficiency in rectangular spent fuel assemblies during passive gamma spectroscopy.
+
+# gamma emission
+
+vdkfkdfkd
