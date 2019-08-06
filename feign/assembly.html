@@ -15,7 +15,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="blocks.Detector()" href="detector.html" />
-    <link rel="prev" title="geometry.Pins()" href="pins.html" />
+    <link rel="prev" title="blocks.Pin()" href="pin.html" />
    
   <link rel="stylesheet" href="static/custom.css" type="text/css" />
   
@@ -87,7 +87,7 @@
 <dd><p>pins in the assembly</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="pins.html#feign.blocks.Pins" title="feign.blocks.Pins">Pins</a>()</p>
+<dd class="field-odd"><p>Pins()</p>
 </dd>
 </dl>
 </dd></dl>
@@ -140,7 +140,7 @@ filled, outside the pool surrounding material is filled.</p>
 <dl class="attribute">
 <dt id="feign.blocks.Assembly.source">
 <code class="sig-name descname">source</code><a class="headerlink" href="#feign.blocks.Assembly.source" title="Permalink to this definition">¶</a></dt>
-<dd><p>matIDs of material emitting gamma particles</p>
+<dd><p><a class="reference internal" href="material.html#feign.blocks.Material.matID" title="feign.blocks.Material.matID"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Material.matID</span></code></a> identifiers of material emitting gamma particles</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>list of str</p>
@@ -149,19 +149,56 @@ filled, outside the pool surrounding material is filled.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="feign.blocks.Assembly.add_pin">
+<code class="sig-name descname">add_pin</code><span class="sig-paren">(</span><em class="sig-param">*argv</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Assembly.add_pin" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function to add Pin objects to an Assembly, which may have
+already included pins. If one wants to rewrite the existing pins,
+then the <a class="reference internal" href="#feign.blocks.Assembly.set_pins" title="feign.blocks.Assembly.set_pins"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Assembly.set_pins()</span></code></a> has to be called.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>*argv</strong> (<a class="reference internal" href="pin.html#feign.blocks.Pin" title="feign.blocks.Pin"><em>Pin</em></a><em>(</em><em>) or </em><em>more Pin</em><em>(</em><em>) </em><em>objects</em>) – Pin() objects to be added in the Assembly</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fuel</span><span class="o">=</span><span class="n">Pin</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">guide</span><span class="o">=</span><span class="n">Pin</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">assembly</span><span class="o">=</span><span class="n">Assembly</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">assembly</span><span class="o">.</span><span class="n">set_pins</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">assembly</span><span class="o">.</span><span class="n">pins</span>
+<span class="go">{}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">assembly</span><span class="o">.</span><span class="n">add_pin</span><span class="p">(</span><span class="n">fuel</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">assembly</span><span class="o">.</span><span class="n">add_pin</span><span class="p">(</span><span class="n">guide</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">assembly</span><span class="o">.</span><span class="n">pins</span>
+<span class="go">{&#39;1&#39;: Pin(pinID=1), &#39;2&#39;: Pin(pinID=2)}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>TypeError</strong> – if the parameter is not Pin()</p></li>
+<li><p><strong>ValueError</strong> – if the Pin is already included</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
 <dt id="feign.blocks.Assembly.checkComplete">
 <code class="sig-name descname">checkComplete</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Assembly.checkComplete" title="Permalink to this definition">¶</a></dt>
 <dd><p>The function to check whether everything is defined correctly in an
-Assembly() object. Prints messages indicating any problem.
-- checks whether any attribute is not defined (pool does not need to be defined)
-- checks whether any pin contains any region with radius greater than</p>
+Assembly() object. Prints messages indicating any problem.</p>
 <blockquote>
-<div><p>the pitch</p>
-</div></blockquote>
-<ul class="simple">
-<li><p>checks whether all the pins in the fuelmap are attributed to the assembly</p></li>
-<li><p>in case a pool is defined, it is checked whether the pool is around the assembly.</p></li>
+<div><ul class="simple">
+<li><p>checks whether any attribute is not defined (pool does not need
+to be defined)</p></li>
+<li><p>checks whether any pin contains any region with radius greater
+than the pitch</p></li>
+<li><p>checks whether all the pins in the fuelmap are attributed to
+the assembly</p></li>
+<li><p>in case a pool is defined, it is checked whether the pool is
+around the assembly.</p></li>
 </ul>
+</div></blockquote>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>True if everything is correct and complete, False otherwise</p>
@@ -173,11 +210,47 @@ Assembly() object. Prints messages indicating any problem.
 </dd></dl>
 
 <dl class="method">
+<dt id="feign.blocks.Assembly.remove_pin">
+<code class="sig-name descname">remove_pin</code><span class="sig-paren">(</span><em class="sig-param">*argv</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Assembly.remove_pin" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function to remove Pin objects from an Assembly which
+already has previously included pins.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>*argv</strong> (<a class="reference internal" href="pin.html#feign.blocks.Pin" title="feign.blocks.Pin"><em>Pin</em></a><em>(</em><em>) or </em><em>more Pin</em><em>(</em><em>) </em><em>objects</em>) – Pin() objects to be added in the Assembly</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fuel</span><span class="o">=</span><span class="n">Pin</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">guide</span><span class="o">=</span><span class="n">Pin</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">assembly</span><span class="o">=</span><span class="n">Assembly</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">assembly</span><span class="o">.</span><span class="n">set_pins</span><span class="p">(</span><span class="n">fuel</span><span class="p">,</span><span class="n">guide</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">assembly</span><span class="o">.</span><span class="n">pins</span>
+<span class="go">{&#39;1&#39;: Pin(pinID=1), &#39;2&#39;: Pin(pinID=2)}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">assembly</span><span class="o">.</span><span class="n">remove_pin</span><span class="p">(</span><span class="n">guide</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">assembly</span><span class="o">.</span><span class="n">pins</span>
+<span class="go">{&#39;1&#39;: Pin(pinID=1)}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">assembly</span><span class="o">.</span><span class="n">remove_pin</span><span class="p">(</span><span class="n">guide</span><span class="p">)</span>
+<span class="go">You can remove only existing Pin()</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>TypeError</strong> – if the parameter is not Pin()</p></li>
+<li><p><strong>ValueError</strong> – if the Pin is already included</p></li>
+<li><p><strong>TypeError</strong> – if <a class="reference internal" href="#feign.blocks.Assembly.pins" title="feign.blocks.Assembly.pins"><code class="xref py py-attr docutils literal notranslate"><span class="pre">pins</span></code></a> is None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
 <dt id="feign.blocks.Assembly.set_coolant">
 <code class="sig-name descname">set_coolant</code><span class="sig-paren">(</span><em class="sig-param">coolant=None</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Assembly.set_coolant" title="Permalink to this definition">¶</a></dt>
 <dd><p>The function to set the coolant material in the Assembly</p>
-<dl class="simple">
-<dt>coolant<span class="classifier">Material()</span></dt><dd><p>the coolant material</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>coolant</strong> (<a class="reference internal" href="material.html#feign.blocks.Material" title="feign.blocks.Material"><em>Material</em></a><em>(</em><em>)</em>) – the coolant material</p>
 </dd>
 </dl>
 </dd></dl>
@@ -186,8 +259,9 @@ Assembly() object. Prints messages indicating any problem.
 <dt id="feign.blocks.Assembly.set_fuelmap">
 <code class="sig-name descname">set_fuelmap</code><span class="sig-paren">(</span><em class="sig-param">fuelmap=None</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Assembly.set_fuelmap" title="Permalink to this definition">¶</a></dt>
 <dd><p>The function to set the fuelmap of the Assembly</p>
-<dl class="simple">
-<dt>fuelmap<span class="classifier">2D array (NxM shape)</span></dt><dd><p>fuelmap of the lattice</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fuelmap</strong> (<em>2D array</em><em> (</em><em>NxM shape</em><em>)</em>) – fuelmap of the lattice</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
@@ -205,10 +279,31 @@ Assembly() object. Prints messages indicating any problem.
 
 <dl class="method">
 <dt id="feign.blocks.Assembly.set_pins">
-<code class="sig-name descname">set_pins</code><span class="sig-paren">(</span><em class="sig-param">pins</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Assembly.set_pins" title="Permalink to this definition">¶</a></dt>
-<dd><p>The function to set the pins of the Assembly</p>
-<dl class="simple">
-<dt>pins<span class="classifier">Pins()</span></dt><dd><p>pins container which collects the pins placed in the Assembly</p>
+<code class="sig-name descname">set_pins</code><span class="sig-paren">(</span><em class="sig-param">*argv</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Assembly.set_pins" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function to include Pin objects in an Assembly</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>*argv</strong> (<a class="reference internal" href="pin.html#feign.blocks.Pin" title="feign.blocks.Pin"><em>Pin</em></a><em>(</em><em>) or </em><em>more Pin</em><em>(</em><em>) </em><em>objects</em>) – Pin() objects to be included in the Assembly</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fuel</span><span class="o">=</span><span class="n">Pin</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">guide</span><span class="o">=</span><span class="n">Pin</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">assembly</span><span class="o">=</span><span class="n">Assembly</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">assembly</span><span class="o">.</span><span class="n">pins</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">assembly</span><span class="o">.</span><span class="n">set_pins</span><span class="p">(</span><span class="n">fuel</span><span class="p">,</span><span class="n">guide</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">assembly</span><span class="o">.</span><span class="n">pins</span>
+<span class="go">{&#39;1&#39;: Pin(pinID=1), &#39;2&#39;: Pin(pinID=2)}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>TypeError</strong> – if the parameter is not Pin()</p></li>
+<li><p><strong>ValueError</strong> – if the Pin is already included</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -217,8 +312,9 @@ Assembly() object. Prints messages indicating any problem.
 <dt id="feign.blocks.Assembly.set_pitch">
 <code class="sig-name descname">set_pitch</code><span class="sig-paren">(</span><em class="sig-param">pitch=None</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Assembly.set_pitch" title="Permalink to this definition">¶</a></dt>
 <dd><p>The function to set the pitch of the lattice of Assembly</p>
-<dl class="simple">
-<dt>pitch<span class="classifier">float</span></dt><dd><p>pitch of lattice in cm</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pitch</strong> (<em>float</em>) – pitch of lattice in cm</p>
 </dd>
 </dl>
 </dd></dl>
@@ -227,8 +323,9 @@ Assembly() object. Prints messages indicating any problem.
 <dt id="feign.blocks.Assembly.set_pool">
 <code class="sig-name descname">set_pool</code><span class="sig-paren">(</span><em class="sig-param">pool=None</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Assembly.set_pool" title="Permalink to this definition">¶</a></dt>
 <dd><p>The function to set the pool around the Assembly</p>
-<dl class="simple">
-<dt>pool<span class="classifier">Rectangle()</span></dt><dd><p>the shape of the pool</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pool</strong> (<a class="reference internal" href="rectangle.html#feign.geometry.Rectangle" title="feign.geometry.Rectangle"><em>Rectangle</em></a><em>(</em><em>)</em>) – the shape of the pool</p>
 </dd>
 </dl>
 </dd></dl>
@@ -237,8 +334,9 @@ Assembly() object. Prints messages indicating any problem.
 <dt id="feign.blocks.Assembly.set_source">
 <code class="sig-name descname">set_source</code><span class="sig-paren">(</span><em class="sig-param">*args</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Assembly.set_source" title="Permalink to this definition">¶</a></dt>
 <dd><p>The function to set the source material(s) in the Assembly</p>
-<dl class="simple">
-<dt><a href="#id1"><span class="problematic" id="id2">*</span></a>args<span class="classifier">Material() instances</span></dt><dd><p>the source material(s)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>*args</strong> (<a class="reference internal" href="material.html#feign.blocks.Material" title="feign.blocks.Material"><em>Material</em></a><em>(</em><em>) </em><em>instances</em>) – the source material(s)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -247,8 +345,9 @@ Assembly() object. Prints messages indicating any problem.
 <dt id="feign.blocks.Assembly.set_surrounding">
 <code class="sig-name descname">set_surrounding</code><span class="sig-paren">(</span><em class="sig-param">surrounding=None</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Assembly.set_surrounding" title="Permalink to this definition">¶</a></dt>
 <dd><p>The function to set the surrounding material around the Assembly</p>
-<dl class="simple">
-<dt>surrounding<span class="classifier">Material()</span></dt><dd><p>the surrounding material</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>surrounding</strong> (<a class="reference internal" href="material.html#feign.blocks.Material" title="feign.blocks.Material"><em>Material</em></a><em>(</em><em>)</em>) – the surrounding material</p>
 </dd>
 </dl>
 </dd></dl>
@@ -279,15 +378,11 @@ Assembly() object. Prints messages indicating any problem.
 <li class="toctree-l1"><a class="reference internal" href="geometry.html">feign.geometry</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="blocks.html">feign.blocks</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="material.html">blocks.Material()</a></li>
-<li class="toctree-l2"><a class="reference internal" href="materials.html">blocks.Materials()</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pin.html">geometry.Pin()</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pins.html">geometry.Pins()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pin.html">blocks.Pin()</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">blocks.Assembly()</a></li>
 <li class="toctree-l2"><a class="reference internal" href="detector.html">blocks.Detector()</a></li>
-<li class="toctree-l2"><a class="reference internal" href="detectors.html">blocks.Detectors()</a></li>
 <li class="toctree-l2"><a class="reference internal" href="collimator.html">blocks.Collimator()</a></li>
 <li class="toctree-l2"><a class="reference internal" href="absorber.html">blocks.Absorber()</a></li>
-<li class="toctree-l2"><a class="reference internal" href="absorbers.html">geometry.Absorbers()</a></li>
 <li class="toctree-l2"><a class="reference internal" href="experiment.html">blocks.Experiment()</a></li>
 </ul>
 </li>
@@ -298,7 +393,7 @@ Assembly() object. Prints messages indicating any problem.
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
   <li><a href="blocks.html">feign.blocks</a><ul>
-      <li>Previous: <a href="pins.html" title="previous chapter">geometry.Pins()</a></li>
+      <li>Previous: <a href="pin.html" title="previous chapter">blocks.Pin()</a></li>
       <li>Next: <a href="detector.html" title="next chapter">blocks.Detector()</a></li>
   </ul></li>
   </ul></li>

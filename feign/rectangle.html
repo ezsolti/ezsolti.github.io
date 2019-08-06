@@ -163,6 +163,11 @@ counter-clockwise order</p>
 </dl>
 </dd></dl>
 
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – if Corners are not defined in clockwise or counter-clockwise order.</p>
+</dd>
+</dl>
 <dl class="method">
 <dt id="feign.geometry.Rectangle.encloses_point">
 <code class="sig-name descname">encloses_point</code><span class="sig-paren">(</span><em class="sig-param">P</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.geometry.Rectangle.encloses_point" title="Permalink to this definition">¶</a></dt>
@@ -199,10 +204,10 @@ counter-clockwise order</p>
 <dd class="field-odd"><p><strong>seg</strong> (<a class="reference internal" href="segment.html#feign.geometry.Segment" title="feign.geometry.Segment"><em>Segment</em></a><em>(</em><em>)</em>) – The Segment for which the intersection is calculated</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
+<dd class="field-even"><p>list of the intersections</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>list of the intersections</p>
+<dd class="field-odd"><p>list of Point()</p>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
@@ -230,10 +235,10 @@ or in case the Segment passes through only one of the corners.</p>
 <dd class="field-odd"><p><strong>alpha</strong> (<em>float</em>) – Rotation angle (in degrees)</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
+<dd class="field-even"><p>Rectangle with rotated end points</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="#feign.geometry.Rectangle" title="feign.geometry.Rectangle">Rectangle</a>() with rotated end points</p>
+<dd class="field-odd"><p><a class="reference internal" href="#feign.geometry.Rectangle" title="feign.geometry.Rectangle">Rectangle</a>()</p>
 </dd>
 </dl>
 </dd></dl>

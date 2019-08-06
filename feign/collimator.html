@@ -15,7 +15,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="blocks.Absorber()" href="absorber.html" />
-    <link rel="prev" title="blocks.Detectors()" href="detectors.html" />
+    <link rel="prev" title="blocks.Detector()" href="detector.html" />
    
   <link rel="stylesheet" href="static/custom.css" type="text/css" />
   
@@ -98,8 +98,9 @@ The front and the back of the collimator cannot intersect.</p>
 <code class="sig-name descname">set_back</code><span class="sig-paren">(</span><em class="sig-param">back=None</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Collimator.set_back" title="Permalink to this definition">¶</a></dt>
 <dd><p>The function to set the back of the Collimator.
 Intersecting front and back is not accepted.</p>
-<dl class="simple">
-<dt>back<span class="classifier">Segment()</span></dt><dd><p>Opening of the collimator slit</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>back</strong> (<a class="reference internal" href="segment.html#feign.geometry.Segment" title="feign.geometry.Segment"><em>Segment</em></a><em>(</em><em>)</em>) – Opening of the collimator slit</p>
 </dd>
 </dl>
 </dd></dl>
@@ -108,8 +109,9 @@ Intersecting front and back is not accepted.</p>
 <dt id="feign.blocks.Collimator.set_color">
 <code class="sig-name descname">set_color</code><span class="sig-paren">(</span><em class="sig-param">color=None</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Collimator.set_color" title="Permalink to this definition">¶</a></dt>
 <dd><p>The function to set the color of the Collimator in case of plotting.</p>
-<dl class="simple">
-<dt>color<span class="classifier">str</span></dt><dd><p>color definition of Collimator in hex format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>color</strong> (<em>str</em>) – color definition of Collimator in hex format.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -119,8 +121,9 @@ Intersecting front and back is not accepted.</p>
 <code class="sig-name descname">set_front</code><span class="sig-paren">(</span><em class="sig-param">front=None</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Collimator.set_front" title="Permalink to this definition">¶</a></dt>
 <dd><p>The function to set the front of the Collimator.
 Intersecting front and back is not accepted.</p>
-<dl class="simple">
-<dt>front<span class="classifier">Segment()</span></dt><dd><p>Opening of the collimator slit</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>front</strong> (<a class="reference internal" href="segment.html#feign.geometry.Segment" title="feign.geometry.Segment"><em>Segment</em></a><em>(</em><em>)</em>) – Opening of the collimator slit</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -158,15 +161,11 @@ Intersecting front and back is not accepted.</p>
 <li class="toctree-l1"><a class="reference internal" href="geometry.html">feign.geometry</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="blocks.html">feign.blocks</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="material.html">blocks.Material()</a></li>
-<li class="toctree-l2"><a class="reference internal" href="materials.html">blocks.Materials()</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pin.html">geometry.Pin()</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pins.html">geometry.Pins()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pin.html">blocks.Pin()</a></li>
 <li class="toctree-l2"><a class="reference internal" href="assembly.html">blocks.Assembly()</a></li>
 <li class="toctree-l2"><a class="reference internal" href="detector.html">blocks.Detector()</a></li>
-<li class="toctree-l2"><a class="reference internal" href="detectors.html">blocks.Detectors()</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">blocks.Collimator()</a></li>
 <li class="toctree-l2"><a class="reference internal" href="absorber.html">blocks.Absorber()</a></li>
-<li class="toctree-l2"><a class="reference internal" href="absorbers.html">geometry.Absorbers()</a></li>
 <li class="toctree-l2"><a class="reference internal" href="experiment.html">blocks.Experiment()</a></li>
 </ul>
 </li>
@@ -177,7 +176,7 @@ Intersecting front and back is not accepted.</p>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
   <li><a href="blocks.html">feign.blocks</a><ul>
-      <li>Previous: <a href="detectors.html" title="previous chapter">blocks.Detectors()</a></li>
+      <li>Previous: <a href="detector.html" title="previous chapter">blocks.Detector()</a></li>
       <li>Next: <a href="absorber.html" title="next chapter">blocks.Absorber()</a></li>
   </ul></li>
   </ul></li>

@@ -14,7 +14,7 @@
     <script type="text/javascript" src="static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="geometry.Absorbers()" href="absorbers.html" />
+    <link rel="prev" title="blocks.Absorber()" href="absorber.html" />
    
   <link rel="stylesheet" href="static/custom.css" type="text/css" />
   
@@ -55,10 +55,10 @@ and collimators are optional).</p>
 <dl class="attribute">
 <dt id="feign.blocks.Experiment.pins">
 <code class="sig-name descname">pins</code><a class="headerlink" href="#feign.blocks.Experiment.pins" title="Permalink to this definition">¶</a></dt>
-<dd><p>Dictionary containing the available pin types. (Pins().pins)</p>
+<dd><p>Dictionary containing the available pin types.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>dictionary</p>
+<dd class="field-odd"><p>dict</p>
 </dd>
 </dl>
 </dd></dl>
@@ -66,10 +66,10 @@ and collimators are optional).</p>
 <dl class="attribute">
 <dt id="feign.blocks.Experiment.materials">
 <code class="sig-name descname">materials</code><a class="headerlink" href="#feign.blocks.Experiment.materials" title="Permalink to this definition">¶</a></dt>
-<dd><p>Dictionary containing the available materials (Materials().materials)</p>
+<dd><p>Dictionary containing the available materials</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>dictionary</p>
+<dd class="field-odd"><p>dict</p>
 </dd>
 </dl>
 </dd></dl>
@@ -77,10 +77,10 @@ and collimators are optional).</p>
 <dl class="attribute">
 <dt id="feign.blocks.Experiment.detectors">
 <code class="sig-name descname">detectors</code><a class="headerlink" href="#feign.blocks.Experiment.detectors" title="Permalink to this definition">¶</a></dt>
-<dd><p>Dictionary containing the detectors in the problem (Detectors().detectors)</p>
+<dd><p>Dictionary containing the detectors in the problem</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>dictionary</p>
+<dd class="field-odd"><p>dict</p>
 </dd>
 </dl>
 </dd></dl>
@@ -88,10 +88,10 @@ and collimators are optional).</p>
 <dl class="attribute">
 <dt id="feign.blocks.Experiment.absorbers">
 <code class="sig-name descname">absorbers</code><a class="headerlink" href="#feign.blocks.Experiment.absorbers" title="Permalink to this definition">¶</a></dt>
-<dd><p>Dictionary containing the absorbers in the problem (Absorbers().absorbers)</p>
+<dd><p>Dictionary containing the absorbers in the problem</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>dictionary (optional)</p>
+<dd class="field-odd"><p>dict, optional</p>
 </dd>
 </dl>
 </dd></dl>
@@ -103,7 +103,7 @@ and collimators are optional).</p>
 only the distance travelled in various material is computed)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>list of float (optional)</p>
+<dd class="field-odd"><p>list of float, optional</p>
 </dd>
 </dl>
 </dd></dl>
@@ -115,7 +115,7 @@ only the distance travelled in various material is computed)</p>
 each material in the problem.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>nested dictionary</p>
+<dd class="field-odd"><p>dict</p>
 </dd>
 </dl>
 </dd></dl>
@@ -124,11 +124,11 @@ each material in the problem.</p>
 <dt id="feign.blocks.Experiment.dTmap">
 <code class="sig-name descname">dTmap</code><a class="headerlink" href="#feign.blocks.Experiment.dTmap" title="Permalink to this definition">¶</a></dt>
 <dd><p>The distance travelled by a gamma ray from a lattice position to a detector
-given for each material in the problem. Outer keys are detIDs, inner keys
-are matIDs.</p>
+given for each material in the problem. Outer keys are <a class="reference internal" href="detector.html#feign.blocks.Detector.detID" title="feign.blocks.Detector.detID"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Detector.detID</span></code></a> identifiers,
+inner keys are <a class="reference internal" href="material.html#feign.blocks.Material.matID" title="feign.blocks.Material.matID"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Material.matID</span></code></a> identifiers.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>dictionary of dictionaries of 2D arrays</p>
+<dd class="field-odd"><p>dict of dictionaries of 2D arrays</p>
 </dd>
 </dl>
 </dd></dl>
@@ -136,12 +136,56 @@ are matIDs.</p>
 <dl class="attribute">
 <dt id="feign.blocks.Experiment.contributionMap">
 <code class="sig-name descname">contributionMap</code><a class="headerlink" href="#feign.blocks.Experiment.contributionMap" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Dictionary to store the rod-wise contribution to each detector at each energy.
+Outer keys are detector <a class="reference internal" href="detector.html#feign.blocks.Detector.detID" title="feign.blocks.Detector.detID"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Detector.detID</span></code></a> identifiers.
+Inner keys are energy lines (as given in <a class="reference internal" href="#feign.blocks.Experiment.set_elines" title="feign.blocks.Experiment.set_elines"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Experiment.set_elines()</span></code></a>)
+contributionMap[detID][eline] is an NxM shaped numpy array, where
+N is <a class="reference internal" href="assembly.html#feign.blocks.Assembly.N" title="feign.blocks.Assembly.N"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Assembly.N</span></code></a> and M is <a class="reference internal" href="assembly.html#feign.blocks.Assembly.M" title="feign.blocks.Assembly.M"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Assembly.M</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="feign.blocks.Experiment.contributionMapAve">
+<code class="sig-name descname">contributionMapAve</code><a class="headerlink" href="#feign.blocks.Experiment.contributionMapAve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dictionary to store the rod-wise contribution averaged over all detectors at each energy.
+Keys are energy lines (as given in <a class="reference internal" href="#feign.blocks.Experiment.set_elines" title="feign.blocks.Experiment.set_elines"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Experiment.set_elines()</span></code></a>)
+contributionMapAve[eline] is an NxM shaped numpy array, where
+N is <a class="reference internal" href="assembly.html#feign.blocks.Assembly.N" title="feign.blocks.Assembly.N"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Assembly.N</span></code></a> and M is <a class="reference internal" href="assembly.html#feign.blocks.Assembly.M" title="feign.blocks.Assembly.M"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Assembly.M</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="feign.blocks.Experiment.geomEff">
 <code class="sig-name descname">geomEff</code><a class="headerlink" href="#feign.blocks.Experiment.geomEff" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Dictionary to store the geometric efficiency at each detector location.
+Keys are detector <a class="reference internal" href="detector.html#feign.blocks.Detector.detID" title="feign.blocks.Detector.detID"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Detector.detID</span></code></a> identifiers.
+geomEff[detID] is E long numpy array, where E is the length of <a class="reference internal" href="#feign.blocks.Experiment.elines" title="feign.blocks.Experiment.elines"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Experiment.elines</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="feign.blocks.Experiment.geomEffAve">
+<code class="sig-name descname">geomEffAve</code><a class="headerlink" href="#feign.blocks.Experiment.geomEffAve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Geometric efficiency of the Experiment averaged over all detectors.
+The length is of <a class="reference internal" href="#feign.blocks.Experiment.elines" title="feign.blocks.Experiment.elines"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Experiment.elines</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="feign.blocks.Experiment.output">
@@ -149,11 +193,13 @@ are matIDs.</p>
 <dd><p>filename (and path) where to print the geometric efficiency</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>str (optional)</p>
+<dd class="field-odd"><p>str, optional</p>
 </dd>
 </dl>
 </dd></dl>
 
+<p class="rubric">Examples</p>
+<p>Examples of plotting attributes can be found at <a class="reference external" href="https://github.com/ezsolti/feign/blob/master/examples/ex1_2x2fuel.ipynb">https://github.com/ezsolti/feign/blob/master/examples/ex1_2x2fuel.ipynb</a></p>
 <dl class="method">
 <dt id="feign.blocks.Experiment.Plot">
 <code class="sig-name descname">Plot</code><span class="sig-paren">(</span><em class="sig-param">out=None, dpi=600, xl=[-100, 100], yl=[-100, 100], detectorSize=0.4</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Experiment.Plot" title="Permalink to this definition">¶</a></dt>
@@ -181,16 +227,115 @@ contributionMap and the geomEff attributes.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="feign.blocks.Experiment.add_absorber">
+<code class="sig-name descname">add_absorber</code><span class="sig-paren">(</span><em class="sig-param">*argv</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Experiment.add_absorber" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function to add Absorber objects to an Experiment, which may have
+already included absorbers. If one wants to rewrite the existing absorbers,
+then the <a class="reference internal" href="#feign.blocks.Experiment.set_absorbers" title="feign.blocks.Experiment.set_absorbers"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Experiment.set_absorbers()</span></code></a> has to be called.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>*argv</strong> (<a class="reference internal" href="absorber.html#feign.blocks.Absorber" title="feign.blocks.Absorber"><em>Absorber</em></a><em>(</em><em>) or </em><em>more Absorber</em><em>(</em><em>) </em><em>objects</em>) – Absorber() objects to be added in the Experiment</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">leadsheet</span><span class="o">=</span><span class="n">Absorber</span><span class="p">(</span><span class="s1">&#39;leadsheet&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">alusheet</span><span class="o">=</span><span class="n">Absorber</span><span class="p">(</span><span class="s1">&#39;alusheet&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">=</span><span class="n">Experiment</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">set_absorbers</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">absorbers</span>
+<span class="go">{}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">add_absorber</span><span class="p">(</span><span class="n">leadsheet</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">add_absorber</span><span class="p">(</span><span class="n">alusheet</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">absorbers</span>
+<span class="go">{&#39;leadsheet&#39;: Absorber(absID=leadsheet), &#39;alusheet&#39;: Absorber(absID=alusheet)}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>TypeError</strong> – if the parameter is not Absorber()</p></li>
+<li><p><strong>ValueError</strong> – if the Absorber is already included</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="feign.blocks.Experiment.add_detector">
+<code class="sig-name descname">add_detector</code><span class="sig-paren">(</span><em class="sig-param">*argv</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Experiment.add_detector" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function to add Detector objects to an Experiment, which may have
+already included detectors. If one wants to rewrite the existing detectors,
+then the <a class="reference internal" href="#feign.blocks.Experiment.set_detectors" title="feign.blocks.Experiment.set_detectors"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Experiment.set_detectors()</span></code></a> has to be called.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>*argv</strong> (<a class="reference internal" href="detector.html#feign.blocks.Detector" title="feign.blocks.Detector"><em>Detector</em></a><em>(</em><em>) or </em><em>more Detector</em><em>(</em><em>) </em><em>objects</em>) – Detector() objects to be added in the Experiment</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">F5</span><span class="o">=</span><span class="n">Detector</span><span class="p">(</span><span class="s1">&#39;F5&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">F15</span><span class="o">=</span><span class="n">Detector</span><span class="p">(</span><span class="s1">&#39;F15&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">=</span><span class="n">Experiment</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">set_detectors</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">detectors</span>
+<span class="go">{}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">add_detector</span><span class="p">(</span><span class="n">F5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">add_detector</span><span class="p">(</span><span class="n">F15</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">detectors</span>
+<span class="go">{&#39;F5&#39;: Detector(detID=F5), &#39;F15&#39;: Detector(detID=F15)}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>TypeError</strong> – if the parameter is not Detector()</p></li>
+<li><p><strong>ValueError</strong> – if the Detector is already included</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="feign.blocks.Experiment.add_material">
+<code class="sig-name descname">add_material</code><span class="sig-paren">(</span><em class="sig-param">*argv</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Experiment.add_material" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function to add Material objects to an Experiment, which may have
+already included materials. If one wants to rewrite the existing materials,
+then the <a class="reference internal" href="#feign.blocks.Experiment.set_materials" title="feign.blocks.Experiment.set_materials"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Experiment.set_materials()</span></code></a> has to be called.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>*argv</strong> (<a class="reference internal" href="material.html#feign.blocks.Material" title="feign.blocks.Material"><em>Material</em></a><em>(</em><em>) or </em><em>more Material</em><em>(</em><em>) </em><em>objects</em>) – Material() objects to be added in the Experiment</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">uox</span><span class="o">=</span><span class="n">Material</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zr</span><span class="o">=</span><span class="n">Material</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">=</span><span class="n">Experiment</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">set_materials</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">materials</span>
+<span class="go">{}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">add_material</span><span class="p">(</span><span class="n">uox</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">add_material</span><span class="p">(</span><span class="n">zr</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">materials</span>
+<span class="go">{&#39;1&#39;: Material(matID=1), &#39;2&#39;: Material(matID=2)}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>TypeError</strong> – if the parameter is not Material()</p></li>
+<li><p><strong>ValueError</strong> – if the Material is already included</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
 <dt id="feign.blocks.Experiment.checkComplete">
 <code class="sig-name descname">checkComplete</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Experiment.checkComplete" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to check whether everything is defined correctly in an
-Experiment() object.
-- checks whether assembly is complete
-- checks whether any pin contains any region with radius greater than</p>
-<blockquote>
-<div><p>the pitch</p>
-</div></blockquote>
+Experiment() object.</p>
 <ul class="simple">
+<li><p>checks whether assembly is complete</p></li>
+<li><p>checks whether any pin contains any region with radius greater than the pitch</p></li>
 <li><p>checks whether all the pins in the fuelmap are attributed to the assembly</p></li>
 <li><p>in case a pool is defined, it is checked whether the pool is around the assembly.</p></li>
 </ul>
@@ -209,68 +354,203 @@ Experiment() object.
 <code class="sig-name descname">distanceTravelled</code><span class="sig-paren">(</span><em class="sig-param">detector</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Experiment.distanceTravelled" title="Permalink to this definition">¶</a></dt>
 <dd><p>The function to calculate the distanced travelled in any material
 by a gamma ray emitted from any pin positions of the Assembly to a detector</p>
-<p>detector : Detector()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>detector</strong> (<a class="reference internal" href="detector.html#feign.blocks.Detector" title="feign.blocks.Detector"><em>Detector</em></a><em>(</em><em>)</em>) – </p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="feign.blocks.Experiment.get_MuTable">
 <code class="sig-name descname">get_MuTable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Experiment.get_MuTable" title="Permalink to this definition">¶</a></dt>
 <dd><p>The function to create a nested dictionary to store the total
-attenuation coefficients.
-Outer keys are energies as defined in elines, inner keys are matIDs</p>
+attenuation coefficients.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Dictionary to store the attenuation coefficients.
+Outer keys are energies as defined in <a class="reference internal" href="#feign.blocks.Experiment.elines" title="feign.blocks.Experiment.elines"><code class="xref py py-attr docutils literal notranslate"><span class="pre">elines</span></code></a>,
+inner keys are <a class="reference internal" href="material.html#feign.blocks.Material.matID" title="feign.blocks.Material.matID"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Material.matID</span></code></a> identifiers.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="feign.blocks.Experiment.remove_absorber">
+<code class="sig-name descname">remove_absorber</code><span class="sig-paren">(</span><em class="sig-param">*argv</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Experiment.remove_absorber" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function to remove Absorber objects from an Experiment which
+already has previously included absorbers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>*argv</strong> (<a class="reference internal" href="absorber.html#feign.blocks.Absorber" title="feign.blocks.Absorber"><em>Absorber</em></a><em>(</em><em>) or </em><em>more Absorber</em><em>(</em><em>) </em><em>objects</em>) – Absorber() objects to be added in the Experiment</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">leadsheet</span><span class="o">=</span><span class="n">Absorber</span><span class="p">(</span><span class="s1">&#39;leadsheet&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">alusheet</span><span class="o">=</span><span class="n">Absorber</span><span class="p">(</span><span class="s1">&#39;alusheet&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">=</span><span class="n">Experiment</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">set_absorbers</span><span class="p">(</span><span class="n">leadsheet</span><span class="p">,</span><span class="n">alusheet</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">absorbers</span>
+<span class="go">{&#39;leadsheet&#39;: Absorber(absID=leadsheet), &#39;alusheet&#39;: Absorber(absID=alusheet)}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">remove_absorber</span><span class="p">(</span><span class="n">alusheet</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">absorbers</span>
+<span class="go">{&#39;leadsheet&#39;: Absorber(absID=leadsheet)}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">remove_absorber</span><span class="p">(</span><span class="n">alusheet</span><span class="p">)</span>
+<span class="go">You can remove only existing Absorber()</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>TypeError</strong> – if the parameter is not Absorber()</p></li>
+<li><p><strong>TypeError</strong> – if <a class="reference internal" href="#feign.blocks.Experiment.absorbers" title="feign.blocks.Experiment.absorbers"><code class="xref py py-attr docutils literal notranslate"><span class="pre">absorbers</span></code></a> is None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="feign.blocks.Experiment.remove_detector">
+<code class="sig-name descname">remove_detector</code><span class="sig-paren">(</span><em class="sig-param">*argv</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Experiment.remove_detector" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function to remove Detector objects from an Experiment which
+already has previously included detectors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>*argv</strong> (<a class="reference internal" href="detector.html#feign.blocks.Detector" title="feign.blocks.Detector"><em>Detector</em></a><em>(</em><em>) or </em><em>more Detector</em><em>(</em><em>) </em><em>objects</em>) – Detector() objects to be added in the Experiment</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">F5</span><span class="o">=</span><span class="n">Detector</span><span class="p">(</span><span class="s1">&#39;F5&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">F15</span><span class="o">=</span><span class="n">Detector</span><span class="p">(</span><span class="s1">&#39;F15&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">=</span><span class="n">Experiment</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">set_detectors</span><span class="p">(</span><span class="n">F5</span><span class="p">,</span><span class="n">F15</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">detectors</span>
+<span class="go">{&#39;F5&#39;: Detector(detID=F5), &#39;F15&#39;: Detector(detID=F15)}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">remove_detector</span><span class="p">(</span><span class="n">F15</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">detectors</span>
+<span class="go">{&#39;F5&#39;: Detector(detID=F5)}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">remove_detector</span><span class="p">(</span><span class="n">F15</span><span class="p">)</span>
+<span class="go">You can remove only existing Detector()</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>TypeError</strong> – if the parameter is not Detector()</p></li>
+<li><p><strong>TypeError</strong> – if <a class="reference internal" href="#feign.blocks.Experiment.detectors" title="feign.blocks.Experiment.detectors"><code class="xref py py-attr docutils literal notranslate"><span class="pre">detectors</span></code></a> is None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="feign.blocks.Experiment.remove_material">
+<code class="sig-name descname">remove_material</code><span class="sig-paren">(</span><em class="sig-param">*argv</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Experiment.remove_material" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function to remove Material objects from an Experiment which
+already has previously included materials.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>*argv</strong> (<a class="reference internal" href="material.html#feign.blocks.Material" title="feign.blocks.Material"><em>Material</em></a><em>(</em><em>) or </em><em>more Material</em><em>(</em><em>) </em><em>objects</em>) – Material() objects to be added in the Experiment</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">uox</span><span class="o">=</span><span class="n">Material</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zr</span><span class="o">=</span><span class="n">Material</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">=</span><span class="n">Experiment</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">set_materials</span><span class="p">(</span><span class="n">uox</span><span class="p">,</span><span class="n">zr</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">materials</span>
+<span class="go">{&#39;1&#39;: Material(matID=1), &#39;2&#39;: Material(matID=2)}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">remove_material</span><span class="p">(</span><span class="n">zr</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">materials</span>
+<span class="go">{&#39;1&#39;: Material(matID=1)}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">remove_material</span><span class="p">(</span><span class="n">zr</span><span class="p">)</span>
+<span class="go">You can remove only existing Material()</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>TypeError</strong> – if the parameter is not Material()</p></li>
+<li><p><strong>TypeError</strong> – if <a class="reference internal" href="#feign.blocks.Experiment.materials" title="feign.blocks.Experiment.materials"><code class="xref py py-attr docutils literal notranslate"><span class="pre">materials</span></code></a> is None.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="feign.blocks.Experiment.set_absorbers">
-<code class="sig-name descname">set_absorbers</code><span class="sig-paren">(</span><em class="sig-param">absorbers</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Experiment.set_absorbers" title="Permalink to this definition">¶</a></dt>
-<dd><p>The function to include Absorbers in an Experiment</p>
-<dl class="simple">
-<dt>absorbers<span class="classifier">Absorbers()</span></dt><dd><p>Absorbers container to be included</p>
+<code class="sig-name descname">set_absorbers</code><span class="sig-paren">(</span><em class="sig-param">*argv</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Experiment.set_absorbers" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function to include Absorber objects in an Experiment</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>*argv</strong> (<a class="reference internal" href="absorber.html#feign.blocks.Absorber" title="feign.blocks.Absorber"><em>Absorber</em></a><em>(</em><em>) or </em><em>more Absorber</em><em>(</em><em>) </em><em>objects</em>) – Absorber() objects to be included in the Experiment</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">leadsheet</span> <span class="o">=</span> <span class="n">Absorber</span><span class="p">(</span><span class="s1">&#39;leadsheet&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">alusheet</span> <span class="o">=</span> <span class="n">Absorber</span><span class="p">(</span><span class="s1">&#39;alusheet&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">absorbers</span> <span class="o">=</span> <span class="n">Absorbers</span><span class="p">(</span><span class="n">alusheet</span><span class="p">,</span><span class="n">leadsheet</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span> <span class="o">=</span> <span class="n">Experiment</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">set_absorbers</span><span class="p">(</span><span class="n">absorbers</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">leadsheet</span><span class="o">=</span><span class="n">Absorber</span><span class="p">(</span><span class="s1">&#39;leadsheet&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">alusheet</span><span class="o">=</span><span class="n">Absorber</span><span class="p">(</span><span class="s1">&#39;alusheet&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">=</span><span class="n">Experiment</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">absorbers</span>
-<span class="go">{&#39;alusheet&#39;: Absorber(absID=alusheet), &#39;leadsheet&#39;: Absorber(absID=leadsheet)}</span>
 </pre></div>
 </div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">set_absorbers</span><span class="p">(</span><span class="n">leadsheet</span><span class="p">,</span><span class="n">alusheet</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">absorbers</span>
+<span class="go">{&#39;leadsheet&#39;: Absorber(absID=leadsheet), &#39;alusheet&#39;: Absorber(absID=alusheet)}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>TypeError</strong> – if the parameter is not Absorber()</p></li>
+<li><p><strong>ValueError</strong> – if the Absorber is already included</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="feign.blocks.Experiment.set_assembly">
 <code class="sig-name descname">set_assembly</code><span class="sig-paren">(</span><em class="sig-param">assembly=None</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Experiment.set_assembly" title="Permalink to this definition">¶</a></dt>
 <dd><p>The function to include Assembly in an Experiment</p>
-<dl class="simple">
-<dt>assembly<span class="classifier">Assembly</span></dt><dd><p>Assembly to be included in Experiment</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>assembly</strong> (<a class="reference internal" href="assembly.html#feign.blocks.Assembly" title="feign.blocks.Assembly"><em>Assembly</em></a><em>(</em><em>)</em>) – Assembly to be included in Experiment</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="feign.blocks.Experiment.set_detectors">
-<code class="sig-name descname">set_detectors</code><span class="sig-paren">(</span><em class="sig-param">detectors</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Experiment.set_detectors" title="Permalink to this definition">¶</a></dt>
-<dd><p>The function to include Detectors in an Experiment</p>
-<dl class="simple">
-<dt>detectors<span class="classifier">Detector()</span></dt><dd><p>Detectors container to be included</p>
+<code class="sig-name descname">set_detectors</code><span class="sig-paren">(</span><em class="sig-param">*argv</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Experiment.set_detectors" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function to include Detector objects in an Experiment</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>*argv</strong> (<a class="reference internal" href="detector.html#feign.blocks.Detector" title="feign.blocks.Detector"><em>Detector</em></a><em>(</em><em>) or </em><em>more Detector</em><em>(</em><em>) </em><em>objects</em>) – Detector() objects to be included in the Experiment</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">F5</span> <span class="o">=</span> <span class="n">Detector</span><span class="p">(</span><span class="s1">&#39;F5&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">F15</span> <span class="o">=</span> <span class="n">Detector</span><span class="p">(</span><span class="s1">&#39;F15&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">detectors</span> <span class="o">=</span> <span class="n">Detectors</span><span class="p">(</span><span class="n">F5</span><span class="p">,</span><span class="n">F15</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span> <span class="o">=</span> <span class="n">Experiment</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">set_detectors</span><span class="p">(</span><span class="n">detectors</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">F5</span><span class="o">=</span><span class="n">Detector</span><span class="p">(</span><span class="s1">&#39;F5&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">F15</span><span class="o">=</span><span class="n">Detector</span><span class="p">(</span><span class="s1">&#39;F15&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">=</span><span class="n">Experiment</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">detectors</span>
-<span class="go">{&#39;F5&#39;: Detector(detID=F5), &#39;F15&#39;: Detector(detID=F15)}</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">set_detectors</span><span class="p">(</span><span class="n">F5</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">detectors</span>
-<span class="go">{&#39;F5&#39;: Detector(detID=F5)}</span>
 </pre></div>
 </div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">set_detectors</span><span class="p">(</span><span class="n">F5</span><span class="p">,</span><span class="n">F15</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">detectors</span>
+<span class="go">{&#39;F5&#39;: Detector(detID=F5), &#39;F15&#39;: Detector(detID=F15)}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>TypeError</strong> – if the parameter is not Detector()</p></li>
+<li><p><strong>ValueError</strong> – if the Detector is already included</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -278,40 +558,55 @@ Outer keys are energies as defined in elines, inner keys are matIDs</p>
 <code class="sig-name descname">set_elines</code><span class="sig-paren">(</span><em class="sig-param">elines=None</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Experiment.set_elines" title="Permalink to this definition">¶</a></dt>
 <dd><p>The function to set energy lines at which the geometric efficiency is
 calculated</p>
-<dl class="simple">
-<dt>elines<span class="classifier">list of str</span></dt><dd><p>Energy lines (in MeV) at which the geometric efficiency is calculated.
-Note: values are strings, because they will be keys for the Experiment.mu
-attribute.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>elines</strong> (<em>list of str</em>) – Energy lines (in MeV) at which the geometric efficiency is calculated.</p>
 </dd>
 </dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>values of elines are strings, because they will be keys of <a class="reference internal" href="#feign.blocks.Experiment.mu" title="feign.blocks.Experiment.mu"><code class="xref py py-attr docutils literal notranslate"><span class="pre">mu</span></code></a></p>
+</div>
 </dd></dl>
 
 <dl class="method">
 <dt id="feign.blocks.Experiment.set_materials">
-<code class="sig-name descname">set_materials</code><span class="sig-paren">(</span><em class="sig-param">materials</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Experiment.set_materials" title="Permalink to this definition">¶</a></dt>
-<dd><p>The function to include Materials in an Experiment</p>
-<dl class="simple">
-<dt>materials<span class="classifier">Materials</span></dt><dd><p>Materials container to be included</p>
+<code class="sig-name descname">set_materials</code><span class="sig-paren">(</span><em class="sig-param">*argv</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Experiment.set_materials" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function to include Material objects in an Experiment</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>*argv</strong> (<a class="reference internal" href="material.html#feign.blocks.Material" title="feign.blocks.Material"><em>Material</em></a><em>(</em><em>) or </em><em>more Material</em><em>(</em><em>) </em><em>objects</em>) – Material() objects to be included in the Experiment</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">uox</span> <span class="o">=</span> <span class="n">Material</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">zr</span> <span class="o">=</span> <span class="n">Material</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">mats</span> <span class="o">=</span> <span class="n">Materials</span><span class="p">(</span><span class="n">uox</span><span class="p">,</span><span class="n">zr</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span> <span class="o">=</span> <span class="n">Experiment</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">set_materials</span><span class="p">(</span><span class="n">mats</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">uox</span><span class="o">=</span><span class="n">Material</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zr</span><span class="o">=</span><span class="n">Material</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">=</span><span class="n">Experiment</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">materials</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">set_materials</span><span class="p">(</span><span class="n">uox</span><span class="p">,</span><span class="n">zr</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">materials</span>
 <span class="go">{&#39;1&#39;: Material(matID=1), &#39;2&#39;: Material(matID=2)}</span>
 </pre></div>
 </div>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>TypeError</strong> – if the parameter is not Material()</p></li>
+<li><p><strong>ValueError</strong> – if the Material is already included</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="feign.blocks.Experiment.set_output">
 <code class="sig-name descname">set_output</code><span class="sig-paren">(</span><em class="sig-param">output='output.dat'</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Experiment.set_output" title="Permalink to this definition">¶</a></dt>
 <dd><p>The function to set the output file for printing the geometric efficiency</p>
-<dl class="simple">
-<dt>output<span class="classifier">str</span></dt><dd><p>filename and path where to print the geometric efficiency.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>output</strong> (<em>str</em>) – filename and path where to print the geometric efficiency.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -342,15 +637,11 @@ attribute.</p>
 <li class="toctree-l1"><a class="reference internal" href="geometry.html">feign.geometry</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="blocks.html">feign.blocks</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="material.html">blocks.Material()</a></li>
-<li class="toctree-l2"><a class="reference internal" href="materials.html">blocks.Materials()</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pin.html">geometry.Pin()</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pins.html">geometry.Pins()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pin.html">blocks.Pin()</a></li>
 <li class="toctree-l2"><a class="reference internal" href="assembly.html">blocks.Assembly()</a></li>
 <li class="toctree-l2"><a class="reference internal" href="detector.html">blocks.Detector()</a></li>
-<li class="toctree-l2"><a class="reference internal" href="detectors.html">blocks.Detectors()</a></li>
 <li class="toctree-l2"><a class="reference internal" href="collimator.html">blocks.Collimator()</a></li>
 <li class="toctree-l2"><a class="reference internal" href="absorber.html">blocks.Absorber()</a></li>
-<li class="toctree-l2"><a class="reference internal" href="absorbers.html">geometry.Absorbers()</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">blocks.Experiment()</a></li>
 </ul>
 </li>
@@ -361,7 +652,7 @@ attribute.</p>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
   <li><a href="blocks.html">feign.blocks</a><ul>
-      <li>Previous: <a href="absorbers.html" title="previous chapter">geometry.Absorbers()</a></li>
+      <li>Previous: <a href="absorber.html" title="previous chapter">blocks.Absorber()</a></li>
   </ul></li>
   </ul></li>
 </ul>
