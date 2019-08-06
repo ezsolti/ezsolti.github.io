@@ -5,7 +5,7 @@ feign's documentation
    :maxdepth: 2
    :caption: Contents:
 
-   physics.rst
+   feignphysics.md
    gettingstarted.rst
    geometry.rst
    blocks.rst
