@@ -1,0 +1,19 @@
+Getting started with feign
+=============================
+
+Import feign modules
+--------------------
+
+The best is to include everything.
+
+.. code-block:: python
+
+   from feign.geometry import *
+   from feign.blocks import *
+
+
+Creating an Experimental setup
+------------------------------
+
+In order to create a setup.
+

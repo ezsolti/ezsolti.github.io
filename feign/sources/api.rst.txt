@@ -1,0 +1,29 @@
+feign API Reference
+=================================
+
+The package is has two modules. ``geometry`` is responsible to define the 2D geometry elements, and ``blocks``
+contains all the classes relevant to define a passive gamma experimental setup, and to perform the ray-tracing.
+
+Geometry
+--------
+
+.. toctree::
+   :maxdepth: 2
+
+   geometry.rst
+
+
+Core functionality
+------------------
+
+.. toctree::
+   :maxdepth: 2
+
+   blocks.rst
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

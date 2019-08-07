@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>feign: A python package for passive gamma spectroscopy efficiency &#8212; feign 1.0.0 documentation</title>
+    <title>feign API Reference &#8212; feign 1.0.0 documentation</title>
     <link rel="stylesheet" href="static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="static/documentation_options.js"></script>
@@ -14,7 +14,8 @@
     <script type="text/javascript" src="static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Installation" href="installation.html" />
+    <link rel="next" title="feign.geometry" href="geometry.html" />
+    <link rel="prev" title="Getting started with feign" href="quickstart.html" />
    
   <link rel="stylesheet" href="static/custom.css" type="text/css" />
   
@@ -31,37 +32,40 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="feign-a-python-package-for-passive-gamma-spectroscopy-efficiency">
-<h1>feign: A python package for passive gamma spectroscopy efficiency<a class="headerlink" href="#feign-a-python-package-for-passive-gamma-spectroscopy-efficiency" title="Permalink to this headline">¶</a></h1>
-<p><code class="docutils literal notranslate"><span class="pre">feign</span></code> is python package, intended to estimate the geometric efficiency in passive gamma spectroscopy measurments of spent nuclear fuel assemblies. a point-kernel method based package intended to estimate the geometric efficiency of fuel in python.
-Therefore, an “uncollided F5 tally” was implemented in python to estimate the geometric efficiency of
-fuel assemblies in 2D (ie. in collimated cases). The working title of the code is FEIGN (implying that
-the program pretends to be a transport code, however it is not). The user defines the geometry of the
-source, which needs to be a rectangular lattice and the positions in the lattice can be filled with coaxial
-cylinder elements (eg. fuel pins, cladding). The user also defines the material compositions of these
-cells and the detector points where the efficiency needs to be evaluated. As a package, it provides</p>
-<ul class="simple">
-<li><p>basic 2D geometry elements (Point, Segment, Circle, Rectangle and there intersections)</p></li>
-<li><p>classes to describe materials, fuel pins, and rectangular fuel assemblies</p></li>
-</ul>
-</div>
-<div class="section" id="contents">
-<h1>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="feign-api-reference">
+<h1>feign API Reference<a class="headerlink" href="#feign-api-reference" title="Permalink to this headline">¶</a></h1>
+<p>The package is has two modules. <code class="docutils literal notranslate"><span class="pre">geometry</span></code> is responsible to define the 2D geometry elements, and <code class="docutils literal notranslate"><span class="pre">blocks</span></code>
+contains all the classes relevant to define a passive gamma experimental setup, and to perform the ray-tracing.</p>
+<div class="section" id="geometry">
+<h2>Geometry<a class="headerlink" href="#geometry" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">Getting Started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Getting started with feign</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geometry.html">feign.geometry</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="point.html">geometry.Point()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="segment.html">geometry.Segment()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="circle.html">geometry.Circle()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rectangle.html">geometry.Rectangle()</a></li>
+</ul>
+</li>
 </ul>
 </div>
-<div class="toctree-wrapper compound">
 </div>
+<div class="section" id="core-functionality">
+<h2>Core functionality<a class="headerlink" href="#core-functionality" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">API documentation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="api.html">feign API Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="blocks.html">feign.blocks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="material.html">blocks.Material()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pin.html">blocks.Pin()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assembly.html">blocks.Assembly()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="detector.html">blocks.Detector()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collimator.html">blocks.Collimator()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="absorber.html">blocks.Absorber()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="experiment.html">blocks.Experiment()</a></li>
 </ul>
+</li>
+</ul>
+</div>
 </div>
 </div>
 <div class="section" id="indices-and-tables">
@@ -80,7 +84,7 @@ cells and the detector points where the efficiency needs to be evaluated. As a p
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="#">feign</a></h1>
+<h1 class="logo"><a href="index.html">feign</a></h1>
 
 
 
@@ -96,16 +100,17 @@ cells and the detector points where the efficiency needs to be evaluated. As a p
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Getting started with feign</a></li>
 </ul>
 <p class="caption"><span class="caption-text">API documentation</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="api.html">feign API Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html#indices-and-tables">Indices and tables</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">feign API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
-  <li><a href="#">Documentation overview</a><ul>
-      <li>Next: <a href="installation.html" title="next chapter">Installation</a></li>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="quickstart.html" title="previous chapter">Getting started with feign</a></li>
+      <li>Next: <a href="geometry.html" title="next chapter">feign.geometry</a></li>
   </ul></li>
 </ul>
 </div>
@@ -139,7 +144,7 @@ cells and the detector points where the efficiency needs to be evaluated. As a p
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
-      <a href="sources/index.rst.txt"
+      <a href="sources/api.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 
