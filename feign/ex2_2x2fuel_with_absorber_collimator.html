@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>2x2 fuel assembly &#8212; feign 1.0.0 documentation</title>
+    <title>2x2 fuel assembly with absorber and collimator &#8212; feign 1.0.0 documentation</title>
     <link rel="stylesheet" href="static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="static/documentation_options.js"></script>
@@ -232,8 +232,8 @@ div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
 </style>
-<div class="section" id="2x2-fuel-assembly">
-<h1>2x2 fuel assembly<a class="headerlink" href="#2x2-fuel-assembly" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="2x2-fuel-assembly-with-absorber-and-collimator">
+<h1>2x2 fuel assembly with absorber and collimator<a class="headerlink" href="#2x2-fuel-assembly-with-absorber-and-collimator" title="Permalink to this headline">¶</a></h1>
 <p>This example is a continuation of the first example. It extends the previous case with a pool (surrounded by air), a lead absorber and a collimator. Other materials and pins are the same, hence we go through that part quickly.</p>
 <p>Let’s import feign first.</p>
 <div class="nbinput nblast docutils container">
@@ -248,7 +248,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="section" id="Materials">
 <h2>Materials<a class="headerlink" href="#Materials" title="Permalink to this headline">¶</a></h2>
-<p>Then, define six Material() objects, water and uranium-dioxide, zirconium and helium, and place them into a Materials() container.</p>
+<p>Then, define six Material() objects, water and uranium-dioxide, zirconium and helium.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -282,17 +282,15 @@ div.rendered_html tbody tr:hover {
 <span class="n">lead</span><span class="o">.</span><span class="n">set_path</span><span class="p">((</span><span class="s1">&#39;/dataFin/Pb.dat&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
 
 
-<span class="n">ex2_materials</span><span class="o">=</span><span class="n">Materials</span><span class="p">(</span><span class="n">uo2</span><span class="p">,</span><span class="n">he</span><span class="p">,</span><span class="n">zr</span><span class="p">,</span><span class="n">h2o</span><span class="p">,</span><span class="n">air</span><span class="p">,</span><span class="n">lead</span><span class="p">)</span> <span class="c1">#Adding lead as well.</span>
-
 </pre></div>
 </div>
 </div>
 </div>
 <div class="section" id="Pins">
 <h2>Pins<a class="headerlink" href="#Pins" title="Permalink to this headline">¶</a></h2>
-<p>In this example we assume that we are going to have only one pin type, the fuel pin. The uranium-dioxide region has 0.5 cm radius, that is followed by an 0.01 cm thick helium gap, and finally an 0.1 cm thick zirconium cladding. The pin has to be added to a Pins() container.</p>
+<p>In this example we assume that we are going to have only one pin type, the fuel pin. The uranium-dioxide region has 0.5 cm radius, that is followed by an 0.01 cm thick helium gap, and finally an 0.1 cm thick zirconium cladding.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -301,7 +299,6 @@ div.rendered_html tbody tr:hover {
 <span class="n">fuel</span><span class="o">.</span><span class="n">add_region</span><span class="p">(</span><span class="n">he</span><span class="p">,</span><span class="mf">0.51</span><span class="p">)</span>
 <span class="n">fuel</span><span class="o">.</span><span class="n">add_region</span><span class="p">(</span><span class="n">zr</span><span class="p">,</span><span class="mf">0.61</span><span class="p">)</span>
 
-<span class="n">ex2_pins</span><span class="o">=</span><span class="n">Pins</span><span class="p">(</span><span class="n">fuel</span><span class="p">)</span>
 
 </pre></div>
 </div>
@@ -312,7 +309,7 @@ div.rendered_html tbody tr:hover {
 <p>Now we can build a 2x2 assembly from the pin. We need to set the pitch of the lattice, the source, and the coolant. And we have to define a fuelmap based on the pinIDs. We will also define a pool with a Rectangle (and we will rotate it with 45 degrees, thus the corner of the assembly will face the wall). This will require us to set the surrounding material as well.</p>
 <p>Note the middle of the assembly is always considered as being placed at (0,0).</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -320,7 +317,7 @@ div.rendered_html tbody tr:hover {
 <span class="n">assy</span><span class="o">.</span><span class="n">set_pitch</span><span class="p">(</span><span class="mf">1.3</span><span class="p">)</span>
 <span class="n">assy</span><span class="o">.</span><span class="n">set_source</span><span class="p">(</span><span class="n">uo2</span><span class="p">)</span>
 <span class="n">assy</span><span class="o">.</span><span class="n">set_coolant</span><span class="p">(</span><span class="n">h2o</span><span class="p">)</span>
-<span class="n">assy</span><span class="o">.</span><span class="n">set_pins</span><span class="p">(</span><span class="n">ex2_pins</span><span class="p">)</span>
+<span class="n">assy</span><span class="o">.</span><span class="n">set_pins</span><span class="p">(</span><span class="n">fuel</span><span class="p">)</span>
 
 <span class="n">pool</span><span class="o">=</span><span class="n">Rectangle</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="o">-</span><span class="mi">4</span><span class="p">),</span><span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span><span class="n">Point</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span><span class="n">Point</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="o">-</span><span class="mi">4</span><span class="p">))</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span>
 
@@ -340,7 +337,7 @@ div.rendered_html tbody tr:hover {
 <p>At least one detector has to be defined in the problem. Let us place one at (5,5), facing the corner of the assembly.</p>
 <p>We also define a collimator between the fuel and the detector. The collimator has a front and a back, both defined by Segment() objects.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -351,16 +348,16 @@ div.rendered_html tbody tr:hover {
 <span class="n">coll</span><span class="o">.</span><span class="n">set_back</span><span class="p">(</span><span class="n">Segment</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">),</span><span class="n">Point</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span><span class="o">-</span><span class="mf">1.0</span><span class="p">))</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="mi">45</span><span class="p">))</span>
 <span class="n">coll</span><span class="o">.</span><span class="n">set_front</span><span class="p">(</span><span class="n">Segment</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mf">3.5</span><span class="p">,</span><span class="mf">0.2</span><span class="p">),</span><span class="n">Point</span><span class="p">(</span><span class="mf">3.5</span><span class="p">,</span><span class="o">-</span><span class="mf">0.2</span><span class="p">))</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="mi">45</span><span class="p">))</span>
 <span class="n">det</span><span class="o">.</span><span class="n">set_collimator</span><span class="p">(</span><span class="n">coll</span><span class="p">)</span>
-<span class="n">ex2_detectors</span><span class="o">=</span><span class="n">Detectors</span><span class="p">(</span><span class="n">det</span><span class="p">)</span>
+
 </pre></div>
 </div>
 </div>
 </div>
 <div class="section" id="Absorber">
 <h2>Absorber<a class="headerlink" href="#Absorber" title="Permalink to this headline">¶</a></h2>
-<p>We can define an absorber with a Rectangle or a Circle object. We have to set the material of the absorber and the material which is accommodating the absorber. Then we include the absorber in an Absorbers container.</p>
+<p>We can define an absorber with a Rectangle or a Circle object. We have to set the material of the absorber and the material which is accommodating the absorber.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -368,8 +365,6 @@ div.rendered_html tbody tr:hover {
 <span class="n">lead2mm</span><span class="o">.</span><span class="n">set_form</span><span class="p">(</span><span class="n">Rectangle</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mf">4.5</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">),</span><span class="n">Point</span><span class="p">(</span><span class="mf">4.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span><span class="n">Point</span><span class="p">(</span><span class="mf">4.7</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span><span class="n">Point</span><span class="p">(</span><span class="mf">4.7</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="mi">45</span><span class="p">))</span>
 <span class="n">lead2mm</span><span class="o">.</span><span class="n">set_material</span><span class="p">(</span><span class="n">lead</span><span class="p">)</span>
 <span class="n">lead2mm</span><span class="o">.</span><span class="n">set_accommat</span><span class="p">(</span><span class="n">air</span><span class="p">)</span>
-
-<span class="n">ex2_absorbers</span><span class="o">=</span><span class="n">Absorbers</span><span class="p">(</span><span class="n">lead2mm</span><span class="p">)</span>
 
 </pre></div>
 </div>
@@ -379,15 +374,15 @@ div.rendered_html tbody tr:hover {
 <h2>Experiment<a class="headerlink" href="#Experiment" title="Permalink to this headline">¶</a></h2>
 <p>Finally we re ready to perform define our experiment.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">ex2</span><span class="o">=</span><span class="n">Experiment</span><span class="p">()</span>
 <span class="n">ex2</span><span class="o">.</span><span class="n">set_assembly</span><span class="p">(</span><span class="n">assy</span><span class="p">)</span>
-<span class="n">ex2</span><span class="o">.</span><span class="n">set_detectors</span><span class="p">(</span><span class="n">ex2_detectors</span><span class="p">)</span>
-<span class="n">ex2</span><span class="o">.</span><span class="n">set_materials</span><span class="p">(</span><span class="n">ex2_materials</span><span class="p">)</span>
-<span class="n">ex2</span><span class="o">.</span><span class="n">set_absorbers</span><span class="p">(</span><span class="n">ex2_absorbers</span><span class="p">)</span>
+<span class="n">ex2</span><span class="o">.</span><span class="n">set_detectors</span><span class="p">(</span><span class="n">det</span><span class="p">)</span>
+<span class="n">ex2</span><span class="o">.</span><span class="n">set_materials</span><span class="p">(</span><span class="n">uo2</span><span class="p">,</span><span class="n">he</span><span class="p">,</span><span class="n">zr</span><span class="p">,</span><span class="n">h2o</span><span class="p">,</span><span class="n">air</span><span class="p">,</span><span class="n">lead</span><span class="p">)</span>
+<span class="n">ex2</span><span class="o">.</span><span class="n">set_absorbers</span><span class="p">(</span><span class="n">lead2mm</span><span class="p">)</span>
 
 <span class="n">elines</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;0.5&#39;</span><span class="p">,</span><span class="s1">&#39;0.6&#39;</span><span class="p">,</span><span class="s1">&#39;0.8&#39;</span><span class="p">,</span><span class="s1">&#39;1.0&#39;</span><span class="p">,</span><span class="s1">&#39;1.5&#39;</span><span class="p">,</span><span class="s1">&#39;2.0&#39;</span><span class="p">]</span>
 <span class="n">ex2</span><span class="o">.</span><span class="n">set_elines</span><span class="p">(</span><span class="n">elines</span><span class="p">)</span>
@@ -396,7 +391,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <p>We can plot the geometry with the Plot() method. If the color attribute is set previously for the materials, then it is used for the plot, otherwise, the method will randomly assign colours for each material (the detector is set to white and the collimator is set to gray).</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -413,7 +408,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <p>When we run the experiment, we do not get any warnings, because everything is set.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -441,7 +436,7 @@ Detector D is being calculated
 <p>First let’s just print the distance travelled by the ray to the detector. from each pin We would expect, that two pins are not seen by the detector due to the collimator. Indeed we see that the ray emitted from those pins travel infinite distance.</p>
 <p>Visualizing the data is not that interesting for this example.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -450,7 +445,7 @@ Detector D is being calculated
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -459,7 +454,7 @@ Detector D is being calculated
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -511,7 +506,7 @@ Detector D is being calculated
 <div class="section" id="Geometric-efficiency-and-pinwise-contribution">
 <h2>Geometric efficiency and pinwise contribution<a class="headerlink" href="#Geometric-efficiency-and-pinwise-contribution" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -531,7 +526,7 @@ Detector D is being calculated
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -605,7 +600,7 @@ Detector D is being calculated
 <p class="caption"><span class="caption-text">Examples</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="ex1_2x2fuel.html">2x2 fuel assembly</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">2x2 fuel assembly</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2x2 fuel assembly with absorber and collimator</a></li>
 </ul>
 <p class="caption"><span class="caption-text">API documentation</span></p>
 <ul>
