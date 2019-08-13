@@ -14,7 +14,7 @@
     <script type="text/javascript" src="static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="feign API Reference" href="api.html" />
+    <link rel="next" title="17x17 PWR assembly at Clab" href="ex3_17x17PWR_at_Clab.html" />
     <link rel="prev" title="2x2 fuel assembly" href="ex1_2x2fuel.html" />
    
   <link rel="stylesheet" href="static/custom.css" type="text/css" />
@@ -235,6 +235,7 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="2x2-fuel-assembly-with-absorber-and-collimator">
 <h1>2x2 fuel assembly with absorber and collimator<a class="headerlink" href="#2x2-fuel-assembly-with-absorber-and-collimator" title="Permalink to this headline">¶</a></h1>
 <p>This example is a continuation of the first example. It extends the previous case with a pool (surrounded by air), a lead absorber and a collimator. Other materials and pins are the same, hence we go through that part quickly.</p>
+<p>In this example we use only the case when the source locations are the center of the pins (ie. the randomNum attribute of the Experiment() object is not set.)</p>
 <p>Let’s import feign first.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
@@ -260,10 +261,8 @@ div.rendered_html tbody tr:hover {
 <span class="n">he</span><span class="o">=</span><span class="n">Material</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">)</span>
 <span class="n">he</span><span class="o">.</span><span class="n">set_density</span><span class="p">(</span><span class="mf">0.00561781</span><span class="p">)</span>
 
-
 <span class="n">zr</span><span class="o">=</span><span class="n">Material</span><span class="p">(</span><span class="s1">&#39;3&#39;</span><span class="p">)</span>
 <span class="n">zr</span><span class="o">.</span><span class="n">set_density</span><span class="p">(</span><span class="mf">6.52</span><span class="p">)</span>
-
 
 <span class="n">h2o</span><span class="o">=</span><span class="n">Material</span><span class="p">(</span><span class="s1">&#39;4&#39;</span><span class="p">)</span>
 <span class="n">h2o</span><span class="o">.</span><span class="n">set_density</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
@@ -280,8 +279,6 @@ div.rendered_html tbody tr:hover {
 <span class="n">h2o</span><span class="o">.</span><span class="n">set_path</span><span class="p">((</span><span class="s1">&#39;/dataFin/H2O.dat&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
 <span class="n">air</span><span class="o">.</span><span class="n">set_path</span><span class="p">((</span><span class="s1">&#39;/dataFin/Air.dat&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
 <span class="n">lead</span><span class="o">.</span><span class="n">set_path</span><span class="p">((</span><span class="s1">&#39;/dataFin/Pb.dat&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
-
-
 </pre></div>
 </div>
 </div>
@@ -298,8 +295,6 @@ div.rendered_html tbody tr:hover {
 <span class="n">fuel</span><span class="o">.</span><span class="n">add_region</span><span class="p">(</span><span class="n">uo2</span><span class="p">,</span><span class="mf">0.5</span><span class="p">)</span> <span class="c1">#cm</span>
 <span class="n">fuel</span><span class="o">.</span><span class="n">add_region</span><span class="p">(</span><span class="n">he</span><span class="p">,</span><span class="mf">0.51</span><span class="p">)</span>
 <span class="n">fuel</span><span class="o">.</span><span class="n">add_region</span><span class="p">(</span><span class="n">zr</span><span class="p">,</span><span class="mf">0.61</span><span class="p">)</span>
-
-
 </pre></div>
 </div>
 </div>
@@ -344,11 +339,10 @@ div.rendered_html tbody tr:hover {
 <span></span><span class="n">det</span><span class="o">=</span><span class="n">Detector</span><span class="p">(</span><span class="s1">&#39;D&#39;</span><span class="p">)</span>
 <span class="n">det</span><span class="o">.</span><span class="n">set_location</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 
-<span class="n">coll</span><span class="o">=</span><span class="n">Collimator</span><span class="p">()</span>
+<span class="n">coll</span><span class="o">=</span><span class="n">Collimator</span><span class="p">(</span><span class="s1">&#39;Dcoll&#39;</span><span class="p">)</span>
 <span class="n">coll</span><span class="o">.</span><span class="n">set_back</span><span class="p">(</span><span class="n">Segment</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">),</span><span class="n">Point</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span><span class="o">-</span><span class="mf">1.0</span><span class="p">))</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="mi">45</span><span class="p">))</span>
 <span class="n">coll</span><span class="o">.</span><span class="n">set_front</span><span class="p">(</span><span class="n">Segment</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mf">3.5</span><span class="p">,</span><span class="mf">0.2</span><span class="p">),</span><span class="n">Point</span><span class="p">(</span><span class="mf">3.5</span><span class="p">,</span><span class="o">-</span><span class="mf">0.2</span><span class="p">))</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="mi">45</span><span class="p">))</span>
 <span class="n">det</span><span class="o">.</span><span class="n">set_collimator</span><span class="p">(</span><span class="n">coll</span><span class="p">)</span>
-
 </pre></div>
 </div>
 </div>
@@ -365,7 +359,6 @@ div.rendered_html tbody tr:hover {
 <span class="n">lead2mm</span><span class="o">.</span><span class="n">set_form</span><span class="p">(</span><span class="n">Rectangle</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mf">4.5</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">),</span><span class="n">Point</span><span class="p">(</span><span class="mf">4.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span><span class="n">Point</span><span class="p">(</span><span class="mf">4.7</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span><span class="n">Point</span><span class="p">(</span><span class="mf">4.7</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="mi">45</span><span class="p">))</span>
 <span class="n">lead2mm</span><span class="o">.</span><span class="n">set_material</span><span class="p">(</span><span class="n">lead</span><span class="p">)</span>
 <span class="n">lead2mm</span><span class="o">.</span><span class="n">set_accommat</span><span class="p">(</span><span class="n">air</span><span class="p">)</span>
-
 </pre></div>
 </div>
 </div>
@@ -408,7 +401,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <p>When we run the experiment, we do not get any warnings, because everything is set.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -421,13 +414,15 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Detector D is being calculated
-0.5
-0.6
-0.8
-1.0
-1.5
-2.0
+#0 is being calculated
+Distance travelled to detector D is being calculated
+Contribution to detector D is calculated...
+...for gamma energy 0.5 MeV
+...for gamma energy 0.6 MeV
+...for gamma energy 0.8 MeV
+...for gamma energy 1.0 MeV
+...for gamma energy 1.5 MeV
+...for gamma energy 2.0 MeV
 </pre></div></div>
 </div>
 </div>
@@ -436,7 +431,7 @@ Detector D is being calculated
 <p>First let’s just print the distance travelled by the ray to the detector. from each pin We would expect, that two pins are not seen by the detector due to the collimator. Indeed we see that the ray emitted from those pins travel infinite distance.</p>
 <p>Visualizing the data is not that interesting for this example.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -445,16 +440,17 @@ Detector D is being calculated
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>[[inf, 0.5000000000000001], [1.5000000000000002, inf]]
+<span></span>array([[inf, 0.5],
+       [1.5, inf]])
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -466,7 +462,7 @@ Detector D is being calculated
 
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">322</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ex2</span><span class="o">.</span><span class="n">dTmap</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">][</span><span class="s1">&#39;2&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;h2&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;he&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">323</span><span class="p">)</span>
@@ -506,12 +502,12 @@ Detector D is being calculated
 <div class="section" id="Geometric-efficiency-and-pinwise-contribution">
 <h2>Geometric efficiency and pinwise contribution<a class="headerlink" href="#Geometric-efficiency-and-pinwise-contribution" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ex2</span><span class="o">.</span><span class="n">elines</span><span class="p">,</span><span class="n">ex2</span><span class="o">.</span><span class="n">_geomEff</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ex2</span><span class="o">.</span><span class="n">elines</span><span class="p">,</span><span class="n">ex2</span><span class="o">.</span><span class="n">_geomEff</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Energy (MeV)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Efficiency (1/particle)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -526,28 +522,28 @@ Detector D is being calculated
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">221</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ex2</span><span class="o">.</span><span class="n">_contributionMap</span><span class="p">[</span><span class="s1">&#39;0.6&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ex2</span><span class="o">.</span><span class="n">_contributionMapAve</span><span class="p">[</span><span class="s1">&#39;0.6&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Energy=0.6 MeV&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">222</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ex2</span><span class="o">.</span><span class="n">_contributionMap</span><span class="p">[</span><span class="s1">&#39;0.8&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ex2</span><span class="o">.</span><span class="n">_contributionMapAve</span><span class="p">[</span><span class="s1">&#39;0.8&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Energy=0.8 MeV&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">223</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ex2</span><span class="o">.</span><span class="n">_contributionMap</span><span class="p">[</span><span class="s1">&#39;1.0&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ex2</span><span class="o">.</span><span class="n">_contributionMapAve</span><span class="p">[</span><span class="s1">&#39;1.0&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Energy=1.0 MeV&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">224</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ex2</span><span class="o">.</span><span class="n">_contributionMap</span><span class="p">[</span><span class="s1">&#39;1.5&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ex2</span><span class="o">.</span><span class="n">_contributionMapAve</span><span class="p">[</span><span class="s1">&#39;1.5&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Energy=1.5 MeV&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">bottom</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mf">1.8</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="mf">1.6</span><span class="p">)</span>
@@ -561,15 +557,6 @@ Detector D is being calculated
 </div>
 <div class="output_area docutils container">
 <img alt="images/ex2_2x2fuel_with_absorber_collimator_23_0.png" src="images/ex2_2x2fuel_with_absorber_collimator_23_0.png" />
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
-</pre></div>
 </div>
 </div>
 </div>
@@ -601,6 +588,7 @@ Detector D is being calculated
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="ex1_2x2fuel.html">2x2 fuel assembly</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">2x2 fuel assembly with absorber and collimator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex3_17x17PWR_at_Clab.html">17x17 PWR assembly at Clab</a></li>
 </ul>
 <p class="caption"><span class="caption-text">API documentation</span></p>
 <ul>
@@ -612,7 +600,7 @@ Detector D is being calculated
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="ex1_2x2fuel.html" title="previous chapter">2x2 fuel assembly</a></li>
-      <li>Next: <a href="api.html" title="next chapter">feign API Reference</a></li>
+      <li>Next: <a href="ex3_17x17PWR_at_Clab.html" title="next chapter">17x17 PWR assembly at Clab</a></li>
   </ul></li>
 </ul>
 </div>

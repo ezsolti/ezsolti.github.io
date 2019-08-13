@@ -234,7 +234,8 @@ div.rendered_html tbody tr:hover {
 </style>
 <div class="section" id="2x2-fuel-assembly">
 <h1>2x2 fuel assembly<a class="headerlink" href="#2x2-fuel-assembly" title="Permalink to this headline">¶</a></h1>
-<p>This example shows the basic functionality of feign by defining a 2x2 fuel assembly (rods made of UO2 in cladding), and one detector point facing the corner. In such geometry the distance travelled in the rod can be simply calculated by hand. Nevertheless, keep in mind that for this given example feign gives a fairly bad estimate of the point flux, since the buildup factor is not negligible in a case when the detector is very close to an uncollimated source.</p>
+<p>This example shows the basic functionality of feign by defining a 2x2 fuel assembly (rods made of UO2 in cladding), and one detector point facing the corner. Two cases will be computed, one when the source points are the center of the pins, and one one 10 random points are sampled in each pin as source locations. In such geometry the distance travelled in the rod can be simply calculated by hand. Nevertheless, keep in mind that for this given example feign gives a fairly bad estimate of the
+point flux, since the buildup factor is not negligible in a case when the detector is very close to an uncollimated source.</p>
 <p>Let’s import feign first.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
@@ -248,7 +249,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="section" id="Materials">
 <h2>Materials<a class="headerlink" href="#Materials" title="Permalink to this headline">¶</a></h2>
-<p>Then, define four Material() objects, water and uranium-dioxide, zirconium and helium, and place them into a Materials() container.</p>
+<p>Then, define four Material() objects, water and uranium-dioxide, zirconium and helium.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -268,16 +269,13 @@ div.rendered_html tbody tr:hover {
 <span class="n">h2o</span><span class="o">=</span><span class="n">Material</span><span class="p">(</span><span class="s1">&#39;4&#39;</span><span class="p">)</span>
 <span class="n">h2o</span><span class="o">.</span><span class="n">set_density</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
 
-
-<span class="n">ex1_materials</span><span class="o">=</span><span class="n">Materials</span><span class="p">(</span><span class="n">uo2</span><span class="p">,</span><span class="n">he</span><span class="p">,</span><span class="n">zr</span><span class="p">,</span><span class="n">h2o</span><span class="p">)</span>
-
 </pre></div>
 </div>
 </div>
 </div>
 <div class="section" id="Pins">
 <h2>Pins<a class="headerlink" href="#Pins" title="Permalink to this headline">¶</a></h2>
-<p>In this example we assume that we are going to have only one pin type, the fuel pin. The uranium-dioxide region has 0.5 cm radius, that is followed by an 0.01 cm thick helium gap, and finally an 0.1 cm thick zirconium cladding. The pin has to be added to a Pins() container.</p>
+<p>In this example we assume that we are going to have only one pin type, the fuel pin. The uranium-dioxide region has 0.5 cm radius, that is followed by an 0.01 cm thick helium gap, and finally an 0.1 cm thick zirconium cladding.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
@@ -287,8 +285,6 @@ div.rendered_html tbody tr:hover {
 <span class="n">fuel</span><span class="o">.</span><span class="n">add_region</span><span class="p">(</span><span class="n">uo2</span><span class="p">,</span><span class="mf">0.5</span><span class="p">)</span> <span class="c1">#cm</span>
 <span class="n">fuel</span><span class="o">.</span><span class="n">add_region</span><span class="p">(</span><span class="n">he</span><span class="p">,</span><span class="mf">0.51</span><span class="p">)</span>
 <span class="n">fuel</span><span class="o">.</span><span class="n">add_region</span><span class="p">(</span><span class="n">zr</span><span class="p">,</span><span class="mf">0.61</span><span class="p">)</span>
-
-<span class="n">ex1_pins</span><span class="o">=</span><span class="n">Pins</span><span class="p">(</span><span class="n">fuel</span><span class="p">)</span>
 
 </pre></div>
 </div>
@@ -307,7 +303,7 @@ div.rendered_html tbody tr:hover {
 <span class="n">assy</span><span class="o">.</span><span class="n">set_pitch</span><span class="p">(</span><span class="mf">1.3</span><span class="p">)</span>
 <span class="n">assy</span><span class="o">.</span><span class="n">set_source</span><span class="p">(</span><span class="n">uo2</span><span class="p">)</span>
 <span class="n">assy</span><span class="o">.</span><span class="n">set_coolant</span><span class="p">(</span><span class="n">h2o</span><span class="p">)</span>
-<span class="n">assy</span><span class="o">.</span><span class="n">set_pins</span><span class="p">(</span><span class="n">ex1_pins</span><span class="p">)</span>
+<span class="n">assy</span><span class="o">.</span><span class="n">set_pins</span><span class="p">(</span><span class="n">fuel</span><span class="p">)</span>
 
 <span class="n">fuelmap</span><span class="o">=</span><span class="p">[[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="s1">&#39;1&#39;</span><span class="p">],</span>
          <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="s1">&#39;1&#39;</span><span class="p">]]</span>
@@ -329,7 +325,6 @@ div.rendered_html tbody tr:hover {
 <span></span><span class="n">det</span><span class="o">=</span><span class="n">Detector</span><span class="p">(</span><span class="s1">&#39;D&#39;</span><span class="p">)</span>
 <span class="n">det</span><span class="o">.</span><span class="n">set_location</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
 
-<span class="n">ex1_detectors</span><span class="o">=</span><span class="n">Detectors</span><span class="p">(</span><span class="n">det</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -344,15 +339,15 @@ div.rendered_html tbody tr:hover {
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">ex1</span><span class="o">=</span><span class="n">Experiment</span><span class="p">()</span>
 <span class="n">ex1</span><span class="o">.</span><span class="n">set_assembly</span><span class="p">(</span><span class="n">assy</span><span class="p">)</span>
-<span class="n">ex1</span><span class="o">.</span><span class="n">set_detectors</span><span class="p">(</span><span class="n">ex1_detectors</span><span class="p">)</span>
-<span class="n">ex1</span><span class="o">.</span><span class="n">set_materials</span><span class="p">(</span><span class="n">ex1_materials</span><span class="p">)</span>
+<span class="n">ex1</span><span class="o">.</span><span class="n">set_detectors</span><span class="p">(</span><span class="n">det</span><span class="p">)</span>
+<span class="n">ex1</span><span class="o">.</span><span class="n">set_materials</span><span class="p">(</span><span class="n">uo2</span><span class="p">,</span><span class="n">he</span><span class="p">,</span><span class="n">zr</span><span class="p">,</span><span class="n">h2o</span><span class="p">)</span>
 
 </pre></div>
 </div>
 </div>
 <p>We can plot the geometry with the Plot() method. If the color attribute is set previously for the materials, then it is used for the plot, otherwise, the method will randomly assign colours for each material.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -360,15 +355,25 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Warning: no pool in the problem, the surrounding of the Assembly is filled with coolant material
+No absorbers in the problem
+Warning: elines missing; only distance travelled in various materials will be computed
+</pre></div></div>
+</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="images/ex1_2x2fuel_13_0.png" src="images/ex1_2x2fuel_13_0.png" />
+<img alt="images/ex1_2x2fuel_13_1.png" src="images/ex1_2x2fuel_13_1.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -377,16 +382,25 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Warning: no pool in the problem, the surrounding of the Assembly is filled with coolant material
+Warning: elines missing; only distance travelled in various materials will be computed
+</pre></div></div>
+</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="images/ex1_2x2fuel_14_0.png" src="images/ex1_2x2fuel_14_0.png" />
+<img alt="images/ex1_2x2fuel_14_1.png" src="images/ex1_2x2fuel_14_1.png" />
 </div>
 </div>
 <p>When we run the experiment, we get some warnings, because we have not set any pool, any absorbers, and the energy vector (elines) is also missing, thus only the distance travelled can be computed.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -401,7 +415,8 @@ div.rendered_html tbody tr:hover {
 <div class="highlight"><pre>
 Warning: no pool in the problem, the surrounding of the Assembly is filled with coolant material
 Warning: elines missing; only distance travelled in various materials will be computed
-D
+#0 is being calculated
+Distance travelled to detector D is being calculated
 </pre></div></div>
 </div>
 </div>
@@ -410,7 +425,7 @@ D
 <p>First let’s just print the distance travelled by the ray to the detector. from each pin We would expect, that it travelles one radius from the pins close to the detector, and three radius from the pin farther from the detector. Indeed, this is what we see.</p>
 <p>Visualizing the data is not that interesting for this example.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -419,17 +434,17 @@ D
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>[[0.49999999999999983, 0.5000000000000001],
- [1.5000000000000002, 0.4999999999999996]]
+<span></span>array([[0.5, 0.5],
+       [1.5, 0.5]])
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -441,7 +456,7 @@ D
 
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">222</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ex1</span><span class="o">.</span><span class="n">dTmap</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">][</span><span class="s1">&#39;2&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;h2&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;he&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">223</span><span class="p">)</span>
@@ -471,7 +486,7 @@ D
 <h2>Computing the geometric efficiency<a class="headerlink" href="#Computing-the-geometric-efficiency" title="Permalink to this headline">¶</a></h2>
 <p>In order to calculate the geometric efficiency, we will need to set the path to the attenuation data, set energy lines, where the efficiency needs to be evaluated at and then rerun the experiment.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -486,7 +501,7 @@ D
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -500,22 +515,24 @@ D
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Warning: no pool in the problem, the surrounding of the Assembly is filled with coolant material
-D
-0.5
-0.6
-0.8
-1.0
-1.5
-2.0
+#0 is being calculated
+Distance travelled to detector D is being calculated
+Contribution to detector D is calculated...
+...for gamma energy 0.5 MeV
+...for gamma energy 0.6 MeV
+...for gamma energy 0.8 MeV
+...for gamma energy 1.0 MeV
+...for gamma energy 1.5 MeV
+...for gamma energy 2.0 MeV
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ex1</span><span class="o">.</span><span class="n">elines</span><span class="p">,</span><span class="n">ex1</span><span class="o">.</span><span class="n">_geomEff</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ex1</span><span class="o">.</span><span class="n">elines</span><span class="p">,</span><span class="n">ex1</span><span class="o">.</span><span class="n">geomEff</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Energy (MeV)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Efficiency (1/particle)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -530,28 +547,29 @@ D
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">221</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ex1</span><span class="o">.</span><span class="n">_contributionMap</span><span class="p">[</span><span class="s1">&#39;0.6&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ex1</span><span class="o">.</span><span class="n">_contributionMapAve</span><span class="p">[</span><span class="s1">&#39;0.6&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
+<span class="c1">#Same as plt.imshow(ex1._contributionMap[&#39;D&#39;][&#39;0.6&#39;],cmap=&#39;jet&#39;)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Energy=0.6 MeV&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">222</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ex1</span><span class="o">.</span><span class="n">_contributionMap</span><span class="p">[</span><span class="s1">&#39;0.8&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ex1</span><span class="o">.</span><span class="n">_contributionMapAve</span><span class="p">[</span><span class="s1">&#39;0.8&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Energy=0.8 MeV&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">223</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ex1</span><span class="o">.</span><span class="n">_contributionMap</span><span class="p">[</span><span class="s1">&#39;1.0&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ex1</span><span class="o">.</span><span class="n">_contributionMapAve</span><span class="p">[</span><span class="s1">&#39;1.0&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Energy=1.0 MeV&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">224</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ex1</span><span class="o">.</span><span class="n">_contributionMap</span><span class="p">[</span><span class="s1">&#39;1.5&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ex1</span><span class="o">.</span><span class="n">_contributionMapAve</span><span class="p">[</span><span class="s1">&#39;1.5&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Energy=1.5 MeV&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">bottom</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mf">1.8</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="mf">1.6</span><span class="p">)</span>
@@ -565,6 +583,146 @@ D
 </div>
 <div class="output_area docutils container">
 <img alt="images/ex1_2x2fuel_25_0.png" src="images/ex1_2x2fuel_25_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Random-source-locations">
+<h2>Random source locations<a class="headerlink" href="#Random-source-locations" title="Permalink to this headline">¶</a></h2>
+<p>In the following the number of random source locations will be defined as well, and the geometric efficiency is compared for the the two case.</p>
+<p>We can see that for this close detector setup, the random locations result in a relatively large standard deviation, and the center source case is well aligned with the average geometric efficiency.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">ex1rand</span><span class="o">=</span><span class="n">Experiment</span><span class="p">()</span>
+<span class="n">ex1rand</span><span class="o">.</span><span class="n">set_assembly</span><span class="p">(</span><span class="n">assy</span><span class="p">)</span>
+<span class="n">ex1rand</span><span class="o">.</span><span class="n">set_detectors</span><span class="p">(</span><span class="n">det</span><span class="p">)</span>
+<span class="n">ex1rand</span><span class="o">.</span><span class="n">set_materials</span><span class="p">(</span><span class="n">uo2</span><span class="p">,</span><span class="n">he</span><span class="p">,</span><span class="n">zr</span><span class="p">,</span><span class="n">h2o</span><span class="p">)</span>
+<span class="n">ex1rand</span><span class="o">.</span><span class="n">set_elines</span><span class="p">(</span><span class="n">elines</span><span class="p">)</span>
+<span class="n">ex1rand</span><span class="o">.</span><span class="n">set_random</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ex1rand</span><span class="o">.</span><span class="n">Run</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Warning: no pool in the problem, the surrounding of the Assembly is filled with coolant material
+No absorbers in the problem
+#0 is being calculated
+Distance travelled to detector D is being calculated
+Contribution to detector D is calculated...
+...for gamma energy 0.5 MeV
+...for gamma energy 0.6 MeV
+...for gamma energy 0.8 MeV
+...for gamma energy 1.0 MeV
+...for gamma energy 1.5 MeV
+...for gamma energy 2.0 MeV
+#1 is being calculated
+Distance travelled to detector D is being calculated
+Contribution to detector D is calculated...
+...for gamma energy 0.5 MeV
+...for gamma energy 0.6 MeV
+...for gamma energy 0.8 MeV
+...for gamma energy 1.0 MeV
+...for gamma energy 1.5 MeV
+...for gamma energy 2.0 MeV
+#2 is being calculated
+Distance travelled to detector D is being calculated
+Contribution to detector D is calculated...
+...for gamma energy 0.5 MeV
+...for gamma energy 0.6 MeV
+...for gamma energy 0.8 MeV
+...for gamma energy 1.0 MeV
+...for gamma energy 1.5 MeV
+...for gamma energy 2.0 MeV
+#3 is being calculated
+Distance travelled to detector D is being calculated
+Contribution to detector D is calculated...
+...for gamma energy 0.5 MeV
+...for gamma energy 0.6 MeV
+...for gamma energy 0.8 MeV
+...for gamma energy 1.0 MeV
+...for gamma energy 1.5 MeV
+...for gamma energy 2.0 MeV
+#4 is being calculated
+Distance travelled to detector D is being calculated
+Contribution to detector D is calculated...
+...for gamma energy 0.5 MeV
+...for gamma energy 0.6 MeV
+...for gamma energy 0.8 MeV
+...for gamma energy 1.0 MeV
+...for gamma energy 1.5 MeV
+...for gamma energy 2.0 MeV
+#5 is being calculated
+Distance travelled to detector D is being calculated
+Contribution to detector D is calculated...
+...for gamma energy 0.5 MeV
+...for gamma energy 0.6 MeV
+...for gamma energy 0.8 MeV
+...for gamma energy 1.0 MeV
+...for gamma energy 1.5 MeV
+...for gamma energy 2.0 MeV
+#6 is being calculated
+Distance travelled to detector D is being calculated
+Contribution to detector D is calculated...
+...for gamma energy 0.5 MeV
+...for gamma energy 0.6 MeV
+...for gamma energy 0.8 MeV
+...for gamma energy 1.0 MeV
+...for gamma energy 1.5 MeV
+...for gamma energy 2.0 MeV
+#7 is being calculated
+Distance travelled to detector D is being calculated
+Contribution to detector D is calculated...
+...for gamma energy 0.5 MeV
+...for gamma energy 0.6 MeV
+...for gamma energy 0.8 MeV
+...for gamma energy 1.0 MeV
+...for gamma energy 1.5 MeV
+...for gamma energy 2.0 MeV
+#8 is being calculated
+Distance travelled to detector D is being calculated
+Contribution to detector D is calculated...
+...for gamma energy 0.5 MeV
+...for gamma energy 0.6 MeV
+...for gamma energy 0.8 MeV
+...for gamma energy 1.0 MeV
+...for gamma energy 1.5 MeV
+...for gamma energy 2.0 MeV
+#9 is being calculated
+Distance travelled to detector D is being calculated
+Contribution to detector D is calculated...
+...for gamma energy 0.5 MeV
+...for gamma energy 0.6 MeV
+...for gamma energy 0.8 MeV
+...for gamma energy 1.0 MeV
+...for gamma energy 1.5 MeV
+...for gamma energy 2.0 MeV
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">ex1rand</span><span class="o">.</span><span class="n">elines</span><span class="p">,</span><span class="n">ex1rand</span><span class="o">.</span><span class="n">geomEffAve</span><span class="p">,</span><span class="mi">3</span><span class="o">*</span><span class="n">ex1rand</span><span class="o">.</span><span class="n">geomEffAveErr</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ex1</span><span class="o">.</span><span class="n">elines</span><span class="p">,</span><span class="n">ex1</span><span class="o">.</span><span class="n">geomEffAve</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Energy (MeV)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Efficiency (1/particle)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="images/ex1_2x2fuel_28_0.png" src="images/ex1_2x2fuel_28_0.png" />
 </div>
 </div>
 <div class="nbinput nblast docutils container">
@@ -605,6 +763,7 @@ D
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">2x2 fuel assembly</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ex2_2x2fuel_with_absorber_collimator.html">2x2 fuel assembly with absorber and collimator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex3_17x17PWR_at_Clab.html">17x17 PWR assembly at Clab</a></li>
 </ul>
 <p class="caption"><span class="caption-text">API documentation</span></p>
 <ul>
