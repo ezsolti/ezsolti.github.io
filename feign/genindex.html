@@ -69,10 +69,10 @@
 </li>
       <li><a href="experiment.html#feign.blocks.Experiment.add_absorber">add_absorber() (feign.blocks.Experiment method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="experiment.html#feign.blocks.Experiment.add_detector">add_detector() (feign.blocks.Experiment method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="experiment.html#feign.blocks.Experiment.add_material">add_material() (feign.blocks.Experiment method)</a>
 </li>
       <li><a href="assembly.html#feign.blocks.Assembly.add_pin">add_pin() (feign.blocks.Assembly method)</a>
@@ -82,6 +82,8 @@
       <li><a href="assembly.html#feign.blocks.Assembly">Assembly (class in feign.blocks)</a>
 </li>
       <li><a href="experiment.html#feign.blocks.Experiment.assembly">assembly (feign.blocks.Experiment attribute)</a>
+</li>
+      <li><a href="experiment.html#feign.blocks.Experiment.attenuation">attenuation() (feign.blocks.Experiment method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -111,8 +113,6 @@
 </li>
       <li><a href="collimator.html#feign.blocks.Collimator">Collimator (class in feign.blocks)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="detector.html#feign.blocks.Detector.collimator">collimator (feign.blocks.Detector attribute)</a>
 </li>
       <li><a href="collimator.html#feign.blocks.Collimator.color">color (feign.blocks.Collimator attribute)</a>
@@ -121,9 +121,19 @@
         <li><a href="material.html#feign.blocks.Material.color">(feign.blocks.Material attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="experiment.html#feign.blocks.Experiment.contributionMap">contributionMap (feign.blocks.Experiment attribute)</a>
 </li>
       <li><a href="experiment.html#feign.blocks.Experiment.contributionMapAve">contributionMapAve (feign.blocks.Experiment attribute)</a>
+</li>
+      <li><a href="experiment.html#feign.blocks.Experiment.contributionMapAveErr">contributionMapAveErr (feign.blocks.Experiment attribute)</a>
+</li>
+      <li><a href="experiment.html#feign.blocks.Experiment.contributionMapAves">contributionMapAves (feign.blocks.Experiment attribute)</a>
+</li>
+      <li><a href="experiment.html#feign.blocks.Experiment.contributionMapErr">contributionMapErr (feign.blocks.Experiment attribute)</a>
+</li>
+      <li><a href="experiment.html#feign.blocks.Experiment.contributionMaps">contributionMaps (feign.blocks.Experiment attribute)</a>
 </li>
       <li><a href="assembly.html#feign.blocks.Assembly.coolant">coolant (feign.blocks.Assembly attribute)</a>
 </li>
@@ -141,15 +151,19 @@
 </li>
       <li><a href="experiment.html#feign.blocks.Experiment.detectors">detectors (feign.blocks.Experiment attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="detector.html#feign.blocks.Detector.detID">detID (feign.blocks.Detector attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="point.html#feign.geometry.Point.distance">distance() (feign.geometry.Point method)</a>
 </li>
       <li><a href="experiment.html#feign.blocks.Experiment.distanceTravelled">distanceTravelled() (feign.blocks.Experiment method)</a>
 </li>
       <li><a href="experiment.html#feign.blocks.Experiment.dTmap">dTmap (feign.blocks.Experiment attribute)</a>
+</li>
+      <li><a href="experiment.html#feign.blocks.Experiment.dTmapErr">dTmapErr (feign.blocks.Experiment attribute)</a>
+</li>
+      <li><a href="experiment.html#feign.blocks.Experiment.dTmaps">dTmaps (feign.blocks.Experiment attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -191,9 +205,17 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="experiment.html#feign.blocks.Experiment.geomEff">geomEff (feign.blocks.Experiment attribute)</a>
 </li>
+      <li><a href="experiment.html#feign.blocks.Experiment.geomEffAve">geomEffAve (feign.blocks.Experiment attribute)</a>
+</li>
+      <li><a href="experiment.html#feign.blocks.Experiment.geomEffAveErr">geomEffAveErr (feign.blocks.Experiment attribute)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="experiment.html#feign.blocks.Experiment.geomEffAve">geomEffAve (feign.blocks.Experiment attribute)</a>
+      <li><a href="experiment.html#feign.blocks.Experiment.geomEffAves">geomEffAves (feign.blocks.Experiment attribute)</a>
+</li>
+      <li><a href="experiment.html#feign.blocks.Experiment.geomEffErr">geomEffErr (feign.blocks.Experiment attribute)</a>
+</li>
+      <li><a href="experiment.html#feign.blocks.Experiment.geomEffs">geomEffs (feign.blocks.Experiment attribute)</a>
 </li>
       <li><a href="experiment.html#feign.blocks.Experiment.get_MuTable">get_MuTable() (feign.blocks.Experiment method)</a>
 </li>
@@ -393,10 +415,10 @@
 </li>
       <li><a href="collimator.html#feign.blocks.Collimator.set_front">set_front() (feign.blocks.Collimator method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="assembly.html#feign.blocks.Assembly.set_fuelmap">set_fuelmap() (feign.blocks.Assembly method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="detector.html#feign.blocks.Detector.set_location">set_location() (feign.blocks.Detector method)</a>
 </li>
       <li><a href="absorber.html#feign.blocks.Absorber.set_material">set_material() (feign.blocks.Absorber method)</a>
@@ -413,6 +435,8 @@
 </li>
       <li><a href="assembly.html#feign.blocks.Assembly.set_pool">set_pool() (feign.blocks.Assembly method)</a>
 </li>
+      <li><a href="experiment.html#feign.blocks.Experiment.set_random">set_random() (feign.blocks.Experiment method)</a>
+</li>
       <li><a href="assembly.html#feign.blocks.Assembly.set_source">set_source() (feign.blocks.Assembly method)</a>
 </li>
       <li><a href="assembly.html#feign.blocks.Assembly.set_surrounding">set_surrounding() (feign.blocks.Assembly method)</a>
@@ -422,6 +446,8 @@
       <li><a href="segment.html#feign.geometry.Segment.slope">slope (feign.geometry.Segment attribute)</a>
 </li>
       <li><a href="assembly.html#feign.blocks.Assembly.source">source (feign.blocks.Assembly attribute)</a>
+</li>
+      <li><a href="experiment.html#feign.blocks.Experiment.sourcePoints">sourcePoints (feign.blocks.Experiment attribute)</a>
 </li>
       <li><a href="assembly.html#feign.blocks.Assembly.surrounding">surrounding (feign.blocks.Assembly attribute)</a>
 </li>

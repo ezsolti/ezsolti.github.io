@@ -1,6 +1,11 @@
 Getting started with feign
 =============================
 
+Units
+-----
+
+All length is in cm, densities in g/cm3, energy in MeV.
+
 Import feign modules
 --------------------
 
@@ -15,5 +20,6 @@ The best is to include everything.
 Creating an Experimental setup
 ------------------------------
 
-In order to create a setup.
+In order to create a setup, one needs to describe the materials included in the setup, the fuel pins included in the assembly, and
+the assembly itself. Finally, one needs to add detector locations, and optionally absorber elements. 
 

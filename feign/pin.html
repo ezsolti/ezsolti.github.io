@@ -38,7 +38,7 @@
 </div>
 <dl class="class">
 <dt id="feign.blocks.Pin">
-<em class="property">class </em><code class="sig-prename descclassname">feign.blocks.</code><code class="sig-name descname">Pin</code><span class="sig-paren">(</span><em class="sig-param">pinID=None</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Pin" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">feign.blocks.</code><code class="sig-name descname">Pin</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#feign.blocks.Pin" title="Permalink to this definition">¶</a></dt>
 <dd><p>A class used to represent a Pin.
 With <a class="reference internal" href="#feign.blocks.Pin.add_region" title="feign.blocks.Pin.add_region"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Pin.add_region()</span></code></a> coaxial circles can be  added to describe
 the content (eg. fuel pellet, helium gap, clad).
@@ -63,7 +63,7 @@ filled with the coolant material.</p>
 <dl class="attribute">
 <dt id="feign.blocks.Pin.regions">
 <code class="sig-name descname">regions</code><a class="headerlink" href="#feign.blocks.Pin.regions" title="Permalink to this definition">¶</a></dt>
-<dd><p>(Material, radius) pairs to describe coaxial regions within pin.</p>
+<dd><p>(Material, radius) pairs to describe coaxial regions within pin, radius in cm.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>list of tuples</p>
@@ -85,7 +85,7 @@ filled with the coolant material.</p>
 <dl class="attribute">
 <dt id="feign.blocks.Pin.radii">
 <code class="sig-name descname">radii</code><a class="headerlink" href="#feign.blocks.Pin.radii" title="Permalink to this definition">¶</a></dt>
-<dd><p>list of radii of regions within the pin</p>
+<dd><p>list of radii of regions within the pin, radii in cm</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>list of floats</p>
