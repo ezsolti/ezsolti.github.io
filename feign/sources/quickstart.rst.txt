@@ -25,29 +25,23 @@ Let's consider a simple example as below: there is a 4x4 assembly, the pins are 
 
 .. image:: rayDemo.png
 
-After doing this for each pin, it is possible to build a traveled distance map, which is represented in the code as a dictionary. The keys are material identifiers and the values are matrices describing the pin-wise traveled distance through the given material. Based on this traveled distance maps and on the total attenuation coefficients of the materials, it is possible to compute a contribution map. Contribution here means the probability that a ray emitted from a certain pin will hit the detector, such as
+After doing this for each pin, it is possible to build a traveled distance map, which is represented in the code as a dictionary. The keys are material identifiers and the values are matrices describing the pin-wise traveled distance through the given material. Based on these traveled distance maps and on the total attenuation coefficients of the materials, it is possible to compute a contribution map. Contribution here means the probability that a ray emitted from a certain pin will hit the detector, such as
 
 .. math::
 
    \frac{1}{4\pi R_{i}^2}\prod\limits_m e^{-\mu_m(E) d_{i,m}}
 
-for each energy :math:`E` requested by the user that a gamma-ray emitted from position :math:`i` hits the detector without collision. Where :math:`R_i` is the distance between the source position and the detector, :math:`\mu_m` is the total attenuation coefficient of material :math`m` and :math:`d_{i,m}` is the distance traveled by a gamma-ray emitted from position :math`i` through material :math:`m`.
+is this probability for each energy :math:`E` requested by the user that a gamma-ray emitted from position :math:`i` hits the detector without collision. Where :math:`R_i` is the distance between the source position and the detector, :math:`\mu_m` is the total attenuation coefficient of material :math:`m` and :math:`d_{i,m}` is the distance traveled by a gamma-ray emitted from position :math:`i` through material :math:`m`. In the above example, for the selected pin this probability would be 
 
+.. math::
 
-Import feign modules
---------------------
+   \frac{1}{4\pi (d_f+d_w)^2}\cdot e^{-\mu_f(E) d_{f}}\cdot e^{-\mu_w(E) d_{w}}
 
-The best is to include everything.
+The average of all these pin-wise probabilities is results in the geometric efficiency (in :math:`\frac{1}{\rm particle}` units) of the experimental setup.
 
-.. code-block:: python
+However, emitting a ray from the middle of the pin is not necessarily a valid approximation. Thus, ``feign`` allows for setting how many random source points should be sampled from each pin. In this case the code is able to calculate an average geometric efficiency and its standard deviation.
 
-   from feign.geometry import *
-   from feign.blocks import *
+Usage
+-----
 
-
-Creating an Experimental setup
-------------------------------
-
-In order to create a setup, one needs to describe the materials included in the setup, the fuel pins included in the assembly, and
-the assembly itself. Finally, one needs to add detector locations, and optionally absorber elements. 
-
+Several well-documented notebooks will guide you under the Examples. The examples describe how to build simple or more complicated experimental setups, and how to visualize the traveled distance maps, the contribution maps and the geometric efficiency.
