@@ -44,7 +44,7 @@
 <div class="section" id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
 <p>Several well-documented notebooks will guide you under the Examples. The examples describe how to build simple or more complicated experimental setups, and how to visualize the traveled distance maps, the contribution maps and the geometric efficiency.</p>
-<p>Here the input of a simple 4x4 assembly can be found, which is discussed also in <a class="reference internal" href="#working-principle">Working principle</a>. The pins are fuel rods without any cladding (material f) surrounded by water (material w). The example assumes that you have managed to install <code class="docutils literal notranslate"><span class="pre">feign</span></code> and obtain some data files after following the instructions at the <a class="reference external" href="https://ezsolti.github.io/feign/installation.html">Installation page</a></p>
+<p>In the following, an input of a simple 4x4 assembly is described. The same geometry is used as an example in <a class="reference internal" href="#working-principle">Working principle</a>. The pins are fuel rods without any cladding (material f) surrounded by water (material w). The example assumes that you have managed to install <code class="docutils literal notranslate"><span class="pre">feign</span></code> and to obtain some data files after following the instructions at the <a class="reference external" href="https://ezsolti.github.io/feign/installation.html">Installation page</a></p>
 <p>First, one needs to import the feign modules.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">feign.geometry</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">feign.blocks</span> <span class="kn">import</span> <span class="o">*</span>
@@ -62,22 +62,51 @@
 </div>
 <p>Then, the pin types can be defined. Each pin has a unique identifier (used later to describe the fuelmap), and with the <code class="xref py py-meth docutils literal notranslate"><span class="pre">Pin.add_region()</span></code> we can create nested annular material regions.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fuel</span><span class="o">=</span><span class="n">Pin</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
-<span class="n">fuel</span><span class="o">.</span><span class="n">add_region</span><span class="p">(</span><span class="n">uo2</span><span class="p">,</span><span class="mf">0.5</span><span class="p">)</span> <span class="c1">#cm</span>
+<span class="n">fuel</span><span class="o">.</span><span class="n">add_region</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="mf">0.5</span><span class="p">)</span> <span class="c1">#cm</span>
 </pre></div>
 </div>
-<p>Based on the pins we can create a rectangular assembly. This requires to describe the size of the lattice upon initialization, set the lattice pitch size, the source material (or materials), the coolant material (what is around the nested annular regions), and the fuelmap.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">assy</span><span class="o">=</span><span class="n">Assembly</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<p>Based on the pins we can create a rectangular assembly. This requires to describe the size of the lattice upon initialization, set the lattice pitch size, the source material (or materials), the coolant material (what is around the nested annular regions), and the fuelmap. The elements of the fuelmap are the identifiers used at the definition of Pin() objects.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">assy</span><span class="o">=</span><span class="n">Assembly</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
 <span class="n">assy</span><span class="o">.</span><span class="n">set_pitch</span><span class="p">(</span><span class="mf">1.3</span><span class="p">)</span>
 <span class="n">assy</span><span class="o">.</span><span class="n">set_source</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 <span class="n">assy</span><span class="o">.</span><span class="n">set_coolant</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
 <span class="n">assy</span><span class="o">.</span><span class="n">set_pins</span><span class="p">(</span><span class="n">fuel</span><span class="p">)</span>
 
-<span class="n">fuelmap</span><span class="o">=</span><span class="p">[[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="s1">&#39;1&#39;</span><span class="p">],</span>
-         <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="s1">&#39;1&#39;</span><span class="p">]]</span>
+<span class="n">fuelmap</span><span class="o">=</span><span class="p">[[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="s1">&#39;1&#39;</span><span class="p">],</span>
+         <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="s1">&#39;1&#39;</span><span class="p">],</span>
+         <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="s1">&#39;1&#39;</span><span class="p">],</span>
+         <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="s1">&#39;1&#39;</span><span class="p">]]</span>
 
 <span class="n">assy</span><span class="o">.</span><span class="n">set_fuelmap</span><span class="p">(</span><span class="n">fuelmap</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>At least one detector point needs to be defined in the problem. Each detector has an identifier, and a location has to be set. A Point() object (from the feign.geometry module) is used for this.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">det</span><span class="o">=</span><span class="n">Detector</span><span class="p">(</span><span class="s1">&#39;D&#39;</span><span class="p">)</span>
+<span class="n">det</span><span class="o">.</span><span class="n">set_location</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Optinally one may create Collimator() objects and assign them to detectors. Also, one may create Absorber() objects. Then, we have to create an Experiment() objects, and link all the previousl created objects to that.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ex</span><span class="o">=</span><span class="n">Experiment</span><span class="p">()</span>
+<span class="n">ex</span><span class="o">.</span><span class="n">set_assembly</span><span class="p">(</span><span class="n">assy</span><span class="p">)</span>
+<span class="n">ex</span><span class="o">.</span><span class="n">set_detectors</span><span class="p">(</span><span class="n">det</span><span class="p">)</span>
+<span class="n">ex</span><span class="o">.</span><span class="n">set_materials</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">w</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If the user is interested only in the traveled distance maps (as described in <a class="reference internal" href="#working-principle">Working principle</a>), then the input is done, and the <code class="xref py py-meth docutils literal notranslate"><span class="pre">Experiment.Run()</span></code> method can be called. However, if the geometric efficiency is also of interest, one needs to set energy lines at which the efficiency should be evaluated. The definition is done by a list of strings, because later these are used as keys for the dictionaries storing the pin-wise contribution maps.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">elines</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;0.6&#39;</span><span class="p">,</span><span class="s1">&#39;0.8&#39;</span><span class="p">,</span><span class="s1">&#39;1.5&#39;</span><span class="p">,</span><span class="s1">&#39;2.0&#39;</span><span class="p">]</span>
+<span class="n">ex</span><span class="o">.</span><span class="n">set_elines</span><span class="p">(</span><span class="n">elines</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We could set optional things, for example the output file to store the geometric efficiency. But at this point everything is set to perform the calculation.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ex</span><span class="o">.</span><span class="n">Run</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>In this case the source points will be the center of the pins. However, that might not be a valid approximation for many cases. This one can set the number of random source locations per pin. Of course, this will make the computational time longer (the time scales roughly linearly with the number of random sites per pin).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ex</span><span class="o">.</span><span class="n">set_random</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ex</span><span class="o">.</span><span class="n">Run</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Upon running the <code class="xref py py-meth docutils literal notranslate"><span class="pre">Experiment.Run()</span></code> method a bunch of attributes of the object are updated and filled with results. The visualisation of these results is shown in the Examples.</p>
 </div>
 <div class="section" id="working-principle">
 <h2>Working principle<a class="headerlink" href="#working-principle" title="Permalink to this headline">¶</a></h2>
