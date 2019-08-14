@@ -17,13 +17,13 @@ Getting data
 
 Mass attenuation coefficients can be obtained from the `XCOM webpage
 <https://physics.nist.gov/PhysRefData/Xcom/html/xcom1.html>`_, or by downloading the `XCOM software
-<https://physics.nist.gov/PhysRefData/Xcom/Text/download.html>`_. 
-Test data is pre-prepared for some common
-materials in passive gamma spectroscopy (uranium-dioxid, water, air, lead, aluminium, copper, stainless steel).
+<https://physics.nist.gov/PhysRefData/Xcom/Text/download.html>`_. When creating your own datafiles, do not
+forget to include an energy grid which covers your energy region of interest, because ``feign`` is unable to
+extrapolate the mass attenuation coefficients. Also try to use a reasonably dense energy grid which can catch the energy
+dependence of the mass attenuation coefficient, otherwise the interpolation will not be a decent approximation.
 
+Test data files are also available at `feign's github repo
+<https://github.com/ezsolti/feign/tree/master/data>`_. Mass attenuation coefficients are there for some materials common in passive gamma spectroscopy of nuclear fuel (uranium-dioxid, water, air, lead, aluminium, copper, stainless steel). Save these files to your prefarred location and include the paths when creating Material() objects.
 
-.. code-block:: bash
-
-    https://github.com/ezsolti/feign/dataFin/zipball/master
 
 
