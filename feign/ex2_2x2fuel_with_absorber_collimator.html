@@ -273,12 +273,12 @@ div.rendered_html tbody tr:hover {
 <span class="n">lead</span><span class="o">=</span><span class="n">Material</span><span class="p">(</span><span class="s1">&#39;6&#39;</span><span class="p">)</span>
 <span class="n">lead</span><span class="o">.</span><span class="n">set_density</span><span class="p">(</span><span class="mf">11.34</span><span class="p">)</span>
 
-<span class="n">uo2</span><span class="o">.</span><span class="n">set_path</span><span class="p">((</span><span class="s1">&#39;/dataFin/UO2.dat&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
-<span class="n">he</span><span class="o">.</span><span class="n">set_path</span><span class="p">((</span><span class="s1">&#39;/dataFin/He.dat&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
-<span class="n">zr</span><span class="o">.</span><span class="n">set_path</span><span class="p">((</span><span class="s1">&#39;/dataFin/Zr.dat&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
-<span class="n">h2o</span><span class="o">.</span><span class="n">set_path</span><span class="p">((</span><span class="s1">&#39;/dataFin/H2O.dat&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
-<span class="n">air</span><span class="o">.</span><span class="n">set_path</span><span class="p">((</span><span class="s1">&#39;/dataFin/Air.dat&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
-<span class="n">lead</span><span class="o">.</span><span class="n">set_path</span><span class="p">((</span><span class="s1">&#39;/dataFin/Pb.dat&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">uo2</span><span class="o">.</span><span class="n">set_path</span><span class="p">((</span><span class="s1">&#39;/data/UO2.dat&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">he</span><span class="o">.</span><span class="n">set_path</span><span class="p">((</span><span class="s1">&#39;/data/He.dat&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">zr</span><span class="o">.</span><span class="n">set_path</span><span class="p">((</span><span class="s1">&#39;/data/Zr.dat&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">h2o</span><span class="o">.</span><span class="n">set_path</span><span class="p">((</span><span class="s1">&#39;/data/H2O.dat&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">air</span><span class="o">.</span><span class="n">set_path</span><span class="p">((</span><span class="s1">&#39;/data/Air.dat&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">lead</span><span class="o">.</span><span class="n">set_path</span><span class="p">((</span><span class="s1">&#39;/data/Pb.dat&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -401,7 +401,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <p>When we run the experiment, we do not get any warnings, because everything is set.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -428,10 +428,10 @@ Contribution to detector D is calculated...
 </div>
 <div class="section" id="Plotting-the-results">
 <h2>Plotting the results<a class="headerlink" href="#Plotting-the-results" title="Permalink to this headline">¶</a></h2>
-<p>First let’s just print the distance travelled by the ray to the detector. from each pin We would expect, that two pins are not seen by the detector due to the collimator. Indeed we see that the ray emitted from those pins travel infinite distance.</p>
+<p>First let’s just print the distance travelled by the ray to the detector. from each pin We would expect, that two pins are not seen by the detector due to the collimator.</p>
 <p>Visualizing the data is not that interesting for this example.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -440,7 +440,7 @@ Contribution to detector D is calculated...
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -450,7 +450,7 @@ Contribution to detector D is calculated...
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -502,7 +502,7 @@ Contribution to detector D is calculated...
 <div class="section" id="Geometric-efficiency-and-pinwise-contribution">
 <h2>Geometric efficiency and pinwise contribution<a class="headerlink" href="#Geometric-efficiency-and-pinwise-contribution" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -522,7 +522,7 @@ Contribution to detector D is calculated...
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -590,6 +590,9 @@ Contribution to detector D is calculated...
 <li class="toctree-l1"><a class="reference internal" href="ex1_2x2fuel.html">2x2 fuel assembly</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">2x2 fuel assembly with absorber and collimator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ex3_17x17PWR_at_Clab.html">17x17 PWR assembly at Clab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex4_8x8BWR_at_Clab.html">8x8 BWR assembly at Clab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex5_5x3trial_at_Clab.html">5x3, 6x3, 6x4 assemblies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex6_set-add-remove.html">Set, add, remove</a></li>
 </ul>
 <p class="caption"><span class="caption-text">API documentation</span></p>
 <ul>

@@ -344,6 +344,28 @@ detectors.</p>
 </dl>
 </dd></dl>
 
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>While computing the travelled distance, if the ray does not pass through the
+collimator, np.Inf is set in the given traveled distance map for the given position. This is useful,
+because the the probability of travelling infinite distance is zero, thus in the related
+contribution map, at the same location 0.0 will be found.
+If the geometry is so that rays emitted from any location from a pin will not pass through
+the collimator, than the mean traveled map (<a class="reference internal" href="#feign.blocks.Experiment.dTmap" title="feign.blocks.Experiment.dTmap"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Experiment.dTmap</span></code></a>) will have np.Inf at
+that location (which is correct since the mean of many infinities is infinity) and the
+the standard deviation will be 0.0 (which is again correct).
+However, in cases when rays emitted from some location in a pin pass through the collimator, whereas
+from some other locations in a pin they do not pass through, the mean traveled distance
+(<a class="reference internal" href="#feign.blocks.Experiment.dTmap" title="feign.blocks.Experiment.dTmap"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Experiment.dTmap</span></code></a>) and the standard deviation of the travelled distance (<a class="reference internal" href="#feign.blocks.Experiment.dTmapErr" title="feign.blocks.Experiment.dTmapErr"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Experiment.dTmapErr</span></code></a>)
+become meaningless at such pin positions. (This could be a situation when the collimator slit is
+narrower than the size of the pins). The reason is that the mean of something and infinity will become
+infinity as well. Also, for the standard deviation calculation the np.Inf values are set to 0.0,
+otherwise the map location would be filled with NaN.
+For these cases one might analyse the list of travelled distances (<a class="reference internal" href="#feign.blocks.Experiment.dTmap" title="feign.blocks.Experiment.dTmap"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Experiment.dTmap</span></code></a>) and
+the list of source locations (<a class="reference internal" href="#feign.blocks.Experiment.sourcePoints" title="feign.blocks.Experiment.sourcePoints"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Experiment.sourcePoints</span></code></a>).
+Nevertheless, the contribution maps and the geometric efficiency is correctly calculated even in
+these situations!</p>
+</div>
 <p class="rubric">Examples</p>
 <p>Examples of plotting attributes can be found at <a class="reference external" href="https://github.com/ezsolti/feign/blob/master/examples/ex1_2x2fuel.ipynb">https://github.com/ezsolti/feign/blob/master/examples/ex1_2x2fuel.ipynb</a></p>
 <dl class="method">
@@ -579,7 +601,7 @@ already has previously included absorbers.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">absorbers</span>
 <span class="go">{&#39;leadsheet&#39;: Absorber(absID=leadsheet)}</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">remove_absorber</span><span class="p">(</span><span class="n">alusheet</span><span class="p">)</span>
-<span class="go">You can remove only existing Absorber()</span>
+<span class="go">ID alusheet is not in dict yet</span>
 </pre></div>
 </div>
 <dl class="field-list simple">
@@ -613,7 +635,7 @@ already has previously included detectors.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">detectors</span>
 <span class="go">{&#39;F5&#39;: Detector(detID=F5)}</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">remove_detector</span><span class="p">(</span><span class="n">F15</span><span class="p">)</span>
-<span class="go">You can remove only existing Detector()</span>
+<span class="go">ID F15 is not in dict yet</span>
 </pre></div>
 </div>
 <dl class="field-list simple">
@@ -647,7 +669,7 @@ already has previously included materials.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">materials</span>
 <span class="go">{&#39;1&#39;: Material(matID=1)}</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span><span class="o">.</span><span class="n">remove_material</span><span class="p">(</span><span class="n">zr</span><span class="p">)</span>
-<span class="go">You can remove only existing Material()</span>
+<span class="go">ID 2 is not in dict yet</span>
 </pre></div>
 </div>
 <dl class="field-list simple">
@@ -834,6 +856,9 @@ calculated</p>
 <li class="toctree-l1"><a class="reference internal" href="ex1_2x2fuel.html">2x2 fuel assembly</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ex2_2x2fuel_with_absorber_collimator.html">2x2 fuel assembly with absorber and collimator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ex3_17x17PWR_at_Clab.html">17x17 PWR assembly at Clab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex4_8x8BWR_at_Clab.html">8x8 BWR assembly at Clab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex5_5x3trial_at_Clab.html">5x3, 6x3, 6x4 assemblies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex6_set-add-remove.html">Set, add, remove</a></li>
 </ul>
 <p class="caption"><span class="caption-text">API documentation</span></p>
 <ul class="current">

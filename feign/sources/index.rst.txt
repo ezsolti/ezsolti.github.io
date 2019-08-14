@@ -22,6 +22,8 @@ Contents
    installation.rst
    quickstart.rst
 
+Examples
+--------
 .. toctree::
    :maxdepth: 1
    :caption: Examples
@@ -30,6 +32,9 @@ Contents
    ex1_2x2fuel.ipynb 
    ex2_2x2fuel_with_absorber_collimator.ipynb
    ex3_17x17PWR_at_Clab.ipynb
+   ex4_8x8BWR_at_Clab.ipynb
+   ex5_5x3trial_at_Clab.ipynb
+   ex6_set-add-remove.ipynb
 
 .. toctree::
    :maxdepth: 1

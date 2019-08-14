@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>17x17 PWR assembly at Clab &#8212; feign 1.0.0 documentation</title>
+    <title>8x8 BWR assembly at Clab &#8212; feign 1.0.0 documentation</title>
     <link rel="stylesheet" href="static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="static/documentation_options.js"></script>
@@ -14,8 +14,8 @@
     <script type="text/javascript" src="static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="8x8 BWR assembly at Clab" href="ex4_8x8BWR_at_Clab.html" />
-    <link rel="prev" title="2x2 fuel assembly with absorber and collimator" href="ex2_2x2fuel_with_absorber_collimator.html" />
+    <link rel="next" title="5x3, 6x3, 6x4 assemblies" href="ex5_5x3trial_at_Clab.html" />
+    <link rel="prev" title="17x17 PWR assembly at Clab" href="ex3_17x17PWR_at_Clab.html" />
    
   <link rel="stylesheet" href="static/custom.css" type="text/css" />
   
@@ -232,9 +232,9 @@ div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
 </style>
-<div class="section" id="17x17-PWR-assembly-at-Clab">
-<h1>17x17 PWR assembly at Clab<a class="headerlink" href="#17x17-PWR-assembly-at-Clab" title="Permalink to this headline">¶</a></h1>
-<p>This example describes a 17x17 PWR assembly being measured at the Clab storage facility in Sweden. Two detectors will be added to the example, one with absorbers in front of it, and one without.</p>
+<div class="section" id="8x8-BWR-assembly-at-Clab">
+<h1>8x8 BWR assembly at Clab<a class="headerlink" href="#8x8-BWR-assembly-at-Clab" title="Permalink to this headline">¶</a></h1>
+<p>This example is basically the same as the previous one, the only difference is that an 8x8 BWR assembly is being measured at the Clab storage facility in Sweden. There will be one detector with absorbers in front of it.</p>
 <p>We compare a case when the source locations are the center of the pins and an other case when 10 source locations are selected randomly in each pin.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
@@ -299,7 +299,7 @@ div.rendered_html tbody tr:hover {
 <p>There are two types of pins in the assembly:</p>
 <ul class="simple">
 <li><p>fuel pins</p></li>
-<li><p>empty control rod guide tubes</p></li>
+<li><p>empty water channel</p></li>
 </ul>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
@@ -307,13 +307,13 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">fuel</span><span class="o">=</span><span class="n">Pin</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
-<span class="n">fuel</span><span class="o">.</span><span class="n">add_region</span><span class="p">(</span><span class="n">uo2</span><span class="p">,</span><span class="mf">0.41</span><span class="p">)</span>
-<span class="n">fuel</span><span class="o">.</span><span class="n">add_region</span><span class="p">(</span><span class="n">he</span><span class="p">,</span><span class="mf">0.42</span><span class="p">)</span>
-<span class="n">fuel</span><span class="o">.</span><span class="n">add_region</span><span class="p">(</span><span class="n">zr</span><span class="p">,</span><span class="mf">0.48</span><span class="p">)</span>
+<span class="n">fuel</span><span class="o">.</span><span class="n">add_region</span><span class="p">(</span><span class="n">uo2</span><span class="p">,</span><span class="mf">0.52</span><span class="p">)</span>
+<span class="n">fuel</span><span class="o">.</span><span class="n">add_region</span><span class="p">(</span><span class="n">he</span><span class="p">,</span><span class="mf">0.53</span><span class="p">)</span>
+<span class="n">fuel</span><span class="o">.</span><span class="n">add_region</span><span class="p">(</span><span class="n">zr</span><span class="p">,</span><span class="mf">0.615</span><span class="p">)</span>
 
-<span class="n">rodguide</span><span class="o">=</span><span class="n">Pin</span><span class="p">(</span><span class="s1">&#39;3&#39;</span><span class="p">)</span>
-<span class="n">rodguide</span><span class="o">.</span><span class="n">add_region</span><span class="p">(</span><span class="n">h2o</span><span class="p">,</span><span class="mf">0.42</span><span class="p">)</span>
-<span class="n">rodguide</span><span class="o">.</span><span class="n">add_region</span><span class="p">(</span><span class="n">zr</span><span class="p">,</span><span class="mf">0.48</span><span class="p">)</span>
+<span class="n">waterchannel</span><span class="o">=</span><span class="n">Pin</span><span class="p">(</span><span class="s1">&#39;3&#39;</span><span class="p">)</span>
+<span class="n">waterchannel</span><span class="o">.</span><span class="n">add_region</span><span class="p">(</span><span class="n">h2o</span><span class="p">,</span><span class="mf">0.53</span><span class="p">)</span>
+<span class="n">waterchannel</span><span class="o">.</span><span class="n">add_region</span><span class="p">(</span><span class="n">zr</span><span class="p">,</span><span class="mf">0.615</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -327,34 +327,25 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">pwrOrig</span><span class="o">=</span><span class="n">Assembly</span><span class="p">(</span><span class="mi">17</span><span class="p">,</span><span class="mi">17</span><span class="p">)</span>
-<span class="n">pwrOrig</span><span class="o">.</span><span class="n">set_pitch</span><span class="p">(</span><span class="mf">1.26</span><span class="p">)</span>
-<span class="n">pwrOrig</span><span class="o">.</span><span class="n">set_source</span><span class="p">(</span><span class="n">uo2</span><span class="p">)</span>
-<span class="n">pwrOrig</span><span class="o">.</span><span class="n">set_coolant</span><span class="p">(</span><span class="n">h2o</span><span class="p">)</span>
-<span class="n">pwrOrig</span><span class="o">.</span><span class="n">set_surrounding</span><span class="p">(</span><span class="n">air</span><span class="p">)</span>
-<span class="n">pwrOrig</span><span class="o">.</span><span class="n">set_pins</span><span class="p">(</span><span class="n">fuel</span><span class="p">,</span><span class="n">rodguide</span><span class="p">)</span>
+<span></span><span class="n">bwrOrig</span><span class="o">=</span><span class="n">Assembly</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">bwrOrig</span><span class="o">.</span><span class="n">set_pitch</span><span class="p">(</span><span class="mf">1.62</span><span class="p">)</span>
+<span class="n">bwrOrig</span><span class="o">.</span><span class="n">set_source</span><span class="p">(</span><span class="n">uo2</span><span class="p">)</span>
+<span class="n">bwrOrig</span><span class="o">.</span><span class="n">set_coolant</span><span class="p">(</span><span class="n">h2o</span><span class="p">)</span>
+<span class="n">bwrOrig</span><span class="o">.</span><span class="n">set_surrounding</span><span class="p">(</span><span class="n">air</span><span class="p">)</span>
+<span class="n">bwrOrig</span><span class="o">.</span><span class="n">set_pins</span><span class="p">(</span><span class="n">fuel</span><span class="p">,</span><span class="n">waterchannel</span><span class="p">)</span>
 
-<span class="n">fuelmap</span><span class="o">=</span> <span class="p">[[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">],</span>
-          <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">],</span>
-          <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">],</span>
-          <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">],</span>
-          <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">],</span>
-          <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">],</span>
-          <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">],</span>
-          <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">],</span>
-          <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">],</span>
-          <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">],</span>
-          <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">],</span>
-          <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">],</span>
-          <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">],</span>
-          <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">],</span>
-          <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">],</span>
-          <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">],</span>
-          <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">]]</span>
+<span class="n">fuelmap</span><span class="o">=</span> <span class="p">[[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">],</span>
+          <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">],</span>
+          <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">],</span>
+          <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">],</span>
+          <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">],</span>
+          <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">],</span>
+          <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">],</span>
+          <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">]]</span>
 
-<span class="n">pwrOrig</span><span class="o">.</span><span class="n">set_fuelmap</span><span class="p">(</span><span class="n">fuelmap</span><span class="p">)</span>
+<span class="n">bwrOrig</span><span class="o">.</span><span class="n">set_fuelmap</span><span class="p">(</span><span class="n">fuelmap</span><span class="p">)</span>
 <span class="n">pool</span><span class="o">=</span><span class="n">Rectangle</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">55</span><span class="p">,</span> <span class="mi">55</span><span class="p">),</span><span class="n">Point</span><span class="p">(</span><span class="mi">55</span><span class="p">,</span> <span class="o">-</span><span class="mi">55</span><span class="p">),</span><span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">55</span><span class="p">,</span> <span class="o">-</span><span class="mi">55</span><span class="p">),</span><span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">55</span><span class="p">,</span> <span class="mi">55</span><span class="p">))</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">pwrOrig</span><span class="o">.</span><span class="n">set_pool</span><span class="p">(</span><span class="n">pool</span><span class="p">)</span>
+<span class="n">bwrOrig</span><span class="o">.</span><span class="n">set_pool</span><span class="p">(</span><span class="n">pool</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -377,8 +368,6 @@ div.rendered_html tbody tr:hover {
 <span class="n">coll</span><span class="o">.</span><span class="n">set_front</span><span class="p">(</span><span class="n">Segment</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mf">243.0</span><span class="p">,</span><span class="o">-</span><span class="mf">4.1</span><span class="p">),</span><span class="n">Point</span><span class="p">(</span><span class="mf">243.0</span><span class="p">,</span><span class="mf">4.1</span><span class="p">))</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="mi">45</span><span class="p">))</span>
 <span class="n">det</span><span class="o">.</span><span class="n">set_collimator</span><span class="p">(</span><span class="n">coll</span><span class="p">)</span>
 
-<span class="n">F15</span><span class="o">=</span><span class="n">Detector</span><span class="p">(</span><span class="s1">&#39;F15&#39;</span><span class="p">)</span>
-<span class="n">F15</span><span class="o">.</span><span class="n">set_location</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mf">174.726</span><span class="p">,</span> <span class="o">-</span><span class="mf">174.726</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -428,11 +417,11 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">ex3</span><span class="o">=</span><span class="n">Experiment</span><span class="p">()</span>
-<span class="n">ex3</span><span class="o">.</span><span class="n">set_assembly</span><span class="p">(</span><span class="n">pwrOrig</span><span class="p">)</span>
-<span class="n">ex3</span><span class="o">.</span><span class="n">set_detectors</span><span class="p">(</span><span class="n">det</span><span class="p">,</span><span class="n">F15</span><span class="p">)</span>
-<span class="n">ex3</span><span class="o">.</span><span class="n">set_materials</span><span class="p">(</span><span class="n">uo2</span><span class="p">,</span><span class="n">he</span><span class="p">,</span><span class="n">zr</span><span class="p">,</span><span class="n">h2o</span><span class="p">,</span><span class="n">air</span><span class="p">,</span><span class="n">lead</span><span class="p">,</span><span class="n">alu</span><span class="p">,</span><span class="n">copper</span><span class="p">,</span><span class="n">ss</span><span class="p">)</span>
-<span class="n">ex3</span><span class="o">.</span><span class="n">set_absorbers</span><span class="p">(</span><span class="n">steelwindow</span><span class="p">,</span><span class="n">lead8mm</span><span class="p">,</span><span class="n">steel21mm</span><span class="p">,</span><span class="n">alu3mm</span><span class="p">,</span><span class="n">copper1mm</span><span class="p">)</span>
+<span></span><span class="n">ex4</span><span class="o">=</span><span class="n">Experiment</span><span class="p">()</span>
+<span class="n">ex4</span><span class="o">.</span><span class="n">set_assembly</span><span class="p">(</span><span class="n">bwrOrig</span><span class="p">)</span>
+<span class="n">ex4</span><span class="o">.</span><span class="n">set_detectors</span><span class="p">(</span><span class="n">det</span><span class="p">)</span>
+<span class="n">ex4</span><span class="o">.</span><span class="n">set_materials</span><span class="p">(</span><span class="n">uo2</span><span class="p">,</span><span class="n">he</span><span class="p">,</span><span class="n">zr</span><span class="p">,</span><span class="n">h2o</span><span class="p">,</span><span class="n">air</span><span class="p">,</span><span class="n">lead</span><span class="p">,</span><span class="n">alu</span><span class="p">,</span><span class="n">copper</span><span class="p">,</span><span class="n">ss</span><span class="p">)</span>
+<span class="n">ex4</span><span class="o">.</span><span class="n">set_absorbers</span><span class="p">(</span><span class="n">steelwindow</span><span class="p">,</span><span class="n">lead8mm</span><span class="p">,</span><span class="n">steel21mm</span><span class="p">,</span><span class="n">alu3mm</span><span class="p">,</span><span class="n">copper1mm</span><span class="p">)</span>
 
 <span class="n">elines</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;0.4971&#39;</span><span class="p">,</span>
  <span class="s1">&#39;0.563&#39;</span><span class="p">,</span>
@@ -468,12 +457,11 @@ div.rendered_html tbody tr:hover {
  <span class="s1">&#39;1.988&#39;</span><span class="p">,</span>
  <span class="s1">&#39;2.112&#39;</span><span class="p">,</span>
  <span class="s1">&#39;2.185&#39;</span><span class="p">]</span>
-<span class="n">ex3</span><span class="o">.</span><span class="n">set_elines</span><span class="p">(</span><span class="n">elines</span><span class="p">)</span>
+<span class="n">ex4</span><span class="o">.</span><span class="n">set_elines</span><span class="p">(</span><span class="n">elines</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <p>We can plot the geometry with the Plot() method. If the color attribute is set previously for the materials, then it is used for the plot, otherwise, the method will randomly assign colours for each material (the detector is set to white and the collimator is set to gray).</p>
-<p>Note that the plot of a large geometry, zoomed out (such as the first figure below) might not render perfectly, and certain elements may seem overlapped. For example, the collimator seems to be on the absorber sheets in the first figure, but after zooming in, one can see in the second figure that in fact they do not overlap.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
@@ -488,9 +476,9 @@ div.rendered_html tbody tr:hover {
 <span class="n">alu</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s2">&quot;#281b63&quot;</span><span class="p">)</span>
 <span class="n">copper</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s2">&quot;#5240a1&quot;</span><span class="p">)</span>
 <span class="n">ss</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s2">&quot;#3c3266&quot;</span><span class="p">)</span>
-<span class="n">ex3</span><span class="o">.</span><span class="n">Plot</span><span class="p">(</span><span class="n">xl</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">200.5</span><span class="p">,</span><span class="mf">200.5</span><span class="p">],</span><span class="n">yl</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">200.5</span><span class="p">,</span><span class="mf">200.5</span><span class="p">],</span><span class="n">detectorSize</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
-<span class="n">ex3</span><span class="o">.</span><span class="n">Plot</span><span class="p">(</span><span class="n">xl</span><span class="o">=</span><span class="p">[</span><span class="mf">170.5</span><span class="p">,</span><span class="mi">200</span><span class="p">],</span><span class="n">yl</span><span class="o">=</span><span class="p">[</span><span class="mf">170.5</span><span class="p">,</span><span class="mi">200</span><span class="p">],</span><span class="n">detectorSize</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
-<span class="n">ex3</span><span class="o">.</span><span class="n">Plot</span><span class="p">(</span><span class="n">xl</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">],</span><span class="n">yl</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">],</span><span class="n">detectorSize</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="n">ex4</span><span class="o">.</span><span class="n">Plot</span><span class="p">(</span><span class="n">xl</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">200.5</span><span class="p">,</span><span class="mf">200.5</span><span class="p">],</span><span class="n">yl</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">200.5</span><span class="p">,</span><span class="mf">200.5</span><span class="p">],</span><span class="n">detectorSize</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="n">ex4</span><span class="o">.</span><span class="n">Plot</span><span class="p">(</span><span class="n">xl</span><span class="o">=</span><span class="p">[</span><span class="mf">170.5</span><span class="p">,</span><span class="mi">200</span><span class="p">],</span><span class="n">yl</span><span class="o">=</span><span class="p">[</span><span class="mf">170.5</span><span class="p">,</span><span class="mi">200</span><span class="p">],</span><span class="n">detectorSize</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="n">ex4</span><span class="o">.</span><span class="n">Plot</span><span class="p">(</span><span class="n">xl</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">],</span><span class="n">yl</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">],</span><span class="n">detectorSize</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -498,21 +486,21 @@ div.rendered_html tbody tr:hover {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="images/ex3_17x17PWR_at_Clab_15_0.png" src="images/ex3_17x17PWR_at_Clab_15_0.png" />
+<img alt="images/ex4_8x8BWR_at_Clab_15_0.png" src="images/ex4_8x8BWR_at_Clab_15_0.png" />
 </div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="images/ex3_17x17PWR_at_Clab_15_1.png" src="images/ex3_17x17PWR_at_Clab_15_1.png" />
+<img alt="images/ex4_8x8BWR_at_Clab_15_1.png" src="images/ex4_8x8BWR_at_Clab_15_1.png" />
 </div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="images/ex3_17x17PWR_at_Clab_15_2.png" src="images/ex3_17x17PWR_at_Clab_15_2.png" />
+<img alt="images/ex4_8x8BWR_at_Clab_15_2.png" src="images/ex4_8x8BWR_at_Clab_15_2.png" />
 </div>
 </div>
 <p>When we run the experiment, we do not get any warnings, because everything is set.</p>
@@ -521,7 +509,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">ex3</span><span class="o">.</span><span class="n">Run</span><span class="p">()</span>
+<span></span><span class="n">ex4</span><span class="o">.</span><span class="n">Run</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -532,43 +520,7 @@ div.rendered_html tbody tr:hover {
 <div class="highlight"><pre>
 #0 is being calculated
 Distance travelled to detector D is being calculated
-Distance travelled to detector F15 is being calculated
 Contribution to detector D is calculated...
-...for gamma energy 0.4971 MeV
-...for gamma energy 0.563 MeV
-...for gamma energy 0.569 MeV
-...for gamma energy 0.6006 MeV
-...for gamma energy 0.604 MeV
-...for gamma energy 0.6103 MeV
-...for gamma energy 0.621 MeV
-...for gamma energy 0.635 MeV
-...for gamma energy 0.662 MeV
-...for gamma energy 0.723 MeV
-...for gamma energy 0.724 MeV
-...for gamma energy 0.756 MeV
-...for gamma energy 0.757 MeV
-...for gamma energy 0.765 MeV
-...for gamma energy 0.795 MeV
-...for gamma energy 0.801 MeV
-...for gamma energy 0.873 MeV
-...for gamma energy 0.996 MeV
-...for gamma energy 1.004 MeV
-...for gamma energy 1.038 MeV
-...for gamma energy 1.05 MeV
-...for gamma energy 1.167 MeV
-...for gamma energy 1.205 MeV
-...for gamma energy 1.246 MeV
-...for gamma energy 1.274 MeV
-...for gamma energy 1.365 MeV
-...for gamma energy 1.494 MeV
-...for gamma energy 1.562 MeV
-...for gamma energy 1.596 MeV
-...for gamma energy 1.766 MeV
-...for gamma energy 1.797 MeV
-...for gamma energy 1.988 MeV
-...for gamma energy 2.112 MeV
-...for gamma energy 2.185 MeV
-Contribution to detector F15 is calculated...
 ...for gamma energy 0.4971 MeV
 ...for gamma energy 0.563 MeV
 ...for gamma energy 0.569 MeV
@@ -614,7 +566,7 @@ Contribution to detector F15 is calculated...
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">ex3</span><span class="o">.</span><span class="n">dTmap</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">][</span><span class="s1">&#39;1&#39;</span><span class="p">]</span> <span class="c1">#to detector D, through matID &#39;1&#39;</span>
+<span></span><span class="n">ex4</span><span class="o">.</span><span class="n">dTmap</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">][</span><span class="s1">&#39;1&#39;</span><span class="p">]</span> <span class="c1">#to detector D, through matID &#39;1&#39;</span>
 </pre></div>
 </div>
 </div>
@@ -623,74 +575,22 @@ Contribution to detector F15 is calculated...
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>array([[ 0.41      ,  0.41      ,  0.41      ,  0.41      ,  0.41      ,
-         0.41      ,  0.41      ,  0.41      ,  0.41      ,  0.41      ,
-         0.41      ,  0.41      ,  0.41      ,  0.41      ,  0.41      ,
-         0.41      ,  0.41      ],
-       [ 1.20725874,  1.21007433,  1.21271703,  1.2151844 ,  1.21747385,
-         1.21958262,  1.22150779,  1.22324625,  1.22479473,  1.22614979,
-         1.22730778,  1.22826487,  1.229017  ,  1.22955993,  1.22988917,
-         1.23      ,  0.41      ],
-       [ 1.94867938,  1.96251401,  1.97531276,  1.98709065,  1.99785863,
-         0.        ,  2.01639017,  2.02415802,  0.        ,  2.03668545,
-         2.04143125,  0.        ,  2.04783106,  2.04945403,  2.05      ,
-         1.22988917,  0.41      ],
-       [ 2.61735404,  2.65600529,  2.69097529,  0.        ,  1.9389776 ,
-         2.77582067,  2.79786104,  2.00065998,  2.83304995,  2.84627181,
-         2.03754947,  2.86401127,  2.86849364,  0.        ,  2.04945403,
-         1.22955993,  0.41      ],
-       [ 3.2100644 ,  3.29368947,  2.55678818,  2.64387492,  3.48676257,
-         3.53519347,  2.77145349,  3.61136027,  3.63964773,  2.84538529,
-         3.6773401 ,  3.6868187 ,  2.87      ,  2.86849364,  2.04783106,
-         1.229017  ,  0.41      ],
-       [ 3.73722731,  3.11320669,  0.        ,  4.13184254,  4.22430806,
-         0.        ,  4.36649663,  4.4184622 ,  0.        ,  4.48709439,
-         4.50425083,  0.        ,  3.6868187 ,  2.86401127,  0.        ,
-         1.22826487,  0.41      ],
-       [ 3.49711333,  2.99190838,  4.68815162,  4.85113589,  3.40741655,
-         5.09311713,  5.17961198,  3.62140517,  5.29258421,  5.32062182,
-         3.69      ,  4.50425083,  3.6773401 ,  2.03754947,  2.04143125,
-         1.22730778,  0.41      ],
-       [ 3.34007036,  5.11889056,  5.39719258,  4.08139679,  5.7854699 ,
-         5.91993365,  4.40806298,  6.09314921,  6.13577299,  4.51      ,
-         5.32062182,  4.48709439,  2.84538529,  2.84627181,  2.03668545,
-         1.22614979,  0.41      ],
-       [ 5.32147552,  5.83374967,  0.        ,  6.4371215 ,  6.63613961,
-         0.        ,  6.88815522,  6.94955461,  0.        ,  6.13577299,
-         5.29258421,  0.        ,  3.63964773,  2.83304995,  0.        ,
-         1.22479473,  0.41      ],
-       [ 6.09438583,  4.44624752,  7.04052279,  7.32473721,  5.1321643 ,
-         7.67699097,  7.76182525,  5.33      ,  6.94955461,  6.09314921,
-         3.62140517,  4.4184622 ,  3.61136027,  2.00065998,  2.02415802,
-         1.22324625,  0.41      ],
-       [ 4.91906729,  7.58622992,  7.98191937,  5.88805191,  8.45906518,
-         8.57245136,  6.15      ,  7.76182525,  6.88815522,  4.40806298,
-         5.17961198,  4.36649663,  2.77145349,  2.79786104,  2.01639017,
-         1.22150779,  0.41      ],
-       [ 8.06127464,  8.603407  ,  0.        ,  9.23380362,  9.38130671,
-         0.        ,  8.57245136,  7.67699097,  0.        ,  5.91993365,
-         5.09311713,  0.        ,  3.53519347,  2.77582067,  0.        ,
-         1.21958262,  0.41      ],
-       [ 9.18420485,  6.54076079, 10.00064633, 10.18827193,  6.97      ,
-         9.38130671,  8.45906518,  5.1321643 ,  6.63613961,  5.7854699 ,
-         3.40741655,  4.22430806,  3.48676257,  1.9389776 ,  1.99785863,
-         1.21747385,  0.41      ],
-       [ 7.25575608, 10.75904492, 10.99323417,  0.        , 10.18827193,
-         9.23380362,  5.88805191,  7.32473721,  6.4371215 ,  4.08139679,
-         4.85113589,  4.13184254,  2.64387492,  0.        ,  1.98709065,
-         1.2151844 ,  0.41      ],
-       [11.50845987, 11.79608659,  7.79      , 10.99323417, 10.00064633,
-         0.        ,  7.98191937,  7.04052279,  0.        ,  5.39719258,
-         4.68815162,  0.        ,  2.55678818,  2.69097529,  1.97531276,
-         1.21271703,  0.41      ],
-       [12.59672809,  8.61      , 11.79608659, 10.75904492,  6.54076079,
-         8.603407  ,  7.58622992,  4.44624752,  5.83374967,  5.11889056,
-         2.99190838,  3.11320669,  3.29368947,  2.65600529,  1.96251401,
-         1.21007433,  0.41      ],
-       [ 9.43      , 12.59672809, 11.50845987,  7.25575608,  9.18420485,
-         8.06127464,  4.91906729,  6.09438583,  5.32147552,  3.34007036,
-         3.49711333,  3.73722731,  3.2100644 ,  2.61735404,  1.94867938,
-         1.20725874,  0.41      ]])
+<span></span>array([[0.52      , 0.52      , 0.52      , 0.52      , 0.52      ,
+        0.52      , 0.52      , 0.52      ],
+       [1.55223954, 1.55456556, 1.55649208, 1.55800944, 1.55910734,
+        1.55977478, 1.56      , 0.52      ],
+       [2.57315813, 2.58271374, 2.59020885, 2.59561506, 2.5988946 ,
+        2.6       , 1.55977478, 0.52      ],
+       [3.59219693, 3.61299665, 3.62792997, 3.63696088, 3.64      ,
+        2.5988946 , 1.55910734, 0.52      ],
+       [4.62293561, 4.65455761, 4.67360363, 4.68      , 0.        ,
+        2.59561506, 1.55800944, 0.52      ],
+       [5.67408899, 5.70847911, 5.72      , 3.63381661, 3.62792997,
+        2.59020885, 1.55649208, 0.52      ],
+       [6.7412677 , 6.76      , 4.66931583, 4.65455761, 3.61299665,
+        2.58271374, 1.55456556, 0.52      ],
+       [7.8       , 5.7031174 , 5.67408899, 4.62293561, 3.59219693,
+        2.57315813, 1.55223954, 0.52      ]])
 </pre></div>
 </div>
 </div>
@@ -701,32 +601,32 @@ Contribution to detector F15 is calculated...
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">321</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ex3</span><span class="o">.</span><span class="n">dTmap</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">][</span><span class="s1">&#39;1&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ex4</span><span class="o">.</span><span class="n">dTmap</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">][</span><span class="s1">&#39;1&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;uo2&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">322</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ex3</span><span class="o">.</span><span class="n">dTmap</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">][</span><span class="s1">&#39;2&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ex4</span><span class="o">.</span><span class="n">dTmap</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">][</span><span class="s1">&#39;2&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;he&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">323</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ex3</span><span class="o">.</span><span class="n">dTmap</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">][</span><span class="s1">&#39;3&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ex4</span><span class="o">.</span><span class="n">dTmap</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">][</span><span class="s1">&#39;3&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;zr&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">324</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ex3</span><span class="o">.</span><span class="n">dTmap</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">][</span><span class="s1">&#39;4&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ex4</span><span class="o">.</span><span class="n">dTmap</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">][</span><span class="s1">&#39;4&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;h2o&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">325</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ex3</span><span class="o">.</span><span class="n">dTmap</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">][</span><span class="s1">&#39;5&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ex4</span><span class="o">.</span><span class="n">dTmap</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">][</span><span class="s1">&#39;5&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;ss&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">326</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ex3</span><span class="o">.</span><span class="n">dTmap</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">][</span><span class="s1">&#39;6&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ex4</span><span class="o">.</span><span class="n">dTmap</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">][</span><span class="s1">&#39;6&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;air&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
 
@@ -740,7 +640,7 @@ Contribution to detector F15 is calculated...
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="images/ex3_17x17PWR_at_Clab_20_0.png" src="images/ex3_17x17PWR_at_Clab_20_0.png" />
+<img alt="images/ex4_8x8BWR_at_Clab_20_0.png" src="images/ex4_8x8BWR_at_Clab_20_0.png" />
 </div>
 </div>
 </div>
@@ -753,7 +653,7 @@ Contribution to detector F15 is calculated...
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ex3</span><span class="o">.</span><span class="n">elines</span><span class="p">,</span><span class="n">ex3</span><span class="o">.</span><span class="n">geomEffAve</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ex4</span><span class="o">.</span><span class="n">elines</span><span class="p">,</span><span class="n">ex4</span><span class="o">.</span><span class="n">geomEffAve</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Energy (MeV)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Efficiency (1/particle)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -764,7 +664,7 @@ Contribution to detector F15 is calculated...
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="images/ex3_17x17PWR_at_Clab_22_0.png" src="images/ex3_17x17PWR_at_Clab_22_0.png" />
+<img alt="images/ex4_8x8BWR_at_Clab_22_0.png" src="images/ex4_8x8BWR_at_Clab_22_0.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
@@ -774,22 +674,22 @@ Contribution to detector F15 is calculated...
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">221</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ex3</span><span class="o">.</span><span class="n">contributionMapAve</span><span class="p">[</span><span class="s1">&#39;0.662&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ex4</span><span class="o">.</span><span class="n">contributionMapAve</span><span class="p">[</span><span class="s1">&#39;0.662&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Energy=0.662 MeV&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">222</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ex3</span><span class="o">.</span><span class="n">contributionMapAve</span><span class="p">[</span><span class="s1">&#39;0.996&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ex4</span><span class="o">.</span><span class="n">contributionMapAve</span><span class="p">[</span><span class="s1">&#39;0.996&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Energy=0.996 MeV&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">223</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ex3</span><span class="o">.</span><span class="n">contributionMapAve</span><span class="p">[</span><span class="s1">&#39;1.596&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ex4</span><span class="o">.</span><span class="n">contributionMapAve</span><span class="p">[</span><span class="s1">&#39;1.596&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Energy=1.596 MeV&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">224</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ex3</span><span class="o">.</span><span class="n">contributionMapAve</span><span class="p">[</span><span class="s1">&#39;2.112&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ex4</span><span class="o">.</span><span class="n">contributionMapAve</span><span class="p">[</span><span class="s1">&#39;2.112&#39;</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Energy=2.112 MeV&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">bottom</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mf">1.8</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="mf">1.6</span><span class="p">)</span>
@@ -802,7 +702,7 @@ Contribution to detector F15 is calculated...
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="images/ex3_17x17PWR_at_Clab_23_0.png" src="images/ex3_17x17PWR_at_Clab_23_0.png" />
+<img alt="images/ex4_8x8BWR_at_Clab_23_0.png" src="images/ex4_8x8BWR_at_Clab_23_0.png" />
 </div>
 </div>
 <p>One can easily renormalize this plots in order to get weight percentage of the pin-wise contribution.</p>
@@ -813,22 +713,22 @@ Contribution to detector F15 is calculated...
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">221</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="n">ex3</span><span class="o">.</span><span class="n">contributionMapAve</span><span class="p">[</span><span class="s1">&#39;0.662&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">ex3</span><span class="o">.</span><span class="n">contributionMapAve</span><span class="p">[</span><span class="s1">&#39;0.662&#39;</span><span class="p">]),</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="n">ex4</span><span class="o">.</span><span class="n">contributionMapAve</span><span class="p">[</span><span class="s1">&#39;0.662&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">ex4</span><span class="o">.</span><span class="n">contributionMapAve</span><span class="p">[</span><span class="s1">&#39;0.662&#39;</span><span class="p">]),</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Energy=0.662 MeV&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">222</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="n">ex3</span><span class="o">.</span><span class="n">contributionMapAve</span><span class="p">[</span><span class="s1">&#39;0.996&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">ex3</span><span class="o">.</span><span class="n">contributionMapAve</span><span class="p">[</span><span class="s1">&#39;0.996&#39;</span><span class="p">]),</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="n">ex4</span><span class="o">.</span><span class="n">contributionMapAve</span><span class="p">[</span><span class="s1">&#39;0.996&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">ex4</span><span class="o">.</span><span class="n">contributionMapAve</span><span class="p">[</span><span class="s1">&#39;0.996&#39;</span><span class="p">]),</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Energy=0.996 MeV&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">223</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="n">ex3</span><span class="o">.</span><span class="n">contributionMapAve</span><span class="p">[</span><span class="s1">&#39;1.596&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">ex3</span><span class="o">.</span><span class="n">contributionMapAve</span><span class="p">[</span><span class="s1">&#39;1.596&#39;</span><span class="p">]),</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="n">ex4</span><span class="o">.</span><span class="n">contributionMapAve</span><span class="p">[</span><span class="s1">&#39;1.596&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">ex4</span><span class="o">.</span><span class="n">contributionMapAve</span><span class="p">[</span><span class="s1">&#39;1.596&#39;</span><span class="p">]),</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Energy=1.596 MeV&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">224</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="n">ex3</span><span class="o">.</span><span class="n">contributionMapAve</span><span class="p">[</span><span class="s1">&#39;2.112&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">ex3</span><span class="o">.</span><span class="n">contributionMapAve</span><span class="p">[</span><span class="s1">&#39;2.112&#39;</span><span class="p">]),</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="n">ex4</span><span class="o">.</span><span class="n">contributionMapAve</span><span class="p">[</span><span class="s1">&#39;2.112&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">ex4</span><span class="o">.</span><span class="n">contributionMapAve</span><span class="p">[</span><span class="s1">&#39;2.112&#39;</span><span class="p">]),</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Energy=2.112 MeV&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">bottom</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mf">1.8</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="mf">1.6</span><span class="p">)</span>
@@ -841,35 +741,7 @@ Contribution to detector F15 is calculated...
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="images/ex3_17x17PWR_at_Clab_25_0.png" src="images/ex3_17x17PWR_at_Clab_25_0.png" />
-</div>
-</div>
-</div>
-<div class="section" id="Geometric-efficiency-of-each-detector-vs-the-average">
-<h2>Geometric efficiency of each detector vs the average<a class="headerlink" href="#Geometric-efficiency-of-each-detector-vs-the-average" title="Permalink to this headline">¶</a></h2>
-<p>One can access the geometric efficiency of any detector points. In the current example we see, that due to the absorber being placed in front of detector D, all the probability of hitting that detector is smaller compared to detector F15.</p>
-<p>Similarly the contribution map to any detector can be accessed from ex3.contributionMap[‘D’].</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ex3</span><span class="o">.</span><span class="n">elines</span><span class="p">,</span><span class="n">ex3</span><span class="o">.</span><span class="n">geomEff</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">],</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ex3</span><span class="o">.</span><span class="n">elines</span><span class="p">,</span><span class="n">ex3</span><span class="o">.</span><span class="n">geomEff</span><span class="p">[</span><span class="s1">&#39;F15&#39;</span><span class="p">],</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;F15&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ex3</span><span class="o">.</span><span class="n">elines</span><span class="p">,</span><span class="n">ex3</span><span class="o">.</span><span class="n">geomEffAve</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Averaged&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Energy (MeV)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Efficiency (1/particle)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="images/ex3_17x17PWR_at_Clab_27_0.png" src="images/ex3_17x17PWR_at_Clab_27_0.png" />
+<img alt="images/ex4_8x8BWR_at_Clab_25_0.png" src="images/ex4_8x8BWR_at_Clab_25_0.png" />
 </div>
 </div>
 </div>
@@ -877,18 +749,18 @@ Contribution to detector F15 is calculated...
 <h2>Random case<a class="headerlink" href="#Random-case" title="Permalink to this headline">¶</a></h2>
 <p>And the efficiency compared with the center case. We can see that in this realistic example the center source case tends to underestimate the geometric efficiency.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">ex3random</span><span class="o">=</span><span class="n">Experiment</span><span class="p">()</span>
-<span class="n">ex3random</span><span class="o">.</span><span class="n">set_assembly</span><span class="p">(</span><span class="n">pwrOrig</span><span class="p">)</span>
-<span class="n">ex3random</span><span class="o">.</span><span class="n">set_detectors</span><span class="p">(</span><span class="n">det</span><span class="p">,</span><span class="n">F15</span><span class="p">)</span>
-<span class="n">ex3random</span><span class="o">.</span><span class="n">set_materials</span><span class="p">(</span><span class="n">uo2</span><span class="p">,</span><span class="n">he</span><span class="p">,</span><span class="n">zr</span><span class="p">,</span><span class="n">h2o</span><span class="p">,</span><span class="n">air</span><span class="p">,</span><span class="n">lead</span><span class="p">,</span><span class="n">alu</span><span class="p">,</span><span class="n">copper</span><span class="p">,</span><span class="n">ss</span><span class="p">)</span>
-<span class="n">ex3random</span><span class="o">.</span><span class="n">set_absorbers</span><span class="p">(</span><span class="n">steelwindow</span><span class="p">,</span><span class="n">lead8mm</span><span class="p">,</span><span class="n">steel21mm</span><span class="p">,</span><span class="n">alu3mm</span><span class="p">,</span><span class="n">copper1mm</span><span class="p">)</span>
-<span class="n">ex3random</span><span class="o">.</span><span class="n">set_elines</span><span class="p">(</span><span class="n">elines</span><span class="p">)</span>
-<span class="n">ex3random</span><span class="o">.</span><span class="n">set_random</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">ex3random</span><span class="o">.</span><span class="n">Run</span><span class="p">()</span>
+<span></span><span class="n">ex4random</span><span class="o">=</span><span class="n">Experiment</span><span class="p">()</span>
+<span class="n">ex4random</span><span class="o">.</span><span class="n">set_assembly</span><span class="p">(</span><span class="n">bwrOrig</span><span class="p">)</span>
+<span class="n">ex4random</span><span class="o">.</span><span class="n">set_detectors</span><span class="p">(</span><span class="n">det</span><span class="p">)</span>
+<span class="n">ex4random</span><span class="o">.</span><span class="n">set_materials</span><span class="p">(</span><span class="n">uo2</span><span class="p">,</span><span class="n">he</span><span class="p">,</span><span class="n">zr</span><span class="p">,</span><span class="n">h2o</span><span class="p">,</span><span class="n">air</span><span class="p">,</span><span class="n">lead</span><span class="p">,</span><span class="n">alu</span><span class="p">,</span><span class="n">copper</span><span class="p">,</span><span class="n">ss</span><span class="p">)</span>
+<span class="n">ex4random</span><span class="o">.</span><span class="n">set_absorbers</span><span class="p">(</span><span class="n">steelwindow</span><span class="p">,</span><span class="n">lead8mm</span><span class="p">,</span><span class="n">steel21mm</span><span class="p">,</span><span class="n">alu3mm</span><span class="p">,</span><span class="n">copper1mm</span><span class="p">)</span>
+<span class="n">ex4random</span><span class="o">.</span><span class="n">set_elines</span><span class="p">(</span><span class="n">elines</span><span class="p">)</span>
+<span class="n">ex4random</span><span class="o">.</span><span class="n">set_random</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ex4random</span><span class="o">.</span><span class="n">Run</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -899,43 +771,7 @@ Contribution to detector F15 is calculated...
 <div class="highlight"><pre>
 #0 is being calculated
 Distance travelled to detector D is being calculated
-Distance travelled to detector F15 is being calculated
 Contribution to detector D is calculated...
-...for gamma energy 0.4971 MeV
-...for gamma energy 0.563 MeV
-...for gamma energy 0.569 MeV
-...for gamma energy 0.6006 MeV
-...for gamma energy 0.604 MeV
-...for gamma energy 0.6103 MeV
-...for gamma energy 0.621 MeV
-...for gamma energy 0.635 MeV
-...for gamma energy 0.662 MeV
-...for gamma energy 0.723 MeV
-...for gamma energy 0.724 MeV
-...for gamma energy 0.756 MeV
-...for gamma energy 0.757 MeV
-...for gamma energy 0.765 MeV
-...for gamma energy 0.795 MeV
-...for gamma energy 0.801 MeV
-...for gamma energy 0.873 MeV
-...for gamma energy 0.996 MeV
-...for gamma energy 1.004 MeV
-...for gamma energy 1.038 MeV
-...for gamma energy 1.05 MeV
-...for gamma energy 1.167 MeV
-...for gamma energy 1.205 MeV
-...for gamma energy 1.246 MeV
-...for gamma energy 1.274 MeV
-...for gamma energy 1.365 MeV
-...for gamma energy 1.494 MeV
-...for gamma energy 1.562 MeV
-...for gamma energy 1.596 MeV
-...for gamma energy 1.766 MeV
-...for gamma energy 1.797 MeV
-...for gamma energy 1.988 MeV
-...for gamma energy 2.112 MeV
-...for gamma energy 2.185 MeV
-Contribution to detector F15 is calculated...
 ...for gamma energy 0.4971 MeV
 ...for gamma energy 0.563 MeV
 ...for gamma energy 0.569 MeV
@@ -972,43 +808,7 @@ Contribution to detector F15 is calculated...
 ...for gamma energy 2.185 MeV
 #1 is being calculated
 Distance travelled to detector D is being calculated
-Distance travelled to detector F15 is being calculated
 Contribution to detector D is calculated...
-...for gamma energy 0.4971 MeV
-...for gamma energy 0.563 MeV
-...for gamma energy 0.569 MeV
-...for gamma energy 0.6006 MeV
-...for gamma energy 0.604 MeV
-...for gamma energy 0.6103 MeV
-...for gamma energy 0.621 MeV
-...for gamma energy 0.635 MeV
-...for gamma energy 0.662 MeV
-...for gamma energy 0.723 MeV
-...for gamma energy 0.724 MeV
-...for gamma energy 0.756 MeV
-...for gamma energy 0.757 MeV
-...for gamma energy 0.765 MeV
-...for gamma energy 0.795 MeV
-...for gamma energy 0.801 MeV
-...for gamma energy 0.873 MeV
-...for gamma energy 0.996 MeV
-...for gamma energy 1.004 MeV
-...for gamma energy 1.038 MeV
-...for gamma energy 1.05 MeV
-...for gamma energy 1.167 MeV
-...for gamma energy 1.205 MeV
-...for gamma energy 1.246 MeV
-...for gamma energy 1.274 MeV
-...for gamma energy 1.365 MeV
-...for gamma energy 1.494 MeV
-...for gamma energy 1.562 MeV
-...for gamma energy 1.596 MeV
-...for gamma energy 1.766 MeV
-...for gamma energy 1.797 MeV
-...for gamma energy 1.988 MeV
-...for gamma energy 2.112 MeV
-...for gamma energy 2.185 MeV
-Contribution to detector F15 is calculated...
 ...for gamma energy 0.4971 MeV
 ...for gamma energy 0.563 MeV
 ...for gamma energy 0.569 MeV
@@ -1045,43 +845,7 @@ Contribution to detector F15 is calculated...
 ...for gamma energy 2.185 MeV
 #2 is being calculated
 Distance travelled to detector D is being calculated
-Distance travelled to detector F15 is being calculated
 Contribution to detector D is calculated...
-...for gamma energy 0.4971 MeV
-...for gamma energy 0.563 MeV
-...for gamma energy 0.569 MeV
-...for gamma energy 0.6006 MeV
-...for gamma energy 0.604 MeV
-...for gamma energy 0.6103 MeV
-...for gamma energy 0.621 MeV
-...for gamma energy 0.635 MeV
-...for gamma energy 0.662 MeV
-...for gamma energy 0.723 MeV
-...for gamma energy 0.724 MeV
-...for gamma energy 0.756 MeV
-...for gamma energy 0.757 MeV
-...for gamma energy 0.765 MeV
-...for gamma energy 0.795 MeV
-...for gamma energy 0.801 MeV
-...for gamma energy 0.873 MeV
-...for gamma energy 0.996 MeV
-...for gamma energy 1.004 MeV
-...for gamma energy 1.038 MeV
-...for gamma energy 1.05 MeV
-...for gamma energy 1.167 MeV
-...for gamma energy 1.205 MeV
-...for gamma energy 1.246 MeV
-...for gamma energy 1.274 MeV
-...for gamma energy 1.365 MeV
-...for gamma energy 1.494 MeV
-...for gamma energy 1.562 MeV
-...for gamma energy 1.596 MeV
-...for gamma energy 1.766 MeV
-...for gamma energy 1.797 MeV
-...for gamma energy 1.988 MeV
-...for gamma energy 2.112 MeV
-...for gamma energy 2.185 MeV
-Contribution to detector F15 is calculated...
 ...for gamma energy 0.4971 MeV
 ...for gamma energy 0.563 MeV
 ...for gamma energy 0.569 MeV
@@ -1118,43 +882,7 @@ Contribution to detector F15 is calculated...
 ...for gamma energy 2.185 MeV
 #3 is being calculated
 Distance travelled to detector D is being calculated
-Distance travelled to detector F15 is being calculated
 Contribution to detector D is calculated...
-...for gamma energy 0.4971 MeV
-...for gamma energy 0.563 MeV
-...for gamma energy 0.569 MeV
-...for gamma energy 0.6006 MeV
-...for gamma energy 0.604 MeV
-...for gamma energy 0.6103 MeV
-...for gamma energy 0.621 MeV
-...for gamma energy 0.635 MeV
-...for gamma energy 0.662 MeV
-...for gamma energy 0.723 MeV
-...for gamma energy 0.724 MeV
-...for gamma energy 0.756 MeV
-...for gamma energy 0.757 MeV
-...for gamma energy 0.765 MeV
-...for gamma energy 0.795 MeV
-...for gamma energy 0.801 MeV
-...for gamma energy 0.873 MeV
-...for gamma energy 0.996 MeV
-...for gamma energy 1.004 MeV
-...for gamma energy 1.038 MeV
-...for gamma energy 1.05 MeV
-...for gamma energy 1.167 MeV
-...for gamma energy 1.205 MeV
-...for gamma energy 1.246 MeV
-...for gamma energy 1.274 MeV
-...for gamma energy 1.365 MeV
-...for gamma energy 1.494 MeV
-...for gamma energy 1.562 MeV
-...for gamma energy 1.596 MeV
-...for gamma energy 1.766 MeV
-...for gamma energy 1.797 MeV
-...for gamma energy 1.988 MeV
-...for gamma energy 2.112 MeV
-...for gamma energy 2.185 MeV
-Contribution to detector F15 is calculated...
 ...for gamma energy 0.4971 MeV
 ...for gamma energy 0.563 MeV
 ...for gamma energy 0.569 MeV
@@ -1191,43 +919,7 @@ Contribution to detector F15 is calculated...
 ...for gamma energy 2.185 MeV
 #4 is being calculated
 Distance travelled to detector D is being calculated
-Distance travelled to detector F15 is being calculated
 Contribution to detector D is calculated...
-...for gamma energy 0.4971 MeV
-...for gamma energy 0.563 MeV
-...for gamma energy 0.569 MeV
-...for gamma energy 0.6006 MeV
-...for gamma energy 0.604 MeV
-...for gamma energy 0.6103 MeV
-...for gamma energy 0.621 MeV
-...for gamma energy 0.635 MeV
-...for gamma energy 0.662 MeV
-...for gamma energy 0.723 MeV
-...for gamma energy 0.724 MeV
-...for gamma energy 0.756 MeV
-...for gamma energy 0.757 MeV
-...for gamma energy 0.765 MeV
-...for gamma energy 0.795 MeV
-...for gamma energy 0.801 MeV
-...for gamma energy 0.873 MeV
-...for gamma energy 0.996 MeV
-...for gamma energy 1.004 MeV
-...for gamma energy 1.038 MeV
-...for gamma energy 1.05 MeV
-...for gamma energy 1.167 MeV
-...for gamma energy 1.205 MeV
-...for gamma energy 1.246 MeV
-...for gamma energy 1.274 MeV
-...for gamma energy 1.365 MeV
-...for gamma energy 1.494 MeV
-...for gamma energy 1.562 MeV
-...for gamma energy 1.596 MeV
-...for gamma energy 1.766 MeV
-...for gamma energy 1.797 MeV
-...for gamma energy 1.988 MeV
-...for gamma energy 2.112 MeV
-...for gamma energy 2.185 MeV
-Contribution to detector F15 is calculated...
 ...for gamma energy 0.4971 MeV
 ...for gamma energy 0.563 MeV
 ...for gamma energy 0.569 MeV
@@ -1264,43 +956,7 @@ Contribution to detector F15 is calculated...
 ...for gamma energy 2.185 MeV
 #5 is being calculated
 Distance travelled to detector D is being calculated
-Distance travelled to detector F15 is being calculated
 Contribution to detector D is calculated...
-...for gamma energy 0.4971 MeV
-...for gamma energy 0.563 MeV
-...for gamma energy 0.569 MeV
-...for gamma energy 0.6006 MeV
-...for gamma energy 0.604 MeV
-...for gamma energy 0.6103 MeV
-...for gamma energy 0.621 MeV
-...for gamma energy 0.635 MeV
-...for gamma energy 0.662 MeV
-...for gamma energy 0.723 MeV
-...for gamma energy 0.724 MeV
-...for gamma energy 0.756 MeV
-...for gamma energy 0.757 MeV
-...for gamma energy 0.765 MeV
-...for gamma energy 0.795 MeV
-...for gamma energy 0.801 MeV
-...for gamma energy 0.873 MeV
-...for gamma energy 0.996 MeV
-...for gamma energy 1.004 MeV
-...for gamma energy 1.038 MeV
-...for gamma energy 1.05 MeV
-...for gamma energy 1.167 MeV
-...for gamma energy 1.205 MeV
-...for gamma energy 1.246 MeV
-...for gamma energy 1.274 MeV
-...for gamma energy 1.365 MeV
-...for gamma energy 1.494 MeV
-...for gamma energy 1.562 MeV
-...for gamma energy 1.596 MeV
-...for gamma energy 1.766 MeV
-...for gamma energy 1.797 MeV
-...for gamma energy 1.988 MeV
-...for gamma energy 2.112 MeV
-...for gamma energy 2.185 MeV
-Contribution to detector F15 is calculated...
 ...for gamma energy 0.4971 MeV
 ...for gamma energy 0.563 MeV
 ...for gamma energy 0.569 MeV
@@ -1337,43 +993,7 @@ Contribution to detector F15 is calculated...
 ...for gamma energy 2.185 MeV
 #6 is being calculated
 Distance travelled to detector D is being calculated
-Distance travelled to detector F15 is being calculated
 Contribution to detector D is calculated...
-...for gamma energy 0.4971 MeV
-...for gamma energy 0.563 MeV
-...for gamma energy 0.569 MeV
-...for gamma energy 0.6006 MeV
-...for gamma energy 0.604 MeV
-...for gamma energy 0.6103 MeV
-...for gamma energy 0.621 MeV
-...for gamma energy 0.635 MeV
-...for gamma energy 0.662 MeV
-...for gamma energy 0.723 MeV
-...for gamma energy 0.724 MeV
-...for gamma energy 0.756 MeV
-...for gamma energy 0.757 MeV
-...for gamma energy 0.765 MeV
-...for gamma energy 0.795 MeV
-...for gamma energy 0.801 MeV
-...for gamma energy 0.873 MeV
-...for gamma energy 0.996 MeV
-...for gamma energy 1.004 MeV
-...for gamma energy 1.038 MeV
-...for gamma energy 1.05 MeV
-...for gamma energy 1.167 MeV
-...for gamma energy 1.205 MeV
-...for gamma energy 1.246 MeV
-...for gamma energy 1.274 MeV
-...for gamma energy 1.365 MeV
-...for gamma energy 1.494 MeV
-...for gamma energy 1.562 MeV
-...for gamma energy 1.596 MeV
-...for gamma energy 1.766 MeV
-...for gamma energy 1.797 MeV
-...for gamma energy 1.988 MeV
-...for gamma energy 2.112 MeV
-...for gamma energy 2.185 MeV
-Contribution to detector F15 is calculated...
 ...for gamma energy 0.4971 MeV
 ...for gamma energy 0.563 MeV
 ...for gamma energy 0.569 MeV
@@ -1410,43 +1030,7 @@ Contribution to detector F15 is calculated...
 ...for gamma energy 2.185 MeV
 #7 is being calculated
 Distance travelled to detector D is being calculated
-Distance travelled to detector F15 is being calculated
 Contribution to detector D is calculated...
-...for gamma energy 0.4971 MeV
-...for gamma energy 0.563 MeV
-...for gamma energy 0.569 MeV
-...for gamma energy 0.6006 MeV
-...for gamma energy 0.604 MeV
-...for gamma energy 0.6103 MeV
-...for gamma energy 0.621 MeV
-...for gamma energy 0.635 MeV
-...for gamma energy 0.662 MeV
-...for gamma energy 0.723 MeV
-...for gamma energy 0.724 MeV
-...for gamma energy 0.756 MeV
-...for gamma energy 0.757 MeV
-...for gamma energy 0.765 MeV
-...for gamma energy 0.795 MeV
-...for gamma energy 0.801 MeV
-...for gamma energy 0.873 MeV
-...for gamma energy 0.996 MeV
-...for gamma energy 1.004 MeV
-...for gamma energy 1.038 MeV
-...for gamma energy 1.05 MeV
-...for gamma energy 1.167 MeV
-...for gamma energy 1.205 MeV
-...for gamma energy 1.246 MeV
-...for gamma energy 1.274 MeV
-...for gamma energy 1.365 MeV
-...for gamma energy 1.494 MeV
-...for gamma energy 1.562 MeV
-...for gamma energy 1.596 MeV
-...for gamma energy 1.766 MeV
-...for gamma energy 1.797 MeV
-...for gamma energy 1.988 MeV
-...for gamma energy 2.112 MeV
-...for gamma energy 2.185 MeV
-Contribution to detector F15 is calculated...
 ...for gamma energy 0.4971 MeV
 ...for gamma energy 0.563 MeV
 ...for gamma energy 0.569 MeV
@@ -1483,43 +1067,7 @@ Contribution to detector F15 is calculated...
 ...for gamma energy 2.185 MeV
 #8 is being calculated
 Distance travelled to detector D is being calculated
-Distance travelled to detector F15 is being calculated
 Contribution to detector D is calculated...
-...for gamma energy 0.4971 MeV
-...for gamma energy 0.563 MeV
-...for gamma energy 0.569 MeV
-...for gamma energy 0.6006 MeV
-...for gamma energy 0.604 MeV
-...for gamma energy 0.6103 MeV
-...for gamma energy 0.621 MeV
-...for gamma energy 0.635 MeV
-...for gamma energy 0.662 MeV
-...for gamma energy 0.723 MeV
-...for gamma energy 0.724 MeV
-...for gamma energy 0.756 MeV
-...for gamma energy 0.757 MeV
-...for gamma energy 0.765 MeV
-...for gamma energy 0.795 MeV
-...for gamma energy 0.801 MeV
-...for gamma energy 0.873 MeV
-...for gamma energy 0.996 MeV
-...for gamma energy 1.004 MeV
-...for gamma energy 1.038 MeV
-...for gamma energy 1.05 MeV
-...for gamma energy 1.167 MeV
-...for gamma energy 1.205 MeV
-...for gamma energy 1.246 MeV
-...for gamma energy 1.274 MeV
-...for gamma energy 1.365 MeV
-...for gamma energy 1.494 MeV
-...for gamma energy 1.562 MeV
-...for gamma energy 1.596 MeV
-...for gamma energy 1.766 MeV
-...for gamma energy 1.797 MeV
-...for gamma energy 1.988 MeV
-...for gamma energy 2.112 MeV
-...for gamma energy 2.185 MeV
-Contribution to detector F15 is calculated...
 ...for gamma energy 0.4971 MeV
 ...for gamma energy 0.563 MeV
 ...for gamma energy 0.569 MeV
@@ -1556,43 +1104,7 @@ Contribution to detector F15 is calculated...
 ...for gamma energy 2.185 MeV
 #9 is being calculated
 Distance travelled to detector D is being calculated
-Distance travelled to detector F15 is being calculated
 Contribution to detector D is calculated...
-...for gamma energy 0.4971 MeV
-...for gamma energy 0.563 MeV
-...for gamma energy 0.569 MeV
-...for gamma energy 0.6006 MeV
-...for gamma energy 0.604 MeV
-...for gamma energy 0.6103 MeV
-...for gamma energy 0.621 MeV
-...for gamma energy 0.635 MeV
-...for gamma energy 0.662 MeV
-...for gamma energy 0.723 MeV
-...for gamma energy 0.724 MeV
-...for gamma energy 0.756 MeV
-...for gamma energy 0.757 MeV
-...for gamma energy 0.765 MeV
-...for gamma energy 0.795 MeV
-...for gamma energy 0.801 MeV
-...for gamma energy 0.873 MeV
-...for gamma energy 0.996 MeV
-...for gamma energy 1.004 MeV
-...for gamma energy 1.038 MeV
-...for gamma energy 1.05 MeV
-...for gamma energy 1.167 MeV
-...for gamma energy 1.205 MeV
-...for gamma energy 1.246 MeV
-...for gamma energy 1.274 MeV
-...for gamma energy 1.365 MeV
-...for gamma energy 1.494 MeV
-...for gamma energy 1.562 MeV
-...for gamma energy 1.596 MeV
-...for gamma energy 1.766 MeV
-...for gamma energy 1.797 MeV
-...for gamma energy 1.988 MeV
-...for gamma energy 2.112 MeV
-...for gamma energy 2.185 MeV
-Contribution to detector F15 is calculated...
 ...for gamma energy 0.4971 MeV
 ...for gamma energy 0.563 MeV
 ...for gamma energy 0.569 MeV
@@ -1630,13 +1142,13 @@ Contribution to detector F15 is calculated...
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">ex3random</span><span class="o">.</span><span class="n">elines</span><span class="p">,</span><span class="n">ex3random</span><span class="o">.</span><span class="n">geomEffAve</span><span class="p">,</span><span class="mi">3</span><span class="o">*</span><span class="n">ex3random</span><span class="o">.</span><span class="n">geomEffAveErr</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Random location in pin as source&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ex3</span><span class="o">.</span><span class="n">elines</span><span class="p">,</span><span class="n">ex3</span><span class="o">.</span><span class="n">geomEffAve</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Pin center as source&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">ex4random</span><span class="o">.</span><span class="n">elines</span><span class="p">,</span><span class="n">ex4random</span><span class="o">.</span><span class="n">geomEffAve</span><span class="p">,</span><span class="mi">3</span><span class="o">*</span><span class="n">ex4random</span><span class="o">.</span><span class="n">geomEffAveErr</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Random location in pin as source&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ex4</span><span class="o">.</span><span class="n">elines</span><span class="p">,</span><span class="n">ex4</span><span class="o">.</span><span class="n">geomEffAve</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Pin center as source&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Energy (MeV)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Efficiency (1/particle)&#39;</span><span class="p">)</span>
@@ -1648,7 +1160,7 @@ Contribution to detector F15 is calculated...
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="images/ex3_17x17PWR_at_Clab_30_0.png" src="images/ex3_17x17PWR_at_Clab_30_0.png" />
+<img alt="images/ex4_8x8BWR_at_Clab_28_0.png" src="images/ex4_8x8BWR_at_Clab_28_0.png" />
 </div>
 </div>
 </div>
@@ -1681,8 +1193,8 @@ Contribution to detector F15 is calculated...
 <li class="toctree-l1"><a class="reference internal" href="ex0_geometry.html">feign.geometry tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ex1_2x2fuel.html">2x2 fuel assembly</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ex2_2x2fuel_with_absorber_collimator.html">2x2 fuel assembly with absorber and collimator</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">17x17 PWR assembly at Clab</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ex4_8x8BWR_at_Clab.html">8x8 BWR assembly at Clab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex3_17x17PWR_at_Clab.html">17x17 PWR assembly at Clab</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">8x8 BWR assembly at Clab</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ex5_5x3trial_at_Clab.html">5x3, 6x3, 6x4 assemblies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ex6_set-add-remove.html">Set, add, remove</a></li>
 </ul>
@@ -1695,8 +1207,8 @@ Contribution to detector F15 is calculated...
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="ex2_2x2fuel_with_absorber_collimator.html" title="previous chapter">2x2 fuel assembly with absorber and collimator</a></li>
-      <li>Next: <a href="ex4_8x8BWR_at_Clab.html" title="next chapter">8x8 BWR assembly at Clab</a></li>
+      <li>Previous: <a href="ex3_17x17PWR_at_Clab.html" title="previous chapter">17x17 PWR assembly at Clab</a></li>
+      <li>Next: <a href="ex5_5x3trial_at_Clab.html" title="next chapter">5x3, 6x3, 6x4 assemblies</a></li>
   </ul></li>
 </ul>
 </div>
@@ -1730,7 +1242,7 @@ Contribution to detector F15 is calculated...
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
-      <a href="sources/ex3_17x17PWR_at_Clab.ipynb.txt"
+      <a href="sources/ex4_8x8BWR_at_Clab.ipynb.txt"
           rel="nofollow">Page source</a>
     </div>
 
