@@ -6,6 +6,11 @@ Units
 
 All length is in cm, densities in g/cm3, energy in MeV.
 
+Working principle
+-----------------
+
+.. image:: rayDemo.png
+
 Import feign modules
 --------------------
 

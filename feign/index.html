@@ -33,17 +33,14 @@
             
   <div class="section" id="feign-a-python-package-for-passive-gamma-spectroscopy-efficiency">
 <h1>feign: A python package for passive gamma spectroscopy efficiency<a class="headerlink" href="#feign-a-python-package-for-passive-gamma-spectroscopy-efficiency" title="Permalink to this headline">¶</a></h1>
-<p><code class="docutils literal notranslate"><span class="pre">feign</span></code> is python package, intended to estimate the geometric efficiency in passive gamma spectroscopy measurments of spent nuclear fuel assemblies. a point-kernel method based package intended to estimate the geometric efficiency of fuel in python.
-Therefore, an “uncollided F5 tally” was implemented in python to estimate the geometric efficiency of
-fuel assemblies in 2D (ie. in collimated cases). The working title of the code is FEIGN (implying that
-the program pretends to be a transport code, however it is not). The user defines the geometry of the
-source, which needs to be a rectangular lattice and the positions in the lattice can be filled with coaxial
-cylinder elements (eg. fuel pins, cladding). The user also defines the material compositions of these
-cells and the detector points where the efficiency needs to be evaluated. As a package, it provides</p>
+<p><code class="docutils literal notranslate"><span class="pre">feign</span></code> is a python package, intended to estimate the geometric efficiency in passive gamma spectroscopy measurments of spent nuclear fuel assemblies. It implements a 2D point-kernel method without build-up factors (ie. an “uncollided F5 tally” for MCNP users). The feign implies that the program pretends to be a transport code, however it is not.</p>
+<p>The user defines the geometry of a rectangular fuel assembly, which is build of pins (nested annular material regions). The user also defines the composition of materials present in the simulation, the detector points where the efficiency needs to be evaluated, and optionally collimators and absorber elements.</p>
+<p>As a package, <code class="docutils literal notranslate"><span class="pre">feign</span></code> provides</p>
 <ul class="simple">
-<li><p>basic 2D geometry elements (Point, Segment, Circle, Rectangle and there intersections)</p></li>
-<li><p>classes to describe materials, fuel pins, and rectangular fuel assemblies</p></li>
+<li><p>basic 2D geometry classes (Point, Segment, Circle, Rectangle)</p></li>
+<li><p>classes to describe materials, fuel pins, rectangular fuel assemblies, detectors and absorbers</p></li>
 </ul>
+<p>Below you can find several example notebooks describing how to interact with <code class="docutils literal notranslate"><span class="pre">feign</span></code>, and how to visualize results.</p>
 </div>
 <div class="section" id="contents">
 <h1>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h1>

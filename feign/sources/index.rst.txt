@@ -1,16 +1,16 @@
 feign: A python package for passive gamma spectroscopy efficiency
 =================================================================
 
-``feign`` is python package, intended to estimate the geometric efficiency in passive gamma spectroscopy measurments of spent nuclear fuel assemblies. a point-kernel method based package intended to estimate the geometric efficiency of fuel in python. 
-Therefore, an "uncollided F5 tally" was implemented in python to estimate the geometric efficiency of
-fuel assemblies in 2D (ie. in collimated cases). The working title of the code is FEIGN (implying that
-the program pretends to be a transport code, however it is not). The user defines the geometry of the
-source, which needs to be a rectangular lattice and the positions in the lattice can be filled with coaxial
-cylinder elements (eg. fuel pins, cladding). The user also defines the material compositions of these
-cells and the detector points where the efficiency needs to be evaluated. As a package, it provides
+``feign`` is a python package, intended to estimate the geometric efficiency in passive gamma spectroscopy measurments of spent nuclear fuel assemblies. It implements a 2D point-kernel method without build-up factors (ie. an "uncollided F5 tally" for MCNP users). The feign implies that the program pretends to be a transport code, however it is not. 
 
-* basic 2D geometry elements (Point, Segment, Circle, Rectangle and there intersections)
-* classes to describe materials, fuel pins, and rectangular fuel assemblies
+The user defines the geometry of a rectangular fuel assembly, which is build of pins (nested annular material regions). The user also defines the composition of materials present in the simulation, the detector points where the efficiency needs to be evaluated, and optionally collimators and absorber elements. 
+
+As a package, ``feign`` provides
+
+* basic 2D geometry classes (Point, Segment, Circle, Rectangle)
+* classes to describe materials, fuel pins, rectangular fuel assemblies, detectors and absorbers
+
+Below you can find several example notebooks describing how to interact with ``feign``, and how to visualize results.
 
 Contents
 ========
