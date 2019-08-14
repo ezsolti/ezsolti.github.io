@@ -12,6 +12,8 @@
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
     <script type="text/javascript" src="static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="feign.geometry tutorial" href="ex0_geometry.html" />
@@ -40,7 +42,18 @@
 </div>
 <div class="section" id="working-principle">
 <h2>Working principle<a class="headerlink" href="#working-principle" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">feign</span></code> implements a 2D point-kernel method to estimate the uncollided point-detector gamma flux around a rectangular spent fuel assembly. The 2D approximation is valid when the fuel assembly is viewed through a horizontally aligned collimator.</p>
+<p>After defining an experimental setup with a rectangular fuel assembly placed in the center, the code will iterate through each pin location and trace a ray from the pin towards a detector point. Tracing here means that it will determine how long distance the uncollided ray would travel in various materials.</p>
+<p>Let’s consider a simple example as below: there is a 4x4 assembly, the pins are fuel rods without any cladding (material f) surrounded by water (material w). If one draws a line from a pin towards a detector (red circle), some parts of the line are passing through other pins. The code evaluates where are the intersections of the rays with pins (and optionally other absorber elements placed between the detector and the assembly), and determines the total distance traveled in a given material:</p>
+<div class="math notranslate nohighlight">
+\[d_f=f_1+f_2+f_3+f_4\]</div>
+<div class="math notranslate nohighlight">
+\[d_w=w_1+w_2+w_3+w_4\]</div>
 <img alt="images/rayDemo.png" src="images/rayDemo.png" />
+<p>After doing this for each pin, it is possible to build a traveled distance map, which is represented in the code as a dictionary. The keys are material identifiers and the values are matrices describing the pin-wise traveled distance through the given material. Based on this traveled distance maps and on the total attenuation coefficients of the materials, it is possible to compute a contribution map. Contribution here means the probability that a ray emitted from a certain pin will hit the detector, such as</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{4\pi R_{i}^2}\prod\limits_m e^{-\mu_m(E) d_{i,m}}\]</div>
+<p>for each energy <span class="math notranslate nohighlight">\(E\)</span> requested by the user that a gamma-ray emitted from position <span class="math notranslate nohighlight">\(i\)</span> hits the detector without collision. Where <span class="math notranslate nohighlight">\(R_i\)</span> is the distance between the source position and the detector, <span class="math notranslate nohighlight">\(\mu_m\)</span> is the total attenuation coefficient of material :math`m` and <span class="math notranslate nohighlight">\(d_{i,m}\)</span> is the distance traveled by a gamma-ray emitted from position :math`i` through material <span class="math notranslate nohighlight">\(m\)</span>.</p>
 </div>
 <div class="section" id="import-feign-modules">
 <h2>Import feign modules<a class="headerlink" href="#import-feign-modules" title="Permalink to this headline">¶</a></h2>

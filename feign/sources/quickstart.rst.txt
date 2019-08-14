@@ -9,7 +9,30 @@ All length is in cm, densities in g/cm3, energy in MeV.
 Working principle
 -----------------
 
+``feign`` implements a 2D point-kernel method to estimate the uncollided point-detector gamma flux around a rectangular spent fuel assembly. The 2D approximation is valid when the fuel assembly is viewed through a horizontally aligned collimator.
+
+After defining an experimental setup with a rectangular fuel assembly placed in the center, the code will iterate through each pin location and trace a ray from the pin towards a detector point. Tracing here means that it will determine how long distance the uncollided ray would travel in various materials. 
+
+Let's consider a simple example as below: there is a 4x4 assembly, the pins are fuel rods without any cladding (material f) surrounded by water (material w). If one draws a line from a pin towards a detector (red circle), some parts of the line are passing through other pins. The code evaluates where are the intersections of the rays with pins (and optionally other absorber elements placed between the detector and the assembly), and determines the total distance traveled in a given material:
+
+.. math::
+
+   d_f=f_1+f_2+f_3+f_4
+
+.. math::
+
+   d_w=w_1+w_2+w_3+w_4
+
 .. image:: rayDemo.png
+
+After doing this for each pin, it is possible to build a traveled distance map, which is represented in the code as a dictionary. The keys are material identifiers and the values are matrices describing the pin-wise traveled distance through the given material. Based on this traveled distance maps and on the total attenuation coefficients of the materials, it is possible to compute a contribution map. Contribution here means the probability that a ray emitted from a certain pin will hit the detector, such as
+
+.. math::
+
+   \frac{1}{4\pi R_{i}^2}\prod\limits_m e^{-\mu_m(E) d_{i,m}}
+
+for each energy :math:`E` requested by the user that a gamma-ray emitted from position :math:`i` hits the detector without collision. Where :math:`R_i` is the distance between the source position and the detector, :math:`\mu_m` is the total attenuation coefficient of material :math`m` and :math:`d_{i,m}` is the distance traveled by a gamma-ray emitted from position :math`i` through material :math:`m`.
+
 
 Import feign modules
 --------------------
