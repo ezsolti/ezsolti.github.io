@@ -25,7 +25,8 @@ Contents
 .. toctree::
    :maxdepth: 1
    :caption: Examples
-    
+   
+   ex0_geometry.ipynb  
    ex1_2x2fuel.ipynb 
    ex2_2x2fuel_with_absorber_collimator.ipynb
    ex3_17x17PWR_at_Clab.ipynb
