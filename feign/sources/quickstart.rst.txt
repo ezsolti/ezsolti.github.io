@@ -33,6 +33,28 @@ Then define the materials with a unique identifier and set their densities and t
    w.set_density(1.0)
    w.set_path(('/data/H2O.dat',1))
 
+Then, the pin types can be defined. Each pin has a unique identifier (used later to describe the fuelmap), and with the :meth:`Pin.add_region` we can create nested annular material regions.
+
+.. code-block:: python
+   fuel=Pin('1')
+   fuel.add_region(uo2,0.5) #cm
+
+Based on the pins we can create a rectangular assembly. This requires to describe the size of the lattice upon initialization, set the lattice pitch size, the source material (or materials), the coolant material (what is around the nested annular regions), and the fuelmap.
+
+.. code-block:: python
+   assy=Assembly(2,2)
+   assy.set_pitch(1.3)
+   assy.set_source(f)
+   assy.set_coolant(w)
+   assy.set_pins(fuel)
+
+   fuelmap=[['1','1'],
+            ['1','1']]
+
+   assy.set_fuelmap(fuelmap)
+
+   
+
 Working principle
 -----------------
 

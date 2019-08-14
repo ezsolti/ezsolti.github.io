@@ -51,6 +51,8 @@
 </pre></div>
 </div>
 <p>Then define the materials with a unique identifier and set their densities and the path of the mass attenuation data.</p>
+<p>Then, the pin types can be defined. Each pin has a unique identifier (used later to describe the fuelmap), and with the <code class="xref py py-meth docutils literal notranslate"><span class="pre">Pin.add_region()</span></code> we can create nested annular material regions.</p>
+<p>Based on the pins we can create a rectangular assembly. This requires to describe the size of the lattice upon initialization, set the lattice pitch size, the source material (or materials), the coolant material (what is around the nested annular regions), and the fuelmap.</p>
 </div>
 <div class="section" id="working-principle">
 <h2>Working principle<a class="headerlink" href="#working-principle" title="Permalink to this headline">¶</a></h2>
