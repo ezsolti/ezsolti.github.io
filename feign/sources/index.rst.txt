@@ -26,7 +26,6 @@ Examples
 --------
 .. toctree::
    :maxdepth: 1
-   :caption: Examples
    
    ex0_geometry.ipynb  
    ex1_2x2fuel.ipynb 
