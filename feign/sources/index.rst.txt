@@ -16,11 +16,15 @@ Contents
 ========
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
     
    installation.rst
    quickstart.rst
-   example.rst
+
+.. toctree::
+   :maxdepth: 2
+
+   examples.rst
    api.rst
 
 Indices and tables
