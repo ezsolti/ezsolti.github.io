@@ -7,17 +7,20 @@ Installation
 
    pip install https://github.com/ezsolti/feign/zipball/master
 
-The main dependencies are:
+Dependencies:
 
 * NumPy
 * Matplotlib
-* re
 
 Getting data
 ------------
 
-Total attenuation coefficients can be obtained from XCOM. Test data is pre-prepared for some common
+Mass attenuation coefficients can be obtained from the `XCOM webpage
+<https://physics.nist.gov/PhysRefData/Xcom/html/xcom1.html>`_, or by downloading the `XCOM software
+<https://physics.nist.gov/PhysRefData/Xcom/Text/download.html>`_. 
+Test data is pre-prepared for some common
 materials in passive gamma spectroscopy (uranium-dioxid, water, air, lead, aluminium, copper, stainless steel).
+
 
 .. code-block:: bash
 
