@@ -1,10 +1,37 @@
 Getting started with feign
 =============================
 
+Below you can find a basic example and the working principle of ``feign``
+
 Units
 -----
 
 All length is in cm, densities in g/cm3, energy in MeV.
+
+Usage
+-----
+
+Several well-documented notebooks will guide you under the Examples. The examples describe how to build simple or more complicated experimental setups, and how to visualize the traveled distance maps, the contribution maps and the geometric efficiency.
+
+Here the input of a simple 4x4 assembly can be found, which is discussed also in `Working principle`_. The pins are fuel rods without any cladding (material f) surrounded by water (material w). The example assumes that you have managed to install ``feign`` and obtain some data files after following the instructions at the `Installation page <https://ezsolti.github.io/feign/installation.html>`_
+
+First, one needs to import the feign modules.
+
+.. code-block:: python
+
+   from feign.geometry import *
+   from feign.blocks import *
+
+Then define the materials with a unique identifier and set their densities and the path of the mass attenuation data.
+
+.. code-block:: python
+   f=Material('1')
+   f.set_density(10.5) #g/cm3
+   f.set_path(('/data/UO2.dat',1))
+
+   w=Material('2')
+   w.set_density(1.0)
+   w.set_path(('/data/H2O.dat',1))
 
 Working principle
 -----------------
@@ -41,7 +68,3 @@ The average of all these pin-wise probabilities is results in the geometric effi
 
 However, emitting a ray from the middle of the pin is not necessarily a valid approximation. Thus, ``feign`` allows for setting how many random source points should be sampled from each pin. In this case the code is able to calculate an average geometric efficiency and its standard deviation.
 
-Usage
------
-
-Several well-documented notebooks will guide you under the Examples. The examples describe how to build simple or more complicated experimental setups, and how to visualize the traveled distance maps, the contribution maps and the geometric efficiency.

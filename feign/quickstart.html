@@ -36,9 +36,21 @@
             
   <div class="section" id="getting-started-with-feign">
 <h1>Getting started with feign<a class="headerlink" href="#getting-started-with-feign" title="Permalink to this headline">¶</a></h1>
+<p>Below you can find a basic example and the working principle of <code class="docutils literal notranslate"><span class="pre">feign</span></code></p>
 <div class="section" id="units">
 <h2>Units<a class="headerlink" href="#units" title="Permalink to this headline">¶</a></h2>
 <p>All length is in cm, densities in g/cm3, energy in MeV.</p>
+</div>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>Several well-documented notebooks will guide you under the Examples. The examples describe how to build simple or more complicated experimental setups, and how to visualize the traveled distance maps, the contribution maps and the geometric efficiency.</p>
+<p>Here the input of a simple 4x4 assembly can be found, which is discussed also in <a class="reference internal" href="#working-principle">Working principle</a>. The pins are fuel rods without any cladding (material f) surrounded by water (material w). The example assumes that you have managed to install <code class="docutils literal notranslate"><span class="pre">feign</span></code> and obtain some data files after following the instructions at the <a class="reference external" href="https://ezsolti.github.io/feign/installation.html">Installation page</a></p>
+<p>First, one needs to import the feign modules.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">feign.geometry</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">feign.blocks</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+<p>Then define the materials with a unique identifier and set their densities and the path of the mass attenuation data.</p>
 </div>
 <div class="section" id="working-principle">
 <h2>Working principle<a class="headerlink" href="#working-principle" title="Permalink to this headline">¶</a></h2>
@@ -58,10 +70,6 @@
 \[\frac{1}{4\pi (d_f+d_w)^2}\cdot e^{-\mu_f(E) d_{f}}\cdot e^{-\mu_w(E) d_{w}}\]</div>
 <p>The average of all these pin-wise probabilities is results in the geometric efficiency (in <span class="math notranslate nohighlight">\(\frac{1}{\rm particle}\)</span> units) of the experimental setup.</p>
 <p>However, emitting a ray from the middle of the pin is not necessarily a valid approximation. Thus, <code class="docutils literal notranslate"><span class="pre">feign</span></code> allows for setting how many random source points should be sampled from each pin. In this case the code is able to calculate an average geometric efficiency and its standard deviation.</p>
-</div>
-<div class="section" id="usage">
-<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
-<p>Several well-documented notebooks will guide you under the Examples. The examples describe how to build simple or more complicated experimental setups, and how to visualize the traveled distance maps, the contribution maps and the geometric efficiency.</p>
 </div>
 </div>
 
