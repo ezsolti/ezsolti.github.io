@@ -1,7 +1,7 @@
 feign API Reference
-=================================
+===================
 
-The package is has two modules. ``geometry`` is responsible to define the 2D geometry elements, and ``blocks``
+The package has two modules. ``feign.geometry`` is responsible to define the 2D geometry elements, and ``feign.blocks``
 contains all the classes relevant to define a passive gamma experimental setup, and to perform the ray-tracing.
 
 Geometry

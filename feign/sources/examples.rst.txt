@@ -1,0 +1,16 @@
+Examples
+========
+
+The following example notebooks can be found in the `feign github repo <https://github.com/ezsolti/feign/tree/master/examples>`_. Their purpuse is to guide users on how to setup simulations and how to visualize results.
+
+.. toctree::
+   :maxdepth: 1
+
+   ex0_geometry.ipynb  
+   ex1_2x2fuel.ipynb 
+   ex2_2x2fuel_with_absorber_collimator.ipynb
+   ex3_17x17PWR_at_Clab.ipynb
+   ex4_8x8BWR_at_Clab.ipynb
+   ex5_5x3trial_at_Clab.ipynb
+   ex6_set-add-remove.ipynb
+
