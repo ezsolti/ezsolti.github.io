@@ -10,7 +10,7 @@ As a package, ``feign`` provides
 * basic 2D geometry classes (Point, Segment, Circle, Rectangle)
 * classes to describe materials, fuel pins, rectangular fuel assemblies, detectors and absorbers
 
-The package can be found in a `github repo <https://physics.nist.gov/PhysRefData/Xcom/html/xcom1.html>`_.Below you can find several example notebooks describing how to interact with ``feign``, and how to visualize results.
+The package can be found in a `github repo <https://github.com/ezsolti/feign>`_.Below you can find several example notebooks describing how to interact with ``feign``, and how to visualize results.
 
 Contents
 ========
