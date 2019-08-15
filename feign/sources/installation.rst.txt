@@ -29,7 +29,7 @@ forget to include an energy grid which covers your energy region of interest, be
 extrapolate the mass attenuation coefficients. Also try to use a reasonably dense energy grid which can catch the energy
 dependence of the mass attenuation coefficient, otherwise the interpolation will not be a decent approximation.
 
-When creating your own data files, make sure that the columns are separated by white spaces (eventhough XCOM allows for separating with |). 
+When creating your own data files, make sure that the columns are separated by white spaces (eventhough XCOM allows for separating with "|"). 
 
 Test data files are also available at `feign's github repo
 <https://github.com/ezsolti/feign/tree/master/data>`_. Mass attenuation coefficients are there for some materials common in passive gamma spectroscopy of nuclear fuel (uranium-dioxid, water, air, lead, aluminium, copper, stainless steel). Save these files to your prefarred location and include the paths when creating Material() objects. When you have gathered your own datafiles, you can link them to Material() objects with the following method:
@@ -39,7 +39,7 @@ Test data files are also available at `feign's github repo
    uo2=Material('1')
    uo2.set_path(('/yourpath/UO2.dat',1))
 
-:code:`set_path` expects a tuple, the first element is the path to the data file, and the second element clarifies which column should be used from the file (since you might have several columns, for example attenuaton with or without coherent scattering).
+:code:`set_path()` expects a tuple, the first element is the path to the data file, and the second element clarifies which column should be used from the file (since you might have several columns, for example attenuaton with or without coherent scattering).
 
 
 
