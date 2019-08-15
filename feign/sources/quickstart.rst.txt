@@ -119,9 +119,9 @@ After doing this for each pin, it is possible to build a traveled distance map, 
 
 .. math::
 
-   \frac{1}{4\pi R_{i}^2}\prod\limits_m e^{-\mu_m(E) d_{i,m}}
+   \frac{w_i}{4\pi R_{i}^2}\prod\limits_m e^{-\mu_m(E) d_{i,m}}
 
-is this probability for each energy :math:`E` requested by the user that a gamma-ray emitted from position :math:`i` hits the detector without collision. Where :math:`R_i` is the distance between the source position and the detector, :math:`\mu_m` is the total attenuation coefficient of material :math:`m` and :math:`d_{i,m}` is the distance traveled by a gamma-ray emitted from position :math:`i` through material :math:`m`. In the above example, for the selected pin this probability would be 
+is this probability for each energy :math:`E` requested by the user that a gamma-ray emitted from position :math:`i` hits the detector without collision. Where :math:`R_i` is the distance between the source position and the detector, :math:`\mu_m` is the total attenuation coefficient of material :math:`m` and :math:`d_{i,m}` is the distance traveled by a gamma-ray emitted from position :math:`i` through material :math:`m`. The weight :math:`w_i` is the relative emission rate of the given pin (one may consider that pins have different burnup). ``feign`` sets this value to 1, however the user can multiply the contribution map with a different weight map (note, that the weight map might depend on the gamma energy as well). In the above example, for the selected pin this probability would be 
 
 .. math::
 
