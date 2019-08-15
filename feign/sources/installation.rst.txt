@@ -35,6 +35,7 @@ Test data files are also available at `feign's github repo
 <https://github.com/ezsolti/feign/tree/master/data>`_. Mass attenuation coefficients are there for some materials common in passive gamma spectroscopy of nuclear fuel (uranium-dioxid, water, air, lead, aluminium, copper, stainless steel). Save these files to your prefarred location and include the paths when creating Material() objects. When you have gathered your own datafiles, you can link them to Material() objects with the following method:
 
 .. code-block:: python
+
    uo2=Material('1')
    uo2.set_path(('/yourpath/UO2.dat',1))
 

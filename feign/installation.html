@@ -57,6 +57,10 @@ extrapolate the mass attenuation coefficients. Also try to use a reasonably dens
 dependence of the mass attenuation coefficient, otherwise the interpolation will not be a decent approximation.</p>
 <p>When creating your own data files, make sure that the columns are separated by white spaces (eventhough XCOM allows for separating with <a href="#id1"><span class="problematic" id="id2">|</span></a>).</p>
 <p>Test data files are also available at <a class="reference external" href="https://github.com/ezsolti/feign/tree/master/data">feign’s github repo</a>. Mass attenuation coefficients are there for some materials common in passive gamma spectroscopy of nuclear fuel (uranium-dioxid, water, air, lead, aluminium, copper, stainless steel). Save these files to your prefarred location and include the paths when creating Material() objects. When you have gathered your own datafiles, you can link them to Material() objects with the following method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">uo2</span><span class="o">=</span><span class="n">Material</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
+<span class="n">uo2</span><span class="o">.</span><span class="n">set_path</span><span class="p">((</span><span class="s1">&#39;/yourpath/UO2.dat&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
 <p><code class="code docutils literal notranslate"><span class="pre">set_path</span></code> expects a tuple, the first element is the path to the data file, and the second element clarifies which column should be used from the file (since you might have several columns, for example attenuaton with or without coherent scattering).</p>
 </div>
 </div>
