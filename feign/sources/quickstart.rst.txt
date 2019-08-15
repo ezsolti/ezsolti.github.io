@@ -1,7 +1,7 @@
 Getting started
 ===============
 
-Below you can find a basic example and the working principle of ``feign``
+Below you can find a basic example and the working principle of ``feign``.
 
 Units
 -----
@@ -13,7 +13,7 @@ Usage
 
 Several well-documented notebooks will guide you under the Examples. The examples describe how to build simple or more complicated experimental setups, and how to visualize the traveled distance maps, the contribution maps and the geometric efficiency.
 
-In the following, an input of a simple 4x4 assembly is described. The same geometry is used as an example in `Working principle`_. The pins are fuel rods without any cladding (material f) surrounded by water (material w). The example assumes that you have managed to install ``feign`` and to obtain some data files after following the instructions at the `Installation page <https://ezsolti.github.io/feign/installation.html>`_
+In the following, an input of a simple 4x4 assembly is described. The same geometry is used as an example in `Working principle`_. The pins are fuel rods without any cladding (material f) surrounded by water (material w). The example assumes that you have managed to install ``feign`` and to obtain some data files after following the instructions at the `Installation page <https://ezsolti.github.io/feign/installation.html>`_.
 
 First, one needs to import the feign modules.
 

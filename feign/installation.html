@@ -40,6 +40,10 @@
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install https://github.com/ezsolti/feign/zipball/master
 </pre></div>
 </div>
+<p>Uninstall with the command</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip uninstall feign
+</pre></div>
+</div>
 <p>Dependencies:</p>
 <ul class="simple">
 <li><p>NumPy</p></li>
@@ -51,7 +55,9 @@
 forget to include an energy grid which covers your energy region of interest, because <code class="docutils literal notranslate"><span class="pre">feign</span></code> is unable to
 extrapolate the mass attenuation coefficients. Also try to use a reasonably dense energy grid which can catch the energy
 dependence of the mass attenuation coefficient, otherwise the interpolation will not be a decent approximation.</p>
-<p>Test data files are also available at <a class="reference external" href="https://github.com/ezsolti/feign/tree/master/data">feign’s github repo</a>. Mass attenuation coefficients are there for some materials common in passive gamma spectroscopy of nuclear fuel (uranium-dioxid, water, air, lead, aluminium, copper, stainless steel). Save these files to your prefarred location and include the paths when creating Material() objects.</p>
+<p>When creating your own data files, make sure that the columns are separated by white spaces (eventhough XCOM allows for separating with <a href="#id1"><span class="problematic" id="id2">|</span></a>).</p>
+<p>Test data files are also available at <a class="reference external" href="https://github.com/ezsolti/feign/tree/master/data">feign’s github repo</a>. Mass attenuation coefficients are there for some materials common in passive gamma spectroscopy of nuclear fuel (uranium-dioxid, water, air, lead, aluminium, copper, stainless steel). Save these files to your prefarred location and include the paths when creating Material() objects. When you have gathered your own datafiles, you can link them to Material() objects with the following method:</p>
+<p><code class="code docutils literal notranslate"><span class="pre">set_path</span></code> expects a tuple, the first element is the path to the data file, and the second element clarifies which column should be used from the file (since you might have several columns, for example attenuaton with or without coherent scattering).</p>
 </div>
 </div>
 
