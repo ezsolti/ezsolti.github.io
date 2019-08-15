@@ -46,12 +46,13 @@ An absorber can be thought of any element around (or within) the assembly,
 which attenuates gamma radiation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>absID</strong> (<em>str</em>) – ID of the absorber</p>
+<dd class="field-odd"><p><strong>**kwargs</strong> (<em>*args</em><em>,</em>) – <p>ID of the absorber</p>
+</p>
 </dd>
 </dl>
 <dl class="attribute">
-<dt id="feign.blocks.Absorber.absID">
-<code class="sig-name descname">absID</code><a class="headerlink" href="#feign.blocks.Absorber.absID" title="Permalink to this definition">¶</a></dt>
+<dt id="feign.blocks.Absorber._id">
+<code class="sig-name descname">_id</code><a class="headerlink" href="#feign.blocks.Absorber._id" title="Permalink to this definition">¶</a></dt>
 <dd><p>ID of the absorber</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -74,7 +75,7 @@ which attenuates gamma radiation.</p>
 <dl class="attribute">
 <dt id="feign.blocks.Absorber.material">
 <code class="sig-name descname">material</code><a class="headerlink" href="#feign.blocks.Absorber.material" title="Permalink to this definition">¶</a></dt>
-<dd><p>matID of the Material the absorber is made of</p>
+<dd><p><a class="reference internal" href="material.html#feign.blocks.Material._id" title="feign.blocks.Material._id"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Material._id</span></code></a> of the Material the absorber is made of</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>str</p>
@@ -85,7 +86,7 @@ which attenuates gamma radiation.</p>
 <dl class="attribute">
 <dt id="feign.blocks.Absorber.accommat">
 <code class="sig-name descname">accommat</code><a class="headerlink" href="#feign.blocks.Absorber.accommat" title="Permalink to this definition">¶</a></dt>
-<dd><p>matID of the Material the absorber is surrounded with (Note: the program
+<dd><p><a class="reference internal" href="material.html#feign.blocks.Material._id" title="feign.blocks.Material._id"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Material._id</span></code></a> of the Material the absorber is surrounded with (Note: the program
 has no capabilities to decide which material is around the absorber, thus
 the user has to set this)</p>
 <dl class="field-list simple">

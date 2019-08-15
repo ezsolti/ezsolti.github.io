@@ -125,7 +125,9 @@ each material in the problem.</p>
 <dl class="attribute">
 <dt id="feign.blocks.Experiment.sourcePoints">
 <code class="sig-name descname">sourcePoints</code><a class="headerlink" href="#feign.blocks.Experiment.sourcePoints" title="Permalink to this definition">¶</a></dt>
-<dd><p>List of pin-wise source point locations for each random sample.</p>
+<dd><p>List of pin-wise source point locations for each random sample. Each list element is a
+dictionary, where the keys are <a class="reference internal" href="detector.html#feign.blocks.Detector._id" title="feign.blocks.Detector._id"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Detector._id</span></code></a> identifiers and the values are 2D numpy
+arrays storing Point() objects</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>list</p>
@@ -137,8 +139,8 @@ each material in the problem.</p>
 <dt id="feign.blocks.Experiment.dTmap">
 <code class="sig-name descname">dTmap</code><a class="headerlink" href="#feign.blocks.Experiment.dTmap" title="Permalink to this definition">¶</a></dt>
 <dd><p>The average distance travelled by a gamma-ray from a lattice position to a detector
-given for each material in the problem. Outer keys are <code class="xref py py-attr docutils literal notranslate"><span class="pre">Detector._id</span></code> identifiers,
-inner keys are <code class="xref py py-attr docutils literal notranslate"><span class="pre">Material._id</span></code> identifiers. It is an average of all
+given for each material in the problem. Outer keys are <a class="reference internal" href="detector.html#feign.blocks.Detector._id" title="feign.blocks.Detector._id"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Detector._id</span></code></a> identifiers,
+inner keys are <a class="reference internal" href="material.html#feign.blocks.Material._id" title="feign.blocks.Material._id"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Material._id</span></code></a> identifiers. It is an average of all
 random samples (which are kept track in <a class="reference internal" href="#feign.blocks.Experiment.dTmaps" title="feign.blocks.Experiment.dTmaps"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Experiment.dTmaps</span></code></a>)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -151,8 +153,8 @@ random samples (which are kept track in <a class="reference internal" href="#fei
 <dt id="feign.blocks.Experiment.dTmapErr">
 <code class="sig-name descname">dTmapErr</code><a class="headerlink" href="#feign.blocks.Experiment.dTmapErr" title="Permalink to this definition">¶</a></dt>
 <dd><p>The standard deviation of distance travelled by a gamma-ray from a lattice position to a detector
-given for each material in the problem. Outer keys are <code class="xref py py-attr docutils literal notranslate"><span class="pre">Detector._id</span></code> identifiers,
-inner keys are <code class="xref py py-attr docutils literal notranslate"><span class="pre">Material._id</span></code> identifiers. It is an standard deviation of all
+given for each material in the problem. Outer keys are <a class="reference internal" href="detector.html#feign.blocks.Detector._id" title="feign.blocks.Detector._id"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Detector._id</span></code></a> identifiers,
+inner keys are <a class="reference internal" href="material.html#feign.blocks.Material._id" title="feign.blocks.Material._id"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Material._id</span></code></a> identifiers. It is an standard deviation of all
 random samples (which are kept track in <a class="reference internal" href="#feign.blocks.Experiment.dTmaps" title="feign.blocks.Experiment.dTmaps"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Experiment.dTmaps</span></code></a>)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -178,9 +180,9 @@ to a detector. Source point for each sample are stored in <a class="reference in
 <code class="sig-name descname">contributionMap</code><a class="headerlink" href="#feign.blocks.Experiment.contributionMap" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dictionary to store the rod-wise contributions averaged over random samples
 to each detector at each energy.
-Outer keys are detector <a class="reference internal" href="detector.html#feign.blocks.Detector.detID" title="feign.blocks.Detector.detID"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Detector.detID</span></code></a> identifiers.
+Outer keys are detector <a class="reference internal" href="detector.html#feign.blocks.Detector._id" title="feign.blocks.Detector._id"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Detector._id</span></code></a> identifiers.
 Inner keys are energy lines (as given in <a class="reference internal" href="#feign.blocks.Experiment.set_elines" title="feign.blocks.Experiment.set_elines"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Experiment.set_elines()</span></code></a>)
-contributionMap[detID][eline] is an NxM shaped numpy array, where
+<code class="code docutils literal notranslate"><span class="pre">contributionMap[Detector._id][eline]</span></code> is an NxM shaped numpy array, where
 N is <a class="reference internal" href="assembly.html#feign.blocks.Assembly.N" title="feign.blocks.Assembly.N"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Assembly.N</span></code></a> and M is <a class="reference internal" href="assembly.html#feign.blocks.Assembly.M" title="feign.blocks.Assembly.M"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Assembly.M</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -194,9 +196,9 @@ N is <a class="reference internal" href="assembly.html#feign.blocks.Assembly.N" 
 <code class="sig-name descname">contributionMapErr</code><a class="headerlink" href="#feign.blocks.Experiment.contributionMapErr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dictionary to store the standard deviation of rod-wise contributions averaged over
 random samples to each detector at each energy.
-Outer keys are detector <a class="reference internal" href="detector.html#feign.blocks.Detector.detID" title="feign.blocks.Detector.detID"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Detector.detID</span></code></a> identifiers.
+Outer keys are detector <a class="reference internal" href="detector.html#feign.blocks.Detector._id" title="feign.blocks.Detector._id"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Detector._id</span></code></a> identifiers.
 Inner keys are energy lines (as given in <a class="reference internal" href="#feign.blocks.Experiment.set_elines" title="feign.blocks.Experiment.set_elines"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Experiment.set_elines()</span></code></a>)
-contributionMapErr[detID][eline] is an NxM shaped numpy array, where
+<code class="code docutils literal notranslate"><span class="pre">contributionMapErr[Detector._id][eline]</span></code> is an NxM shaped numpy array, where
 N is <a class="reference internal" href="assembly.html#feign.blocks.Assembly.N" title="feign.blocks.Assembly.N"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Assembly.N</span></code></a> and M is <a class="reference internal" href="assembly.html#feign.blocks.Assembly.M" title="feign.blocks.Assembly.M"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Assembly.M</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -263,8 +265,8 @@ all detectors at each energy.</p>
 <code class="sig-name descname">geomEff</code><a class="headerlink" href="#feign.blocks.Experiment.geomEff" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dictionary to store the geometric efficiency at each detector location averaged over
 each random sample.
-Keys are detector <code class="xref py py-attr docutils literal notranslate"><span class="pre">Detector._id</span></code> identifiers.
-geomEff[detID] is E long numpy array, where E is the length of <a class="reference internal" href="#feign.blocks.Experiment.elines" title="feign.blocks.Experiment.elines"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Experiment.elines</span></code></a></p>
+Keys are detector <a class="reference internal" href="detector.html#feign.blocks.Detector._id" title="feign.blocks.Detector._id"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Detector._id</span></code></a> identifiers.
+<code class="code docutils literal notranslate"><span class="pre">geomEff[Detector._id]</span></code> is E long numpy array, where E is the length of <a class="reference internal" href="#feign.blocks.Experiment.elines" title="feign.blocks.Experiment.elines"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Experiment.elines</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>dict</p>
@@ -277,8 +279,8 @@ geomEff[detID] is E long numpy array, where E is the length of <a class="referen
 <code class="sig-name descname">geomEffErr</code><a class="headerlink" href="#feign.blocks.Experiment.geomEffErr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dictionary to store the standard deviation of the geometric efficiency
 at each detector location averaged over each random sample.
-Keys are detector <code class="xref py py-attr docutils literal notranslate"><span class="pre">Detector._id</span></code> identifiers.
-geomEff[detID] is E long numpy array, where E is the length of <a class="reference internal" href="#feign.blocks.Experiment.elines" title="feign.blocks.Experiment.elines"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Experiment.elines</span></code></a></p>
+Keys are detector <a class="reference internal" href="detector.html#feign.blocks.Detector._id" title="feign.blocks.Detector._id"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Detector._id</span></code></a> identifiers.
+<code class="code docutils literal notranslate"><span class="pre">geomEff[Detector._id]</span></code> is E long numpy array, where E is the length of <a class="reference internal" href="#feign.blocks.Experiment.elines" title="feign.blocks.Experiment.elines"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Experiment.elines</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>dict</p>
@@ -574,7 +576,7 @@ attenuation coefficients.</p>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>Dictionary to store the attenuation coefficients.
 Outer keys are energies as defined in <a class="reference internal" href="#feign.blocks.Experiment.elines" title="feign.blocks.Experiment.elines"><code class="xref py py-attr docutils literal notranslate"><span class="pre">elines</span></code></a>,
-inner keys are <a class="reference internal" href="material.html#feign.blocks.Material.matID" title="feign.blocks.Material.matID"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Material.matID</span></code></a> identifiers.</p>
+inner keys are <a class="reference internal" href="material.html#feign.blocks.Material._id" title="feign.blocks.Material._id"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Material._id</span></code></a> identifiers.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>dict</p>
