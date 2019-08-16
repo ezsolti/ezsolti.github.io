@@ -41,7 +41,7 @@ Test data files are also available at `feign's github repo
 
 :code:`set_path()` expects a tuple, the first element is the path to the data file, and the second element clarifies which column should be used from the file (since you might have several columns, for example attenuaton with or without coherent scattering).
 
-Some explanation on how to create mass attenuation data with XCOM from Serpent2 bumat files is also under development in the `SerpentToXCOM folder <https://github.com/ezsolti/feign/tree/master/SerpentToXCOM>`_
+Some explanation on how to create mass attenuation data with XCOM from Serpent2 bumat files is also under development and will be added soon.
 
 
 
