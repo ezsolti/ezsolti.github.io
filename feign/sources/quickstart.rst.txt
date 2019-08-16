@@ -41,7 +41,7 @@ Then, the pin types can be defined. Each pin has a unique identifier (used later
    fuel=Pin('1')
    fuel.add_region(f,0.5) #cm
 
-Based on the pins we can create a rectangular assembly. This requires to describe the size of the lattice upon initialization, set the lattice pitch size, the source material (or materials), the coolant material (what is around the nested annular regions), and the fuelmap. The elements of the fuelmap are the identifiers used at the definition of Pin() objects.
+Based on the pins we can create a rectangular assembly. This requires to describe the size of the lattice upon initialization, set the lattice pitch size, the source material (or materials), the coolant material (what is around the nested annular regions), and the fuelmap. The elements of the fuelmap are the identifiers used at the definition of Pin() objects. The assembly will be created so that the center of it will be at the origin of the coordinate system.
 
 .. code-block:: python
 
@@ -94,7 +94,9 @@ In this case the source points will be the center of the pins. However, that mig
    ex.set_random(10)
    ex.Run()
 
-Upon running the :meth:`Experiment.Run()` method a bunch of attributes of the object are updated and filled with results. The visualisation of these results is shown in the Examples.
+Upon running the :meth:`Experiment.Run()` first some checks are done on the :code:`Assembly()` and :code:`Experiment()` objects (see in the API docs for `assembly <https://ezsolti.github.io/feign/assembly.html#feign.blocks.Assembly.checkComplete>`_ and for `experiment <https://ezsolti.github.io/feign/experiment.html#feign.blocks.Experiment.checkComplete>`_), which may print warning or error messages if some required parameter or object has not been defined. :meth:`Assembly.checkComplete()` and :meth:`Experiment.checkComplete()` may be run while developing the input, if you are not sure whether something is missing from your input. However, these checks will not provide geometry checking beyond checking that the pin radii are smaller than the assembly pitch. You have to make sure that no absorbers are overlapping with other absorbers or with pins. :meth:`Experiment.Plot()` is plotting the geometry of the experiment (more info `here <https://ezsolti.github.io/feign/experiment.html#feign.blocks.Experiment.Plot>`_), which might be helpful to check whether there are any overlaps. However, keep in mind that large geometries with a zoomed out view do not render perfectly. 
+
+Running the :meth:`Experiment.Run()` method will update a bunch of attributes of the object and fill them with results. The visualisation of these results is shown in the `Examples <https://ezsolti.github.io/feign/examples.html>`_. The main interest is of the mean (over source points) geometric efficiency curved averaged over all detectors, which is stored in :attr:`Experiment.geomEffAve` with its standard deviation :attr:`Experiment.geomEffAve` (non-zero only if :meth:`Experiment.set_random()` is used to set the number of random source points).
 
 Working principle
 -----------------
