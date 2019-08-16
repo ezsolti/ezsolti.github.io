@@ -82,7 +82,7 @@
 </div>
 <p>At least one detector point needs to be defined in the problem. Each detector has an identifier, and a location has to be set. A Point() object (from the feign.geometry module) is used for this.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">det</span><span class="o">=</span><span class="n">Detector</span><span class="p">(</span><span class="s1">&#39;D&#39;</span><span class="p">)</span>
-<span class="n">det</span><span class="o">.</span><span class="n">set_location</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">det</span><span class="o">.</span><span class="n">set_location</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">))</span>
 </pre></div>
 </div>
 <p>Optinally one may create Collimator() objects and assign them to detectors. Also, one may create Absorber() objects. Then, we have to create an Experiment() objects, and link all the previousl created objects to that.</p>

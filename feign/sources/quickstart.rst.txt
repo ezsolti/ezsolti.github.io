@@ -63,7 +63,7 @@ At least one detector point needs to be defined in the problem. Each detector ha
 .. code-block:: python
 
    det=Detector('D')
-   det.set_location(Point(-10, -10))
+   det.set_location(Point(10, -10))
 
 Optinally one may create Collimator() objects and assign them to detectors. Also, one may create Absorber() objects. Then, we have to create an Experiment() objects, and link all the previousl created objects to that.
    
