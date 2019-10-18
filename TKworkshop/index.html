@@ -198,6 +198,7 @@ template: inverse
     ```
     When contribution is done, send pull request
   - **BUT**: on GitHub the word *fork* represents the equivalent of *git clone*
+- Pull or Push? Network commands
 
 
 ]
@@ -297,6 +298,52 @@ Then remark might be perfect for your next.red[*] slideshow!
 
 .footnote[.red[*] You probably want to convert existing slideshows as well]
 ]
+
+---
+.left-column[
+## Module vs Package
+### Module]
+
+.right-column[
+What is that if sometimes at the end of the code?
+
+To know whether it is imported or run as a script.
+
+```python
+s = "If Comrade Napoleon says it, it must be right."
+a = [100, 200, 300]
+
+def foo(arg):
+    print(f'arg = {arg}')
+
+class Foo:
+    pass
+
+if (__name__ == '__main__'):
+    print('Executing as standalone script')
+    print(s)
+    print(a)
+    foo('quux')
+    x = Foo()
+    print(x)
+```
+
+Otherwise you do not need this!
+
+But, this already does the unit testing of the module!
+]
+
+---
+.left-column[
+## Module vs Package
+### Module
+### Package]
+
+.right-column[
+when you have many modules
+
+init.py not necessary, but good]
+
 
 ---
 .left-column[
