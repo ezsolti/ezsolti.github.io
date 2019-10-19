@@ -201,7 +201,7 @@ For the paper
 - 250-1000 words
 - Summary for non-specialists
 - Statement of need
-- Citation
+- Bibliography with DOI
 
 Indeed, you see some articles, which are just 1 page long.
 
@@ -537,7 +537,147 @@ You have to know the Exceptions.
 [Python Exceptions](https://docs.python.org/3/library/exceptions.html)
 ]
 ---
+template: inverse
+## Tests
+---
+.left-column[
+## Tests
+### Why?]
 
+.right-column[
+- Assert behaviour
+- Find bugs
+- Provide example usage
+- Unittest or integration test. [Info](https://realpython.com/python-testing/)
+
+Everyone does this at least manually
+
+```python
+def distance(self, other):
+    dx = self.x - other.x
+    dy = self.y - other.y
+    return math.sqrt(dx*dx + dy*dy)
+```
+
+```python
+>>> Point.distance(Point(3,4),Point(3,7))
+3.0
+>>> Point.distance(Point(3,4),Point(2,4))
+1.0
+>>> Point.distance(Point(3,4),Point(5,6)) #sqrt(8)
+2.8284271247461903
+```
+
+One should keep track of these tests!
+
+]
+---
+.left-column[
+## Tests
+### Why?
+### How?]
+
+.right-column[
+- [Several tools available](https://realpython.com/python-testing/#choosing-a-test-runner)
+- Easy choice: built-in [unittest](https://www.geeksforgeeks.org/unit-testing-python-unittest/)
+- You can assert many things, even raises [(list)](https://docs.python.org/3/library/unittest.html#assert-methods)
+
+```python
+import unittest
+from tkgeom.geometry import *
+     
+class TestDistance(unittest.TestCase):
+    def test_distance_horizontal(self):
+        self.assertEqual(Point.distance(Point(3,4),Point(3,7)),3)
+    def test_distance_vertical(self):
+        self.assertEqual(Point.distance(Point(3,4),Point(2,4)),1)
+    def test_distance_1(self):
+        self.assertEqual(Point.distance(Point(3,4),Point(5,6)),np.sqrt(8))
+
+if __name__ == '__main__':
+    unittest.main()
+```
+
+```console
+$ python3 -m unittest discover tests/
+...............................
+----------------------------------------------------------------------
+Ran 31 tests in 0.002s
+
+OK
+```
+]
+---
+template: inverse
+## Docstrings, Documentation
+---
+.left-column[
+  ## Docstrings
+  ### Formats
+  ### Example
+  ## Documentation
+]
+.right-column[
+```python
+>>> ?Point()
+```
+]
+---
+.left-column[
+  ## Docstrings
+  ### Formats
+]
+.right-column[
+- Google
+- Numpy
+]
+---
+.left-column[
+  ## Docstrings
+  ### Formats
+  ### Example
+]
+.right-column[
+
+```python
+class Segment(object):
+    """
+    A class used to represent a Segment.
+
+    Parameters
+    ----------
+    p : Point()
+        first end point of Segment
+    q : Point()
+        second end point of Segment
+
+    Attributes
+    ----------
+    p : Point()
+        first end point of Segment
+    q : Point()
+        second end point of Segment
+    slope: float
+        slope of the line (np.Inf if vertical)
+    intercept: float
+        intercept on the y axis (intercept on the x axis if vertical)
+    points: list of Point()
+        list of p and q
+
+    """
+```
+]
+---
+.left-column[
+  ## Docstrings
+  ### Formats
+  ### Example
+  ## Documentation
+]
+.right-column[
+- If docstrings are written, you are basically done.
+]
+---
 .left-column[
 ## Module vs Package
 ### Module]
@@ -582,44 +722,6 @@ when you have many modules
 
 init.py not necessary, but good]
 
-
----
-.left-column[
-  ## Docstrings
-  ### Formats
-  ### Example
-]
-.right-column[
-
-```python
-class Segment(object):
-    """
-    A class used to represent a Segment.
-
-    Parameters
-    ----------
-    p : Point()
-        first end point of Segment
-    q : Point()
-        second end point of Segment
-
-    Attributes
-    ----------
-    p : Point()
-        first end point of Segment
-    q : Point()
-        second end point of Segment
-    slope: float
-        slope of the line (np.Inf if vertical)
-    intercept: float
-        intercept on the y axis (intercept on the x axis if vertical)
-    points: list of Point()
-        list of p and q
-
-    """
-```
-]
----
 
     </textarea>
     <script src="https://remarkjs.com/downloads/remark-latest.min.js">
