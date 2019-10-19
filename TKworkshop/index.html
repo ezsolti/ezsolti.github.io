@@ -125,6 +125,7 @@ class: center, middle, inverse
 ---
 # Workshop on publishing code
 ## Zsolt Elter
+## 2019
 ---
 layout: false
 .left-column[
@@ -143,17 +144,17 @@ How and where to publish your code and some good practices:
 - Docstrings
 - Documentation
 
-Idea here is to have a collection of useful links.
+Idea here is to have a collection of useful links, such as this one
 
-<a href="http://lilith.fisica.ufmg.br/~dickman/transfers/comp/textos/Effective%20Computation%20in%20Physics%20(Python).pdf">Anthony Scopatz & Kathryn D. Huff: Effective Computation in Physics</a>
+<a href="http://shop.oreilly.com/product/0636920033424.do">Anthony Scopatz & Kathryn D. Huff: Effective Computation in Physics</a>
 
-
+... and motto is: "*I can probably make a presentation without any figures.*"
 
 
 ]
 ---
 template: inverse
-## Journal of Open Software
+## Journal of Open Source Software
 ---
 .left-column[
 ## Publishing code
@@ -171,13 +172,13 @@ JOSS (and JOSE for open source education)
 - provides a simple submission process
 - paper (250-1000 words) takes few hours (if code is well-documented)
 - is free and open source
-- has a nuclear engineer editor (network to reviewers in the field)
+- has a nuclear engineer editor reviewers
 - has a transparent and open review process in github issues (for example [`feign`'s](https://github.com/openjournals/joss-reviews/issues/1650)).
 
 What you get
-- an article..:)
-- a code what was installed, tested, reviewed by at least three persons.
-- you experience a different world... journal run by enthusiastic young people.
+- an article...:)
+- a code that was installed, tested, reviewed by at least three scientists
+- experience from a different world... journal run by enthusiastic young people. This is nothing like Elsevier...
 ]
 ---
 .left-column[
@@ -196,13 +197,13 @@ For the code
 - Tests
 - Examples
 
-For the code
+For the paper
 - 250-1000 words
 - Summary for non-specialists
 - Statement of need
 - Citation
 
-Indeed, you see some articles, which are just 1 page, so the goal is to "have an article".
+Indeed, you see some articles, which are just 1 page long.
 
 [Mine](https://joss.theoj.org/papers/10.21105/joss.01650) was a bit more detailed.
 
@@ -217,10 +218,11 @@ Indeed, you see some articles, which are just 1 page, so the goal is to "have an
 ]
 
 .right-column[
-- Altogether 3 weeks to prepare my code and documentation
+- Altogether 3 weeks to prepare my code and documentation for submission
 - But the paper was 3 hours
+- Worth it?
 
-Today we go through what one needs to have python code ready to be published...
+Today we go through what one needs to know to get python code ready to be published...
 
 ... to spend only 3 hours on this next time.
 ]
@@ -237,11 +239,11 @@ Today we go through what one needs to have python code ready to be published...
 .right-column[
 
 - How to program decently
-- Python API as input (even for C/C++ code)
+- Python API, XML, JSON instead of input files (even for C/C++ code)
 
-Find an example you like, and mimic it.
+Find an example you like, and try to mimic it.
 
-I've relied on [OpenMC's](https://github.com/openmc-dev/openmc) logic a lot.
+I've relied a lot on [OpenMC's](https://github.com/openmc-dev/openmc) logic.
 ]
 
 ---
@@ -259,6 +261,7 @@ I've relied on [OpenMC's](https://github.com/openmc-dev/openmc) logic a lot.
 - Python API as input (even for C/C++ code)
 
 
+From
 
 ```python
 title,N,M,pitch,p,cells,materials,fuelmap,source,coolantMat,surroundMat,detectorpoints,pool,elines,mu = readInput(inputfilename)
@@ -294,6 +297,8 @@ pwrClab.Run()
 - How to program decently
 - Python API as input (even for C/C++ code)
 
+From 
+
 ```bash
 MATERIALS
 1 UO2 10.5   /data/UO2.dat  1
@@ -326,7 +331,7 @@ template: inverse
 ### Why?]
 
 .right-column[
-- To avoid having hundred of files
+- To avoid having hundreds of files
   - you do not need a github repo for this
   - just ```git init``` in your folder, and add/commit
   - review with ```git log```
@@ -334,7 +339,8 @@ template: inverse
 - To backup your project
   - with remote repo (eg. github)
 - To facilitate contribution
-- + github issues
+  - we should use it for our data analysis notebooks
+- github issues good for handling projects
 ]
 
 ---
@@ -401,13 +407,36 @@ Origin is the name of the remote repo. Master is the branch. [Info here](https:/
 .right-column[
 We will come back to these later, but
 
-- Licence
+- License
 - Readme
 - Source code, eg python package
 - Contribution details
 - .gitignore to specify intentionally untracked files (eg pyc)
 
 Then you are good to go.
+
+Optionally (eg. for JOSS)
+- tests
+- paper
+- doc
+- examples
+- setup.py
+
+]
+
+---
+.left-column[
+## Version control
+### Why?
+### How?
+### Terminology
+### Checklist
+#### License]
+
+.right-column[
+**Disclaimer**: you probably should not take any legal advice from me.
+
+[OSI-approved licenses](https://opensource.org/licenses)
 ]
 
 ---
