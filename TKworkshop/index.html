@@ -410,7 +410,7 @@ We will come back to these later, but
 - License
 - Readme
 - Source code, eg python package
-- Contribution details
+- Contribution guidelines
 - .gitignore to specify intentionally untracked files (eg pyc)
 
 Then you are good to go.
@@ -437,6 +437,7 @@ Optionally (eg. for JOSS)
 **Disclaimer**: you probably should not take any legal advice from me.
 
 [OSI-approved licenses](https://opensource.org/licenses)
+[Choose a license](https://choosealicense.com/)
 ]
 
 ---
@@ -607,6 +608,14 @@ Ran 31 tests in 0.002s
 OK
 ```
 ]
+
+
+
+
+
+
+
+
 ---
 template: inverse
 ## Docstrings, Documentation
@@ -677,9 +686,45 @@ class Segment(object):
 .right-column[
 - If docstrings are written, you are basically done.
 ]
+
+
+
+
+
+
+---
+template: inverse
+## Packaging python code
 ---
 .left-column[
-## Module vs Package
+## Packaging
+### Module]
+
+.right-column[
+- Modular programming
+  - Simplicity
+  - Maintainability
+  - Reusability 
+  - Scoping (separate [namespace](https://www.programiz.com/python-programming/namespace))
+- Collection of (in a .py file)
+  - Functions
+  - Classes
+- Module location
+  - in current directory
+  - `PYTHONPATH`
+
+```python
+>>> import <module_name>
+>>> from <module_name> import <name(s)>
+>>> from <module_name> import <name> as <alt_name>
+>>> import <module_name> as <alt_name>
+```
+]
+
+
+---
+.left-column[
+## Packaging
 ### Module]
 
 .right-column[
@@ -688,27 +733,23 @@ What is that if sometimes at the end of the code?
 To know whether it is imported or run as a script.
 
 ```python
-s = "If Comrade Napoleon says it, it must be right."
-a = [100, 200, 300]
+s = "nuclear for future"
 
-def foo(arg):
-    print(f'arg = {arg}')
+def plus(x,y):
+    return x+y
 
-class Foo:
-    pass
+def minus(x,y):
+    return x-y
 
 if (__name__ == '__main__'):
-    print('Executing as standalone script')
     print(s)
-    print(a)
-    foo('quux')
-    x = Foo()
-    print(x)
+    print(plus(2,3))
+    print(minus(3,2))
 ```
 
-Otherwise you do not need this!
+Otherwise, you do not need this.
 
-But, this already does the unit testing of the module!
+But, this already may do some unittesting of the module!
 ]
 
 ---
