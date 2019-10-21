@@ -536,6 +536,31 @@ You have to know the Exceptions.
 .right-column[
 
 [Python Exceptions](https://docs.python.org/3/library/exceptions.html)
+- `IndexError`
+```python
+>>> a=[3,2,5]
+>>> a[5]*3
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+IndexError: list index out of range
+```
+- `KeyError`
+```python
+>>> a={'name': 'Fermi', 'nobel': 1938}
+>>> a['age']
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+KeyError: 'age'
+```
+
+- `TypeError`
+```python
+>>> a={'name': 'Fermi', 'nobel': 1938}
+>>> sum(a)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: unsupported operand type(s) for +: 'int' and 'str'
+```
 ]
 ---
 template: inverse
@@ -685,6 +710,15 @@ class Segment(object):
 ]
 .right-column[
 - If docstrings are written, you are basically done.
+- [Sphinx](https://www.sphinx-doc.org/en/master/usage/quickstart.html)
+
+```bash
+$ mkdir docs
+$ cd docs
+$ sphinx-quickstart
+```
+
+
 ]
 
 
@@ -719,6 +753,8 @@ template: inverse
 >>> from <module_name> import <name> as <alt_name>
 >>> import <module_name> as <alt_name>
 ```
+
+[package vs modules info](https://realpython.com/python-modules-packages/)
 ]
 
 
@@ -728,7 +764,7 @@ template: inverse
 ### Module]
 
 .right-column[
-What is that if sometimes at the end of the code?
+What is that ```if``` sometimes at the end of the code?
 
 To know whether it is imported or run as a script.
 
@@ -759,9 +795,180 @@ But, this already may do some unittesting of the module!
 ### Package]
 
 .right-column[
-when you have many modules
+- When you have many modules
+- Or one what you want to "package"
+- ```__init__.py``` not necessary (executed when imported)
+```
+pkg_folder
+│   mod1.py
+│   mod2.py
+│   __init__.py
+```
 
-init.py not necessary, but good]
+
+```python
+>>> import tkgeom
+>>> tkgeom.geometry
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: module 'tkgeom' has no attribute 'geometry'
+```
+
+```python
+>>> import tkgeom.geometry
+>>> Point(3,4)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'Point' is not defined
+>>> tkgeom.geometry.Point(3,4)
+Point(3.000, 4.000)
+```
+
+```python
+>>> from tkgeom import geometry
+>>> geometry.Point(3,4)
+Point(3.000, 4.000)
+```
+]
+
+---
+.left-column[
+## Module vs Package
+### Module
+### Package
+### Packaging]
+
+.right-column[
+- When you want to distribute it
+- Register in [PyPI](https://pypi.org/)
+  - Python Package Index
+  - Repository of software
+- Install with [pip](https://pip.pypa.io/en/stable/)
+  - package installer
+
+```
+project_folder
+│   README.md
+│   LICENSE    
+│   setup.py
+└───pkg_folder
+│   │   mod1.py
+│   │   mod2.py
+│   │   __init__.py
+│   
+└───tests
+    │   test_mod1.py
+    │   test_mod2.py
+```
+]
+---
+.left-column[
+## Module vs Package
+### Module
+### Package
+### Packaging]
+
+.right-column[
+```
+project_folder
+│   README.md
+│   LICENSE    
+│   setup.py
+└───pkg_folder
+│   │   mod1.py
+│   │   mod2.py
+│   │   __init__.py
+│   
+└───tests
+    │   test_mod1.py
+    │   test_mod2.py
+```
+
+README.md
+```markdown
+  # TK workshop example
+
+  Example package for workshop.
+```
+
+Installation, dependencies, getting started, docs, tests, contributing guidelines 
+]
+
+---
+.left-column[
+## Module vs Package
+### Module
+### Package
+### Packaging]
+
+.right-column[
+`setup.py`
+
+built script for setuptools.
+
+```python
+import setuptools
+
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
+setuptools.setup(
+    name="tkgeom",
+    version="1.0.0",
+    author="Zsolt Elter",
+    description="tkgeom: 2D geometry module",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    url="https://github.com/ezsolti/TKworkshop",
+    packages=setuptools.find_packages(),
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+    ],
+    install_requires=[
+        "numpy"
+    ]
+)
+```
+]
+
+---
+.left-column[
+## Module vs Package
+### Module
+### Package
+### Packaging]
+
+.right-column[
+You can
+
+- Generate [distribution packages](https://packaging.python.org/tutorials/packaging-projects/)
+- Register to PyPI
+- Or just offer your github link for installation
+```bash
+pip install https://github.com/ezsolti/TKworkshop/zipball/master
+```
+
+```console
+Collecting https://github.com/ezsolti/TKworkshop/zipball/master
+  Downloading https://github.com/ezsolti/TKworkshop/zipball/master
+     / 163kB 555kB/s
+Requirement already satisfied: numpy in /home/zsolt/anaconda3/lib/python3.7/site-packages (from tkgeom==1.0.0) (1.16.2)
+Building wheels for collected packages: tkgeom
+  Building wheel for tkgeom (setup.py) ... done
+  Created wheel for tkgeom: filename=tkgeom-1.0.0-cp37-none-any.whl size=6939 sha256=aa350f7fa43eb757823735e927e8e1ebe8b5ed6cd2cd47f3f8ed3e99ec873d21
+  Stored in directory: /tmp/pip-ephem-wheel-cache-0_belbzm/wheels/10/ea/44/5d3bce95f1404d8f2f8881b99248043a1a22659611b384bb18
+Successfully built tkgeom
+Installing collected packages: tkgeom
+Successfully installed tkgeom-1.0.0
+```
+]
+
+
+---
+template: inverse
+## Thanks for listening!
 
 
     </textarea>
