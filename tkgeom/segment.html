@@ -1,0 +1,237 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>geometry.Segment() &#8212; tkgeom 1.0.0 documentation</title>
+    <link rel="stylesheet" href="static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="static/documentation_options.js"></script>
+    <script type="text/javascript" src="static/jquery.js"></script>
+    <script type="text/javascript" src="static/underscore.js"></script>
+    <script type="text/javascript" src="static/doctools.js"></script>
+    <script type="text/javascript" src="static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="geometry.Circle()" href="circle.html" />
+    <link rel="prev" title="geometry.Point()" href="point.html" />
+   
+  <link rel="stylesheet" href="static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="geometry-segment">
+<h1>geometry.Segment()<a class="headerlink" href="#geometry-segment" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<dl class="class">
+<dt id="tkgeom.geometry.Segment">
+<em class="property">class </em><code class="sig-prename descclassname">tkgeom.geometry.</code><code class="sig-name descname">Segment</code><span class="sig-paren">(</span><em class="sig-param">p</em>, <em class="sig-param">q</em><span class="sig-paren">)</span><a class="headerlink" href="#tkgeom.geometry.Segment" title="Permalink to this definition">¶</a></dt>
+<dd><p>A class used to represent a Segment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>p</strong> (<a class="reference internal" href="point.html#tkgeom.geometry.Point" title="tkgeom.geometry.Point"><em>Point</em></a><em>(</em><em>)</em>) – first end point of Segment</p></li>
+<li><p><strong>q</strong> (<a class="reference internal" href="point.html#tkgeom.geometry.Point" title="tkgeom.geometry.Point"><em>Point</em></a><em>(</em><em>)</em>) – second end point of Segment</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="attribute">
+<dt id="tkgeom.geometry.Segment.p">
+<code class="sig-name descname">p</code><a class="headerlink" href="#tkgeom.geometry.Segment.p" title="Permalink to this definition">¶</a></dt>
+<dd><p>first end point of Segment</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="point.html#tkgeom.geometry.Point" title="tkgeom.geometry.Point">Point</a>()</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tkgeom.geometry.Segment.q">
+<code class="sig-name descname">q</code><a class="headerlink" href="#tkgeom.geometry.Segment.q" title="Permalink to this definition">¶</a></dt>
+<dd><p>second end point of Segment</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="point.html#tkgeom.geometry.Point" title="tkgeom.geometry.Point">Point</a>()</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tkgeom.geometry.Segment.slope">
+<code class="sig-name descname">slope</code><a class="headerlink" href="#tkgeom.geometry.Segment.slope" title="Permalink to this definition">¶</a></dt>
+<dd><p>slope of the line (np.Inf if vertical)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tkgeom.geometry.Segment.intercept">
+<code class="sig-name descname">intercept</code><a class="headerlink" href="#tkgeom.geometry.Segment.intercept" title="Permalink to this definition">¶</a></dt>
+<dd><p>intercept on the y axis (intercept on the x axis if vertical)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tkgeom.geometry.Segment.points">
+<code class="sig-name descname">points</code><a class="headerlink" href="#tkgeom.geometry.Segment.points" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of p and q</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list of Point()</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="tkgeom.geometry.Segment.intersection">
+<code class="sig-name descname">intersection</code><span class="sig-paren">(</span><em class="sig-param">other</em><span class="sig-paren">)</span><a class="headerlink" href="#tkgeom.geometry.Segment.intersection" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function to find the intersection of two Segment objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>other</strong> (<a class="reference internal" href="#tkgeom.geometry.Segment" title="tkgeom.geometry.Segment"><em>Segment</em></a><em>(</em><em>)</em>) – The Segment() for which the intersection is calculated</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list of the intersections</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list of Point()</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The list has one element if the Segments intersect (even if only through
+their end points).</p>
+<p>An empty list is returned if the Segments do not have an intersection.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s1</span><span class="o">=</span><span class="n">Segment</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s2</span><span class="o">=</span><span class="n">Segment</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="n">Point</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s1</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">s2</span><span class="p">)</span>
+<span class="go"> [Point(0.000, 0.000)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s3</span><span class="o">=</span><span class="n">Segment</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">4</span><span class="p">),</span><span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span><span class="o">-</span><span class="mi">7</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s1</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">s3</span><span class="p">)</span>
+<span class="go"> []</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="tkgeom.geometry.Segment.rotate">
+<code class="sig-name descname">rotate</code><span class="sig-paren">(</span><em class="sig-param">alpha</em><span class="sig-paren">)</span><a class="headerlink" href="#tkgeom.geometry.Segment.rotate" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function to rotate a Segment around the origin with alpha (deg)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>alpha</strong> (<em>float</em>) – Rotation angle (in degrees)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Segment with rotated end points</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#tkgeom.geometry.Segment" title="tkgeom.geometry.Segment">Segment</a>()</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">tkgeom</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex0_geometry.html">feign.geometry tutorial</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="point.html">geometry.Point()</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">geometry.Segment()</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="circle.html">geometry.Circle()</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rectangle.html">geometry.Rectangle()</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="point.html" title="previous chapter">geometry.Point()</a></li>
+      <li>Next: <a href="circle.html" title="next chapter">geometry.Circle()</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Zsolt Elter.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="sources/segment.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

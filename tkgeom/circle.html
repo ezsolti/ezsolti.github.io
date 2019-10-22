@@ -1,0 +1,219 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>geometry.Circle() &#8212; tkgeom 1.0.0 documentation</title>
+    <link rel="stylesheet" href="static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="static/documentation_options.js"></script>
+    <script type="text/javascript" src="static/jquery.js"></script>
+    <script type="text/javascript" src="static/underscore.js"></script>
+    <script type="text/javascript" src="static/doctools.js"></script>
+    <script type="text/javascript" src="static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="geometry.Rectangle()" href="rectangle.html" />
+    <link rel="prev" title="geometry.Segment()" href="segment.html" />
+   
+  <link rel="stylesheet" href="static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="geometry-circle">
+<h1>geometry.Circle()<a class="headerlink" href="#geometry-circle" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<dl class="class">
+<dt id="tkgeom.geometry.Circle">
+<em class="property">class </em><code class="sig-prename descclassname">tkgeom.geometry.</code><code class="sig-name descname">Circle</code><span class="sig-paren">(</span><em class="sig-param">c</em>, <em class="sig-param">r</em><span class="sig-paren">)</span><a class="headerlink" href="#tkgeom.geometry.Circle" title="Permalink to this definition">¶</a></dt>
+<dd><p>A class used to represent a Circle.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>c</strong> (<a class="reference internal" href="point.html#tkgeom.geometry.Point" title="tkgeom.geometry.Point"><em>Point</em></a><em>(</em><em>)</em>) – center of Circle</p></li>
+<li><p><strong>r</strong> (<em>float</em>) – radius of Circle</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="attribute">
+<dt id="tkgeom.geometry.Circle.c">
+<code class="sig-name descname">c</code><a class="headerlink" href="#tkgeom.geometry.Circle.c" title="Permalink to this definition">¶</a></dt>
+<dd><p>center of Circle</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="point.html#tkgeom.geometry.Point" title="tkgeom.geometry.Point">Point</a>()</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tkgeom.geometry.Circle.r">
+<code class="sig-name descname">r</code><a class="headerlink" href="#tkgeom.geometry.Circle.r" title="Permalink to this definition">¶</a></dt>
+<dd><p>radius of Circle</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="tkgeom.geometry.Circle.encloses_point">
+<code class="sig-name descname">encloses_point</code><span class="sig-paren">(</span><em class="sig-param">P</em><span class="sig-paren">)</span><a class="headerlink" href="#tkgeom.geometry.Circle.encloses_point" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function to assess whether a point is enclosed by a Circle.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>P</strong> (<a class="reference internal" href="point.html#tkgeom.geometry.Point" title="tkgeom.geometry.Point"><em>Point</em></a><em>(</em><em>)</em>) – point to decide whether is enclosed by the Circle</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if P is enclosed by the Circle, False otherwise</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">=</span><span class="n">Circle</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">P</span><span class="o">=</span><span class="n">Point</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">encloses_point</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Q</span><span class="o">=</span><span class="n">Point</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">=</span><span class="n">Circle</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="mi">5</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="tkgeom.geometry.Circle.intersection">
+<code class="sig-name descname">intersection</code><span class="sig-paren">(</span><em class="sig-param">seg</em><span class="sig-paren">)</span><a class="headerlink" href="#tkgeom.geometry.Circle.intersection" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function to find the intersection of a Circle with a Segment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>seg</strong> (<a class="reference internal" href="segment.html#tkgeom.geometry.Segment" title="tkgeom.geometry.Segment"><em>Segment</em></a><em>(</em><em>)</em>) – The Segment for which the intersection is calculated</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list of the intersection</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list of Point()</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The returned list has one element if one of the endpoints of the Segment is
+enclosed by the circle.</p>
+<p>The list has two elements if both endpoints of the Segment lies outside
+the Circle and the Segment passes through the circle.</p>
+<p>An empty list is returned if the Segment does not pass through the Circle,
+or in case the Segment is a tangent.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">=</span><span class="n">Circle</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s1</span><span class="o">=</span><span class="n">Segment</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="o">-</span><span class="mi">8</span><span class="p">),</span><span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">s1</span><span class="p">)</span>
+<span class="go">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s2</span><span class="o">=</span><span class="n">Segment</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">Point</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">s2</span><span class="p">)</span>
+<span class="go">[Point(6.000, 1.000)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s3</span><span class="o">=</span><span class="n">Segment</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">8</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">Point</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+<span class="go">[Point(6.000, 1.000), Point(-4.000, 1.000)]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">tkgeom</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex0_geometry.html">feign.geometry tutorial</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="point.html">geometry.Point()</a></li>
+<li class="toctree-l1"><a class="reference internal" href="segment.html">geometry.Segment()</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">geometry.Circle()</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rectangle.html">geometry.Rectangle()</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="segment.html" title="previous chapter">geometry.Segment()</a></li>
+      <li>Next: <a href="rectangle.html" title="next chapter">geometry.Rectangle()</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Zsolt Elter.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="sources/circle.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
