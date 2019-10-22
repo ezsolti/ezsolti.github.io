@@ -174,7 +174,7 @@ JOSS (and JOSE for open source education)
 - provides a simple submission process
 - paper (250-1000 words) takes few hours (if code is well-documented)
 - is free and open source
-- has a nuclear engineer editor reviewers
+- has a nuclear engineer editor and reviewers
 - has a transparent and open review process in github issues (for example [`feign`'s](https://github.com/openjournals/joss-reviews/issues/1650)).
 
 What you get
@@ -191,7 +191,7 @@ What you get
 
 .right-column[
 For the code
-- Obvious research application, 
+- Obvious research application 
 - License, Community guidelines
 - Documentation (readme)
 - API documentation
@@ -342,7 +342,10 @@ template: inverse
   - with remote repo (eg. github)
 - To facilitate contribution
   - we should use it for our data analysis notebooks
-- github issues good for handling projects
+- github issues for managing the projects
+  - report bugs
+  - propose changes
+  - discuss
 ]
 
 ---
@@ -439,8 +442,263 @@ Optionally (eg. for JOSS)
 **Disclaimer**: you probably should not take any legal advice from me.
 
 [OSI-approved licenses](https://opensource.org/licenses)
+
 [Choose a license](https://choosealicense.com/)
 ]
+
+
+
+
+
+
+
+
+---
+template: inverse
+## Packaging python code
+---
+.left-column[
+## Packaging
+### Module]
+
+.right-column[
+- Modular programming
+  - Simplicity
+  - Maintainability
+  - Reusability 
+  - Scoping (separate [namespace](https://www.programiz.com/python-programming/namespace))
+- Collection of (in a .py file)
+  - Functions
+  - Classes
+- Module location
+  - in current directory
+  - `PYTHONPATH`
+
+```python
+>>> import <module_name>
+>>> from <module_name> import <name(s)>
+>>> from <module_name> import <name> as <alt_name>
+>>> import <module_name> as <alt_name>
+```
+
+[package vs modules info](https://realpython.com/python-modules-packages/)
+]
+
+
+---
+.left-column[
+## Packaging
+### Module]
+
+.right-column[
+What is that ```if``` sometimes at the end of the code?
+
+To know whether it is imported or run as a script.
+
+```python
+s = "nuclear for future"
+
+def plus(x,y):
+    return x+y
+
+def minus(x,y):
+    return x-y
+
+if (__name__ == '__main__'):
+    print(s)
+    print(plus(2,3))
+    print(minus(3,2))
+```
+
+Otherwise, you do not need this.
+
+But, this already may do some unittesting of the module!
+]
+
+---
+.left-column[
+## Module vs Package
+### Module
+### Package]
+
+.right-column[
+- When you have many modules
+- Or one what you want to "package"
+- [`__init__.py`](https://github.com/ezsolti/TKworkshop/blob/master/tkgeom/__init__.py) not necessary (executed when imported)
+```
+pkg_folder
+│   mod1.py
+│   mod2.py
+│   __init__.py
+```
+
+
+```python
+>>> import tkgeom
+>>> tkgeom.geometry
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: module 'tkgeom' has no attribute 'geometry'
+```
+
+```python
+>>> import tkgeom.geometry
+>>> tkgeom.geometry.Point(3,4)
+Point(3.000, 4.000)
+>>> Point(3,4)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'Point' is not defined
+```
+
+```python
+>>> from tkgeom import geometry
+>>> geometry.Point(3,4)
+Point(3.000, 4.000)
+```
+]
+
+---
+.left-column[
+## Module vs Package
+### Module
+### Package
+### Packaging]
+
+.right-column[
+- When you want to distribute it
+- Register in [PyPI](https://pypi.org/)
+  - Python Package Index
+  - Repository of software
+- Install with [pip](https://pip.pypa.io/en/stable/)
+  - package installer
+
+```
+project_folder
+│   README.md
+│   LICENSE    
+│   setup.py
+└───pkg_folder
+│   │   mod1.py
+│   │   mod2.py
+│   │   __init__.py
+│   
+└───tests
+    │   test_mod1.py
+    │   test_mod2.py
+```
+]
+---
+.left-column[
+## Module vs Package
+### Module
+### Package
+### Packaging]
+
+.right-column[
+```
+project_folder
+│   README.md
+│   LICENSE    
+│   setup.py
+└───pkg_folder
+│   │   mod1.py
+│   │   mod2.py
+│   │   __init__.py
+│   
+└───tests
+    │   test_mod1.py
+    │   test_mod2.py
+```
+
+README.md
+```markdown
+  # TK workshop example
+
+  Example package for workshop.
+```
+
+Installation, dependencies, getting started, docs, tests, contributing guidelines 
+]
+
+---
+.left-column[
+## Module vs Package
+### Module
+### Package
+### Packaging]
+
+.right-column[
+`setup.py`
+
+built script for setuptools.
+
+```python
+import setuptools
+
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
+setuptools.setup(
+    name="tkgeom",
+    version="1.0.0",
+    author="Zsolt Elter",
+    description="tkgeom: 2D geometry module",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    url="https://github.com/ezsolti/TKworkshop",
+    packages=setuptools.find_packages(),
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+    ],
+    install_requires=[
+        "numpy"
+    ]
+)
+```
+]
+
+---
+.left-column[
+## Module vs Package
+### Module
+### Package
+### Packaging]
+
+.right-column[
+You can
+
+- Generate [distribution packages](https://packaging.python.org/tutorials/packaging-projects/)
+- Register to PyPI
+- Or just offer your github link for installation
+```bash
+pip install https://github.com/ezsolti/TKworkshop/zipball/master
+```
+
+```console
+Collecting https://github.com/ezsolti/TKworkshop/zipball/master
+  Downloading https://github.com/ezsolti/TKworkshop/zipball/master
+     / 163kB 555kB/s
+Requirement already satisfied: numpy in /home/zsolt/anaconda3/lib/python3.7/site-packages (from tkgeom==1.0.0) (1.16.2)
+Building wheels for collected packages: tkgeom
+  Building wheel for tkgeom (setup.py) ... done
+  Created wheel for tkgeom: filename=tkgeom-1.0.0-cp37-none-any.whl size=6939 sha256=aa350f7fa43eb757823735e927e8e1ebe8b5ed6cd2cd47f3f8ed3e99ec873d21
+  Stored in directory: /tmp/pip-ephem-wheel-cache-0_belbzm/wheels/10/ea/44/5d3bce95f1404d8f2f8881b99248043a1a22659611b384bb18
+Successfully built tkgeom
+Installing collected packages: tkgeom
+Successfully installed tkgeom-1.0.0
+```
+]
+
+
+
+
+
+
+
+
 
 ---
 template: inverse
@@ -451,7 +709,7 @@ template: inverse
 ### Why?]
 
 .right-column[
-For your own sake...
+Not everyone might be an experienced user of your code.
 
 ```console
 $ python planecalc.py 
@@ -473,7 +731,7 @@ IndexError: too many indices for array
 ### Why?]
 
 .right-column[
-For your own sake...
+Sometimes not even you are an experienced user of your code.
 
 ```console
 $ python planecalc.py 
@@ -525,7 +783,16 @@ Traceback (most recent call last):
 ValueError: could not convert string to float: '32A'
 ```
 
-You have to know the Exceptions.
+You have to know the Exceptions to catch them.
+
+And to raise them
+
+
+```python
+raise TypeError('Has to be int')
+```
+
+to catch mistakes of user interacting with your code.
 ]
 
 ---
@@ -829,6 +1096,8 @@ geometry.Point()
 .. autoclass:: tkgeom.geometry.Point
     :members:
 ```
+
+Will parse the module for docstrings, and renders it. (We set the `conf.py` to find the package in the path.)
 ]
 
 ---
@@ -863,244 +1132,6 @@ Example: [ezsolti.github.io/tkgeom](https://ezsolti.github.io/tkgeom/)
 
 
 
----
-template: inverse
-## Packaging python code
----
-.left-column[
-## Packaging
-### Module]
-
-.right-column[
-- Modular programming
-  - Simplicity
-  - Maintainability
-  - Reusability 
-  - Scoping (separate [namespace](https://www.programiz.com/python-programming/namespace))
-- Collection of (in a .py file)
-  - Functions
-  - Classes
-- Module location
-  - in current directory
-  - `PYTHONPATH`
-
-```python
->>> import <module_name>
->>> from <module_name> import <name(s)>
->>> from <module_name> import <name> as <alt_name>
->>> import <module_name> as <alt_name>
-```
-
-[package vs modules info](https://realpython.com/python-modules-packages/)
-]
-
-
----
-.left-column[
-## Packaging
-### Module]
-
-.right-column[
-What is that ```if``` sometimes at the end of the code?
-
-To know whether it is imported or run as a script.
-
-```python
-s = "nuclear for future"
-
-def plus(x,y):
-    return x+y
-
-def minus(x,y):
-    return x-y
-
-if (__name__ == '__main__'):
-    print(s)
-    print(plus(2,3))
-    print(minus(3,2))
-```
-
-Otherwise, you do not need this.
-
-But, this already may do some unittesting of the module!
-]
-
----
-.left-column[
-## Module vs Package
-### Module
-### Package]
-
-.right-column[
-- When you have many modules
-- Or one what you want to "package"
-- ```__init__.py``` not necessary (executed when imported)
-```
-pkg_folder
-│   mod1.py
-│   mod2.py
-│   __init__.py
-```
-
-
-```python
->>> import tkgeom
->>> tkgeom.geometry
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-AttributeError: module 'tkgeom' has no attribute 'geometry'
-```
-
-```python
->>> import tkgeom.geometry
->>> Point(3,4)
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-NameError: name 'Point' is not defined
->>> tkgeom.geometry.Point(3,4)
-Point(3.000, 4.000)
-```
-
-```python
->>> from tkgeom import geometry
->>> geometry.Point(3,4)
-Point(3.000, 4.000)
-```
-]
-
----
-.left-column[
-## Module vs Package
-### Module
-### Package
-### Packaging]
-
-.right-column[
-- When you want to distribute it
-- Register in [PyPI](https://pypi.org/)
-  - Python Package Index
-  - Repository of software
-- Install with [pip](https://pip.pypa.io/en/stable/)
-  - package installer
-
-```
-project_folder
-│   README.md
-│   LICENSE    
-│   setup.py
-└───pkg_folder
-│   │   mod1.py
-│   │   mod2.py
-│   │   __init__.py
-│   
-└───tests
-    │   test_mod1.py
-    │   test_mod2.py
-```
-]
----
-.left-column[
-## Module vs Package
-### Module
-### Package
-### Packaging]
-
-.right-column[
-```
-project_folder
-│   README.md
-│   LICENSE    
-│   setup.py
-└───pkg_folder
-│   │   mod1.py
-│   │   mod2.py
-│   │   __init__.py
-│   
-└───tests
-    │   test_mod1.py
-    │   test_mod2.py
-```
-
-README.md
-```markdown
-  # TK workshop example
-
-  Example package for workshop.
-```
-
-Installation, dependencies, getting started, docs, tests, contributing guidelines 
-]
-
----
-.left-column[
-## Module vs Package
-### Module
-### Package
-### Packaging]
-
-.right-column[
-`setup.py`
-
-built script for setuptools.
-
-```python
-import setuptools
-
-with open("README.md", "r") as fh:
-    long_description = fh.read()
-
-setuptools.setup(
-    name="tkgeom",
-    version="1.0.0",
-    author="Zsolt Elter",
-    description="tkgeom: 2D geometry module",
-    long_description=long_description,
-    long_description_content_type="text/markdown",
-    url="https://github.com/ezsolti/TKworkshop",
-    packages=setuptools.find_packages(),
-    classifiers=[
-        "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
-        "Operating System :: OS Independent",
-    ],
-    install_requires=[
-        "numpy"
-    ]
-)
-```
-]
-
----
-.left-column[
-## Module vs Package
-### Module
-### Package
-### Packaging]
-
-.right-column[
-You can
-
-- Generate [distribution packages](https://packaging.python.org/tutorials/packaging-projects/)
-- Register to PyPI
-- Or just offer your github link for installation
-```bash
-pip install https://github.com/ezsolti/TKworkshop/zipball/master
-```
-
-```console
-Collecting https://github.com/ezsolti/TKworkshop/zipball/master
-  Downloading https://github.com/ezsolti/TKworkshop/zipball/master
-     / 163kB 555kB/s
-Requirement already satisfied: numpy in /home/zsolt/anaconda3/lib/python3.7/site-packages (from tkgeom==1.0.0) (1.16.2)
-Building wheels for collected packages: tkgeom
-  Building wheel for tkgeom (setup.py) ... done
-  Created wheel for tkgeom: filename=tkgeom-1.0.0-cp37-none-any.whl size=6939 sha256=aa350f7fa43eb757823735e927e8e1ebe8b5ed6cd2cd47f3f8ed3e99ec873d21
-  Stored in directory: /tmp/pip-ephem-wheel-cache-0_belbzm/wheels/10/ea/44/5d3bce95f1404d8f2f8881b99248043a1a22659611b384bb18
-Successfully built tkgeom
-Installing collected packages: tkgeom
-Successfully installed tkgeom-1.0.0
-```
-]
 
 
 ---
