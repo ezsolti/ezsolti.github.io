@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>feign.geometry tutorial &#8212; tkgeom 1.0.0 documentation</title>
+    <title>tkgeom.geometry tutorial &#8212; tkgeom 1.0.0 documentation</title>
     <link rel="stylesheet" href="static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="static/documentation_options.js"></script>
@@ -234,10 +234,9 @@ div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
 </style>
-<div class="section" id="feign.geometry-tutorial">
-<h1>feign.geometry tutorial<a class="headerlink" href="#feign.geometry-tutorial" title="Permalink to this headline">¶</a></h1>
-<p>The API of feign requires the definition of several geometric objects, thus the user needs some familiarity of the classes of the feign.geometry modul. The classes have several methods which are not needed to be used by the user, only used by the module feign.blocks. In the following it is highlighted whether a method is needed to be used by the user.</p>
-<p>feign.geometry has an API similar to sympy, nevertheless, feign.geometry is not a symbolic module.</p>
+<div class="section" id="tkgeom.geometry-tutorial">
+<h1>tkgeom.geometry tutorial<a class="headerlink" href="#tkgeom.geometry-tutorial" title="Permalink to this headline">¶</a></h1>
+<p>tkgeom.geometry has an API similar to sympy, nevertheless, feign.geometry is not a symbolic module.</p>
 <p><strong>Every coordinate is meant in cm units.</strong></p>
 <p>The objects which might be used by the user are the following:</p>
 <ul class="simple">
@@ -252,19 +251,13 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">feign.geometry</span> <span class="kn">import</span> <span class="o">*</span>
+<span></span><span class="kn">from</span> <span class="nn">tkgeom.geometry</span> <span class="kn">import</span> <span class="o">*</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="Point()">
 <h2>Point()<a class="headerlink" href="#Point()" title="Permalink to this headline">¶</a></h2>
 <p>A 2D Point is defined through its x,y coordinates. Its attributes are also x and y.</p>
-<p>When writing an input one needs to use points in order to define:</p>
-<ul class="simple">
-<li><p>Detector points (mandatory)</p></li>
-<li><p>Absorbers (giving the corners of Rectangles, see later) (optional)</p></li>
-<li><p>Pool (giving the corners of Rectangle, see later) (optional)</p></li>
-</ul>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -345,7 +338,7 @@ Point(3.400, 32.000)
 </div>
 <div class="section" id="Other-methods">
 <h3>Other methods<a class="headerlink" href="#Other-methods" title="Permalink to this headline">¶</a></h3>
-<p>There are some other methods which are used in feign.blocks.</p>
+<p>There are some other methods</p>
 <ul class="simple">
 <li><p>distance: distance between two points</p></li>
 <li><p>inBetween: two decide whether a point lies on the same line as two other points, and whether it is between the two points</p></li>
@@ -410,10 +403,6 @@ Point(3.400, 32.000)
 <div class="section" id="Segment()">
 <h2>Segment()<a class="headerlink" href="#Segment()" title="Permalink to this headline">¶</a></h2>
 <p>A 2D Segment is defined through its end points p and q. Its attributes are p, q, points (list of [p,q]), slope, intercept. If the segment is vertically aligned, the slope is np.Inf, and the intercept becomes the intersection with the x axis.</p>
-<p>When writing an input one needs to use segments in order to define:</p>
-<ul class="simple">
-<li><p>The front and back opening of collimators (optional)</p></li>
-</ul>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
@@ -497,10 +486,6 @@ inf
 <div class="section" id="Circle()">
 <h2>Circle()<a class="headerlink" href="#Circle()" title="Permalink to this headline">¶</a></h2>
 <p>A 2D Circle is defined through its center c and radius r. Its attributes are also c, r.</p>
-<p>When writing an input one may need to use circles in order to define:</p>
-<ul class="simple">
-<li><p>Absorber elements (optional)</p></li>
-</ul>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
@@ -525,7 +510,7 @@ Point(4.500, 4.500)
 </div>
 <div class="section" id="Other-methods">
 <h3>Other methods<a class="headerlink" href="#Other-methods" title="Permalink to this headline">¶</a></h3>
-<p>While writing the input, usually Circle methods are not needed. Nevertheless, there are two available methods:</p>
+<p>There are two available methods:</p>
 <ul class="simple">
 <li><p>intersection: intersection with a segment</p></li>
 <li><p>encloses_point: to decide whether a point is within the circle</p></li>
@@ -573,11 +558,6 @@ Point(4.500, 4.500)
 <p>A 2D Rectangle is defined through its corner points p1, p2, p3, p4. Its attributes are the corner points p1, p2, p3, p4, corners a list of these poins, the side segments p1p2, p2p3, p3p4, p4p1, and sides a list of the side segments.</p>
 <p>The corners have to be defined in a clockwise or counter-clockwise order.</p>
 <p>In fact, a Rectangle() object can be a general convex quadritlateral, the choice of naming is only to avoid typos.</p>
-<p>When writing an input one needs to use rectangles in order to define:</p>
-<ul class="simple">
-<li><p>The pool (optional)</p></li>
-<li><p>Absorbers elements (optional)</p></li>
-</ul>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
@@ -696,7 +676,7 @@ Segment(Point(-3.000, -3.000),Point(-3.000, 3.000)) Segment(Point(-3.000, 3.000)
 <h3>Navigation</h3>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Getting started</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">feign.geometry tutorial</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">tkgeom.geometry tutorial</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="point.html">geometry.Point()</a></li>

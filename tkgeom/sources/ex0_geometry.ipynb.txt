@@ -4,11 +4,9 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# feign.geometry tutorial\n",
+    "# tkgeom.geometry tutorial\n",
     "\n",
-    "The API of feign requires the definition of several geometric objects, thus the user needs some familiarity of the classes of the feign.geometry modul. The classes have several methods which are not needed to be used by the user, only used by the module feign.blocks. In the following it is highlighted whether a method is needed to be used by the user.\n",
-    "\n",
-    "feign.geometry has an API similar to sympy, nevertheless, feign.geometry is not a symbolic module. \n",
+    "tkgeom.geometry has an API similar to sympy, nevertheless, feign.geometry is not a symbolic module. \n",
     "\n",
     "**Every coordinate is meant in cm units.**\n",
     "\n",
@@ -28,7 +26,7 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "from feign.geometry import *"
+    "from tkgeom.geometry import *"
    ]
   },
   {
@@ -37,15 +35,7 @@
    "source": [
     "## Point()\n",
     "\n",
-    "A 2D Point is defined through its x,y coordinates. Its attributes are also x and y. \n",
-    "\n",
-    "When writing an input one needs to use points in order to define:\n",
-    "\n",
-    "- Detector points (mandatory)\n",
-    "- Absorbers (giving the corners of Rectangles, see later) (optional)\n",
-    "- Pool (giving the corners of Rectangle, see later) (optional)\n",
-    "\n",
-    "\n"
+    "A 2D Point is defined through its x,y coordinates. Its attributes are also x and y. "
    ]
   },
   {
@@ -141,7 +131,7 @@
    "source": [
     "### Other methods\n",
     "\n",
-    "There are some other methods which are used in feign.blocks. \n",
+    "There are some other methods\n",
     "\n",
     "- distance: distance between two points\n",
     "- inBetween: two decide whether a point lies on the same line as two other points, and whether it is between the two points\n",
@@ -214,11 +204,7 @@
    "source": [
     "## Segment()\n",
     "\n",
-    "A 2D Segment is defined through its end points p and q. Its attributes are p, q, points (list of [p,q]), slope, intercept. If the segment is vertically aligned, the slope is np.Inf, and the intercept becomes the intersection with the x axis.\n",
-    "\n",
-    "When writing an input one needs to use segments in order to define:\n",
-    "\n",
-    "- The front and back opening of collimators (optional)"
+    "A 2D Segment is defined through its end points p and q. Its attributes are p, q, points (list of [p,q]), slope, intercept. If the segment is vertically aligned, the slope is np.Inf, and the intercept becomes the intersection with the x axis."
    ]
   },
   {
@@ -319,11 +305,7 @@
    "source": [
     "## Circle()\n",
     "\n",
-    "A 2D Circle is defined through its center c and radius r. Its attributes are also c, r.\n",
-    "\n",
-    "When writing an input one may need to use circles in order to define:\n",
-    "\n",
-    "- Absorber elements (optional)"
+    "A 2D Circle is defined through its center c and radius r. Its attributes are also c, r."
    ]
   },
   {
@@ -354,7 +336,7 @@
    "source": [
     "### Other methods\n",
     "\n",
-    "While writing the input, usually Circle methods are not needed. Nevertheless, there are two available methods:\n",
+    "There are two available methods:\n",
     "\n",
     "- intersection: intersection with a segment\n",
     "- encloses_point: to decide whether a point is within the circle"
@@ -410,12 +392,7 @@
     "\n",
     "The corners have to be defined in a clockwise or counter-clockwise order.\n",
     "\n",
-    "In fact, a Rectangle() object can be a general convex quadritlateral, the choice of naming is only to avoid typos. \n",
-    "\n",
-    "When writing an input one needs to use rectangles in order to define:\n",
-    "\n",
-    "- The pool (optional)\n",
-    "- Absorbers elements (optional)"
+    "In fact, a Rectangle() object can be a general convex quadritlateral, the choice of naming is only to avoid typos. "
    ]
   },
   {
