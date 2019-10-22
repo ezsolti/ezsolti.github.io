@@ -134,7 +134,9 @@ layout: false
 
 
 .right-column[
-How and where to publish your code and some good practices:
+How and where to publish your code and some good practices.
+
+Example for this presentation on [github.com/ezsolti/TKworkshop](https://github.com/ezsolti/TKworkshop)
 - Journal of Open Source Software
 - Version control
 - Python modules, packages
@@ -351,7 +353,7 @@ template: inverse
 
 .right-column[
 - [Create a repo on github](https://help.github.com/en/articles/creating-a-new-repository)
-  - Don't add License, .gitignore to make life simpler
+  - Don't add here License, .gitignore to make life simpler
 - Get into your package's folder
 - And [link it to the repo](https://help.github.com/en/articles/adding-an-existing-project-to-github-using-the-command-line)
 
@@ -647,14 +649,30 @@ template: inverse
 ---
 .left-column[
   ## Docstrings
-  ### Formats
-  ### Example
-  ## Documentation
 ]
 .right-column[
+- Basically a comment
+- Documents specific segment
+- Not stripped from source tree when parsed
+- Can be inspected at runtime
+- Interactive help system
+
 ```python
->>> ?Point()
+>>> import numpy as np
+>>> ?np.array
+>>> np.array.__doc__
 ```
+
+Describes (some are optional)
+- Parameters
+- Attributes
+- Returns
+- Raises
+- Notes
+- See also
+- Examples
+
+[doctest](https://docs.python.org/2/library/doctest.html) can parse `>>>` and run it for testing.
 ]
 ---
 .left-column[
@@ -662,8 +680,14 @@ template: inverse
   ### Formats
 ]
 .right-column[
-- Google
-- Numpy
+- [Commenting and Docstrings](https://realpython.com/documenting-python-code/) is a big and important topic with some [conventions](https://www.python.org/dev/peps/pep-0257/)
+- If you want your docstring to be parsed, you have to pick follow some style.
+  - reStructuredText: official python standard. Not really a beginner choice.
+  - Google: better
+  - Numpy: better
+- These are all supported by Sphinx (comes later)
+
+My personal choice was Numpy ([detailed guidelines](https://numpydoc.readthedocs.io/en/latest/format.html))
 ]
 ---
 .left-column[
@@ -697,8 +721,11 @@ class Segment(object):
         intercept on the y axis (intercept on the x axis if vertical)
     points: list of Point()
         list of p and q
-
     """
+```
+Link to other methods, attributes etc (`:meth:`,`:attr:`)
+```restructuredtext
+:meth:`Pin.add_region()`
 ```
 ]
 ---
@@ -706,7 +733,7 @@ class Segment(object):
   ## Docstrings
   ### Formats
   ### Example
-  ## Documentation
+  ## Docs
 ]
 .right-column[
 - If docstrings are written, you are basically done.
@@ -718,11 +745,121 @@ $ cd docs
 $ sphinx-quickstart
 ```
 
+Pick no for ```> Separate source and build directories (y/n) [n]: n```
+
+```console
+$ ls
+_build  conf.py  index.rst  make.bat  Makefile  _static  _templates
+```
+Modify [`conf.py`](https://github.com/ezsolti/TKworkshop/blob/master/docs/conf.py) by adding extensions (for [notebooks](https://nbsphinx.readthedocs.io/en/0.4.2/) or [markdown](https://www.sphinx-doc.org/en/master/usage/markdown.html), may need install), change template etc.
+
+```python
+import os                                   
+import sys                                  
+sys.path.insert(0, os.path.abspath('..'))  
+
+extensions = ['nbsphinx','recommonmark','sphinx.ext.autodoc', 'sphinx.ext.coverage', 'sphinx.ext.napoleon','IPython.sphinxext.ipython_console_highlighting']
+source_suffix = {
+    '.rst': 'restructuredtext',
+    '.txt': 'markdown',
+    '.md': 'markdown',
+}
+```
 
 ]
 
+---
+.left-column[
+  ## Docstrings
+  ### Formats
+  ### Example
+  ## Docs
+]
+.right-column[
+Write some reStructuredText: [index.rst](https://github.com/ezsolti/TKworkshop/blob/master/docs/index.rst)
+```restructuredtext
+tkgeom: An example python package
+=================================
 
+some text
 
+Contents
+========
+
+Quick start
+-----------
+
+.. toctree::
+   :maxdepth: 1
+    
+   quickstart.rst
+   ex0_geometry.ipynb  
+
+Api doc
+-------
+
+.. toctree::
+   :maxdepth: 2
+
+   point.rst
+   segment.rst
+   circle.rst
+   rectangle.rst
+```
+]
+
+---
+.left-column[
+  ## Docstrings
+  ### Formats
+  ### Example
+  ## Docs
+]
+.right-column[
+Write some more reStructuredText: [point.rst](https://github.com/ezsolti/TKworkshop/blob/master/docs/point.rst)
+
+(Note: toc-tree: table of content)
+```restructuredtext
+geometry.Point()
+================
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+.. autoclass:: tkgeom.geometry.Point
+    :members:
+```
+]
+
+---
+.left-column[
+  ## Docstrings
+  ### Formats
+  ### Example
+  ## Docs
+]
+.right-column[
+Build...
+
+```console
+$ make html
+$ cd _build/html
+$ ls
+circle.html        index.html   quickstart.html  searchindex.js  _static
+ex0_geometry.html  objects.inv  rectangle.html   segment.html
+genindex.html      point.html   search.html      _sources
+```
+
+... and your html webpage is ready to be opened by the browser or to be deployed.
+
+- Linking it to [readthedocs](https://readthedocs.org/) is common
+- Advanced note, if you want to deploy it on your github (user.github.io) page:
+  ["By default, Jekyll doesn't build files or folders that start with underscore"](https://help.github.com/en/github/working-with-github-pages/about-github-pages-and-jekyll)
+  - [fixwebpage_for_github.py](https://github.com/ezsolti/TKworkshop/blob/master/docs/fixwebpage_for_github.py) removes underscores
+  - [makeezsolti.sh](https://github.com/ezsolti/TKworkshop/blob/master/docs/makeezsolti.sh) builds, copies, pushes (change path).
+
+Example: [ezsolti.github.io/tkgeom](https://ezsolti.github.io/tkgeom/)
+]
 
 
 
