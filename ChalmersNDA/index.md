@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chalmers NDA presentation</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif);
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body {
+        font-family: 'Droid Serif';
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+      .remark-slide-content h1 { font-size: 3em; }
+      .remark-slide-content h2 { font-size: 2em; }
+      .remark-slide-content h3 { font-size: 1.6em; }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+      }
+      li p { line-height: 1.25em; }
+      .red { color: #fa0000; }
+      .large { font-size: 2em; }
+      a, a > code {
+        color: rgb(249, 38, 114);
+        text-decoration: none;
+      }
+      code {
+        background: #e7e8e2;
+        border-radius: 5px;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .remark-code-line-highlighted     { background-color: #373832; }
+      .pull-left {
+        float: left;
+        width: 47%;
+      }
+      .pull-right {
+        float: right;
+        width: 47%;
+      }
+      .pull-right ~ p {
+        clear: both;
+      }
+      #slideshow .slide .content code {
+        font-size: 0.8em;
+      }
+      #slideshow .slide .content pre code {
+        font-size: 0.9em;
+        padding: 15px;
+      }
+      .inverse {
+        background: #536872;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+
+      /* Slide-specific styling */
+      #slide-inverse .footnote {
+        bottom: 12px;
+        left: 20px;
+      }
+      #slide-how .slides {
+        font-size: 0.9em;
+        position: absolute;
+        top:  151px;
+        right: 140px;
+      }
+      #slide-how .slides h3 {
+        margin-top: 0.2em;
+      }
+      #slide-how .slides .first, #slide-how .slides .second {
+        padding: 1px 20px;
+        height: 90px;
+        width: 120px;
+        -moz-box-shadow: 0 0 10px #777;
+        -webkit-box-shadow: 0 0 10px #777;
+        box-shadow: 0 0 10px #777;
+      }
+      #slide-how .slides .first {
+        background: #fff;
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        z-index: 1;
+      }
+      #slide-how .slides .second {
+        position: relative;
+        background: #fff;
+        z-index: 0;
+      }
+
+      /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 20%;
+        height: 92%;
+        float: left;
+      }
+        .left-column h2:last-of-type, .left-column h3:last-child {
+          color: #000;
+        }
+
+      img[alt=drawing75] { width: 75%; }
+      img[alt=drawing25] { width: 25%; }
+      img[alt=drawing50] { width: 50%; }
+      img[alt=drawing15] { width: 15%; }
+
+      .right-column {
+        width: 75%;
+        float: right;
+        padding-top: 1em;
+      }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+name: inverse
+layout: true
+class: center, middle, inverse
+---
+# Various NDA related work at UU
+## Zsolt Elter
+## 2019
+---
+layout: false
+.left-column[
+## Content
+]
+
+.right-column[
+/* Slide-specific styling */
+NDA related:
+
+- MVA to verify BU, CT and IE
+- MVA to classify partial defects
+- feign: python package to estimate geometric efficiency
+- Database for MVA investigations
+- Safeguards of quivers
+
+General:
+
+- Publishing open source software
+]
+---
+.left-column[
+## Partial defect
+### Intro
+]
+
+.right-column[
+- The integrity (are parts modified?) has to be verified
+- In a fuel assembly pins may be removed or changed (during operation eg leaks or bad intentions)
+- Can these verifications be done with non-destructive assay?
+- Currently: 1-2 pin accuracy PGET tomography and  30-50% accuracy with DCVD Cherenkov viewing device
+- Something is needed in the 10-30% range for reliable sampling strategies
+
+&nbsp;
+
+&nbsp;
+
+![drawing25](figures/assemblyexter.png) &nbsp; &nbsp; &nbsp; ![drawing25](figures/assemblyrandom.png)
+
+Illustration of 30% defects in 17x17 PWR fuel (grey: fuel pin, black: guide tube, red: replaced pin)
+]
+---
+.left-column[
+## Partial defect
+### Sampling strategy
+]
+
+.right-column[
+- [Esarda bulletin No. 56 pp 6-11 by Carl Hellesen and Sophie Grape](https://esarda.jrc.ec.europa.eu/images/Bulletin/Files/B_2018_056.pdf)
+- Gross, Partial, Pin-level
+- 1 PWR assembly contains cca 6 kg Pu -> two 2/3 diverted = SQ
+- Roll-up scenario
+- Can these verifications be done with non-destructive assay?
+- Currently: 1-2 pin accuracy PGET tomography and  30-50% accuracy with DCVD Cherenkov viewing device
+- Something is needed in the 10-30% range for reliable sampling strategies
+
+&nbsp;
+
+&nbsp;
+
+Material | | Significant Quantity
+--- | --- | ---
+<center>Plutonium</center> | | <center>8 kg</center>
+<center>High-enriched U</center> | | <center>25 kg U-235</center>
+<center>Low-enriched U</center> | | <center>85 kg U-235</center>
+]
+---
+.left-column[
+## Content
+]
+
+.right-column[
+
+NDA related:
+
+- MVA to verify BU, CT and IE
+- MVA to classify partial defects
+- feign: python package to estimate geometric efficiency
+- Database for MVA investigations
+- Safeguards of quivers
+
+![drawing](contributionMap0.png)
+]
+---
+.left-column[
+## Content
+]
+
+.right-column[
+
+NDA related:
+
+- MVA to verify BU, CT and IE
+- MVA to classify partial defects
+- feign: python package to estimate geometric efficiency
+- Database for MVA investigations
+- Safeguards of quivers
+
+![drawing](figures/contributionMap.gif)
+]
+---
+template: inverse
+## Journal of Open Source Software
+---
+.left-column[
+## Publishing code
+### JOSS
+]
+
+.right-column[
+
+**Don't we have enough journals already?**
+
+"*Perhaps, and in a perfect world we'd rather papers about software weren't necessary but we recognize that for most researchers, papers and not software are the currency of academic research and that citations are required for a good career.*"
+/from [JOSS hompage](https://joss.theoj.org/about)/
+
+JOSS (and JOSE for open source education)
+- provides a simple submission process
+- paper (250-1000 words) takes few hours (if code is well-documented)
+- is free and open source
+- has a nuclear engineer editor and reviewers
+- has a transparent and open review process in github issues (for example [`feign`'s](https://github.com/openjournals/joss-reviews/issues/1650)).
+
+What you get
+- an article...:)
+- a code that was installed, tested, reviewed by at least three scientists
+- experience from a different world... journal run by enthusiastic young people. This is nothing like Elsevier...
+]
+---
+.left-column[
+## Publishing code
+### JOSS
+### Requirements
+]
+
+.right-column[
+For the code
+- Obvious research application
+- License, Community guidelines
+- Documentation (readme)
+- API documentation
+- Install instructions
+- Tests
+- Examples
+
+For the paper
+- 250-1000 words
+- Summary for non-specialists
+- Statement of need
+- Bibliography with DOI
+
+Indeed, you see some articles, which are just 1 page long.
+
+[Mine](https://joss.theoj.org/papers/10.21105/joss.01650) was a bit more detailed.
+
+
+]
+---
+.left-column[
+## Publishing code
+### JOSS
+### Requirements
+### Let's do this!
+]
+
+.right-column[
+- Altogether 3 weeks to prepare my code and documentation for submission
+- But the paper was 3 hours
+- Worth it?
+
+Today we go through what one needs to know to get python code ready to be published...
+
+... to spend only 3 hours on this next time.
+]
+
+---
+.left-column[
+## Publishing code
+### JOSS
+### Requirements
+### Let's do this!
+### What we won't cover
+]
+
+.right-column[
+
+- How to program decently
+- Python API, XML, JSON instead of input files (even for C/C++ code)
+
+Find an example you like, and try to mimic it.
+
+I've relied a lot on [OpenMC's](https://github.com/openmc-dev/openmc) logic.
+]
+
+---
+.left-column[
+## Publishing code
+### JOSS
+### Requirements
+### Let's do this!
+### What we won't cover
+]
+
+.right-column[
+
+- How to program decently
+- Python API as input (even for C/C++ code)
+
+
+From
+
+```python
+title,N,M,pitch,p,cells,materials,fuelmap,source,coolantMat,surroundMat,detectorpoints,pool,elines,mu = readInput(inputfilename)
+
+dTmap={}
+for name in detectorpoints:
+    dTmap[name]=distanceInVariousMedia(N,M,pitch,p,cells,materials,fuelmap,source,coolantMat,surroundMat,detectorpoints[name],pool)
+```
+
+to
+
+```python
+pwrClab=Experiment()
+pwrClab.set_assembly(pwrOrig)
+pwrClab.set_detectors(F5,F15)
+pwrClab.set_materials(uo2,he,zr,h2o,ss,air,lead,copper,alu)
+pwrClab.Run()
+```
+
+]
+
+---
+.left-column[
+## Publishing code
+### JOSS
+### Requirements
+### Let's do this!
+### What we won't cover
+]
+
+.right-column[
+
+- How to program decently
+- Python API as input (even for C/C++ code)
+
+From
+
+```bash
+MATERIALS
+1 UO2 10.5   /data/UO2.dat  1
+2 He  0.00561781    /data/He.dat   1
+3 Zr  6.52  /data/Zr.dat   1
+4 H2O 1.0  /data/H2O.dat  1
+```
+
+to
+
+```python
+uo2=Material('1')
+uo2.set_density(10.5)
+uo2.set_path(('/data/UO2.dat',1))
+
+he=Material('2')
+he.set_density(0.00561781)
+he.set_path(('/data/He.dat',1))
+```
+
+]
+
+---
+template: inverse
+## Git, GitHub, Version control
+
+---
+.left-column[
+## Version control
+### Why?]
+
+.right-column[
+- To avoid having hundreds of files
+  - you do not need a github repo for this
+  - just ```git init``` in your folder, and add/commit
+  - review with ```git log```
+  - also great with Serpent/MCNP inputs
+- To backup your project
+  - with remote repo (eg. github)
+- To facilitate contribution
+  - we should use it for our data analysis notebooks
+- github issues for managing the projects
+  - report bugs
+  - propose changes
+  - discuss
+]
+
+---
+.left-column[
+## Version control
+### Why?
+### How?]
+
+.right-column[
+- [Create a repo on github](https://help.github.com/en/articles/creating-a-new-repository)
+  - Don't add here License, .gitignore to make life simpler
+- Get into your package's folder
+- And [link it to the repo](https://help.github.com/en/articles/adding-an-existing-project-to-github-using-the-command-line)
+
+```terminal
+$ git init
+$ git add .
+$ git commit -m "some notes"
+$ git remote add origin https://github.com/ezsolti/TKworkshop.git
+$ git push origin master
+Username for 'https://github.com': ezsolti
+Password for 'https://ezsolti@github.com':
+Counting objects: 3, done.
+```
+
+Origin? Master?
+
+Origin is the name of the remote repo. Master is the branch. [Info here](https://git-scm.com/book/en/v1/Git-Basics-Working-with-Remotes#Adding-Remote-Repositories).
+
+```git push [remote-name] [branch-name]```
+
+]
+
+---
+.left-column[
+## Version control
+### Why?
+### How?
+### Terminology]
+
+.right-column[
+- Fork or clone?
+[Fork vs Clone](https://opensource.com/article/17/12/fork-clone-difference)
+  - Fork means to take a copy with the intention of starting a new project and building a new community around the renamed project
+  - Clone means to take a copy with the intention of contributing to a project.
+    ```bash
+    git clone https://github.com/ezsolti/TKworkshop.git
+    ```
+  - This will copy the whole log as well.
+  - When contribution is done, send pull request
+  - **BUT**: on GitHub the word *fork* represents the equivalent of *git clone*
+- Pull or Push? Network commands, only used if there is a remote.
+  - pull = fetch + merge (updates the local with new commits on remote)
+  - push (updates remote with new commits on local)
+
+
+]
+
+---
+.left-column[
+## Version control
+### Why?
+### How?
+### Terminology
+### Checklist]
+
+.right-column[
+We will come back to these later, but
+
+- License
+- Readme
+- Source code, eg python package
+- Contribution guidelines
+- .gitignore to specify intentionally untracked files (eg pyc)
+
+Then you are good to go.
+
+Optionally (eg. for JOSS)
+- tests
+- paper
+- doc
+- examples
+- setup.py
+
+]
+
+---
+.left-column[
+## Version control
+### Why?
+### How?
+### Terminology
+### Checklist
+#### License]
+
+.right-column[
+**Disclaimer**: you probably should not take any legal advice from me.
+
+[OSI-approved licenses](https://opensource.org/licenses)
+
+[Choose a license](https://choosealicense.com/)
+]
+
+
+
+
+
+
+
+
+---
+template: inverse
+## Packaging python code
+---
+.left-column[
+## Packaging
+### Module]
+
+.right-column[
+- Modular programming
+  - Simplicity
+  - Maintainability
+  - Reusability
+  - Scoping (separate [namespace](https://www.programiz.com/python-programming/namespace))
+- Collection of (in a .py file)
+  - Functions
+  - Classes
+- Module location
+  - in current directory
+  - `PYTHONPATH`
+
+```python
+>>> import <module_name>
+>>> from <module_name> import <name(s)>
+>>> from <module_name> import <name> as <alt_name>
+>>> import <module_name> as <alt_name>
+```
+
+[package vs modules info](https://realpython.com/python-modules-packages/)
+]
+
+
+---
+.left-column[
+## Packaging
+### Module]
+
+.right-column[
+What is that ```if``` sometimes at the end of the code?
+
+To know whether it is imported or run as a script.
+
+```python
+s = "nuclear for future"
+
+def plus(x,y):
+    return x+y
+
+def minus(x,y):
+    return x-y
+
+if (__name__ == '__main__'):
+    print(s)
+    print(plus(2,3))
+    print(minus(3,2))
+```
+
+Otherwise, you do not need this.
+
+But, this already may do some unittesting of the module!
+]
+
+---
+.left-column[
+## Module vs Package
+### Module
+### Package]
+
+.right-column[
+- When you have many modules
+- Or one what you want to "package"
+- [`__init__.py`](https://github.com/ezsolti/TKworkshop/blob/master/tkgeom/__init__.py) not necessary (executed when imported)
+```
+pkg_folder
+│   mod1.py
+│   mod2.py
+│   __init__.py
+```
+
+
+```python
+>>> import tkgeom
+>>> tkgeom.geometry
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: module 'tkgeom' has no attribute 'geometry'
+```
+
+```python
+>>> import tkgeom.geometry
+>>> tkgeom.geometry.Point(3,4)
+Point(3.000, 4.000)
+>>> Point(3,4)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'Point' is not defined
+```
+
+```python
+>>> from tkgeom import geometry
+>>> geometry.Point(3,4)
+Point(3.000, 4.000)
+```
+]
+
+---
+.left-column[
+## Module vs Package
+### Module
+### Package
+### Packaging]
+
+.right-column[
+- When you want to distribute it
+- Register in [PyPI](https://pypi.org/)
+  - Python Package Index
+  - Repository of software
+- Install with [pip](https://pip.pypa.io/en/stable/)
+  - package installer
+
+```
+project_folder
+│   README.md
+│   LICENSE
+│   setup.py
+└───pkg_folder
+│   │   mod1.py
+│   │   mod2.py
+│   │   __init__.py
+│
+└───tests
+    │   test_mod1.py
+    │   test_mod2.py
+```
+]
+---
+.left-column[
+## Module vs Package
+### Module
+### Package
+### Packaging]
+
+.right-column[
+```
+project_folder
+│   README.md
+│   LICENSE
+│   setup.py
+└───pkg_folder
+│   │   mod1.py
+│   │   mod2.py
+│   │   __init__.py
+│
+└───tests
+    │   test_mod1.py
+    │   test_mod2.py
+```
+
+README.md
+```markdown
+  # TK workshop example
+
+  Example package for workshop.
+```
+
+Installation, dependencies, getting started, docs, tests, contributing guidelines
+]
+
+---
+.left-column[
+## Module vs Package
+### Module
+### Package
+### Packaging]
+
+.right-column[
+`setup.py`
+
+built script for setuptools.
+
+```python
+import setuptools
+
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
+setuptools.setup(
+    name="tkgeom",
+    version="1.0.0",
+    author="Zsolt Elter",
+    description="tkgeom: 2D geometry module",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    url="https://github.com/ezsolti/TKworkshop",
+    packages=setuptools.find_packages(),
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+    ],
+    install_requires=[
+        "numpy"
+    ]
+)
+```
+]
+
+---
+.left-column[
+## Module vs Package
+### Module
+### Package
+### Packaging]
+
+.right-column[
+You can
+
+- Generate [distribution packages](https://packaging.python.org/tutorials/packaging-projects/)
+- Register to PyPI
+- Or just offer your github link for installation
+```bash
+pip install https://github.com/ezsolti/TKworkshop/zipball/master
+```
+
+```console
+Collecting https://github.com/ezsolti/TKworkshop/zipball/master
+  Downloading https://github.com/ezsolti/TKworkshop/zipball/master
+     / 163kB 555kB/s
+Requirement already satisfied: numpy in /home/zsolt/anaconda3/lib/python3.7/site-packages (from tkgeom==1.0.0) (1.16.2)
+Building wheels for collected packages: tkgeom
+  Building wheel for tkgeom (setup.py) ... done
+  Created wheel for tkgeom: filename=tkgeom-1.0.0-cp37-none-any.whl size=6939 sha256=aa350f7fa43eb757823735e927e8e1ebe8b5ed6cd2cd47f3f8ed3e99ec873d21
+  Stored in directory: /tmp/pip-ephem-wheel-cache-0_belbzm/wheels/10/ea/44/5d3bce95f1404d8f2f8881b99248043a1a22659611b384bb18
+Successfully built tkgeom
+Installing collected packages: tkgeom
+Successfully installed tkgeom-1.0.0
+```
+]
+
+
+
+
+
+
+
+
+
+---
+template: inverse
+## Error handling
+---
+.left-column[
+## Error handling
+### Why?]
+
+.right-column[
+Not everyone might be an experienced user of your code.
+
+```console
+$ python planecalc.py
+Coordinates of 1st point on the plane: 32.1,31.4
+Coordinates of 2nd point on the plane: 12.3,43.2
+Coordinates of 3rd point on the plane: 56.3,23.1
+Test point which is on the "preferred side" of the plane: 0.0,0.0
+Traceback (most recent call last):
+  File "planecalc.py", line 39, in <module>
+    a=ov[0]
+IndexError: too many indices for array
+```
+
+]
+
+---
+.left-column[
+## Error handling
+### Why?]
+
+.right-column[
+Sometimes not even you are an experienced user of your code.
+
+```console
+$ python planecalc.py
+Coordinates of 1st point on the plane: 32.1,31.4
+Coordinates of 2nd point on the plane: 12.3,43.2
+Coordinates of 3rd point on the plane: 56.3,23.1
+Test point which is on the "preferred side" of the plane: 0.0,0.0
+Traceback (most recent call last):
+  File "planecalc.py", line 39, in <module>
+    a=ov[0]
+IndexError: too many indices for array
+```
+
+VS
+
+```console
+$ python planecalc.py
+Coordinates of 1st point on the plane: 32.1,31.4
+Coordinates of 2nd point on the plane: 12.3,43.2
+Coordinates of 3rd point on the plane: 56.3,23.1
+Test point which is on the "preferred side" of the plane: 0.0,0.0
+Traceback (most recent call last):
+  File "planecalc.py", line 32, in <module>
+    raise IndexError('Each point needs 3 coordinates')
+IndexError: Each point needs 3 coordinates
+```
+]
+
+---
+.left-column[
+## Error handling
+### Why?
+### Try,Except,Raise]
+
+.right-column[
+```python
+def isFloat(s):
+    try:
+        float(s)
+        return True
+    except ValueError:
+        return False
+```
+
+```console
+zsolt@phy-draupnir:~$ python -c "float('32A')"
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+ValueError: could not convert string to float: '32A'
+```
+
+You have to know the Exceptions to catch them.
+
+And to raise them
+
+
+```python
+raise TypeError('Has to be int')
+```
+
+to catch mistakes of user interacting with your code.
+]
+
+---
+.left-column[
+## Error handling
+### Why?
+### Try,Except,Raise
+### Exceptions]
+
+.right-column[
+
+[Python Exceptions](https://docs.python.org/3/library/exceptions.html)
+- `IndexError`
+```python
+>>> a=[3,2,5]
+>>> a[5]*3
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+IndexError: list index out of range
+```
+- `KeyError`
+```python
+>>> a={'name': 'Fermi', 'nobel': 1938}
+>>> a['age']
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+KeyError: 'age'
+```
+
+- `TypeError`
+```python
+>>> a={'name': 'Fermi', 'nobel': 1938}
+>>> sum(a)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: unsupported operand type(s) for +: 'int' and 'str'
+```
+]
+---
+template: inverse
+## Tests
+---
+.left-column[
+## Tests
+### Why?]
+
+.right-column[
+- Assert behaviour
+- Find bugs
+- Provide example usage
+- Unittest or integration test. [Info](https://realpython.com/python-testing/)
+
+Everyone does this at least manually
+
+```python
+def distance(self, other):
+    dx = self.x - other.x
+    dy = self.y - other.y
+    return math.sqrt(dx*dx + dy*dy)
+```
+
+```python
+>>> Point.distance(Point(3,4),Point(3,7))
+3.0
+>>> Point.distance(Point(3,4),Point(2,4))
+1.0
+>>> Point.distance(Point(3,4),Point(5,6)) #sqrt(8)
+2.8284271247461903
+```
+
+One should keep track of these tests!
+
+]
+---
+.left-column[
+## Tests
+### Why?
+### How?]
+
+.right-column[
+- [Several tools available](https://realpython.com/python-testing/#choosing-a-test-runner)
+- Easy choice: built-in [unittest](https://www.geeksforgeeks.org/unit-testing-python-unittest/)
+- You can assert many things, even raises [(list)](https://docs.python.org/3/library/unittest.html#assert-methods)
+
+```python
+import unittest
+from tkgeom.geometry import *
+
+class TestDistance(unittest.TestCase):
+    def test_distance_horizontal(self):
+        self.assertEqual(Point.distance(Point(3,4),Point(3,7)),3)
+    def test_distance_vertical(self):
+        self.assertEqual(Point.distance(Point(3,4),Point(2,4)),1)
+    def test_distance_1(self):
+        self.assertEqual(Point.distance(Point(3,4),Point(5,6)),np.sqrt(8))
+
+if __name__ == '__main__':
+    unittest.main()
+```
+
+```console
+$ python3 -m unittest discover tests/
+...............................
+----------------------------------------------------------------------
+Ran 31 tests in 0.002s
+
+OK
+```
+]
+
+
+
+
+
+
+
+
+---
+template: inverse
+## Docstrings, Documentation
+---
+.left-column[
+  ## Docstrings
+]
+.right-column[
+- Basically a comment
+- Documents specific segment
+- Not stripped from source tree when parsed
+- Can be inspected at runtime
+- Interactive help system
+
+```python
+>>> import numpy as np
+>>> ?np.array
+>>> np.array.__doc__
+```
+
+Describes (some are optional)
+- Parameters
+- Attributes
+- Returns
+- Raises
+- Notes
+- See also
+- Examples
+
+[doctest](https://docs.python.org/2/library/doctest.html) can parse `>>>` and run it for testing.
+]
+---
+.left-column[
+  ## Docstrings
+  ### Formats
+]
+.right-column[
+- [Commenting and Docstrings](https://realpython.com/documenting-python-code/) is a big and important topic with some [conventions](https://www.python.org/dev/peps/pep-0257/)
+- If you want your docstring to be parsed, you have to pick follow some style.
+  - reStructuredText: official python standard. Not really a beginner choice.
+  - Google: better
+  - Numpy: better
+- These are all supported by Sphinx (comes later)
+
+My personal choice was Numpy ([detailed guidelines](https://numpydoc.readthedocs.io/en/latest/format.html))
+]
+---
+.left-column[
+  ## Docstrings
+  ### Formats
+  ### Example
+]
+.right-column[
+
+```python
+class Segment(object):
+    """
+    A class used to represent a Segment.
+
+    Parameters
+    ----------
+    p : Point()
+        first end point of Segment
+    q : Point()
+        second end point of Segment
+
+    Attributes
+    ----------
+    p : Point()
+        first end point of Segment
+    q : Point()
+        second end point of Segment
+    slope: float
+        slope of the line (np.Inf if vertical)
+    intercept: float
+        intercept on the y axis (intercept on the x axis if vertical)
+    points: list of Point()
+        list of p and q
+    """
+```
+Link to other methods, attributes etc (`:meth:`,`:attr:`)
+```restructuredtext
+:meth:`Pin.add_region()`
+```
+]
+---
+.left-column[
+  ## Docstrings
+  ### Formats
+  ### Example
+  ## Docs
+]
+.right-column[
+- If docstrings are written, you are basically done.
+- [Sphinx](https://www.sphinx-doc.org/en/master/usage/quickstart.html)
+
+```bash
+$ mkdir docs
+$ cd docs
+$ sphinx-quickstart
+```
+
+Pick no for ```> Separate source and build directories (y/n) [n]: n```
+
+```console
+$ ls
+_build  conf.py  index.rst  make.bat  Makefile  _static  _templates
+```
+Modify [`conf.py`](https://github.com/ezsolti/TKworkshop/blob/master/docs/conf.py) by adding extensions (for [notebooks](https://nbsphinx.readthedocs.io/en/0.4.2/) or [markdown](https://www.sphinx-doc.org/en/master/usage/markdown.html), may need install), change template etc.
+
+```python
+import os
+import sys
+sys.path.insert(0, os.path.abspath('..'))
+
+extensions = ['nbsphinx','recommonmark','sphinx.ext.autodoc', 'sphinx.ext.coverage', 'sphinx.ext.napoleon','IPython.sphinxext.ipython_console_highlighting']
+source_suffix = {
+    '.rst': 'restructuredtext',
+    '.txt': 'markdown',
+    '.md': 'markdown',
+}
+```
+
+]
+
+---
+.left-column[
+  ## Docstrings
+  ### Formats
+  ### Example
+  ## Docs
+]
+.right-column[
+Write some reStructuredText: [index.rst](https://github.com/ezsolti/TKworkshop/blob/master/docs/index.rst)
+```restructuredtext
+tkgeom: An example python package
+=================================
+
+some text
+
+Contents
+========
+
+Quick start
+-----------
+
+.. toctree::
+   :maxdepth: 1
+
+   quickstart.rst
+   ex0_geometry.ipynb
+
+Api doc
+-------
+
+.. toctree::
+   :maxdepth: 2
+
+   point.rst
+   segment.rst
+   circle.rst
+   rectangle.rst
+```
+]
+
+---
+.left-column[
+  ## Docstrings
+  ### Formats
+  ### Example
+  ## Docs
+]
+.right-column[
+Write some more reStructuredText: [point.rst](https://github.com/ezsolti/TKworkshop/blob/master/docs/point.rst)
+
+(Note: toc-tree: table of content)
+```restructuredtext
+geometry.Point()
+================
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+.. autoclass:: tkgeom.geometry.Point
+    :members:
+```
+
+Will parse the module for docstrings, and renders it. (We set the `conf.py` to find the package in the path.)
+]
+
+---
+.left-column[
+  ## Docstrings
+  ### Formats
+  ### Example
+  ## Docs
+]
+.right-column[
+Build...
+
+```console
+$ make html
+$ cd _build/html
+$ ls
+circle.html        index.html   quickstart.html  searchindex.js  _static
+ex0_geometry.html  objects.inv  rectangle.html   segment.html
+genindex.html      point.html   search.html      _sources
+```
+
+... and your html webpage is ready to be opened by the browser or to be deployed.
+
+- Linking it to [readthedocs](https://readthedocs.org/) is common
+- Advanced note, if you want to deploy it on your github (user.github.io) page:
+  ["By default, Jekyll doesn't build files or folders that start with underscore"](https://help.github.com/en/github/working-with-github-pages/about-github-pages-and-jekyll)
+  - [fixwebpage_for_github.py](https://github.com/ezsolti/TKworkshop/blob/master/docs/fixwebpage_for_github.py) removes underscores
+  - [makeezsolti.sh](https://github.com/ezsolti/TKworkshop/blob/master/docs/makeezsolti.sh) builds, copies, pushes (change path).
+
+Example: [ezsolti.github.io/tkgeom](https://ezsolti.github.io/tkgeom/)
+]
+
+
+
+
+
+---
+template: inverse
+## Thanks for listening!
+
+
+    </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>

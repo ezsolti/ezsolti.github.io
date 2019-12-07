@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chalmers NDA presentation</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif);
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body {
+        font-family: 'Droid Serif';
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+      .remark-slide-content h1 { font-size: 3em; }
+      .remark-slide-content h2 { font-size: 2em; }
+      .remark-slide-content h3 { font-size: 1.6em; }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+      }
+      li p { line-height: 1.25em; }
+      .red { color: #fa0000; }
+      .large { font-size: 2em; }
+      a, a > code {
+        color: rgb(249, 38, 114);
+        text-decoration: none;
+      }
+      code {
+        background: #e7e8e2;
+        border-radius: 5px;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .remark-code-line-highlighted     { background-color: #373832; }
+      .pull-left {
+        float: left;
+        width: 47%;
+      }
+      .pull-right {
+        float: right;
+        width: 47%;
+      }
+      .pull-right ~ p {
+        clear: both;
+      }
+      #slideshow .slide .content code {
+        font-size: 0.8em;
+      }
+      #slideshow .slide .content pre code {
+        font-size: 0.9em;
+        padding: 15px;
+      }
+      .inverse {
+        background: #536872;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+
+      /* Slide-specific styling */
+      #slide-inverse .footnote {
+        bottom: 12px;
+        left: 20px;
+      }
+      #slide-how .slides {
+        font-size: 0.9em;
+        position: absolute;
+        top:  151px;
+        right: 140px;
+      }
+      #slide-how .slides h3 {
+        margin-top: 0.2em;
+      }
+      #slide-how .slides .first, #slide-how .slides .second {
+        padding: 1px 20px;
+        height: 90px;
+        width: 120px;
+        -moz-box-shadow: 0 0 10px #777;
+        -webkit-box-shadow: 0 0 10px #777;
+        box-shadow: 0 0 10px #777;
+      }
+      #slide-how .slides .first {
+        background: #fff;
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        z-index: 1;
+      }
+      #slide-how .slides .second {
+        position: relative;
+        background: #fff;
+        z-index: 0;
+      }
+
+      /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 20%;
+        height: 92%;
+        float: left;
+      }
+        .left-column h2:last-of-type, .left-column h3:last-child {
+          color: #000;
+        }
+
+      img[alt=drawing90] { width: 90%; }
+      img[alt=drawing85] { width: 99%; }
+      img[alt=drawing75] { width: 75%; }
+      img[alt=drawing65] { width: 65%; }
+      img[alt=drawing45] { width: 45%; }
+      img[alt=drawing35] { width: 35%; }
+      img[alt=drawing25] { width: 25%; }
+      img[alt=drawing50] { width: 50%; }
+      img[alt=drawing15] { width: 15%; }
+
+      .left-column33 {
+        width: 33.3%;
+        float: left;
+        padding-top: 1em;
+      }
+
+      .right-column33 {
+        width: 33.3%;
+        float: right;
+        padding-top: 1em;
+      }
+
+      .middle-column33 {
+        width: 33.3%;
+        float: center;
+        padding-top: 1em;
+      }
+
+
+
+
+      .left-column50 {
+        width: 50%;
+        float: left;
+        padding-top: 1em;
+      }
+
+      .right-column50 {
+        width: 50%;
+        float: left;
+        padding-top: 1em;
+      }
+
+      .right-column {
+        width: 75%;
+        float: right;
+        padding-top: 1em;
+      }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+name: inverse
+layout: true
+class: center, middle, inverse
+---
+# Various NDA related work at UU
+## Zsolt Elter
+## 2019
+---
+layout: false
+.left-column[
+## Content
+]
+
+.right-column[
+NDA related:
+
+- MVA to verify BU, CT and IE
+- MVA to classify partial defects
+- feign: python package to estimate geometric efficiency
+- Database for MVA investigations
+- Safeguards of quivers
+
+General:
+
+- Publishing open source software
+]
+
+
+
+
+
+---
+template: inverse
+## BU,CT,IE verification in BWRs
+---
+.left-column[
+## BIC for BWR
+### Intro
+]
+
+.right-column[
+- Predict Burnup, Cooling-time and initial enrichment 
+- From spent fuel inventory (gamma emitters)
+- Neutron measurements (eg. DDSI)
+- This work has been studied in many aspects
+- By C. Hellesen [with PLS on gamma signatures for PWR fuel](https://www.sciencedirect.com/science/article/pii/S0306454917302220) 
+- By M. Åberg Lindell [with various methods on gamma signatures for PWR](https://www.sciencedirect.com/science/article/pii/S0168900218305370). Also MOX vs UOX classification work.
+- By L. Pöder Balkeståhl [with PLS on gamma and neutron signatures for PWR](http://urn.kb.se/resolve?urn=urn:nbn:se:uu:diva-380882)
+- By me [with random forest on gamma and neutron signatures for BWR]
+- Currently by S. Grape et al. with random forest on gamma, neutron and cherenkov signatures.
+]
+
+---
+.left-column[
+## BIC for BWR
+### Intro
+### Idea
+]
+
+.right-column[
+- Predictions without any a priori assumption on the fuel!
+- Do burnup calculation for a large amount of BU-CT-IE configurations
+- Train a machine learning model
+- Test and validate
+- Apply on real measurements
+
+
+- Burnup calculations with Serpent2 
+   - pincell modell
+   - axial void profile
+- Neutron signature here is just k-inf
+
+
+]
+
+---
+.left-column[
+## BIC for BWR
+### Intro
+### Idea
+]
+
+.right-column[
+![drawing90](figures/methodN.png)
+]
+---
+.left-column[
+## BIC for BWR
+### Intro
+### Idea
+### Remarks
+]
+
+.right-column[
+- IE cannot be predicted without neutron signature
+- CT gets is predicted very well
+- Uncertainties?
+- What if irradiation history is not "ideal"?
+- Experimental validation?
+
+]
+
+
+
+---
+template: inverse
+## Partial defect with gamma spectroscopy
+---
+.left-column[
+## Partial defect
+### Intro
+]
+
+.right-column[
+- The integrity (are parts modified?) has to be verified
+- In a fuel assembly pins may be removed or changed (during operation eg leaks or bad intentions)
+- Can these verifications be done with non-destructive assay?
+- Currently: 1-2 pin accuracy PGET tomography and  30-50% accuracy with DCVD Cherenkov viewing device
+- Something is needed in the 10-30% range for reliable sampling strategies
+
+&nbsp;
+
+&nbsp;
+
+![drawing25](figures/assemblyexter.png) &nbsp; &nbsp; &nbsp; ![drawing25](figures/assemblyrandom.png)
+
+Illustration of 30% defects in 17x17 PWR fuel (grey: fuel pin, black: guide tube, red: replaced pin)
+]
+---
+.left-column[
+## Partial defect
+### Intro
+### Sampling strategy
+]
+
+.right-column[
+- [Esarda bulletin No. 56 pp 6-11 by C. Hellesen and S. Grape](https://esarda.jrc.ec.europa.eu/images/Bulletin/Files/B_2018_056.pdf)
+- Gross, Partial, Pin-level
+- 1 PWR assembly contains cca 6 kg Pu -> two 2/3 diverted = SQ
+- Roll-up scenario: smaller fractions from more assemblies
+- Exclude roll-up in a facility with 100k assemblies: challenge.
+- Something is needed in the 10-30% range for reliable sampling strategies
+
+&nbsp;
+
+&nbsp;
+
+Material | | Significant Quantity
+--- | --- | ---
+<center>Plutonium</center> | | <center>8 kg</center>
+<center>High-enriched U</center> | | <center>25 kg U-235</center>
+<center>Low-enriched U</center> | | <center>85 kg U-235</center>
+]
+---
+.left-column[
+## Partial defect
+### Intro
+### Sampling strategy
+### Why gamma?
+
+]
+
+.right-column[
+
+- Geometric efficiency is depends on the gamma energy
+- For high energy gamma-rays even the less peripheral rods can weakly contribute to the signal
+- By replacing different parts of an assembly with non-radioactive, but strong attenuating
+materials, one may observe a different change in the passive gamma spectra for lower and higher energy gamma peaks
+
+
+
+![drawing75](contributionMap0.png)
+]
+---
+.left-column[
+## Partial defect
+### Intro
+### Sampling strategy
+### Why gamma?
+
+]
+
+.right-column[
+
+- Geometric efficiency is depends on the gamma energy
+- For high energy gamma-rays even the less peripheral rods can weakly contribute to the signal
+- By replacing different parts of an assembly with non-radioactive, but strong attenuating
+materials, one may observe a different change in the passive gamma spectra for lower and higher energy gamma peaks
+
+
+![drawing75](figures/contributionMap.gif)
+]
+---
+.left-column[
+## Partial defect
+### Intro
+### Sampling strategy
+### Why gamma?
+### How? MVA
+
+]
+
+.right-column[
+
+- More information by applying multi-variate data analysis?
+- Compute the gamma spectra for many BU, CT, IE configurations
+- And for several defect ”classes” 
+- Define feature vector (eg. gamma peaks) which represents the spectrum
+- Train classification method with
+feature vectors → Many (synthetic) samples are needed
+- Predict for an unknown spectrum whether it comes from intact fuel
+
+
+![drawing75](figures/PGS_example.png)
+]
+
+---
+.left-column[
+## Partial defect
+### Intro
+### Sampling strategy
+### Why gamma?
+### How? MVA
+### Where? Clab
+]
+
+.right-column[
+
+
+![drawing75](figures/CLABMCNPXMODEL_New.png)
+
+- Flux at detector in two steps with MCNPX
+   - F5 (semi-deterministic point detector) for geometric efficiency
+   - F8 (pulse-height) for intrinsic efficiency
+- Later with 
+   - `feign` for geometric efficiency
+   - Calibration curve for intrinsic efficiency
+
+- Source term based on Serpent2 calculations
+]
+
+---
+.left-column[
+## Partial defect
+### Intro
+### Sampling strategy
+### Why gamma?
+### How? MVA
+### Where? Clab
+### Results
+]
+
+.right-column[
+
+What is essentially being calculated?
+
+Geometric efficiency.
+
+.left-column50[
+Classes
+
+`Orig` &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; `Exter`
+
+![drawing35](figures/assemblyorig.png) &nbsp; ![drawing35](figures/assemblyexter.png)
+
+`Inter` &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; `Random`
+
+![drawing35](figures/assemblyinter.png) &nbsp; ![drawing35](figures/assemblyrandom.png)
+
+
+]
+
+.right-column50[
+&nbsp;
+
+![drawing75](figures/geomefficiencyOEIR.png)
+
+![drawing75](figures/geomefficiencyOEIRNorm.png)
+]
+
+]
+
+---
+.left-column[
+## Partial defect
+### Intro
+### Sampling strategy
+### Why gamma?
+### How? MVA
+### Where? Clab
+### Results
+]
+
+.right-column[
+- BU: 20-50 MWd/kgU, CT: 5-30y, IE=3.5%
+- Feature vector: normalized and scaled counts
+- Did some recursive feature selection
+- The most important features seem to be
+- Cs-134: 0.604, 1.167, 1.365
+- Cs-137 0.662
+- Eu-154 0.723, 1.596
+
+
+![drawing45](figures/featureAllpeak2D.png) &nbsp; ![drawing45](figures/PD_ranges_impact3D_3.png)
+
+When looking into it in more detail it turns out the shape comes from the BU and CT. " nuisance parameters"
+
+How to get rid of it?
+
+]
+
+---
+.left-column[
+## Partial defect
+### Intro
+### Sampling strategy
+### Why gamma?
+### How? MVA
+### Where? Clab
+### Results
+]
+
+.right-column[
+- Use only Eu-154 lines as features. 
+- The shape is gone...
+
+
+![drawing45](figures/featureEUpeak2D.png)
+
+Add some noise and the blobs grow, still possible to classify 
+
+![drawing45](figures/onlyeu154_werrorNew4.png)
+]
+
+
+---
+.left-column[
+## Partial defect
+### Intro
+### Sampling strategy
+### Why gamma?
+### How? MVA
+### Where? Clab
+### Results
+### Remarks
+]
+
+.right-column[
+- I have done this for a [lot more configurations](https://www.openprocessing.org/sketch/495110).
+- Always planned to wrap this up nicely to see how well I can classify based on noise...
+- Seems to be working on the 30% level. 15% is to be proved
+
+- Axial scan, so partial diversion is detected as well
+- At least five minutes measurements (comparable to PGET)
+- Fuel needs to be moved to spectroscopy station
+- Is this really the ideal tool at 10-30% defect level?
+
+- Practical use is problematic? Can the simulation based model be used for real measurements?
+ 
+
+]
+
+
+
+
+
+
+
+
+---
+template: inverse
+## Spent fuel inventory database
+---
+.left-column[
+## Intro
+]
+
+.right-column[
+- For the previous works quite many datasets were created
+- Still there is a "need more data" feeling
+- Random forests are greedy...
+- At the beginning BU-CT-IE randomly sampled
+- Then a well structured database with 700k datapoints
+- To reduce computing time the samples are built on each other
+   - First a burnup calculation is run with many burnup steps
+   - Then the inventories are let to decay further
+   - Only few 1000 calculations are needed
+
+&nbsp;
+
+- With Serpent2 
+- Infinite lattice of PWR fuel pins 
+- Reflective boundary conditions were applied. 
+- Fuel rod radius is 0.41 cm, cladding radius 0.42/0.48 cm, pitch 1.26 cm
+- Each 365 days long cycle results in a burnup of 10 GWd/tU
+- 30-day outage period. 
+- JEFF 3.1 cross-section library
+ 
+]
+
+---
+.left-column[
+## Intro
+]
+
+.right-column[
+Final dataset
+- for UOX and MOX
+- BU 5-70 MWd/kgU with 0.5 steps
+- IE 1.5-6.0 w% with 0.1 steps
+- CT 0-70 years in steps of 3 months up to 10 years, then in steps of 6 months up to 40 years and after that in steps of 1 year.
+- In a tidy csv file
+- Open to play around 
+- To be published in Data in Brief
+- Plans to provide tutorial python notebook.
+
+```python
+   import pandas as pd
+   import matplotlib.pyplot as plt
+
+   fueldata=pd.read_csv('PWR_UOX-MOX.csv',header = 0, index_col=0)
+
+   #plotting BU vs Cs137 content
+   plt.plot(fueldata.BU,fueldata.Cs137,'bo')
+   plt.xlabel('BU')
+   plt.ylabel('isotope concentration')
+   plt.show()
+
+   #subset of fuel configurations where CT is 5-30years
+   subfuel=fueldata[(fueldata["CT"]> 5*365) & (fueldata["CT"] < 30*365)].sample(n=100000,random_state=1)
+```
+ 
+]
+
+
+
+
+
+
+---
+template: inverse
+## Verification of quivers
+---
+.left-column[
+## Quivers
+### Intro
+]
+
+.right-column[
+
+An archer’s case for holding arrows
+
+
+.left-column50[
+
+&nbsp; &nbsp; &nbsp; ![drawing50](figures/geomplot_geom1.png)
+
+Cluster of stainless steel tubes to house damaged &nbsp;
+fuel (cladding rupture)
+
+Designed by Westinghouse
+]
+
+.right-column50[
+&nbsp; &nbsp; &nbsp; ![drawing50](figures/assemblyorig.png)
+
+Identical dimensions as regular fuel.
+
+No special handling required.
+
+]
+
+]
+
+---
+.left-column[
+## Quivers
+### Intro
+]
+
+.right-column[
+
+- For PWR and BWR fuel
+- 14-28 BWR rods or 30-60 PWR rods
+- Actual design may depend on request
+- But in Sweden there is one BWR and one PWR type
+- Temporary lid and long-term storage lid
+- After closure: water evacuated, filled with helium
+- New product (cca 20 in Sweden)
+
+[See leaflet for images](http://www.westinghousenuclear.com/Portals/0/operating%20plant%20services/fuel/Fuel%20Outage%20and%20Field%20Services/WestinghouseQuiver-12823.pdf)
+
+![drawing25](figures/geomplot_geom2.png)
+
+]
+---
+.left-column[
+## Quivers
+### Intro
+### Goal
+]
+
+.right-column[
+
+- Gross defect: is there nuclear material inside?
+- Non-destructive assay
+- Measurements from top do not require fuel movement
+- Cherenkov viewing device did not see anything in Forsmark NPP
+- Focus on SFAT now (and possibly the FORK later)
+
+]
+
+---
+.left-column[
+## Quivers
+### Intro
+### Goal
+### Studied quiver
+]
+
+.right-column[
+.right-column50[
+- From Ringhals PWR
+- 34 rods from 20 assemblies
+- Thicker tube holds rod as well
+- 5-36 MWd/kgU (low burnup)
+- 30-42 years old (long cooling time)
+- 2.5-3.5 w% initial enrichment
+]
+.left-column50[
+![drawing75](figures/geomplot_geom1.png)
+
+Darker red implies higher burnup
+]
+]
+
+
+---
+.left-column[
+## Quivers
+### Intro
+### Goal
+### Studied quiver
+### Methodology
+]
+
+.right-column[
+![drawing75](figures/methodology.png)
+
+
+- Neutron and gamma flux estimated around the quiver
+- Gamma reaction rate from Cs-137 estimated in the SFAT
+- Detector from available geometry details
+
+
+![drawing75](figures/sfat_geom_label.png)
+
+]
+
+---
+.left-column[
+## Quivers
+### Intro
+### Goal
+### Studied quiver
+### Methodology
+### Particle transport
+### Results
+]
+
+.right-column[
+
+
+&nbsp; &nbsp; &nbsp; gamma
+![drawing75](figures/gamma_axial_flux_profile.png)
+
+
+&nbsp; &nbsp; &nbsp; neutron
+![drawing75](figures/neutron_axial_flux_profile_ave_linear.png)
+
+
+]
+
+---
+.left-column[
+## Quivers
+### Intro
+### Goal
+### Studied quiver
+### Methodology
+### Particle transport
+### Results
+]
+
+.right-column[
+
+![drawing75](figures/vrstepsLow.png)
+
+<center>Less than 3 counts in 5 minutes is estimated with the modeled SFAT.</center>
+
+Work in progress, VR scheme needs to be double checked.
+
+
+]
+
+---
+template: inverse
+## Air activation in NESSA
+---
+.left-column[
+## NESSA
+### Intro
+]
+
+.right-column[
+- NEutron Source in UppSAla
+- Lead by A. Prokofiev (some slides based on his)
+- Keep and develop competence in
+  - Nuclear physics and data
+  - Neutron  physics
+  - Radiation physics, protection, detectors
+Used for
+- Reactions
+- Tomography
+- Detectors
+- Radiation effects
+- PGAA
+]
+---
+.left-column[
+## NESSA
+### Intro
+]
+
+.right-column[
+- d + t -> 4He + n
+- d has to be accelerated
+- Nearly monoenergetic neutrons
+- 4x1e10 n/s
+- 18 months or 1000 operational hours
+- Beam size: not exceeding 18 mm
+- Pulsing (pulse duration down to 10 us, period to 50 us)
+- Delivery 2020 Fall
+- Availability to users: 2021
+]
+
+---
+.left-column[
+## NESSA
+### Intro
+### Air activation
+]
+
+.right-column[
+- Is it safe to enter the bunker after irradiation?
+- Need for ventillation?
+
+- Neutron transport with MCNP (input developed by E. Andersson Sundén)
+- Activation with Fispact-II
+
+- Approximations
+  - spectrum is the same everywhere
+  - flux is the same in the room
+  - material loss is neglected
+]
+
+---
+.left-column[
+## NESSA
+### Intro
+### Air activation
+]
+
+.right-column[
+![drawing75](figures/nessaprelimfluxandRRandXSNew.png)
+
+- O16(n,p)N16
+- N14(n,2n)N13
+- Ar40(n,g)Ar41
+- Ar40(n,p)Cl40
+- N15(n,p)C15
+- 018(n,a)C15
+- Ar40(n,a)S37
+- N15(n,a)B12
+- Ar40(n,2n)Ar39
+- N14(n,t)H3
+- Ar36(n,g)Ar37
+- Ar38(n,2n)Ar37
+]
+
+---
+.left-column[
+## NESSA
+### Intro
+### Air activation
+]
+
+.right-column[
+.left-column50[
+![drawing75](figures/activity_over_timeFispactNew_nolegend.png)
+
+![drawing75](figures/doserate_over_timeFispactNew_nolegend.png)
+]
+.right-column50[
+![drawing85](figures/activity_over_timeFispactNewZoom.png)
+
+![drawing85](figures/doserate_over_timeFispactNewZoom.png)
+]
+
+&nbsp; 
+
+(Half-lifes: H3: 12.34y, N13: 9.96 min, N16: 7.13 s, Ar41: 1.82 h)
+
+Highest dose rate is 17.7 uSv/h. Better to wait couple of hours before entering.
+
+]
+---
+
+template: inverse
+## DDSI work and Cherenkov
+---
+.left-column[
+## DDSI, Cherenkov
+### Intro
+]
+
+.right-column[
+DDSI by L. Pöder Balkeståhl
+- Differential Die-away Self-interrogation
+- [Die-away time parametrized](https://www.stralsakerhetsmyndigheten.se/contentassets/37a5600de45242d6813e477f104bb9c4/parametrisering-av-avklingningstiden-tau-fran-ddsi-instrumentet-vid-modellering-av-intakta--pwr-branslen---li-poder.pdf)
+- For given BU, CT, IE the tau can be predicted.
+- We use that in MVA
+
+DCVD by E. Branger
+- fast measurements
+- mostly total intensity is used
+- to verify BU, CT, IE partial defect
+- Based on operator declarations estimate the gamma emission spectrom with Origen-ARP
+- Then predict the Cherenkov intensity (with the help of Geant4 models)
+- Using image analysis for less than 50% defect?
+]
+
+
+
+---
+template: inverse
+## feign
+---
+.left-column[
+## feign
+### Intro
+]
+
+.right-column[
+![drawing65](figures/rayDemo.png)
+
+- Compute the uncollided F5 tally
+- 2D geometries. For a long collimator with a narrow horizontal slit that is placed in front of the detector, the axial dependence is negligible.
+- Build-up factor neglected. OK
+   - If high energy-resolution detector
+   - Direct photons contribute to peak
+   - Scattered photons contribute to background
+]
+
+
+
+---
+template: inverse
+## Journal of Open Source Software
+---
+
+.left-column[
+## Publishing code
+### JOSS
+]
+
+.right-column[
+
+**Don't we have enough journals already?**
+
+"*Perhaps, and in a perfect world we'd rather papers about software weren't necessary but we recognize that for most researchers, papers and not software are the currency of academic research and that citations are required for a good career.*" 
+/from [JOSS hompage](https://joss.theoj.org/about)/
+
+JOSS (and JOSE for open source education)
+- provides a simple submission process
+- paper (250-1000 words) takes few hours (if code is well-documented)
+- is free and open source
+- has a nuclear engineer editor and reviewers
+- has a transparent and open review process in github issues (for example [`feign`'s](https://github.com/openjournals/joss-reviews/issues/1650)).
+
+What you get
+- an article...:)
+- a code that was installed, tested, reviewed by at least three scientists
+- experience from a different world... journal run by enthusiastic young people. This is nothing like Elsevier...
+]
+---
+.left-column[
+## Publishing code
+### JOSS
+### Requirements
+]
+
+.right-column[
+For the code
+- Obvious research application 
+- License, Community guidelines
+- Documentation (readme)
+- API documentation
+- Install instructions
+- Tests
+- Examples
+
+For the paper
+- 250-1000 words
+- Summary for non-specialists
+- Statement of need
+- Bibliography with DOI
+
+Indeed, you see some articles, which are just 1 page long.
+
+[Mine](https://joss.theoj.org/papers/10.21105/joss.01650) was a bit more detailed.
+
+[Detailed seminar on good practices.](https://ezsolti.github.io/TKworkshop/)
+]
+
+---
+template: inverse
+## Thanks for listening!
+
+
+    </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>
