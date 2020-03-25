@@ -13255,6 +13255,7 @@ a.anchor-link {
 <li>Context - Energy physics II with nuclear energy</li>
 <li>Brief overview of Jupyter notebooks</li>
 <li>Lot of demonstration</li>
+<li>Feed-back and Feed-forward</li>
 <li>Hopefully a lot of Q&amp;A (we need ideas for notebooks:))</li>
 </ul>
 
@@ -13306,7 +13307,7 @@ a.anchor-link {
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Usage-in-the-course">Usage in the course<a class="anchor-link" href="#Usage-in-the-course">&#182;</a></h1><ul>
-<li>Tutorial solutions (<a href="https://github.com/ezsolti/EnergyPhysics/blob/master/week1.ipynb">show plots and equations</a>)</li>
+<li>Tutorial solutions (show plots and equations)</li>
 <li>Interactive plots in lectures</li>
 <li>Home assignments<ul>
 <li>Students receive introduction</li>
@@ -13324,36 +13325,21 @@ a.anchor-link {
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="What-is-a-Jupyter-notebook?">What is a Jupyter notebook?<a class="anchor-link" href="#What-is-a-Jupyter-notebook?">&#182;</a></h1><p>Browser-based document mixing</p>
-<ul>
-<li>Narrative text written in Markdown</li>
+<ol>
+<li>Narrative text written in Markdown<ul>
+<li>Markdown is a very <strong>simple</strong> and <em>easy to learn</em> markup language, aka <del>difficult</del>.</li>
+</ul>
+</li>
 <li>Equations written in $\LaTeX$</li>
-<li>Live, executable code (eg. python)</li>
+<li>Live, executable code (eg. <code>python</code>)</li>
 <li>Visualizations (eg. matplotlib)</li>
-<li>Hyperlinks (eg. <a href="http://www.uu.se">Uppsala</a>)</li>
-<li>HTML</li>
+<li>Hyperlinks:<ul>
+<li><a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">Markdown Cheatsheet</a></li>
+</ul>
+</li>
 <li>Figures <img src="uu.png" alt=""></li>
-</ul>
+</ol>
 <p>Might be familiar to Wolfram Mathematica users!</p>
-
-</div>
-</div>
-</div></section></section><section><section>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="What-else?">What else?<a class="anchor-link" href="#What-else?">&#182;</a></h1><p>It is ideal for</p>
-<ul>
-<li>A report (popular in data science)</li>
-<li>Data analysis code documentation</li>
-<li>Apparently, also a slideshow</li>
-<li>Textbook for education</li>
-<li><a href="https://github.com/ezsolti/feign/tree/master/examples">Examples for APIs</a></li>
-</ul>
-<p>But! Not very comfortable</p>
-<ul>
-<li>For scripting and Software development</li>
-<li>Don't throw away your preferred editor yet:)</li>
-</ul>
 
 </div>
 </div>
@@ -13370,10 +13356,10 @@ a.anchor-link {
 </ul>
 <ul>
 <li>Alternatively, use RISE to activly display your NB in your browser (like this pressentation)<ul>
-<li>Execute code directly in the slide!</li>
 <li>Make changes to your slide while pressenting</li>
 <li>Draw directly in the slide</li>
 <li>Draw on a chalk board</li>
+<li>Execute code directly in the slide!</li>
 </ul>
 </li>
 </ul>
@@ -13384,27 +13370,7 @@ a.anchor-link {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="How-is-it-viewed?">How is it viewed?<a class="anchor-link" href="#How-is-it-viewed?">&#182;</a></h1><ul>
-<li>Can be exported to latex (thus pdf)</li>
-<li>Can be exported to html</li>
-<li>github renders it nicely</li>
-<li>But! Ideally as a jupyter notebook file opened in browser.</li>
-</ul>
-<p>So students need jupyter to be installed?</p>
-<ul>
-<li>Ideally, yes. (comes with Anaconda)</li>
-<li>Jupyterhub? Not tested by us</li>
-<li><a href="https://mybinder.org/">https://mybinder.org/</a></li>
-</ul>
-<p>All of our students managed to install jupyter!</p>
-
-</div>
-</div>
-</div></section></section><section><section>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="First-example">First example<a class="anchor-link" href="#First-example">&#182;</a></h1><p>One describes some problem with equations, then some code.</p>
+<h1 id="Python-code---first-example">Python code - first example<a class="anchor-link" href="#Python-code---first-example">&#182;</a></h1><p>One describes some problem with equations, then some code.</p>
 $$f(t)=C\cdot t^3$$
 </div>
 </div>
@@ -13467,18 +13433,39 @@ $$f(t)=C\cdot t^3$$
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Markdown">Markdown<a class="anchor-link" href="#Markdown">&#182;</a></h1><p>Markdown is a very <strong>simple</strong> and <em>easy to learn</em> markup language.</p>
+<h1 id="What-else?">What else?<a class="anchor-link" href="#What-else?">&#182;</a></h1><p>It is ideal for</p>
 <ul>
-<li><a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">cheatsheet</a></li>
-<li><p>No extra effort using it</p>
-
-<pre><code>  # Markdown
-
-  Markdown is a very **simple** and _easy to learn_ markup language. 
-  - [cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
-  - No extra effort using it</code></pre>
-</li>
+<li>A report (popular in data science)</li>
+<li>Data analysis code documentation</li>
+<li>Apparently, also a slideshow</li>
+<li>Textbook for education</li>
+<li><a href="https://github.com/ezsolti/feign/tree/master/examples">Examples for APIs</a></li>
 </ul>
+<p>But! Not very comfortable</p>
+<ul>
+<li>For scripting and Software development</li>
+<li>Don't throw away your preferred editor yet:)</li>
+</ul>
+
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="How-is-it-viewed?">How is it viewed?<a class="anchor-link" href="#How-is-it-viewed?">&#182;</a></h1><ul>
+<li>Can be exported to latex (thus pdf)</li>
+<li>Can be exported to html</li>
+<li>github renders it nicely</li>
+<li>But! Ideally as a jupyter notebook file opened in browser.</li>
+</ul>
+<p>So students need jupyter to be installed?</p>
+<ul>
+<li>Ideally, yes. (comes with Anaconda)</li>
+<li>Jupyterhub? Not tested by us</li>
+<li><a href="https://mybinder.org/">https://mybinder.org/</a></li>
+</ul>
+<p>All of our students managed to install jupyter!</p>
 
 </div>
 </div>
