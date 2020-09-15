@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Fission group meeting</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif);
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body {
+        font-family: 'Droid Serif';
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+      .remark-slide-content h1 { font-size: 3em; }
+      .remark-slide-content h2 { font-size: 2em; }
+      .remark-slide-content h3 { font-size: 1.6em; }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+      }
+      li p { line-height: 1.25em; }
+      .red { color: #fa0000; }
+      .large { font-size: 2em; }
+      a, a > code {
+        color: rgb(249, 38, 114);
+        text-decoration: none;
+      }
+      code {
+        background: #e7e8e2;
+        border-radius: 5px;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .remark-code-line-highlighted     { background-color: #373832; }
+      .pull-left {
+        float: left;
+        width: 47%;
+      }
+      .pull-right {
+        float: right;
+        width: 47%;
+      }
+      .pull-right ~ p {
+        clear: both;
+      }
+      #slideshow .slide .content code {
+        font-size: 0.8em;
+      }
+      #slideshow .slide .content pre code {
+        font-size: 0.9em;
+        padding: 15px;
+      }
+      .inverse {
+        background: #536872;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+
+      /* Slide-specific styling */
+      #slide-inverse .footnote {
+        bottom: 12px;
+        left: 20px;
+      }
+      #slide-how .slides {
+        font-size: 0.9em;
+        position: absolute;
+        top:  151px;
+        right: 140px;
+      }
+      #slide-how .slides h3 {
+        margin-top: 0.2em;
+      }
+      #slide-how .slides .first, #slide-how .slides .second {
+        padding: 1px 20px;
+        height: 90px;
+        width: 120px;
+        -moz-box-shadow: 0 0 10px #777;
+        -webkit-box-shadow: 0 0 10px #777;
+        box-shadow: 0 0 10px #777;
+      }
+      #slide-how .slides .first {
+        background: #fff;
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        z-index: 1;
+      }
+      #slide-how .slides .second {
+        position: relative;
+        background: #fff;
+        z-index: 0;
+      }
+
+      /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 20%;
+        height: 92%;
+        float: left;
+      }
+
+      img[alt=drawing25] { width: 25%; }
+      img[alt=drawing35] { width: 35%; }
+      img[alt=drawing45] { width: 45%; }
+      img[alt=drawing55] { width: 55%; }
+      img[alt=drawing65] { width: 65%; }
+      img[alt=drawing70] { width: 70%; }
+      img[alt=drawing20] { width: 90%; }
+
+      .left-column33 {
+        width: 33.3%;
+        float: left;
+        padding-top: 1em;
+      }
+
+      .right-column33 {
+        width: 33.3%;
+        float: right;
+        padding-top: 1em;
+      }
+
+      .middle-column33 {
+        width: 33.3%;
+        float: center;
+        padding-top: 1em;
+      }
+
+
+
+
+      .left-column50 {
+        width: 50%;
+        float: left;
+        padding-top: 1em;
+      }
+
+      .right-column50 {
+        width: 50%;
+        float: left;
+        padding-top: 1em;
+      }
+
+        .left-column h2:last-of-type, .left-column h3:last-child {
+          color: #000;
+        }
+      .right-column {
+        width: 75%;
+        float: right;
+        padding-top: 1em;
+      }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+name: inverse
+layout: true
+class: center, middle, inverse
+---
+# Studies within NESSA 
+# UU spent PWR fuel library
+## Zsolt Elter
+## 2020
+---
+layout: false
+.left-column[
+## Content
+]
+
+
+.right-column[
+- NESSA
+    - intro
+    - my tasks
+    - codes, methodology
+    - future
+- MVA fuel library
+    - format
+    - example use
+]
+---
+template: inverse
+## NESSA
+---
+.left-column[
+## NESSA
+### intro
+]
+
+.right-column[
+- D-T neutron generator at S, Iron collimator wall
+- Dose due to activation of concrete, iron, lead?
+- Dismantling needs?
+- Air activation?
+
+![drawing65](figures/geomXYMesh.png)
+]
+---
+.left-column[
+## NESSA
+### intro
+### method
+]
+.right-column[
+**1. MCNP6 neutron transport to obtain neutron spectra in cells**
+
+![drawing35](figures/spectra.png)  &nbsp; ![drawing25](figures/geomXY2Mesh.png) &nbsp; ![drawing25](figures/geomXZ2Mesh.png)
+
+- Self-shielding matters! What should be the cell size?
+
+
+**2. FISPACTII activation calculations to get gamma emission spectra after irradiation in each cell** 
+
+**3. MCNP6 gamma transport calculation to get dose rate**
+
+![drawing25](figures/gammaspect_1min.png) &nbsp; ![drawing25](figures/sourceRateMap_O.png) &nbsp; ![drawing25](figures/sourceRateMap_M.png)
+
+]
+---
+.left-column[
+## NESSA
+### intro
+### method
+]
+.right-column[
+.left-column50[
+![drawing55](figures/flowchart.png)
+
+]
+
+.right-column50[
+- Semi-automatic script + package
+- If F4:n tallies are in <u>Rectangular cuboid cells</u>
+- Reads spectra from each
+- Runs all FISPACTII calcs
+- Reads cell and surface cards to know where the gamma sources are
+- Creates Cell() objects and adds them to Source() objects
+- Reads all gamma spectra from FISPACTII outputs
+- Creates SDEF (several hundred lines)
+- [Github repo](https://github.com/ezsolti/FGS2Mbackup/): development stage. if needed, I can make it more generic and complete.
+]
+]
+---
+.left-column[
+## NESSA
+### intro
+### method
+### future
+]
+.right-column[
+- Some studies are left: take into account air ventillation?
+
+
+- Will participate an 8 days NEA training cours on FISPACTII
+- Hopefully will get to no a bit more about data
+- and about whether my calculations were correct:) 
+]
+---
+template: inverse
+## MVA fuel library
+---
+.left-column[
+## NESSA
+## MVA
+### data
+]
+.right-column[
+- Serpent2 inventory calculations in PWR pincell
+- varying BU, CT, IE
+- 283 feautes (nuclide concentrations, activity, SF rate etc)
+- 789406 UOX samples, 531991 MOX samples
+- ideal for MVA, ML, quick visualization, teaching
+- csv format ([available here](http://dx.doi.org/10.17632/8z3smmw63p.1)): DONT OPEN IN EXCEL!
+
+![drawing20](figures/csv.png)
+
+- Article submitted to Data in Brief
+- Scripts are available on request to repeat the same for other fuel geometries
+
+]
+---
+.left-column[
+## NESSA
+## MVA
+### data
+### example
+]
+.right-column[
+- Q: Can SF gammas be as dominant than other gamma sources?
+- A: NO. (No need to run burnup calc, just read the (parts of the) data)
+
+```python
+import pandas as pd
+
+fueldata=pd.read_csv('UU_PWR_UOX-MOX.csv',header = 0, usecols=['BU','CT','IE','fuelType','TOT_SF','TOT_GSRC','Cs137'])
+fueldata['Cs137A']=fueldata['Cs137']*1e24*(np.log(2)/(30.1*365*86400))
+subfuel=fueldata[(fueldata['BU']==50.0) & (fueldata['IE']==3.5) & (fueldata['fuelType']=='UOX')]
+
+plt.loglog(subfuel['CT']/365, subfuel['Cs137A']/subfuel['TOT_SF']*8,'bx')
+plt.loglog(subfuel['CT']/365, subfuel['TOT_GSRC']/subfuel['TOT_SF']*8,'bx')
+
+```
+
+![drawing45](figures/example1.png) &nbsp; ![drawing45](figures/example2.png)
+
+- Similarly simple lines with Matlab...
+- [Further example](https://github.com/ezsolti/MVA_data/blob/master/MVA_analyze.ipynb)
+]
+---
+template: inverse
+## Thanks for listening!
+
+
+    </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>
