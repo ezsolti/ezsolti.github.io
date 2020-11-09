@@ -1,14 +1,17 @@
 $.getJSON('https://covid.ourworldindata.org/data/owid-covid-data.json', function(data) {
 
-var text1 = `day 1: ${data["HUN"]["data"].slice(-1)[0]["new_deaths"]}`
-var text2 = `day 2: ${data["HUN"]["data"].slice(-2)[0]["new_deaths"]}`
-var text3 = `day 3: ${data["HUN"]["data"].slice(-3)[0]["new_deaths"]}`
-var text4 = `day 4: ${data["HUN"]["data"].slice(-4)[0]["new_deaths"]}`
-var text5 = `day 5: ${data["HUN"]["data"].slice(-5)[0]["new_deaths"]}`
+var tspans=['tspan1447','tspan1977','tspan1853','tspan1845','tspan1825'];
+var x2=["442.19034","442.19034","40.87421","19.791666","1.2940332"];
+var x3=["441.19034","441.19034","39.87421","18.791666","0.2940332"];
 
-console.log(text1);
-console.log(text2);
-console.log(text3);
-console.log(text4);
-console.log(text5);
+console.log('run')
+for (i = 0; i < 5; i++) {
+  var text = `${data["HUN"]["data"].slice(-1*(i+1))[0]["new_deaths"]}`
+  document.getElementById(tspans[i]).textContent = text;
+  if (text.length == 2){
+  document.getElementById(tspans[i]).setAttribute("x",x2[i]);
+  } else {
+  document.getElementById(tspans[i]).setAttribute("x",x3[i]);
+  }
+} 
 });
