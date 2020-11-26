@@ -1,0 +1,22 @@
+html {
+  background-color: #f1e8ffff;
+}
+
+h1 {
+  color: white;
+  background-color: #005f00ff;
+  padding:  10% 50%;
+
+
+}
+
+p {
+  text-align: center;
+}
+
+body {
+  width: 600px;
+  margin: 0 auto;
+  background-color: white;
+  padding: 0% 0 5px 0;
+}
