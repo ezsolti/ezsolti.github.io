@@ -13203,7 +13203,7 @@ a.anchor-link {
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Examples-of-various-studies">Examples of various studies<a class="anchor-link" href="#Examples-of-various-studies">&#182;</a></h1><p><strong>Zsolt Elter</strong></p>
-<p><em>2021</em></p>
+<p><em>2020 November</em></p>
 
 </div>
 </div>
@@ -13213,13 +13213,10 @@ a.anchor-link {
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Content">Content<a class="anchor-link" href="#Content">&#182;</a></h1><ul>
 <li>CV</li>
-<li>Spent fuel quiver simulations (Origen-Arp, Serpent2, Variance reduction, Scripting)</li>
-<li>Shutdown dose rates around a neutron generator (MCNP6, Fistpact-II, Python)</li>
-<li>Air activation around a neutron generator (MCNP6, Fistpact-II, analytic work, Python)</li>
-<li>feign: ray-tracing in spent fuel gamma spectroscopy (Python)</li>
-<li>Machine learning to estime BU, CT and IE of spent fuel. (Serpent, MCNP, Python, data science)</li>
-<li>Reactor physics education with Jupyter Notebooks</li>
-<li>Misc: graphics and other hobbies</li>
+<li>Radiation protection studies of NESSA</li>
+<li>Spent fuel quiver simulations</li>
+<li>feign: a 2D point kernel method to estimate geometric efficiency in spent fuel measuremnts</li>
+<li>Misc: graphics and js work</li>
 </ul>
 
 </div>
@@ -13293,10 +13290,10 @@ a.anchor-link {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Shutdown-dose-rate-around-neutron-generator">Shutdown dose rate around neutron generator<a class="anchor-link" href="#Shutdown-dose-rate-around-neutron-generator">&#182;</a></h1>
+<h1 id="Radiation-protection-studies">Radiation protection studies<a class="anchor-link" href="#Radiation-protection-studies">&#182;</a></h1>
 </div>
 </div>
-</div></section><section>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13307,15 +13304,15 @@ a.anchor-link {
 <li>AU: area for users (where the sample goes)</li>
 <li>IB: inner bunker (where the generator lives)</li>
 </ul>
-<center><img src="figures/geomXYannot.png" width="350"></center>
+<p><img src="figures/geomXYannot.png" width="350"></p>
+
 </div>
 </div>
-</div></section><section>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="General-overview-of-studies">General overview of studies<a class="anchor-link" href="#General-overview-of-studies">&#182;</a></h1><ul>
-<li>For safety analysis report</li>
 <li>Interests<ul>
 <li>Neutron activation</li>
 <li>Activity/inventory of materials over time<ul>
@@ -13323,21 +13320,23 @@ a.anchor-link {
 <li>Of air</li>
 </ul>
 </li>
-<li>Dose rate due to delayed gammas (and due to betas)</li>
+<li>Dose rate due to delayed gammas</li>
 </ul>
 </li>
 <li>Computing needs<ul>
 <li>No released R2S (rigourus 2 step) package available: make our own.</li>
 <li>Neutron flux and spectrum around the generator: MCNP6 (original input from colleague)</li>
 <li>Activation calculations/inventory: FISPACT-II</li>
-<li>Gamma transport: MCNP6  </li>
+<li>Activation calculations/cross sections: FISPACT-II+analytic</li>
+<li>Gamma transport: MCNP6</li>
 </ul>
 </li>
+<li>In all studies these were used to different extent.</li>
 </ul>
 
 </div>
 </div>
-</div></section><section>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13353,7 +13352,7 @@ a.anchor-link {
 \end{equation}
 </div>
 </div>
-</div></section><section>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13381,7 +13380,7 @@ a.anchor-link {
 
 </div>
 </div>
-</div></section><section>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13391,7 +13390,7 @@ a.anchor-link {
 </tr></table><center><img src="figures/dosepoints.png" width="300"/></center>
 </div>
 </div>
-</div></section><section>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13404,7 +13403,7 @@ a.anchor-link {
 
 </div>
 </div>
-</div></section><section>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13899,7 +13898,7 @@ a.anchor-link {
 
 </div>
 </div>
-</div></section><section>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13916,7 +13915,7 @@ a.anchor-link {
 </tr></table>
 </div>
 </div>
-</div></section><section>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13929,27 +13928,6 @@ a.anchor-link {
 </div>
 </div>
 </div></section></section><section><section>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Air-activation-around-neutron-generator">Air activation around neutron generator<a class="anchor-link" href="#Air-activation-around-neutron-generator">&#182;</a></h1>
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="NESSA">NESSA<a class="anchor-link" href="#NESSA">&#182;</a></h1><ul>
-<li>NEutron Source in UppSAla</li>
-<li>D-T neutron generator at S, Iron collimator wall</li>
-<li>Maximum neutron yield $10^{11}\: 1/s$</li>
-<li>AU: area for users (where the sample goes)</li>
-<li>IB: inner bunker (where the generator lives)</li>
-</ul>
-<center><img src="figures/geomXYannot.png" width="350"></center>
-</div>
-</div>
-</div></section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13968,15 +13946,6 @@ a.anchor-link {
 <li>Daughter nuclides are rare: losses due to irradiation neglected</li>
 </ul>
 </li>
-</ul>
-
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Methodology">Methodology<a class="anchor-link" href="#Methodology">&#182;</a></h1><ul>
 <li>Proposed solution<ul>
 <li>Derive set of equations for the two rooms</li>
 <li>Collapsed cross sections from FISPACT-II (fed with MCNP6 flux and spectrum)</li>
@@ -13992,23 +13961,7 @@ a.anchor-link {
 
 </div>
 </div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="FISPACT-II">FISPACT-II<a class="anchor-link" href="#FISPACT-II">&#182;</a></h1><ul>
-<li>Evolution of the inventory of nuclides in a target material</li>
-<li>Irradiated by a time-dependent projectile flux</li>
-<li>Projectile: neutrons, protons, deuterons, alpha, gamma.</li>
-<li>Material is homogeneous, infinite and infinitely dilute</li>
-<li>Set of rate equations to be solved</li>
-</ul>
-\begin{equation}
-\frac{dN_{i}}{dt} =\sum _{j\neq i}\left( \lambda _{j\rightarrow i} +\sigma _{j\rightarrow i} \phi ^{int}\right) N_{j} -\lambda _{i} N_{i} -\sigma _{i} \phi ^{int} N_{i}
-\end{equation}
-</div>
-</div>
-</div></section><section>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -14027,7 +13980,7 @@ a.anchor-link {
 \end{equation}
 </div>
 </div>
-</div></section><section>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -14040,7 +13993,7 @@ a.anchor-link {
 
 </div>
 </div>
-</div></section><section>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -14061,7 +14014,7 @@ N'_B(t)=N_B(t_{irr})e^{-t(\lambda + \lambda_B)}- \frac{\lambda_AN_A(t_{irr})(e^{
 
 </div>
 </div>
-</div></section><section>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -14087,18 +14040,18 @@ N'_B(t)=N_B(t_{irr})e^{-t(\lambda + \lambda_B)}- \frac{\lambda_AN_A(t_{irr})(e^{
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Safeguards-verification-of-spent-fuel-quivers">Safeguards verification of spent fuel quivers<a class="anchor-link" href="#Safeguards-verification-of-spent-fuel-quivers">&#182;</a></h1>
+<h1 id="Spent-fuel-quivers">Spent fuel quivers<a class="anchor-link" href="#Spent-fuel-quivers">&#182;</a></h1>
 </div>
 </div>
-</div></section><section>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Spent-fuel-quivers">Spent fuel quivers<a class="anchor-link" href="#Spent-fuel-quivers">&#182;</a></h1><ul>
 <li>Container to store damaged nuclear fuel</li>
 <li>Same size as regular PWR or BWR fuel</li>
-<li>Thick lid on the top: verification with instruments placed above quiver is difficult</li>
-<li>IAEA and SSM question: possible to verify gross defect with SFAT (NaI detector facing the top)?</li>
+<li>Thick lid on the top: verification with instruments placed above difficult</li>
+<li>Authority question: possibole to verify gross defect with SFAT (NaI detector facing the top)?</li>
 <li>In <a href="https://drive.google.com/file/d/16dtG-vjRd8ob-FQmsODzCsJC0Ax8mXki/view">Physor2020 proceedings</a></li>
 </ul>
 <table>
@@ -14110,27 +14063,21 @@ N'_B(t)=N_B(t_{irr})e^{-t(\lambda + \lambda_B)}- \frac{\lambda_AN_A(t_{irr})(e^{
 </tr></table>
 </div>
 </div>
-</div></section><section>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Spent-fuel-quivers:-actions-and-methodology">Spent fuel quivers: actions and methodology<a class="anchor-link" href="#Spent-fuel-quivers:-actions-and-methodology">&#182;</a></h1><ul>
-<li>Approaching manufacturer (Westinghouse) to receive design</li>
-<li>After iterations received a .stp file of simplified geometry, which I translated into Serpent2<center><img src="figures/quiver_cadmodel.png" width="200"/></center></li>
-<li>Operational history of rods from Vattenfall</li>
-<li>Setting up calculations and answering authority's question</li>
-</ul>
-<center><img src="figures/q.png" width="450"/></center><p><font size="2"> Note: Origen-ARP calculations done by a colleague (I do not have a license), however I was responsible for the data extraction and processing. </font></p>
+<h1 id="Spent-fuel-quivers:-methodology">Spent fuel quivers: methodology<a class="anchor-link" href="#Spent-fuel-quivers:-methodology">&#182;</a></h1><p><img src="figures/q.png" width="450"/></p>
 
 </div>
 </div>
-</div></section><section>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Spent-fuel-quivers:-substeps">Spent fuel quivers: substeps<a class="anchor-link" href="#Spent-fuel-quivers:-substeps">&#182;</a></h1><table>
 <tr><td><center>Emission spectra from Origen-ARP</center></td>
-    <td><center>Flux from Serpent2 + SerpentTools</center></td>
+    <td><center>FLux from Serpent2</center></td>
 </tr>
 <tr>
 <td> <img src="figures/gammaemission_spectrum.png" width="330"/> </td>
@@ -14142,7 +14089,7 @@ N'_B(t)=N_B(t_{irr})e^{-t(\lambda + \lambda_B)}- \frac{\lambda_AN_A(t_{irr})(e^{
 </tr></table>
 </div>
 </div>
-</div></section><section>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -14153,8 +14100,8 @@ N'_B(t)=N_B(t_{irr})e^{-t(\lambda + \lambda_B)}- \frac{\lambda_AN_A(t_{irr})(e^{
 <tr>
 <td> <img src="figures/sfat_geom_label.png" width="330"/> </td>
 </tr></table><ul>
-<li>Weight window iterations in Serpent2 (global variance reduction followed by steps optimized towards the detector)</li>
-<li>Less then <strong>3 counts over 5 minutes</strong> -&gt; other instrument is needed (PhD student continued)</li>
+<li>Weight window iterations in Serpent2 (global variance reduction followed by steps optimized to the detector)</li>
+<li>Less then 3 counts over 5 minutes -&gt; other instrument is needed</li>
 </ul>
 
 </div>
@@ -14166,14 +14113,13 @@ N'_B(t)=N_B(t_{irr})e^{-t(\lambda + \lambda_B)}- \frac{\lambda_AN_A(t_{irr})(e^{
 <h1 id="feign">feign<a class="anchor-link" href="#feign">&#182;</a></h1>
 </div>
 </div>
-</div></section><section>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="feign">feign<a class="anchor-link" href="#feign">&#182;</a></h1><ul>
 <li>Estimating the geometric efficiency in passive gamma spectroscopy measurements of spent nuclear fuel assemblies</li>
 <li>2D point-kernel method without build-up factors</li>
-<li>Ray tracing</li>
 <li>Point-flux per source particle: $P_i(E) =\frac{1}{4\pi R_{i}^2}\prod\limits_m e^{-\mu_m(E) d_{i,m}}$</li>
 <li>Published open source software (at <a href="https://joss.theoj.org/papers/10.21105/joss.01650">JOSS</a>) </li>
 </ul>
@@ -14185,193 +14131,46 @@ N'_B(t)=N_B(t_{irr})e^{-t(\lambda + \lambda_B)}- \frac{\lambda_AN_A(t_{irr})(e^{
 </table>
 </div>
 </div>
-</div></section><section>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="An-application:-creating-feature-vectors-for-ML">An application: creating feature vectors for ML<a class="anchor-link" href="#An-application:-creating-feature-vectors-for-ML">&#182;</a></h1><center><img src="figures/ezs_fig1.png" width="330"/></center><ul>
-<li>paper: <a href="https://esarda.jrc.ec.europa.eu/esarda-bulletin-n61_en">Esarda bulletin N61</a></li>
-<li>analysis: <a href="https://zenodo.org/record/4250073#.YbyjMNso9H4">DOI 10.5281/zenodo.4250073</a></li>
-</ul>
-
+<h1 id="An-application:-creating-feature-vectors-for-ML">An application: creating feature vectors for ML<a class="anchor-link" href="#An-application:-creating-feature-vectors-for-ML">&#182;</a></h1><center><img src="figures/ezs_fig1.png" width="330"/></center>
 </div>
 </div>
 </div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Machine-learning-to-verify-spent-fuel">Machine learning to verify spent fuel<a class="anchor-link" href="#Machine-learning-to-verify-spent-fuel">&#182;</a></h1>
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Overview">Overview<a class="anchor-link" href="#Overview">&#182;</a></h1><ul>
-<li>Predict Burnup, Cooling time and Initial enrichment</li>
-<li>Based on Nondestructive assay (gamma, neutron and Cherenkov signatures)</li>
-<li>Simulate nuclide inventory</li>
-<li>Simulate response of detectors</li>
-<li>Train machine learning models</li>
-</ul>
-<table>
-<tr><td><center>HPGe setup</center></td>
-    <td><center>DDSI</center></td>
-</tr>
-<tr>
-<td> <img src="figures/CLABMCNPXMODEL.png" width="330"/> </td>
-<td> <img src="figures/ddsiown.png" width="330"/> </td>
-</tr>
-</table>
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Machine-learning">Machine learning<a class="anchor-link" href="#Machine-learning">&#182;</a></h1><center><img src="figures/methodN.png" width="430"/></center>
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Machine-learning-and-experimental-test">Machine learning and experimental test<a class="anchor-link" href="#Machine-learning-and-experimental-test">&#182;</a></h1><center><img src="figures/MLmethodology.png" width="430"/></center><p><font size="2"> Note: work under review for Physor 2022. </font></p>
-
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Results">Results<a class="anchor-link" href="#Results">&#182;</a></h1><center><img src="figures/ezs_physorMLfin.png" width="430"/></center><ul>
-<li>Black cross: actual measured fuel assembly</li>
-<li>Prediction fails for very atypically burnt fuel</li>
-</ul>
-
+<h1 id="Misc:-graphics-and-javascript">Misc: graphics and javascript<a class="anchor-link" href="#Misc:-graphics-and-javascript">&#182;</a></h1>
 </div>
 </div>
 </div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Reactor-physics-with-Python">Reactor physics with Python<a class="anchor-link" href="#Reactor-physics-with-Python">&#182;</a></h1>
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Course-format-and-content">Course format and content<a class="anchor-link" href="#Course-format-and-content">&#182;</a></h1><ul>
-<li>Fully distance course<ul>
-<li>pre-recorded lectures</li>
-</ul>
-</li>
-<li>Datalabs: self-contained Jupyter notebooks</li>
-<li>Programming home assignments</li>
-<li>Everything is open sourced: <a href="http://doi.org/10.5281/zenodo.5578876">http://doi.org/10.5281/zenodo.5578876</a></li>
-<li>Content<ul>
-<li>Typical neutronics topics (cross sections, transport/diffusion, kinetics, depletion)</li>
-<li>Monte Carlo intro</li>
-<li>openMC</li>
-</ul>
-</li>
-</ul>
-
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Some-examples">Some examples<a class="anchor-link" href="#Some-examples">&#182;</a></h1><p>Each image in the Lecture notes is created with python, and the source is available.</p>
-<center><img src="figures/lecturenoteexample.png" alt="drawing" width="800"/></center>
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Some-examples">Some examples<a class="anchor-link" href="#Some-examples">&#182;</a></h1><center><img src="figures/datalabexample.png" alt="drawing" width="550"/></center>
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Future-and-Further-outcome">Future and Further outcome<a class="anchor-link" href="#Future-and-Further-outcome">&#182;</a></h1><ul>
-<li>Will become an IAEA course, with advanced material</li>
-<li>Student project: Point kinetics with temperature feedbacks<ul>
-<li>simple to use open source code to be used later for datalabs (soon to be released)</li>
-</ul>
-</li>
-</ul>
-<center><img src="figures/pointkinetic_temp_feedback.png" alt="drawing" width="600"/></center>
+<h1 id="Graphics-+-photography">Graphics + photography<a class="anchor-link" href="#Graphics-+-photography">&#182;</a></h1><center><img src="figures/arc.jpg" width="330"/></center>
+<center><img src="figures/ezs_arc_nucleararm.jpeg" width="330"/></center>
 </div>
 </div>
 </div></section></section><section><section>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Misc:-graphics-and-web">Misc: graphics and web<a class="anchor-link" href="#Misc:-graphics-and-web">&#182;</a></h1>
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="ARC-exhibit-prizes">ARC exhibit prizes<a class="anchor-link" href="#ARC-exhibit-prizes">&#182;</a></h1><center><img src="figures/arc.jpg" width="330"/></center>
-<center><img src="figures/arc2.jpg" width="330"/></center>
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Nuclear-enthusiast">Nuclear enthusiast<a class="anchor-link" href="#Nuclear-enthusiast">&#182;</a></h1><center><img src="figures/ezs_arc_nucleararm.jpeg" width="630"/></center>
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Occasional-outreach">Occasional outreach<a class="anchor-link" href="#Occasional-outreach">&#182;</a></h1><center><img src="figures/ezsqubit.png" width="630"/></center><p><a href="https://qubit.hu/2021/04/21/nem-veszelyes-a-kornyezetre-a-fukusimai-hutoviz-tengerbe-eresztese">https://qubit.hu/2021/04/21/nem-veszelyes-a-kornyezetre-a-fukusimai-hutoviz-tengerbe-eresztese</a></p>
-
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="nuclidecalendar.github.io">nuclidecalendar.github.io<a class="anchor-link" href="#nuclidecalendar.github.io">&#182;</a></h1><center><img src="figures/nuclidecalendar.png" width="430"/></center>
-</div>
-</div>
-</div></section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="javascript-+-web">javascript + web<a class="anchor-link" href="#javascript-+-web">&#182;</a></h1><ul>
 <li>Clicking app with p5.js to identify rod locations in assembly: <a href="https://www.openprocessing.org/sketch/495110">https://www.openprocessing.org/sketch/495110</a></li>
 </ul>
-<center><img src="figures/assemblydefect.png" width="330"/></center>
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="node.js-+-web">node.js + web<a class="anchor-link" href="#node.js-+-web">&#182;</a></h1><ul>
-<li>Server+client based exercise for students: <a href="https://github.com/ezsolti/fourfactor">https://github.com/ezsolti/fourfactor</a></li>
-<li>Only static version hosted currently: <a href="https://ezsolti.github.io/fourfactor/">https://ezsolti.github.io/fourfactor/</a></li>
+<center><img src="figures/assemblydefect.png" width="330"/></center><ul>
+<li>Responsive svg image for outreach: <a href="https://nuclidecalendar.github.io/">https://nuclidecalendar.github.io/</a></li>
 </ul>
-<center><img src="figures/fourfactor.png" width="430"/></center>
+
 </div>
 </div>
 </div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Thanks-for-checking-out-some-of-my-works!">Thanks for checking out some of my works!<a class="anchor-link" href="#Thanks-for-checking-out-some-of-my-works!">&#182;</a></h1><p>Do not hesitate to reach out for further information.</p>
+<h1 id="Thanks-for-listening!">Thanks for listening!<a class="anchor-link" href="#Thanks-for-listening!">&#182;</a></h1><p>I am open for further discussions.</p>
 
 </div>
 </div>
