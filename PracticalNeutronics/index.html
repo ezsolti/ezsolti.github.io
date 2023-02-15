@@ -13203,8 +13203,8 @@ a.anchor-link {
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Neutronics-in-practice-(how-to-use-your-new-skills)">Neutronics in practice (how to use your new skills)<a class="anchor-link" href="#Neutronics-in-practice-(how-to-use-your-new-skills)">&#182;</a></h1><p>... and peculiarities of novel reactors</p>
-<p>Zsolt Elter
-Seaborg Technologies, Uppsala University (but any view stated here shouldn't be associated with these)</p>
+<p>Zsolt Elter</p>
+<p>Seaborg Technologies, Uppsala University (but any view stated here shouldn't be associated with these)</p>
 <p>2023</p>
 
 </div>
@@ -13435,7 +13435,7 @@ $$N_{src}(n+1)=(1-\Delta t_n\lambda)N_{src}(n)$$$$N_{tgt}(n+1)=N_{tgt}(n)+\Delta
 <h3 id="Gen-IV/MSR-takeaway">Gen-IV/MSR takeaway<a class="anchor-link" href="#Gen-IV/MSR-takeaway">&#182;</a></h3><ul>
 <li>Off-gasing might be a must (eg. noble gases will not stay in salt)</li>
 <li>Refueling can be a nice feat (no reactivity reserve-&gt; lower requirements for control system)</li>
-<li>Need for trustworthy, user friendly simulation capability (there are some, eg <a href="https://github.com/arfc/saltproc">SaltProc</a></li>
+<li>Need for trustworthy, user friendly simulation capability (there are some, eg <a href="https://github.com/arfc/saltproc">SaltProc</a>)</li>
 <li>Related issue: many concepts run on HALEU (or refuelling can require HALEU)<ul>
 <li>No real supplier chain</li>
 <li>Plutonium might stay weapons-grade for a long time</li>
@@ -13583,7 +13583,7 @@ E)}_{\text{scores}} \psi (\mathbf{r}, \mathbf{\Omega}, E)
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Physics:-energy-release">Physics: energy release<a class="anchor-link" href="#Physics:-energy-release">&#182;</a></h3><ul>
-<li>Fission (depenent on nucleus and neutron energy) ~ 200 MeV<ul>
+<li>Fission (dependent on nucleus and neutron energy) ~ 200 MeV<ul>
 <li>168 MeV: kinetic energy of FP (local)</li>
 <li>5 MeV: Prompt neutrons (slowing down mostly in moderator) </li>
 <li>7 MeV: Prompt gammas (all over the place: high density vs low density moderator)</li>
@@ -13630,10 +13630,10 @@ $$k_{ij}(E)=\sum_l\bar{E}_{ijl}(E)\sigma_{ij}(E)$$<p>where $\bar{E}_{ijl}$ total
 <li>Coupled neutron and gamma transport: time consuming but accurate</li>
 </ul>
 $$E_{fiss,i}=\text{kinetric energy of FP}+\text{energy of delayed betas}$$
-<pre><code>set ngamma 2
-set edepmode 3
-[set edepdel ...] 
-det det_heat n dr -80 void [dm ... dl ... dc ...]</code></pre>
+<pre><code>    set ngamma 2
+    set edepmode 3
+    [set edepdel ...] 
+    det det_heat n dr -80 void [dm ... dl ... dc ...]</code></pre>
 
 </div>
 </div>
@@ -13662,7 +13662,7 @@ det det_heat n dr -80 void [dm ... dl ... dc ...]</code></pre>
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Take-away,-novel-reactor-challenges">Take away, novel reactor challenges<a class="anchor-link" href="#Take-away,-novel-reactor-challenges">&#182;</a></h3><ul>
-<li>Modeling: Serpent will normalize with <code>set power</code> even if you disregard sourrounding of core!</li>
+<li>Modeling: Serpent will normalize with <code>set power</code> even if you disregard surrounding of core!</li>
 <li><code>edepmode</code> has an influence on depletion calculations (bias in reaction rates)</li>
 <li>Fission rate in fuel plena can be significant</li>
 <li>Moving fuel -&gt; where are delayed components deposited?</li>
@@ -13692,7 +13692,7 @@ det det_heat n dr -80 void [dm ... dl ... dc ...]</code></pre>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="NRT-dpa-and-beyond">NRT-dpa and beyond<a class="anchor-link" href="#NRT-dpa-and-beyond">&#182;</a></h3><ul>
+<h3 id="NRT-dpa-(Norget,-Torrens-and-Robinson)">NRT-dpa (Norget, Torrens and Robinson)<a class="anchor-link" href="#NRT-dpa-(Norget,-Torrens-and-Robinson)">&#182;</a></h3><ul>
 <li>direct heating, gas production..</li>
 <li>lattice defects<ul>
 <li>"A large cluster of lattice defects can be produced by the primary recoil nucleus of a nuclear reaction as it slows down in a lattice" /NJOY16 Manual 6.2/</li>
@@ -13703,7 +13703,7 @@ det det_heat n dr -80 void [dm ... dl ... dc ...]</code></pre>
 $$DPA=\frac{E_a}{2E_d}=\text{total available energy}/\text{displacement energy}$$<ul>
 <li>total displacement rate from $\bar{d}_i$ collapsed dpa cross sections in eV-barn units</li>
 </ul>
-$$D_{tot}=e_d\phi\sum_iN_i\bar{d}_i/2E_d(Z_i) \quad e_d=0.8 \: \text{universal agreement}$$$$\text{DPA}\:\text{RATE}=D_{tot}/\sum_iN_i$$
+$$D_{tot}=e_d\phi\sum_iN_i\bar{d}_i/2E_d(Z_i) \quad e_d=0.8 \: \text{universal agreement}$$$$\text{DPA}\:\text{RATE}=D_{tot}/\sum_iN_i$$<center><img src="figures/defect.png" width="250" /></center>
 </div>
 </div>
 </div></section><section>
@@ -13800,12 +13800,13 @@ $$D_{tot}=e_d\phi\sum_iN_i\bar{d}_i/2E_d(Z_i) \quad e_d=0.8 \: \text{universal a
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Take-away,-novel-reactor-challenges">Take away, novel reactor challenges<a class="anchor-link" href="#Take-away,-novel-reactor-challenges">&#182;</a></h3><ul>
-<li>Damage is important for reactor lifetime</li>
+<li>Damage is important for reactor, cladding lifetime</li>
+<li>Thermophysical properties can change also</li>
 <li>Current dpa unit is slightly arbitrary, but universally accepted</li>
 <li>One can get it directly from Serpent</li>
 <li>Or just use the neutron spectrum from Serpent</li>
 <li>Novel reactors, higher flux. Fusion reactors.</li>
-<li>Graphite Molten Salt reactors: graphite shrinks than swells with high energy fluence!</li>
+<li>Graphite Molten Salt reactors: graphite shrinks then swells with high energy fluence!</li>
 <li>And a lot lies beyond the NRT-dpa. Check <a href="https://www-nds.iaea.org/CRPdpa/">CRPdpa</a> and <a href="https://www.iaea.org/online-learning/courses/1207/atomistic-modelling-of-radiation-damage-in-nuclear-systems">IAEA damage course</a></li>
 </ul>
 
@@ -13838,7 +13839,7 @@ $$D_{tot}=e_d\phi\sum_iN_i\bar{d}_i/2E_d(Z_i) \quad e_d=0.8 \: \text{universal a
 <h3 id="Challenge-for-MSR/GenIV">Challenge for MSR/GenIV<a class="anchor-link" href="#Challenge-for-MSR/GenIV">&#182;</a></h3><ul>
 <li>Strictly my opinion: knowledge gap</li>
 <li>Hybrid methods: fission source convergence, variance reduction (eg. <a href="https://docs.openmc.org/en/v0.12.2/methods/cmfd.html">CMFD</a>, or <a href="https://www.tandfonline.com/doi/abs/10.13182/NSE98-2">CADIS</a>)</li>
-<li>Tracking delayed neutron precursors (both issue for MC)</li>
+<li>Tracking delayed neutron precursors (issue also for MC)</li>
 <li>Full core calulation: does diffusion work? (Or go for SPN)</li>
 <li>Lattice level: are legacy groups the correct choice? Possible idea for diploma project: optimize group structures!</li>
 </ul>
