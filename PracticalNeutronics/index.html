@@ -13563,7 +13563,7 @@ E)}_{\text{scores}} \psi (\mathbf{r}, \mathbf{\Omega}, E)
 
 </div>
 </div>
-</div></section><section>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13745,6 +13745,53 @@ $$D_{tot}=e_d\phi\sum_iN_i\bar{d}_i/2E_d(Z_i) \quad e_d=0.8 \: \text{universal a
 </tbody>
 </table>
 
+<pre><code>    flux_filename="fluxesTh_pka.dat"
+    results_stub="SSTh" 
+    num_columns=6
+    columns= pka_filename pka_ratios parent_ele parent_num ngamma_parent_mass ngamma_daughter_mass
+    "/home/zsolt/SPECTRA-PKA/nuclear_data/TENDL2017data-n-pka/njoy_results-n-tendl2017-jc/pka/C012s.asc" 3.234040e-03 C 12 12.000000 13.003350
+    "/home/zsolt/SPECTRA-PKA/nuclear_data/TENDL2017data-n-pka/njoy_results-n-tendl2017-jc/pka/Si028s.asc" 1.365567e-02 Si 28 27.976930 28.976490
+    "/home/zsolt/SPECTRA-PKA/nuclear_data/TENDL2017data-n-pka/njoy_results-n-tendl2017-jc/pka/Si029s.asc" 6.933734e-04 Si 29 28.976490 29.973770
+    "/home/zsolt/SPECTRA-PKA/nuclear_data/TENDL2017data-n-pka/njoy_results-n-tendl2017-jc/pka/Si030s.asc" 4.570771e-04 Si 30 29.973770 30.975360
+    "/home/zsolt/SPECTRA-PKA/nuclear_data/TENDL2017data-n-pka/njoy_results-n-tendl2017-jc/pka/P031s.asc" 8.055307e-04 P 31 30.973760 31.973910
+    "/home/zsolt/SPECTRA-PKA/nuclear_data/TENDL2017data-n-pka/njoy_results-n-tendl2017-jc/pka/S032s.asc" 4.929275e-04 S 32 31.972070 32.971460
+    "/home/zsolt/SPECTRA-PKA/nuclear_data/TENDL2017data-n-pka/njoy_results-n-tendl2017-jc/pka/S033s.asc" 3.890659e-06 S 33 32.971460 33.967870
+    "/home/zsolt/SPECTRA-PKA/nuclear_data/TENDL2017data-n-pka/njoy_results-n-tendl2017-jc/pka/S034s.asc" 2.183969e-05 S 34 33.967870 34.969030
+    "/home/zsolt/SPECTRA-PKA/nuclear_data/TENDL2017data-n-pka/njoy_results-n-tendl2017-jc/pka/S036s.asc" 1.037478e-07 S 36 35.967080 36.971130
+    "/home/zsolt/SPECTRA-PKA/nuclear_data/TENDL2017data-n-pka/njoy_results-n-tendl2017-jc/pka/Cr050s.asc" 7.876542e-03 Cr 50 49.946040 50.944770
+    "/home/zsolt/SPECTRA-PKA/nuclear_data/TENDL2017data-n-pka/njoy_results-n-tendl2017-jc/pka/Cr052s.asc" 1.518924e-01 Cr 52 51.940510 52.940650
+    "/home/zsolt/SPECTRA-PKA/nuclear_data/TENDL2017data-n-pka/njoy_results-n-tendl2017-jc/pka/Cr053s.asc" 1.722317e-02 Cr 53 52.940650 53.938880
+    "/home/zsolt/SPECTRA-PKA/nuclear_data/TENDL2017data-n-pka/njoy_results-n-tendl2017-jc/pka/Cr054s.asc" 4.287196e-03 Cr 54 53.938880 54.940840
+    "/home/zsolt/SPECTRA-PKA/nuclear_data/TENDL2017data-n-pka/njoy_results-n-tendl2017-jc/pka/Mn055s.asc" 2.018482e-02 Mn 55 54.938040 55.938900
+    "/home/zsolt/SPECTRA-PKA/nuclear_data/TENDL2017data-n-pka/njoy_results-n-tendl2017-jc/pka/Fe054s.asc" 3.807198e-02 Fe 54 53.939610 54.938290
+    "/home/zsolt/SPECTRA-PKA/nuclear_data/TENDL2017data-n-pka/njoy_results-n-tendl2017-jc/pka/Fe056s.asc" 5.976514e-01 Fe 56 55.934940 56.935390
+    "/home/zsolt/SPECTRA-PKA/nuclear_data/TENDL2017data-n-pka/njoy_results-n-tendl2017-jc/pka/Fe057s.asc" 1.380232e-02 Fe 57 56.935390 57.933270
+    "/home/zsolt/SPECTRA-PKA/nuclear_data/TENDL2017data-n-pka/njoy_results-n-tendl2017-jc/pka/Fe058s.asc" 1.836816e-03 Fe 58 57.933270 58.934870
+    "/home/zsolt/SPECTRA-PKA/nuclear_data/TENDL2017data-n-pka/njoy_results-n-tendl2017-jc/pka/Ni058s.asc" 7.717165e-02 Ni 58 57.935340 58.934350
+    "/home/zsolt/SPECTRA-PKA/nuclear_data/TENDL2017data-n-pka/njoy_results-n-tendl2017-jc/pka/Ni060s.asc" 2.972640e-02 Ni 60 59.930790 60.931060
+    "/home/zsolt/SPECTRA-PKA/nuclear_data/TENDL2017data-n-pka/njoy_results-n-tendl2017-jc/pka/Ni061s.asc" 1.292300e-03 Ni 61 60.931060 61.928350
+    "/home/zsolt/SPECTRA-PKA/nuclear_data/TENDL2017data-n-pka/njoy_results-n-tendl2017-jc/pka/Ni062s.asc" 4.119530e-03 Ni 62 61.928350 62.929670
+    "/home/zsolt/SPECTRA-PKA/nuclear_data/TENDL2017data-n-pka/njoy_results-n-tendl2017-jc/pka/Ni064s.asc" 1.049711e-03 Ni 64 63.927970 64.930090
+    "/home/zsolt/SPECTRA-PKA/nuclear_data/TENDL2017data-n-pka/njoy_results-n-tendl2017-jc/pka/Mo092s.asc" 2.144286e-03 Mo 92 91.906810 92.906810
+    "/home/zsolt/SPECTRA-PKA/nuclear_data/TENDL2017data-n-pka/njoy_results-n-tendl2017-jc/pka/Mo094s.asc" 1.336558e-03 Mo 94 93.905080 94.905840
+    "/home/zsolt/SPECTRA-PKA/nuclear_data/TENDL2017data-n-pka/njoy_results-n-tendl2017-jc/pka/Mo095s.asc" 2.300337e-03 Mo 95 94.905840 95.904680
+    "/home/zsolt/SPECTRA-PKA/nuclear_data/TENDL2017data-n-pka/njoy_results-n-tendl2017-jc/pka/Mo096s.asc" 2.410146e-03 Mo 96 95.904680 96.906020
+    "/home/zsolt/SPECTRA-PKA/nuclear_data/TENDL2017data-n-pka/njoy_results-n-tendl2017-jc/pka/Mo097s.asc" 1.379911e-03 Mo 97 96.906020 97.905400
+    "/home/zsolt/SPECTRA-PKA/nuclear_data/TENDL2017data-n-pka/njoy_results-n-tendl2017-jc/pka/Mo098s.asc" 3.486623e-03 Mo 98 97.905400 98.907710
+    "/home/zsolt/SPECTRA-PKA/nuclear_data/TENDL2017data-n-pka/njoy_results-n-tendl2017-jc/pka/Mo100s.asc" 1.391469e-03 Mo 100 99.907470 100.910340
+    flux_norm_type=2
+    pka_filetype=2 
+    do_mtd_sums=.true.
+    do_ngamma_estimate=.t.
+    do_global_sums=.t.
+    do_exclude_light_from_total=.t.
+    number_pka_files=30 
+    flux_rescale_value=1.0
+    max_global_recoils=400
+    energies_once_perfile=.t. 
+    do_tdam=.t.
+    assumed_ed=40.0</code></pre>
+
 </div>
 </div>
 </div></section><section>
@@ -13907,6 +13954,7 @@ $$D_{tot}=e_d\phi\sum_iN_i\bar{d}_i/2E_d(Z_i) \quad e_d=0.8 \: \text{universal a
 <li>Monte Carlo codes you can learn in a datalab</li>
 </ul>
 </li>
+<li>And of course there is so much more which didn't make it here.</li>
 </ul>
 
 </div>
