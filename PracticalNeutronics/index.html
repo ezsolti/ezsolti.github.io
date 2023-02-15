@@ -13217,7 +13217,7 @@ Seaborg Technologies, Uppsala University (but any view stated here shouldn't be 
 <li>You just learnt Serpent</li>
 <li>The world needs more neutronics people (reactors, fusion, spallation, geophysics etc)</li>
 <li>You are one of us now!</li>
-<li>How you can apply your skills for neutronics</li>
+<li>How can you apply your skills for neutronics</li>
 <li>And how this discipline fits into the whole ecosystem of designing a reactor</li>
 </ul>
 
@@ -13554,7 +13554,7 @@ E)}_{\text{scores}} \psi (\mathbf{r}, \mathbf{\Omega}, E)
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Novel-reactor-challanges">Novel reactor challanges<a class="anchor-link" href="#Novel-reactor-challanges">&#182;</a></h3><ul>
+<h3 id="Novel-reactor-challenges">Novel reactor challenges<a class="anchor-link" href="#Novel-reactor-challenges">&#182;</a></h3><ul>
 <li>High temperatures: not many detectors operate there</li>
 <li>High dose rates: not many detectors survive</li>
 <li>Ex-core detection: get good accuracy far from the source</li>
@@ -13661,12 +13661,13 @@ det det_heat n dr -80 void [dm ... dl ... dc ...]</code></pre>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Take-away,-novel-reactor-challanges">Take away, novel reactor challanges<a class="anchor-link" href="#Take-away,-novel-reactor-challanges">&#182;</a></h3><ul>
+<h3 id="Take-away,-novel-reactor-challenges">Take away, novel reactor challenges<a class="anchor-link" href="#Take-away,-novel-reactor-challenges">&#182;</a></h3><ul>
 <li>Modeling: Serpent will normalize with <code>set power</code> even if you disregard sourrounding of core!</li>
 <li><code>edepmode</code> has an influence on depletion calculations (bias in reaction rates)</li>
 <li>Fission rate in fuel plena can be significant</li>
 <li>Moving fuel -&gt; where are delayed components deposited?</li>
 <li>Homogeneous fuel: difficult to design for uniform heat deposition (radial/axial peaking)</li>
+<li>LWR SMR: natural circulation in BWRs, burnable absorbers in PWRs</li>
 <li>Possible MSc project: heat deposition in a moving fuel.</li>
 </ul>
 <center><img src="figures/tapdemo.png" width="250" /></center>
@@ -13678,7 +13679,7 @@ det det_heat n dr -80 void [dm ... dl ... dc ...]</code></pre>
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Damage/gas-production">Damage/gas production<a class="anchor-link" href="#Damage/gas-production">&#182;</a></h1><ul>
 <li>Interest:<ul>
-<li>Material specialists need to know it (brittlement)</li>
+<li>Material specialists need to know it (embrittlement)</li>
 <li>Stress specialists need to know it</li>
 </ul>
 </li>
@@ -13798,7 +13799,7 @@ $$D_{tot}=e_d\phi\sum_iN_i\bar{d}_i/2E_d(Z_i) \quad e_d=0.8 \: \text{universal a
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Take-away,-novel-reactor-challanges">Take away, novel reactor challanges<a class="anchor-link" href="#Take-away,-novel-reactor-challanges">&#182;</a></h3><ul>
+<h3 id="Take-away,-novel-reactor-challenges">Take away, novel reactor challenges<a class="anchor-link" href="#Take-away,-novel-reactor-challenges">&#182;</a></h3><ul>
 <li>Damage is important for reactor lifetime</li>
 <li>Current dpa unit is slightly arbitrary, but universally accepted</li>
 <li>One can get it directly from Serpent</li>
@@ -13816,9 +13817,9 @@ $$D_{tot}=e_d\phi\sum_iN_i\bar{d}_i/2E_d(Z_i) \quad e_d=0.8 \: \text{universal a
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Deterministic-methods">Deterministic methods<a class="anchor-link" href="#Deterministic-methods">&#182;</a></h1><ul>
 <li>See all that noise in the results?</li>
-<li>Kord Smith's challange: local power for PWR fuel pins subdivided into 100 axial and 10 radial zones within 1% uncertanty, under 1hour on a single workstation (cca 200-300 pins/assembly, 200-250 assembly/core -&gt; 60M tallies). He estimated 2030 for this.<ul>
+<li>Kord Smith's challenge: local power for PWR fuel pins subdivided into 100 axial and 10 radial zones within 1% uncertanty, under 1hour on a single workstation (cca 200-300 pins/assembly, 200-250 assembly/core -&gt; 60M tallies). He estimated 2030 for this.<ul>
 <li>and then we haven't even talked time... depletion, reactor simulators</li>
-<li>or the fact that number of inactive cycles is large (dominance ratio close to 1)</li>
+<li>or that number of inactive cycles is large (dominance ratio close to 1)</li>
 </ul>
 </li>
 <li>Monte Carlo is still not for full-core reactors <ul>
@@ -13834,7 +13835,7 @@ $$D_{tot}=e_d\phi\sum_iN_i\bar{d}_i/2E_d(Z_i) \quad e_d=0.8 \: \text{universal a
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Challanges-for-MSR/GenIV">Challanges for MSR/GenIV<a class="anchor-link" href="#Challanges-for-MSR/GenIV">&#182;</a></h3><ul>
+<h3 id="Challenge-for-MSR/GenIV">Challenge for MSR/GenIV<a class="anchor-link" href="#Challenge-for-MSR/GenIV">&#182;</a></h3><ul>
 <li>Strictly my opinion: knowledge gap</li>
 <li>Hybrid methods: fission source convergence, variance reduction (eg. <a href="https://docs.openmc.org/en/v0.12.2/methods/cmfd.html">CMFD</a>, or <a href="https://www.tandfonline.com/doi/abs/10.13182/NSE98-2">CADIS</a>)</li>
 <li>Tracking delayed neutron precursors (both issue for MC)</li>
@@ -13920,7 +13921,7 @@ $$D_{tot}=e_d\phi\sum_iN_i\bar{d}_i/2E_d(Z_i) \quad e_d=0.8 \: \text{universal a
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Novel-reactor-challanges">Novel reactor challanges<a class="anchor-link" href="#Novel-reactor-challanges">&#182;</a></h3><ul>
+<h3 id="Novel-reactor-challenges">Novel reactor challenges<a class="anchor-link" href="#Novel-reactor-challenges">&#182;</a></h3><ul>
 <li>We have accurate cross sections for nuclides and reaction channels we have practical use for</li>
 <li>Molten salts contain nuclides which might not be well studied.<ul>
 <li>Cl35 for <a href="https://conferences.lbl.gov/event/504/contributions/4120/attachments/3090/1640/MCRE-ENG-PRSNT-0004_Molten_Chloride_Reactor_Experiment_Nuclear_Data_Uncertainty_Analysis_and_Needs.pdf">Terrapower reactor</a></li>
