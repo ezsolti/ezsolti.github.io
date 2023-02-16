@@ -13713,12 +13713,12 @@ $$D_{tot}=e_d\phi\sum_iN_i\bar{d}_i/2E_d(Z_i) \quad e_d=0.8 \: \text{universal a
 <h3 id="How-to-calculate-this">How to calculate this<a class="anchor-link" href="#How-to-calculate-this">&#182;</a></h3><ul>
 <li><p>Use MT 444 reaction in Serpent, or <a href="https://www-nds.iaea.org/IRDFF/">dosimetry xs</a>. Some conversion, summing needed.</p>
 
-<pre><code>  mat mat_14028 1 tmp 923
+<pre><code>  mat mat_14028 1 tmp 901
    14028.09c 1
 
   det det_dpa_14028 n dr 444 mat_14028 dm mat_clad
 
-  mat mat_14029 1 tmp 923
+  mat mat_14029 1 tmp 901
    14029.09c 1
 
   det det_dpa_14029 n dr 444 mat_14029 dm mat_clad</code></pre>
@@ -13891,6 +13891,19 @@ $$D_{tot}=e_d\phi\sum_iN_i\bar{d}_i/2E_d(Z_i) \quad e_d=0.8 \: \text{universal a
 </tbody>
 </table>
 
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Thermal-scattering-laws:-novel-reactor-challanges">Thermal scattering laws: novel reactor challanges<a class="anchor-link" href="#Thermal-scattering-laws:-novel-reactor-challanges">&#182;</a></h3><ul>
+<li>We have these data for moderators already being used: LW, HW, Graphite, ZrH, etc.</li>
+<li>What about molten salt moderators?</li>
+<li>Example: NaOH</li>
+<li>And we need to do these measurements for high temperature, corrosive fluids</li>
+</ul>
+<center><img src="figures/TSL.png" width="400" /></center>
 </div>
 </div>
 </div></section><section>
