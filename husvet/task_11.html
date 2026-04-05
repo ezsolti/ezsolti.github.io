@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Feladat 9</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Feladat 9</h1>
+        <p>Keressétek meg a kincset!</p>
+        <p>Hány nyuszinak nem jut répa?</p>
+        
+
+        <img src="task_11.png" alt="Egg image">
+        <p>Kész vagytok?</p>
+        <input type="text" id="answer" placeholder="Ide írjátok a választ.">
+        <br>
+        <button onclick="checkAnswer()">Nyomd meg</button>
+        
+        <p id="feedback"></p>
+    </div>
+
+    <script>
+        function checkAnswer() {
+            let input = document.getElementById("answer").value.trim();
+
+            // Normalize input
+            let normalized = input.toLowerCase();
+
+            // Acceptable answers
+            let correctAnswers = ["2", "kettő"];
+
+            if (correctAnswers.includes(normalized)) {
+                document.getElementById("feedback").innerText = "Szép munka! 🎉";
+
+                // Go to next task after short delay
+                setTimeout(() => {
+                    window.location.href = "task_12.html";
+                }, 1000);
+
+            } else {
+                document.getElementById("feedback").innerText = "Próbáljátok újra! 🐰";
+            }
+        }
+    </script>
+</body>
+</html>
