@@ -1,1 +1,968 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paks Plume Explorer</title>
+<meta name="description" content="How much Danube water the Paks nuclear power plant evaporates through its warm cooling-water plume, and where along the river the heat leaves.">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya:wght@500;600&family=Alegreya+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap">
+<style>
+/* Layout: survey sheet — summary strip, controls, two maps side by side (Danube / outlet reach),
+   point inspector with pie + season bars + longitudinal profile, then sensitivity. */
+:root {
+  --paper: #f5f6f2;          /* sheet */
+  --panel: #fbfbf8;
+  --land: #e9ebe2;
+  --land-edge: #d3d6c9;
+  --water: #b9cfde;
+  --water-edge: #8fb0c6;
+  --ink: #1d2a33;
+  --ink-2: #4f5e68;
+  --ink-3: #7d8a92;
+  --rule: #dfe2d8;
+  --accent: #2b6a93;         /* river blue: interactive accents */
+  --sel: #1d2a33;
+  --evap: #2a78d6; --cond: #eb6834; --rad: #1baf7a;
+  --font-display: "Alegreya", Georgia, "Times New Roman", serif;
+  --font-body: "Alegreya Sans", "Gill Sans", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #171c1f; --panel: #1d2327; --land: #252c30; --land-edge: #343d42;
+    --water: #2c4658; --water-edge: #44657c; --ink: #e7ebe9; --ink-2: #b7c0c3; --ink-3: #8a959a;
+    --rule: #30393e; --accent: #7fb3d6; --sel: #f2f4f2;
+    --evap: #3987e5; --cond: #d95926; --rad: #199e70; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #171c1f; --panel: #1d2327; --land: #252c30; --land-edge: #343d42;
+  --water: #2c4658; --water-edge: #44657c; --ink: #e7ebe9; --ink-2: #b7c0c3; --ink-3: #8a959a;
+  --rule: #30393e; --accent: #7fb3d6; --sel: #f2f4f2;
+  --evap: #3987e5; --cond: #d95926; --rad: #199e70; color-scheme: dark;
+}
+html, body { background: var(--paper); color: var(--ink); }
+body { font-family: var(--font-body); font-size: 16px; line-height: 1.45;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 20px 40px; }
+.wrap { max-width: 1240px; margin: 0 auto; display: grid; gap: 18px; }
+h1 { font-family: var(--font-display); font-weight: 600; font-size: clamp(26px, 3.2vw, 36px); margin: 0; letter-spacing: 0.005em; text-wrap: balance; }
+h2 { font-family: var(--font-display); font-weight: 600; font-size: 20px; margin: 0; text-wrap: balance; }
+.lede { color: var(--ink-2); max-width: 70ch; margin: 4px 0 0; }
+.eyebrow { font-size: 12px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--ink-3); }
+.num { font-variant-numeric: tabular-nums; }
 
+/* summary strip */
+.summary { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.summary > div { padding: 10px 14px; display: grid; gap: 2px; }
+.summary > div + div { border-left: 1px solid var(--rule); }
+.summary .v { font-family: var(--font-display); font-size: 26px; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.summary .u { font-size: 13px; color: var(--ink-2); }
+@media (max-width: 760px) { .summary { grid-template-columns: repeat(2, minmax(0, 1fr)); } .summary > div + div { border-left: 0; } .summary > div { border-bottom: 1px solid var(--rule); } }
+
+/* controls */
+.controls { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: end; }
+.ctl { display: grid; gap: 4px; min-width: 0; }
+.ctl label, .ctl .lab { font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); }
+.seg { display: inline-flex; border: 1px solid var(--water-edge); border-radius: 6px; overflow: hidden; background: var(--panel); }
+.seg button { font: inherit; font-size: 14px; color: var(--ink); background: transparent; border: 0; padding: 5px 10px; cursor: pointer; }
+.seg button + button { border-left: 1px solid var(--water-edge); }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--paper); }
+.seg button:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+select { font: inherit; font-size: 14px; color: var(--ink); background: var(--panel); border: 1px solid var(--water-edge); border-radius: 6px; padding: 5px 8px; }
+.ctl small { color: var(--ink-3); font-size: 12px; }
+
+/* maps */
+.maps { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 18px; align-items: start; }
+@media (max-width: 900px) { .maps { grid-template-columns: minmax(0, 1fr); } }
+figure { margin: 0; background: var(--panel); border: 1px solid var(--rule); border-radius: 8px; padding: 12px; display: grid; gap: 8px; min-width: 0; }
+figcaption { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; flex-wrap: wrap; }
+figcaption .hint { color: var(--ink-3); font-size: 13px; }
+svg { display: block; width: 100%; height: auto; }
+svg text { font-family: var(--font-body); }
+.legend { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--ink-2); flex-wrap: wrap; }
+.ramp { display: inline-flex; height: 10px; border-radius: 2px; overflow: hidden; width: 180px; }
+.ramp span { flex: 1; }
+.map-click { cursor: crosshair; }
+
+/* inspector */
+.inspect { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 18px; }
+@media (max-width: 900px) { .inspect { grid-template-columns: minmax(0, 1fr); } }
+.point { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 14px; align-items: center; }
+@media (max-width: 480px) { .point { grid-template-columns: minmax(0, 1fr); } }
+.kv { display: grid; grid-template-columns: auto auto; gap: 3px 14px; font-size: 14.5px; justify-content: start; }
+.kv dt { color: var(--ink-2); } .kv dd { margin: 0; font-variant-numeric: tabular-nums; text-align: right; }
+.key { display: flex; gap: 14px; flex-wrap: wrap; font-size: 13px; color: var(--ink-2); }
+.key i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
+.note { color: var(--ink-2); font-size: 14px; max-width: 75ch; }
+.note p { margin: 0 0 6px; }
+.foot { color: var(--ink-3); font-size: 13px; border-top: 1px solid var(--rule); padding-top: 10px; display: grid; gap: 4px; }
+.loading { color: var(--ink-3); }
+#pie { max-width: 190px; justify-self: center; }
+.scrollx { overflow-x: auto; }
+.scrollx svg { min-width: 760px; }
+@media (prefers-reduced-motion: no-preference) { .fade { transition: opacity .2s; } }
+
+/* tabs */
+.top { display: flex; justify-content: space-between; align-items: end; gap: 12px 24px; flex-wrap: wrap; }
+.tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--rule); }
+.tabs a { font-size: 15px; color: var(--ink-2); text-decoration: none; padding: 6px 12px 7px; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+.tabs a:hover { color: var(--ink); }
+.tabs a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--accent); font-weight: 500; }
+.tabs a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+[hidden] { display: none !important; }
+#page-explorer { min-width: 0; }
+
+/* plume settings inside the outlet map */
+.plume-ctl { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: end; border-top: 1px solid var(--rule); padding-top: 10px; }
+.readout { display: grid; gap: 2px; padding: 8px 12px; background: var(--paper); border-radius: 6px; }
+.readout .v { font-family: var(--font-display); font-size: 22px; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.readout .u { font-size: 12.5px; color: var(--ink-2); }
+
+/* model description */
+.doc { max-width: 78ch; min-width: 0; width: 100%; margin: 0 auto; font-size: 17px; line-height: 1.6; }
+.doc h1 { margin: 6px 0 14px; }
+.doc h2 { font-size: 23px; margin: 34px 0 10px; padding-top: 12px; border-top: 1px solid var(--rule); }
+.doc p, .doc ul { margin: 0 0 12px; }
+.doc li { margin-bottom: 5px; }
+.doc a { color: var(--accent); }
+.doc .eq { overflow-x: auto; margin: 6px 0 16px; padding: 4px 0; }
+.doc math { font-size: 1.08em; }
+.doc math[display="block"] { margin: 0; }
+.doc .tbl { overflow-x: auto; margin: 4px 0 18px; }
+.doc table { border-collapse: collapse; font-size: 15px; min-width: 100%; }
+.doc th, .doc td { text-align: left; padding: 5px 12px 5px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.doc th { font-weight: 500; color: var(--ink-2); border-bottom-color: var(--ink-3); }
+.doc td { font-variant-numeric: tabular-nums; }
+.doc img { display: block; width: 100%; height: auto; margin: 8px 0 6px; background: #fcfcfb; border-radius: 6px; border: 1px solid var(--rule); }
+.doc p:has(> img) { margin-bottom: 4px; }
+.doc em { color: var(--ink-2); font-size: 14.5px; }
+@media (max-width: 600px) { .doc { font-size: 16px; } .doc table { font-size: 13.5px; } .doc .eq math { font-size: 0.9em; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <div class="eyebrow">Danube · Paks Nuclear Power Plant · once-through cooling</div>
+      <h1>Paks Plume Explorer</h1>
+    </div>
+    <nav class="tabs" aria-label="Pages">
+      <a href="#explorer" data-tab="explorer">Explorer</a>
+      <a href="#model" data-tab="model">How the model works</a>
+    </nav>
+  </header>
+
+<div id="page-explorer" class="wrap">
+  <p class="lede">Paks returns all of its cooling water to the Danube, but warmer. On its way to the Black Sea that extra heat leaves through the river surface, partly as evaporation. This page shows how much water that evaporates, and where. Click the river on either map, or the chart below, to see the situation at that point.</p>
+
+  <section class="summary" aria-label="Annual totals">
+    <div><span class="eyebrow">Forced evaporation</span><span class="v num" id="s-lkwh">–</span><span class="u">litres per kWh electricity</span></div>
+    <div><span class="eyebrow">Flow</span><span class="v num" id="s-m3s">–</span><span class="u">m³/s, annual mean</span></div>
+    <div><span class="eyebrow">Volume</span><span class="v num" id="s-mm3">–</span><span class="u">million m³ per year</span></div>
+    <div><span class="eyebrow">Inside the Danube</span><span class="v num" id="s-river">–</span><span class="u">rest leaves via the Black Sea</span></div>
+    <div><span class="eyebrow">Within 100 km</span><span class="v num" id="s-100">–</span><span class="u">of the total evaporation</span></div>
+  </section>
+
+  <section class="controls" aria-label="Settings">
+    <div class="ctl"><label for="month">Season</label>
+      <select id="month"></select></div>
+    <div class="ctl"><span class="lab" id="lab-layer">Danube map shows</span>
+      <div class="seg" role="group" aria-labelledby="lab-layer" data-key="layer">
+        <button data-v="T">Excess temperature</button><button data-v="cum">Cumulative evaporation</button><button data-v="rate">Local evaporation</button></div></div>
+    <div class="ctl"><span class="lab" id="lab-wind">Surface exchange formula</span>
+      <div class="seg" role="group" aria-labelledby="lab-wind" data-key="wind">
+        <button data-v="ebg">Edinger–Brady–Geyer</button><button data-v="rh_free">Ryan–Harleman + free conv.</button></div></div>
+    <div class="ctl"><span class="lab" id="lab-area">River heat-loss rate</span>
+      <div class="seg" role="group" aria-labelledby="lab-area" data-key="area">
+        <button data-v="1">Default</button><button data-v="2.4">×2.4 (Rhône-like)</button></div></div>
+  </section>
+
+  <section class="maps">
+    <figure>
+      <figcaption><h2>The Danube from Paks to the Black Sea</h2><span class="hint" id="far-hint">width-averaged</span></figcaption>
+      <svg id="far" class="map-click" viewBox="0 0 800 420" role="img" aria-label="Map of the Danube from Paks to the Black Sea coloured by the selected quantity"></svg>
+      <div class="legend" id="far-legend"></div>
+    </figure>
+    <figure>
+      <figcaption><h2>Outlet reach</h2>
+        <div class="seg" role="group" aria-label="Zoom extent" data-key="zoom"><button data-v="3">3 km</button><button data-v="10">10 km</button></div></figcaption>
+      <svg id="near" class="map-click" viewBox="0 0 480 420" role="img" aria-label="Map of the plume below the Paks hot-water outlet"></svg>
+      <div class="legend" id="near-legend"></div>
+      <div class="plume-ctl">
+        <div class="ctl"><span class="lab" id="lab-dy">Cross-river mixing</span>
+          <div class="seg" role="group" aria-labelledby="lab-dy" data-key="dy">
+            <button data-v="0.5">×0.5</button><button data-v="1">×1</button><button data-v="2">×2</button></div></div>
+        <div class="ctl"><span class="lab" id="lab-dt">Outlet warming</span>
+          <div class="seg" role="group" aria-labelledby="lab-dt" data-key="dT0">
+            <button data-v="6">6 K</button><button data-v="8.67">8.7 K</button><button data-v="11">11 K</button></div></div>
+        <div class="readout"><span class="v" id="r-500">–</span><span class="u">hottest point at the +500 m section, above the river</span></div>
+      </div>
+      <p class="note" style="margin:0">These two settings reshape the plume near Paks. They hardly change the totals, because the same heat has to leave the river either way, and almost all of it leaves hundreds of kilometres downstream. Outlet warming is varied at fixed heat: a smaller warming means more cooling water.</p>
+    </figure>
+  </section>
+
+  <section class="inspect">
+    <figure>
+      <figcaption><h2 id="pt-title">At 10 km below the outlet</h2><span class="hint" id="pt-season"></span></figcaption>
+      <div class="point">
+        <svg id="pie" viewBox="0 0 170 170" role="img" aria-label="Share of the extra heat loss at the selected point"></svg>
+        <dl class="kv" id="pt-kv"></dl>
+      </div>
+      <div class="key"><span><i style="background:var(--evap)"></i>Evaporation</span><span><i style="background:var(--cond)"></i>Conduction to air</span><span><i style="background:var(--rad)"></i>Extra long-wave emission</span></div>
+      <div>
+        <div class="eyebrow" style="margin-top:6px">Evaporation share here, by month</div>
+        <svg id="months" viewBox="0 0 360 96" role="img" aria-label="Evaporation share at the selected point for each month"></svg>
+      </div>
+    </figure>
+    <figure>
+      <figcaption><h2>Along the river</h2><span class="hint">click to select a distance</span></figcaption>
+      <svg id="profile" class="map-click" viewBox="0 0 640 300" role="img" aria-label="Selected quantity versus distance below Paks"></svg>
+      <div class="note"><p>The split between evaporation, conduction and emission hardly changes with distance in a given month; it changes with season, because warm water evaporates more per kelvin. The annual split drifts slightly lower downstream because winter heat, which evaporates less, travels further.</p></div>
+    </figure>
+  </section>
+
+  <section>
+    <figure>
+      <figcaption><h2>Which assumptions matter</h2><span class="hint">one parameter changed at a time, annual, litres per kWh</span></figcaption>
+      <div class="scrollx"><svg id="tornado" viewBox="0 0 1000 330" role="img" aria-label="Sensitivity of the forced evaporation to model parameters"></svg></div>
+      <div class="note"><p>Only the surface exchange (wind function, wind speed) and the water temperature move the total. Mixing and the outlet ΔT shape the plume near Paks but not the total, because nearly all heat leaves far downstream. Air temperature and humidity drop out of the extra loss in this formulation. The river heat-loss rate and the Danube flow change where the water evaporates, so they matter for the part inside the Danube only.</p></div>
+    </figure>
+  </section>
+
+  </div>
+
+  <article id="page-model" class="doc" hidden>
+<h1>How the model works</h1>
+<p>A once-through plant like Paks takes about 100 m³/s of Danube water, warms it by roughly 8–9 K in its condensers and returns it to the river. All the water comes back, so the plant seems to use none. But the heat does not stay in the river: over the following hundreds of kilometres it leaves through the water surface. Part of it leaves as evaporation, and that evaporated water is the plant&#39;s real water consumption. It is called <strong>forced evaporation</strong>:</p>
+<div class="eq"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>E</mi><mtext>forced</mtext></msub><mo>=</mo><mi>E</mi><mo stretchy="false">(</mo><mtext>river with the plant</mtext><mo stretchy="false">)</mo><mo>−</mo><mi>E</mi><mo stretchy="false">(</mo><mtext>same river, same weather, no plant</mtext><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">E_\text{forced} = E(\text{river with the plant}) - E(\text{same river, same weather, no plant})</annotation></semantics></math></span></div>
+<p>Everything below is the difference between those two states.</p>
+<h2>A quick estimate</h2>
+<p>Paks produces about 1 kWh of electricity for every 2 kWh of heat it releases (efficiency about 34%). Evaporating 1 kg of water takes about 2.45 MJ, so 1 kWh (3.6 MJ) of heat could evaporate at most about 1.5 kg of water.</p>
+<p>If all the released heat left as evaporation, the plant would use about 2.9 litres per kWh of electricity. In reality only part of the extra heat leaves that way; the rest leaves as conduction to the air and as extra long-wave emission from the warmer water. So:</p>
+<div class="eq"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mtext>litres</mtext><msub><mtext>kWh</mtext><mi>e</mi></msub></mfrac><mo>=</mo><mfrac><mtext>heat released</mtext><mtext>electricity</mtext></mfrac><mo>×</mo><mi>ϕ</mi><mo>×</mo><mfrac><mrow><mn>3.6</mn><mtext> MJ</mtext></mrow><msub><mi>L</mi><mi>v</mi></msub></mfrac><mo>≈</mo><mn>1.97</mn><mo>×</mo><mi>ϕ</mi><mo>×</mo><mn>1.47</mn></mrow><annotation encoding="application/x-tex">\frac{\text{litres}}{\text{kWh}_e} = \frac{\text{heat released}}{\text{electricity}} \times \phi \times \frac{3.6\ \text{MJ}}{L_v} \approx 1.97 \times \phi \times 1.47</annotation></semantics></math></span></div>
+<p>where <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ϕ</mi></mrow><annotation encoding="application/x-tex">\phi</annotation></semantics></math></span> is the share of the extra heat loss that goes into evaporation. Working out <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ϕ</mi></mrow><annotation encoding="application/x-tex">\phi</annotation></semantics></math></span>, and where along the river it happens, is the job of the model.</p>
+<h2>Surface heat exchange</h2>
+<p>Per square metre of water, only three heat fluxes depend on the water-surface temperature <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mi>s</mi></msub></mrow><annotation encoding="application/x-tex">T_s</annotation></semantics></math></span>:</p>
+<div class="eq"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right left right left" columnspacing="0em 1em 0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><msub><mi>Q</mi><mi>r</mi></msub><mo stretchy="false">(</mo><msub><mi>T</mi><mi>s</mi></msub><mo stretchy="false">)</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mi>ε</mi><mtext> </mtext><mi>σ</mi><mtext> </mtext><mo stretchy="false">(</mo><msub><mi>T</mi><mi>s</mi></msub><mo>+</mo><mn>273.15</mn><msup><mo stretchy="false">)</mo><mn>4</mn></msup></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mtext>long-wave emission</mtext></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><msub><mi>Q</mi><mi>e</mi></msub><mo stretchy="false">(</mo><msub><mi>T</mi><mi>s</mi></msub><mo stretchy="false">)</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mi>f</mi><mo stretchy="false">(</mo><mi>U</mi><mo stretchy="false">)</mo><mtext> </mtext><mo fence="false" stretchy="true" minsize="1.2em" maxsize="1.2em">[</mo><msub><mi>e</mi><mi>s</mi></msub><mo stretchy="false">(</mo><msub><mi>T</mi><mi>s</mi></msub><mo stretchy="false">)</mo><mo>−</mo><msub><mi>e</mi><mi>a</mi></msub><mo fence="false" stretchy="true" minsize="1.2em" maxsize="1.2em">]</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mtext>evaporation</mtext></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><msub><mi>Q</mi><mi>c</mi></msub><mo stretchy="false">(</mo><msub><mi>T</mi><mi>s</mi></msub><mo stretchy="false">)</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mi>γ</mi><mtext> </mtext><mi>f</mi><mo stretchy="false">(</mo><mi>U</mi><mo stretchy="false">)</mo><mtext> </mtext><mo stretchy="false">(</mo><msub><mi>T</mi><mi>s</mi></msub><mo>−</mo><msub><mi>T</mi><mi>a</mi></msub><mo stretchy="false">)</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mtext>conduction to the air</mtext></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+Q_r(T_s) &amp;= \varepsilon\,\sigma\,(T_s + 273.15)^4 &amp;&amp; \text{long-wave emission}\\
+Q_e(T_s) &amp;= f(U)\,\big[e_s(T_s) - e_a\big] &amp;&amp; \text{evaporation}\\
+Q_c(T_s) &amp;= \gamma\, f(U)\,(T_s - T_a) &amp;&amp; \text{conduction to the air}
+\end{aligned}</annotation></semantics></math></span></div>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Meaning</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ε</mi></mrow><annotation encoding="application/x-tex">\varepsilon</annotation></semantics></math></span></td>
+<td>emissivity of water</td>
+<td>0.97</td>
+</tr>
+<tr>
+<td><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi></mrow><annotation encoding="application/x-tex">\sigma</annotation></semantics></math></span></td>
+<td>Stefan–Boltzmann constant</td>
+<td><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>5.67</mn><mo>×</mo><mn>1</mn><msup><mn>0</mn><mrow><mo>−</mo><mn>8</mn></mrow></msup></mrow><annotation encoding="application/x-tex">5.67\times10^{-8}</annotation></semantics></math></span> W m⁻² K⁻⁴</td>
+</tr>
+<tr>
+<td><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>e</mi><mi>s</mi></msub><mo stretchy="false">(</mo><mi>T</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">e_s(T)</annotation></semantics></math></span></td>
+<td>saturation vapour pressure</td>
+<td><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>6.112</mn><mtext> </mtext><mi>exp</mi><mo>⁡</mo><mtext> ⁣</mtext><mo fence="false" stretchy="true" minsize="1.2em" maxsize="1.2em">(</mo><mn>17.62</mn><mtext> </mtext><mi>T</mi><mi mathvariant="normal">/</mi><mo stretchy="false">(</mo><mn>243.12</mn><mo>+</mo><mi>T</mi><mo stretchy="false">)</mo><mo fence="false" stretchy="true" minsize="1.2em" maxsize="1.2em">)</mo></mrow><annotation encoding="application/x-tex">6.112\,\exp\!\big(17.62\,T/(243.12+T)\big)</annotation></semantics></math></span> mbar</td>
+</tr>
+<tr>
+<td><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>e</mi><mi>a</mi></msub></mrow><annotation encoding="application/x-tex">e_a</annotation></semantics></math></span></td>
+<td>vapour pressure of the air</td>
+<td>relative humidity × <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>e</mi><mi>s</mi></msub><mo stretchy="false">(</mo><msub><mi>T</mi><mi>a</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">e_s(T_a)</annotation></semantics></math></span></td>
+</tr>
+<tr>
+<td><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mi>a</mi></msub></mrow><annotation encoding="application/x-tex">T_a</annotation></semantics></math></span></td>
+<td>air temperature</td>
+<td>monthly climate normals at Paks</td>
+</tr>
+<tr>
+<td><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>γ</mi></mrow><annotation encoding="application/x-tex">\gamma</annotation></semantics></math></span></td>
+<td>Bowen constant</td>
+<td>0.61 mbar K⁻¹</td>
+</tr>
+<tr>
+<td><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>U</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f(U)</annotation></semantics></math></span></td>
+<td>wind function</td>
+<td>W m⁻² mbar⁻¹, see below</td>
+</tr>
+</tbody></table></div>
+<p>Sunlight and the long-wave radiation coming down from the sky do not depend on the water temperature, so they are the same with and without the plant and drop out of the difference.</p>
+<p><strong>Wind function.</strong> The default is the Edinger–Brady–Geyer formula, fitted to measurements on power-plant cooling lakes:</p>
+<div class="eq"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>U</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mrow><mn>9.2</mn><mo>+</mo><mn>0.46</mn><mtext> </mtext><msubsup><mi>U</mi><mn>7</mn><mn>2</mn></msubsup></mrow><mn>1.333</mn></mfrac><mo separator="true">,</mo><mspace width="2em"/><msub><mi>U</mi><mn>7</mn></msub><mo>≈</mo><mn>1.14</mn><mtext> </mtext><msub><mi>U</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">f(U) = \frac{9.2 + 0.46\,U_7^2}{1.333}, \qquad U_7 \approx 1.14\,U_2</annotation></semantics></math></span></div>
+<p>with <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>U</mi><mn>7</mn></msub></mrow><annotation encoding="application/x-tex">U_7</annotation></semantics></math></span> and <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>U</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">U_2</annotation></semantics></math></span> the wind speed at 7 m and 2 m (m/s). An alternative, the Ryan–Harleman formula with a free-convection term, can be selected in the explorer. It gives about 14% more evaporation, but it reproduces the measured heat budget of a heated lake less well (see Benchmarks).</p>
+<h2>The extra heat loss</h2>
+<p>With <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mi>b</mi></msub></mrow><annotation encoding="application/x-tex">T_b</annotation></semantics></math></span> the water temperature without the plant and <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>T</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup></mrow><annotation encoding="application/x-tex">T&#x27;</annotation></semantics></math></span> the excess caused by the plant, the extra heat loss and extra evaporation per square metre are</p>
+<div class="eq"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi mathvariant="normal">Δ</mi><mi>H</mi><mo>=</mo><munder><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mi>r</mi><mo separator="true">,</mo><mi>e</mi><mo separator="true">,</mo><mi>c</mi></mrow></munder><mo fence="false" stretchy="true" minsize="1.8em" maxsize="1.8em">[</mo><msub><mi>Q</mi><mi>k</mi></msub><mo stretchy="false">(</mo><msub><mi>T</mi><mi>b</mi></msub><mo>+</mo><msup><mi>T</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mo stretchy="false">)</mo><mo>−</mo><msub><mi>Q</mi><mi>k</mi></msub><mo stretchy="false">(</mo><msub><mi>T</mi><mi>b</mi></msub><mo stretchy="false">)</mo><mo fence="false" stretchy="true" minsize="1.8em" maxsize="1.8em">]</mo><mo separator="true">,</mo><mspace width="2em"/><mi mathvariant="normal">Δ</mi><mi>E</mi><mo>=</mo><mfrac><mrow><msub><mi>Q</mi><mi>e</mi></msub><mo stretchy="false">(</mo><msub><mi>T</mi><mi>b</mi></msub><mo>+</mo><msup><mi>T</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mo stretchy="false">)</mo><mo>−</mo><msub><mi>Q</mi><mi>e</mi></msub><mo stretchy="false">(</mo><msub><mi>T</mi><mi>b</mi></msub><mo stretchy="false">)</mo></mrow><msub><mi>L</mi><mi>v</mi></msub></mfrac></mrow><annotation encoding="application/x-tex">\Delta H = \sum_{k=r,e,c}\Big[Q_k(T_b + T&#x27;) - Q_k(T_b)\Big],
+\qquad
+\Delta E = \frac{Q_e(T_b + T&#x27;) - Q_e(T_b)}{L_v}</annotation></semantics></math></span></div>
+<p>with <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mi>v</mi></msub><mo>=</mo><mn>2.45</mn><mo>×</mo><mn>1</mn><msup><mn>0</mn><mn>6</mn></msup></mrow><annotation encoding="application/x-tex">L_v = 2.45\times10^6</annotation></semantics></math></span> J/kg. They are evaluated exactly at the local excess temperature, everywhere along the river.</p>
+<p>For a small excess the extra loss is proportional to it, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mi>H</mi><mo>≈</mo><mi>K</mi><mo stretchy="false">(</mo><msub><mi>T</mi><mi>b</mi></msub><mo stretchy="false">)</mo><mtext> </mtext><msup><mi>T</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup></mrow><annotation encoding="application/x-tex">\Delta H \approx K(T_b)\,T&#x27;</annotation></semantics></math></span>, with</p>
+<div class="eq"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>K</mi><mo stretchy="false">(</mo><msub><mi>T</mi><mi>b</mi></msub><mo stretchy="false">)</mo><mo>=</mo><mn>4</mn><mi>ε</mi><mi>σ</mi><mtext> </mtext><mo stretchy="false">(</mo><msub><mi>T</mi><mi>b</mi></msub><mo>+</mo><mn>273.15</mn><msup><mo stretchy="false">)</mo><mn>3</mn></msup><mo>+</mo><mi>f</mi><mo stretchy="false">(</mo><mi>U</mi><mo stretchy="false">)</mo><mo fence="false" stretchy="true" minsize="1.8em" maxsize="1.8em">[</mo><mfrac><mrow><mi>d</mi><msub><mi>e</mi><mi>s</mi></msub></mrow><mrow><mi>d</mi><mi>T</mi></mrow></mfrac><msub><mo fence="false" stretchy="true" minsize="1.8em" maxsize="1.8em">∣</mo><msub><mi>T</mi><mi>b</mi></msub></msub><mo>+</mo><mi>γ</mi><mo fence="false" stretchy="true" minsize="1.8em" maxsize="1.8em">]</mo><mo separator="true">,</mo><mspace width="2em"/><mi>ϕ</mi><mo stretchy="false">(</mo><msub><mi>T</mi><mi>b</mi></msub><mo stretchy="false">)</mo><mo>≈</mo><mfrac><mrow><mi>f</mi><mtext> </mtext><msubsup><mi>e</mi><mi>s</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msubsup><mo stretchy="false">(</mo><msub><mi>T</mi><mi>b</mi></msub><mo stretchy="false">)</mo></mrow><mrow><mn>4</mn><mi>ε</mi><mi>σ</mi><msubsup><mi>T</mi><mi>b</mi><mn>3</mn></msubsup><mo>+</mo><mi>f</mi><mtext> </mtext><mo fence="false" stretchy="true" minsize="1.2em" maxsize="1.2em">[</mo><msubsup><mi>e</mi><mi>s</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msubsup><mo stretchy="false">(</mo><msub><mi>T</mi><mi>b</mi></msub><mo stretchy="false">)</mo><mo>+</mo><mi>γ</mi><mo fence="false" stretchy="true" minsize="1.2em" maxsize="1.2em">]</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">K(T_b) = 4\varepsilon\sigma\,(T_b+273.15)^3 + f(U)\Big[\frac{de_s}{dT}\Big|_{T_b} + \gamma\Big],
+\qquad
+\phi(T_b) \approx \frac{f\,e_s&#x27;(T_b)}{4\varepsilon\sigma T_b^3 + f\,\big[e_s&#x27;(T_b) + \gamma\big]}</annotation></semantics></math></span></div>
+<p>The slope <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>e</mi><mi>s</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msubsup><mo stretchy="false">(</mo><mi>T</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">e_s&#x27;(T)</annotation></semantics></math></span> roughly triples between 5 °C and 25 °C, so warm water evaporates far more per kelvin of excess than cold water. This makes the evaporation share strongly seasonal.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Month</th>
+<th>Water (°C)</th>
+<th>Danube flow (m³/s)</th>
+<th><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi></mrow><annotation encoding="application/x-tex">K</annotation></semantics></math></span> (W m⁻² K⁻¹)</th>
+<th>Evaporation share</th>
+<th>Forced evaporation (m³/s)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Jan</td>
+<td>2.5</td>
+<td>1900</td>
+<td>16.4</td>
+<td>33%</td>
+<td>0.49</td>
+</tr>
+<tr>
+<td>Feb</td>
+<td>3.5</td>
+<td>2100</td>
+<td>17.5</td>
+<td>35%</td>
+<td>0.52</td>
+</tr>
+<tr>
+<td>Mar</td>
+<td>6.5</td>
+<td>2700</td>
+<td>19.9</td>
+<td>40%</td>
+<td>0.59</td>
+</tr>
+<tr>
+<td>Apr</td>
+<td>11.0</td>
+<td>3000</td>
+<td>22.6</td>
+<td>46%</td>
+<td>0.68</td>
+</tr>
+<tr>
+<td>May</td>
+<td>16.0</td>
+<td>2900</td>
+<td>24.3</td>
+<td>51%</td>
+<td>0.76</td>
+</tr>
+<tr>
+<td>Jun</td>
+<td>20.0</td>
+<td>2900</td>
+<td>26.6</td>
+<td>56%</td>
+<td>0.82</td>
+</tr>
+<tr>
+<td>Jul</td>
+<td>22.5</td>
+<td>2500</td>
+<td>28.3</td>
+<td>59%</td>
+<td>0.86</td>
+</tr>
+<tr>
+<td>Aug</td>
+<td>22.5</td>
+<td>2000</td>
+<td>27.8</td>
+<td>58%</td>
+<td>0.86</td>
+</tr>
+<tr>
+<td>Sep</td>
+<td>19.0</td>
+<td>1700</td>
+<td>24.8</td>
+<td>54%</td>
+<td>0.80</td>
+</tr>
+<tr>
+<td>Oct</td>
+<td>13.5</td>
+<td>1600</td>
+<td>21.3</td>
+<td>47%</td>
+<td>0.70</td>
+</tr>
+<tr>
+<td>Nov</td>
+<td>8.0</td>
+<td>1800</td>
+<td>18.9</td>
+<td>41%</td>
+<td>0.60</td>
+</tr>
+<tr>
+<td>Dec</td>
+<td>4.0</td>
+<td>2000</td>
+<td>17.1</td>
+<td>35%</td>
+<td>0.52</td>
+</tr>
+</tbody></table></div>
+<p>The size of the excess matters much less. At 20 °C the evaporation share is 55.6% for a 0.1 K excess, 56.8% for 2 K and 60.4% for 8 K. Almost all the heat leaves where the excess is only a few tenths of a kelvin, so the hot core of the plume hardly affects the total. This is also why the outlet temperature and the mixing near Paks barely change the result: the same heat has to leave either way.</p>
+<h2>Heat transport in the river</h2>
+<p><strong>Near Paks (first 150 km): a two-dimensional plume.</strong> The warm water enters along the right bank and spreads across the river while it is carried downstream:</p>
+<div class="eq"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>u</mi><mtext> </mtext><mi>h</mi><mtext> </mtext><mfrac><mrow><mi mathvariant="normal">∂</mi><msup><mi>T</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup></mrow><mrow><mi mathvariant="normal">∂</mi><mi>x</mi></mrow></mfrac><mo>=</mo><mfrac><mi mathvariant="normal">∂</mi><mrow><mi mathvariant="normal">∂</mi><mi>y</mi></mrow></mfrac><mtext> ⁣</mtext><mrow><mo fence="true">(</mo><mi>h</mi><mtext> </mtext><msub><mi>D</mi><mi>y</mi></msub><mtext> </mtext><mfrac><mrow><mi mathvariant="normal">∂</mi><msup><mi>T</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup></mrow><mrow><mi mathvariant="normal">∂</mi><mi>y</mi></mrow></mfrac><mo fence="true">)</mo></mrow><mo>−</mo><mfrac><mrow><mi mathvariant="normal">Δ</mi><mi>H</mi><mo stretchy="false">(</mo><msup><mi>T</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mo separator="true">;</mo><mtext> </mtext><msub><mi>T</mi><mi>b</mi></msub><mo stretchy="false">)</mo></mrow><mrow><mi>ρ</mi><mtext> </mtext><msub><mi>c</mi><mi>p</mi></msub></mrow></mfrac></mrow><annotation encoding="application/x-tex">u\,h\,\frac{\partial T&#x27;}{\partial x}
+= \frac{\partial}{\partial y}\!\left(h\,D_y\,\frac{\partial T&#x27;}{\partial y}\right)
+- \frac{\Delta H(T&#x27;;\,T_b)}{\rho\,c_p}</annotation></semantics></math></span></div>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Meaning</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span></td>
+<td>distance downstream, distance from the bank</td>
+<td>river width 450 m at Paks</td>
+</tr>
+<tr>
+<td><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi></mrow><annotation encoding="application/x-tex">h</annotation></semantics></math></span></td>
+<td>depth-averaged velocity and depth</td>
+<td><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>=</mo><mn>0.8</mn><mtext> </mtext><mo stretchy="false">(</mo><mi>Q</mi><mi mathvariant="normal">/</mi><mn>1500</mn><msup><mo stretchy="false">)</mo><mn>0.45</mn></msup></mrow><annotation encoding="application/x-tex">u = 0.8\,(Q/1500)^{0.45}</annotation></semantics></math></span> m/s, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>=</mo><mi>Q</mi><mi mathvariant="normal">/</mi><mo stretchy="false">(</mo><mi>B</mi><mi>u</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">h = Q/(Bu)</annotation></semantics></math></span></td>
+</tr>
+<tr>
+<td><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mi>y</mi></msub></mrow><annotation encoding="application/x-tex">D_y</annotation></semantics></math></span></td>
+<td>cross-river mixing coefficient</td>
+<td>2.5 m²/s in the first km, 1.0 m²/s beyond</td>
+</tr>
+<tr>
+<td><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi></mrow><annotation encoding="application/x-tex">\rho</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mi>p</mi></msub></mrow><annotation encoding="application/x-tex">c_p</annotation></semantics></math></span></td>
+<td>density and specific heat of water</td>
+<td>998 kg/m³, 4182 J kg⁻¹ K⁻¹</td>
+</tr>
+</tbody></table></div>
+<p><strong>Further downstream: a fully mixed river.</strong> The model follows the excess heat flow <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo>=</mo><mi>ρ</mi><mtext> </mtext><msub><mi>c</mi><mi>p</mi></msub><mtext> </mtext><mi>Q</mi><mtext> </mtext><msup><mi>T</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup></mrow><annotation encoding="application/x-tex">F = \rho\,c_p\,Q\,T&#x27;</annotation></semantics></math></span>, which tributaries dilute but do not change:</p>
+<div class="eq"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mrow><mi>d</mi><mi>F</mi></mrow><mrow><mi>d</mi><mi>x</mi></mrow></mfrac><mo>=</mo><mo>−</mo><mi>B</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mtext> </mtext><mi mathvariant="normal">Δ</mi><mi>H</mi><mtext> ⁣</mtext><mrow><mo fence="true">(</mo><mfrac><mi>F</mi><mrow><mi>ρ</mi><msub><mi>c</mi><mi>p</mi></msub><mi>Q</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></mfrac><mo separator="true">;</mo><mtext> </mtext><msub><mi>T</mi><mi>b</mi></msub><mo fence="true">)</mo></mrow></mrow><annotation encoding="application/x-tex">\frac{dF}{dx} = -B(x)\,\Delta H\!\left(\frac{F}{\rho c_p Q(x)};\,T_b\right)</annotation></semantics></math></span></div>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Reach (river km)</th>
+<th>Flow relative to Paks</th>
+<th>Surface width (m)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>to 1382 (Drava mouth)</td>
+<td>1.00</td>
+<td>450</td>
+</tr>
+<tr>
+<td>to 1215 (Tisza mouth)</td>
+<td>1.27</td>
+<td>550</td>
+</tr>
+<tr>
+<td>to 1170 (Sava, Belgrade)</td>
+<td>1.62</td>
+<td>700</td>
+</tr>
+<tr>
+<td>to 1075</td>
+<td>2.30</td>
+<td>900</td>
+</tr>
+<tr>
+<td>to 943 (Iron Gate I reservoir)</td>
+<td>2.30</td>
+<td>1900</td>
+</tr>
+<tr>
+<td>to 863 (Iron Gate II)</td>
+<td>2.35</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>to 0 (Black Sea)</td>
+<td>2.75</td>
+<td>1100</td>
+</tr>
+</tbody></table></div>
+<p>For a small excess the decay is exponential, with a length scale</p>
+<div class="eq"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>L</mi><mtext>decay</mtext></msub><mo>=</mo><mfrac><mrow><mi>ρ</mi><mtext> </mtext><msub><mi>c</mi><mi>p</mi></msub><mtext> </mtext><mi>Q</mi></mrow><mrow><mi>K</mi><mtext> </mtext><mi>B</mi></mrow></mfrac><mo>≈</mo><mn>400</mn><mtext>–</mtext><mn>500</mn><mtext> km at Paks</mtext></mrow><annotation encoding="application/x-tex">L_\text{decay} = \frac{\rho\, c_p\, Q}{K\,B} \approx 400\text{–}500\ \text{km at Paks}</annotation></semantics></math></span></div>
+<p>So most of the heat, and most of the forced evaporation, leaves the river hundreds of kilometres below Paks. Heat still left at the mouth is assumed to leave the Black Sea surface with the same evaporative share.</p>
+<p>The model is run for each month with that month&#39;s climate and river flow, and the months are averaged by number of days.</p>
+<h2>Where the heat leaves</h2>
+<p><img src="img/pies_by_distance.png" alt="Heat-loss split at five distances for January, the annual mean and July"></p>
+<p>Within a given month, the split between evaporation, conduction and emission hardly changes along the river. It changes with season. The annual split drifts slightly lower downstream (from about 49% to 45% evaporation) because winter heat, which evaporates less, travels further before it leaves.</p>
+<h2>Results</h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Quantity</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Forced evaporation</td>
+<td>0.68 m³/s, about 21.6 million m³ per year</td>
+</tr>
+<tr>
+<td>Per unit of electricity</td>
+<td>1.34 litres per kWh</td>
+</tr>
+<tr>
+<td>Of which inside the Danube</td>
+<td>1.07–1.30 L/kWh, depending on how fast the river loses heat</td>
+</tr>
+<tr>
+<td>Share within 10 km / 144 km (Drava)</td>
+<td>1% / 15%</td>
+</tr>
+<tr>
+<td>Range across wind functions</td>
+<td>1.27–1.52 L/kWh</td>
+</tr>
+</tbody></table></div>
+<p>For comparison, published values for once-through nuclear plants are 1.51 L/kWh (US DOE) and a median of 1.02 L/kWh with a range of 0.38–1.51 (NREL review). Plants with wet cooling towers evaporate about 2.3–3.4 L/kWh.</p>
+<p>Even in a dry summer the forced evaporation is only about 0.1% of the lower Danube&#39;s flow, so it does not measurably affect water levels downstream.</p>
+<h2>Sensitivity</h2>
+<p><img src="img/sensitivity.png" alt="Sensitivity of the result to the model parameters"></p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Effect on the total</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Surface exchange formula</td>
+<td>1.27–1.52 L/kWh</td>
+</tr>
+<tr>
+<td>Wind speed ±30%</td>
+<td>1.27–1.40 L/kWh</td>
+</tr>
+<tr>
+<td>Water temperature ±1.5 K</td>
+<td>1.28–1.39 L/kWh</td>
+</tr>
+<tr>
+<td>Danube flow ±30%, river heat-loss rate</td>
+<td>total unchanged; only the part inside the Danube changes (0.96–1.30 L/kWh)</td>
+</tr>
+<tr>
+<td>Cross-river mixing, outlet temperature, air temperature, humidity</td>
+<td>no effect</td>
+</tr>
+</tbody></table></div>
+<h2>Benchmarks</h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Measured or published</th>
+<th>Model</th>
+<th>What it tests</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Plume at the +500 m limit section, boat measurement 10 Aug 2013</td>
+<td>3.4 K</td>
+<td>3.1 K</td>
+<td>mixing near the outlet</td>
+</tr>
+<tr>
+<td>Plume in the Paks II environmental impact study, 950 m³/s, +500 m</td>
+<td>4.1 ± 0.25 K</td>
+<td>4.0 K</td>
+<td>mixing near the outlet</td>
+</tr>
+<tr>
+<td>Length of the +2.5 K zone in the impact study</td>
+<td>11–12 km</td>
+<td>9.9 km</td>
+<td>mixing further down</td>
+</tr>
+<tr>
+<td>Heat-loss split on heated Lake Colorado City, Texas</td>
+<td>evaporation 56–58%, conduction 25–29%, emission 13–14%</td>
+<td>60 / 26 / 14%</td>
+<td>evaporation share</td>
+</tr>
+<tr>
+<td>Rhône warming left below three nuclear plants</td>
+<td>0.5 / 0.5–0.7 / 1.0–1.2 °C</td>
+<td>0.69 / 0.90 / 1.60 °C</td>
+<td>how fast heat leaves</td>
+</tr>
+<tr>
+<td>Rhine, Mainz → Koblenz</td>
+<td>1.4 → about 1.0 °C</td>
+<td>1.4 → 1.10 °C</td>
+<td>how fast heat leaves</td>
+</tr>
+</tbody></table></div>
+<p>The measured lake heat budget supports the evaporation share, and with it the total. The Rhône and Rhine lose heat about twice as fast as the model with its estimated river widths. That moves the evaporation closer to Paks but does not change the total.</p>
+<p><img src="img/eia_vs_model.png" alt="Paks II impact-study plume next to this model on the real river"></p>
+<p><em>Panel a: figure from the Paks II environmental impact study supplement, as reproduced by nuklearis.hu. Panels b and c: this model on the OpenStreetMap river outline, same scale and colour levels.</em></p>
+<p>Near the outlet the model&#39;s plume is wider and smoother than in the impact study&#39;s 3D model, and it does not resolve the eddy at the outfall. The model assumes the same current speed and depth across the river, while the impact study reports the fastest current along the Paks bank. This matters for the 30 °C limit at the +500 m section, but not for the evaporation total: the first 10 km carry about 1% of it.</p>
+<h2>Limitations</h2>
+<ul>
+<li><strong>Climate:</strong> monthly averages of air temperature, humidity, wind, water temperature and flow at Paks, applied along the whole Danube. The warmer lower Danube would raise the evaporation share slightly.</li>
+<li><strong>Geometry:</strong> downstream river widths and reservoir areas are approximate.</li>
+<li><strong>Not included:</strong> heat exchange with the riverbed and groundwater, and the daily cycle.</li>
+<li><strong>Missing test:</strong> comparing daily water temperatures at Paks and Baja. The model predicts an annual-mean plant signal of 0.38 K at Baja.</li>
+</ul>
+<h2>References</h2>
+<ul>
+<li>Edinger, J.E., Brady, D.K., Geyer, J.C. (1974). <em>Heat exchange and transport in the environment.</em> EEI/EPRI Report 14.</li>
+<li>Ryan, P.J., Harleman, D.R.F. (1973). <em>An analytical and experimental study of transient cooling pond behavior.</em> MIT Parsons Laboratory Report 161.</li>
+<li>Texas Water Development Board (1966). <em>Effect of an increased heat load on the thermal structure and evaporation of Lake Colorado City, Texas.</em> Report 24.</li>
+<li>EDF / Agence de l&#39;eau Rhône Méditerranée Corse. <em>Étude thermique du Rhône</em>, phases 2–4 (2006–2016).</li>
+<li>International Commission for the Protection of the Rhine. Report 209, Rhine water temperatures 1978–2011.</li>
+<li>MVM Paks II (2015). <em>Environmental Impact Study</em>, chapter 11 and supplements.</li>
+<li>Macknick, J. et al. (2012). Operational water consumption and withdrawal factors for electricity generating technologies. <em>Environmental Research Letters</em> 7, 045802.</li>
+<li>Diehl, T.H. et al. (2013). <em>Methods for estimating water consumption for thermoelectric power plants in the United States.</em> USGS SIR 2013-5188.</li>
+<li>River geometry: Natural Earth; outlet reach © OpenStreetMap contributors.</li>
+</ul>
+
+  </article>
+
+  <footer class="foot">
+    <span>Paks at its 2025 output, monthly climate averages. Method, assumptions and sources: <a href="#model" style="color:inherit">How the model works</a>.</span>
+    <span>Maps: Natural Earth; outlet reach © OpenStreetMap contributors.</span>
+  </footer>
+</div>
+
+<script src="data.js"></script>
+<script>
+(async function () {
+  const $ = s => document.querySelector(s);
+  const NS = "http://www.w3.org/2000/svg";
+  const el = (tag, attrs = {}, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; };
+  const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+  const pyKey = v => Number.isInteger(+v) ? (+v).toFixed(1) : String(+v);
+
+  // ---------- pages ----------
+  const route = () => {
+    const tab = location.hash === "#model" ? "model" : "explorer";
+    $("#page-explorer").hidden = tab !== "explorer"; $("#page-model").hidden = tab !== "model";
+    document.querySelectorAll(".tabs a").forEach(a => { if (a.dataset.tab === tab) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
+    document.title = tab === "model" ? "How the model works · Paks Plume Explorer" : "Paks Plume Explorer";
+  };
+  window.addEventListener("hashchange", () => { route(); window.scrollTo(0, 0); });
+  route();
+
+  let D, S;
+  try {
+    if (window.APP_DATA && window.SENS) { D = window.APP_DATA; S = window.SENS; }
+    else [D, S] = await Promise.all([fetch("app_data.json").then(r => r.json()), fetch("sensitivity.json").then(r => r.json())]);
+  } catch (e) {
+    document.querySelector(".lede").textContent = "The data files could not be loaded. Reload the page to try again.";
+    return;
+  }
+  const G = D.meta.grid_km;
+  const MONTHS = D.meta.months;
+  const state = { month: "annual", layer: "T", wind: "ebg", area: "1", dy: "1", dT0: "8.67", zoom: "3", dist: 10 };
+  try { const s = JSON.parse(localStorage.getItem("paks-plume-state") || "{}"); Object.assign(state, s); } catch (e) {}
+  const save = () => { try { localStorage.setItem("paks-plume-state", JSON.stringify(state)); } catch (e) {} };
+
+  // ---------- helpers ----------
+  const interp = (x, xs, ys) => {
+    if (x <= xs[0]) return ys[0]; if (x >= xs[xs.length - 1]) return ys[ys.length - 1];
+    let lo = 0, hi = xs.length - 1; while (hi - lo > 1) { const m = (lo + hi) >> 1; if (xs[m] <= x) lo = m; else hi = m; }
+    const t = (x - xs[lo]) / (xs[hi] - xs[lo]); return ys[lo] + t * (ys[hi] - ys[lo]);
+  };
+  const lerpColor = (stops, t) => {
+    t = Math.max(0, Math.min(1, t)); const n = stops.length - 1; const i = Math.min(n - 1, Math.floor(t * n)); const f = t * n - i;
+    const a = stops[i].match(/\w\w/g).map(h => parseInt(h, 16)), b = stops[i + 1].match(/\w\w/g).map(h => parseInt(h, 16));
+    return "#" + a.map((v, k) => Math.round(v + f * (b[k] - v)).toString(16).padStart(2, "0")).join("");
+  };
+  const WARM = ["#fbefb4", "#f6cf7c", "#efa553", "#e27a38", "#c9522a", "#9b3420", "#6a2216"];
+  const COOL = ["#dcebf4", "#b2d1e6", "#82b2d5", "#5590c1", "#326ea5", "#1d4f85", "#10345f"];
+  const TEAL = ["#e3f1ec", "#b7dccf", "#85c1ad", "#55a38c", "#33846e", "#1f6552", "#114638"];
+  const SCALES = {
+    T:    { stops: WARM, log: true, lo: 0.005, hi: 0.5, unit: "K", label: "Excess temperature, width average", fmt: v => v < 0.1 ? v.toFixed(3) : v.toFixed(2), ticks: [0.005, 0.02, 0.1, 0.5] },
+    cum:  { stops: COOL, log: false, lo: 0, hi: 100, unit: "%", label: "Share of the total evaporation reached", fmt: v => v.toFixed(0), ticks: [0, 25, 50, 75, 100] },
+    rate: { stops: TEAL, log: true, lo: 0.03, hi: 3, unit: "L/s per km", label: "Forced evaporation per km of river", fmt: v => v < 0.1 ? v.toFixed(3) : v.toFixed(2), ticks: [0.03, 0.1, 0.3, 1, 3] },
+  };
+  const scaleT = (sc, v) => sc.log ? (Math.log(Math.max(v, sc.lo)) - Math.log(sc.lo)) / (Math.log(sc.hi) - Math.log(sc.lo)) : (v - sc.lo) / (sc.hi - sc.lo);
+  const colorOf = (sc, v) => lerpColor(sc.stops, scaleT(sc, v));
+  const NEAR_BINS = [0.1, 0.25, 0.5, 1, 1.5, 2, 3, 4, 6];
+  const nearColor = v => { let i = -1; for (let k = 0; k < NEAR_BINS.length; k++) if (v >= NEAR_BINS[k]) i = k; return i < 0 ? null : lerpColor(WARM, (i + 0.5) / NEAR_BINS.length); };
+
+  const farVar = () => D.far[`${state.wind}|${pyKey(state.area)}`][state.month];
+  const tot = () => D.totals[`${state.wind}|${pyKey(state.area)}|${pyKey(state.dy)}|${pyKey(state.dT0)}`];
+
+  // ---------- controls ----------
+  const sel = $("#month");
+  [["annual", "Annual mean"], ...MONTHS.map((m, i) => [String(i), m])].forEach(([v, t]) => { const o = document.createElement("option"); o.value = v; o.textContent = t; sel.appendChild(o); });
+  sel.value = state.month; sel.addEventListener("change", () => { state.month = sel.value; save(); render(); });
+  document.querySelectorAll(".seg[data-key]").forEach(g => {
+    const key = g.dataset.key;
+    const sync = () => g.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.v === state[key])));
+    g.querySelectorAll("button").forEach(b => b.addEventListener("click", () => { state[key] = b.dataset.v; save(); sync(); render(); }));
+    sync();
+  });
+
+  // ---------- far map ----------
+  const lon0 = 16.4, lon1 = 30.1, lat0 = 42.7, lat1 = 48.3, kx = Math.cos(45.5 * Math.PI / 180);
+  const FW = 800, FH = 420;
+  const sc = Math.min(FW / ((lon1 - lon0) * kx), FH / (lat1 - lat0));
+  const fx = lon => (lon - lon0) * kx * sc, fy = lat => (lat1 - lat) * sc;
+  const far = $("#far");
+  const RL = D.river;
+  function drawFarBase() {
+    far.innerHTML = "";
+    el("rect", { x: 0, y: 0, width: FW, height: FH, fill: css("--water") }, far);
+    const gL = el("g", {}, far);
+    D.countries.forEach(c => { el("path", { d: "M" + c.ring.map(p => `${fx(p[0]).toFixed(1)},${fy(p[1]).toFixed(1)}`).join("L") + "Z", fill: css("--land"), stroke: css("--land-edge"), "stroke-width": 0.8 }, gL); });
+    [["HUNGARY", 19.6, 47.35], ["SERBIA", 20.9, 43.9], ["ROMANIA", 24.8, 45.9], ["BULGARIA", 25.3, 43.05], ["CROATIA", 16.9, 45.45]].forEach(([n, x, y]) => {
+      const t = el("text", { x: fx(x), y: fy(y), "text-anchor": "middle", "font-size": 11, "letter-spacing": "0.12em", fill: css("--ink-3") }, far); t.textContent = n; });
+    const t = el("text", { x: fx(29.4), y: fy(43.5), "text-anchor": "middle", "font-size": 12, "font-style": "italic", fill: css("--ink-3") }, far); t.textContent = "Black Sea";
+    el("polyline", { points: RL.upstream_lon.map((x, i) => `${fx(x)},${fy(RL.upstream_lat[i])}`).join(" "), fill: "none", stroke: css("--water-edge"), "stroke-width": 1.6 }, far);
+  }
+  let farSegs = [];
+  function drawFarRiver() {
+    far.querySelectorAll(".rv,.mk,.selmk").forEach(e => e.remove());
+    const v = farVar(), S0 = SCALES[state.layer];
+    const g = el("g", { class: "rv" }, far);
+    farSegs = [];
+    for (let i = 0; i < RL.lon.length - 1; i++) {
+      const d = 0.5 * (RL.dist[i] + RL.dist[i + 1]);
+      const val = interp(d, G, v[state.layer]);
+      el("line", { x1: fx(RL.lon[i]), y1: fy(RL.lat[i]), x2: fx(RL.lon[i + 1]), y2: fy(RL.lat[i + 1]), stroke: colorOf(S0, val), "stroke-width": 5, "stroke-linecap": "round" }, g);
+    }
+    const gm = el("g", { class: "mk" }, far);
+    D.markers.forEach(m => {
+      const isNpp = /NPP/.test(m.name);
+      if (isNpp) el("rect", { x: fx(m.lon) - 4, y: fy(m.lat) - 4, width: 8, height: 8, fill: css("--ink"), stroke: css("--panel"), "stroke-width": 1.5 }, gm);
+      else el("circle", { cx: fx(m.lon), cy: fy(m.lat), r: 2.6, fill: css("--ink-2") }, gm);
+      const right = !/Cernavod|Kozloduy|Mohács/.test(m.name);
+      const t = el("text", { x: fx(m.lon) + (right ? 8 : -8), y: fy(m.lat) + (/Kozloduy|Cernavod/.test(m.name) ? 16 : 4), "text-anchor": right ? "start" : "end", "font-size": isNpp ? 12.5 : 11, fill: isNpp ? css("--ink") : css("--ink-2"), "font-weight": isNpp ? 700 : 400 }, gm);
+      t.textContent = m.name;
+    });
+    drawFarSel();
+  }
+  function drawFarSel() {
+    far.querySelectorAll(".selmk").forEach(e => e.remove());
+    const lon = interp(state.dist, RL.dist, RL.lon), lat = interp(state.dist, RL.dist, RL.lat);
+    const ring = el("circle", { class: "selmk", cx: fx(lon), cy: fy(lat), r: 6, fill: "none", stroke: css("--sel"), "stroke-width": 2 });
+    const mk = far.querySelector(".mk"); far.insertBefore(ring, mk);
+  }
+  far.addEventListener("click", ev => {
+    const p = svgPoint(far, ev); let best = 0, bd = 1e9;
+    RL.lon.forEach((x, i) => { const dd = (fx(x) - p.x) ** 2 + (fy(RL.lat[i]) - p.y) ** 2; if (dd < bd) { bd = dd; best = i; } });
+    if (bd < 30 ** 2) { state.dist = Math.max(0.05, RL.dist[best]); save(); renderPoint(); drawFarSel(); drawNearSel(); drawProfile(); }
+  });
+  function svgPoint(svg, ev) { const r = svg.getBoundingClientRect(); const vb = svg.viewBox.baseVal; return { x: (ev.clientX - r.left) / r.width * vb.width, y: (ev.clientY - r.top) / r.height * vb.height }; }
+
+  function legend(target, S0) {
+    const n = 7; const ramp = Array.from({ length: n }, (_, i) => {
+      const t = (i + 0.5) / n; return `<span style="background:${lerpColor(S0.stops, t)}"></span>`; }).join("");
+    target.innerHTML = `<span>${S0.label}</span><span class="ramp">${ramp}</span><span class="num">${S0.ticks.map(S0.fmt === undefined ? String : (v => (S0.log ? v : v))).join(" · ")} ${S0.unit}</span>`;
+  }
+
+  // ---------- near map ----------
+  const near = $("#near"); const NG = D.near.geometry;
+  const NW = 480, NH = 420;
+  let nproj;
+  function setupNear() {
+    const xmax = +state.zoom * 1000;
+    const pts = [];
+    NG.x.forEach((x, i) => { if (x <= xmax) { pts.push(NG.rb[i], NG.lb[i]); } });
+    // include ~600 m of river upstream of the outlet
+    const o = NG.outlet; const lat0n = o[1];
+    const kxn = Math.cos(lat0n * Math.PI / 180);
+    let xs = pts.map(p => (p[0] - o[0]) * kxn), ys = pts.map(p => p[1] - o[1]);
+    const up = 0.006; xs.push(0.004, -0.004); ys.push(up, up);
+    const minx = Math.min(...xs), maxx = Math.max(...xs), miny = Math.min(...ys), maxy = Math.max(...ys);
+    const pad = 0.12; const w = (maxx - minx) * (1 + pad), h = (maxy - miny) * (1 + pad);
+    const s = Math.min(NW / w, NH / h); const cx = (minx + maxx) / 2, cy = (miny + maxy) / 2;
+    nproj = { x: lon => NW / 2 + ((lon - o[0]) * kxn - cx) * s, y: lat => NH / 2 - ((lat - o[1]) - cy) * s, s, kxn };
+  }
+  function drawNear() {
+    setupNear();
+    near.innerHTML = "";
+    el("rect", { x: 0, y: 0, width: NW, height: NH, fill: css("--land") }, near);
+    const path = NG.river.map(r => "M" + r.ll.map(p => `${nproj.x(p[0]).toFixed(1)},${nproj.y(p[1]).toFixed(1)}`).join("L") + "Z").join("");
+    el("path", { d: path, fill: css("--water"), "fill-rule": "evenodd", stroke: css("--water-edge"), "stroke-width": 0.8 }, near);
+    const key = `${pyKey(state.dy)}|${pyKey(state.dT0)}|${state.month}`;
+    const grid = D.near.grids_centiK[key];
+    const g = el("g", {}, near);
+    const ny = NG.y.length, B = NG.y[ny - 1];
+    const P = (i, yv) => { const rb = NG.rb[i], lb = NG.lb[i], t = yv / B; return [nproj.x(rb[0] + t * (lb[0] - rb[0])), nproj.y(rb[1] + t * (lb[1] - rb[1]))]; };
+    const xmax = +state.zoom * 1000;
+    for (let i = 0; i < NG.x.length - 1 && NG.x[i] <= xmax; i++) {
+      for (let j = 0; j < ny - 1; j++) {
+        const v = (grid[i][j] + grid[i + 1][j] + grid[i][j + 1] + grid[i + 1][j + 1]) / 400;
+        const c = nearColor(v); if (!c) continue;
+        const a = P(i, NG.y[j]), b = P(i + 1, NG.y[j]), cc = P(i + 1, NG.y[j + 1]), d = P(i, NG.y[j + 1]);
+        el("path", { d: `M${a}L${b}L${cc}L${d}Z`, fill: c, stroke: c, "stroke-width": 0.4 }, g);
+      }
+    }
+    // +500 m limit section
+    const i5 = NG.x.indexOf(500);
+    if (i5 >= 0) $("#r-500").textContent = (Math.max(...grid[i5]) / 100).toFixed(1) + " K";
+    if (i5 >= 0) { const a = P(i5, 0), b = P(i5, B); el("line", { x1: a[0], y1: a[1], x2: b[0], y2: b[1], stroke: "#b8243f", "stroke-width": 2 }, near);
+      const t = el("text", { x: b[0] + 6, y: b[1] + 4, "font-size": 11.5, fill: css("--ink-2") }, near); t.textContent = "+500 m limit"; }
+    // outlet marker
+    const ox = nproj.x(NG.outlet[0]), oy = nproj.y(NG.outlet[1]);
+    el("circle", { cx: ox, cy: oy, r: 4, fill: css("--ink") }, near);
+    const t1 = el("text", { x: ox - 8, y: oy - 8, "text-anchor": "end", "font-size": 12, fill: css("--ink") }, near); t1.textContent = "hot-water outlet";
+    // scale bar 500 m
+    const m500 = 500 / 111320 * nproj.s * nproj.kxn;
+    el("line", { x1: 16, y1: NH - 18, x2: 16 + m500, y2: NH - 18, stroke: css("--ink"), "stroke-width": 3 }, near);
+    const t2 = el("text", { x: 16 + m500 / 2, y: NH - 26, "text-anchor": "middle", "font-size": 11.5, fill: css("--ink-2") }, near); t2.textContent = "500 m";
+    const t3 = el("text", { x: NW - 12, y: NH - 14, "text-anchor": "end", "font-size": 12, fill: css("--ink-2") }, near); t3.textContent = "N ↑";
+    drawNearSel();
+    $("#near-legend").innerHTML = `<span>Plume excess temperature, depth mean (K)</span><span class="ramp">${NEAR_BINS.map((b, k) => `<span style="background:${lerpColor(WARM, (k + 0.5) / NEAR_BINS.length)}"></span>`).join("")}</span><span class="num">${NEAR_BINS.join(" · ")}+</span>`;
+  }
+  function drawNearSel() {
+    near.querySelectorAll(".selmk").forEach(e => e.remove());
+    const xm = state.dist * 1000; if (xm > +state.zoom * 1000) return;
+    const lon = interp(xm, NG.x, NG.rb.map(p => p[0])), lat = interp(xm, NG.x, NG.rb.map(p => p[1]));
+    const lon2 = interp(xm, NG.x, NG.lb.map(p => p[0])), lat2 = interp(xm, NG.x, NG.lb.map(p => p[1]));
+    el("line", { class: "selmk", x1: nproj.x(lon), y1: nproj.y(lat), x2: nproj.x(lon2), y2: nproj.y(lat2), stroke: css("--sel"), "stroke-width": 1.6, "stroke-dasharray": "4 3" }, near);
+  }
+  near.addEventListener("click", ev => {
+    const p = svgPoint(near, ev); let best = -1, bd = 1e9;
+    NG.x.forEach((x, i) => { if (x > +state.zoom * 1000) return;
+      for (const t of [0, 0.25, 0.5, 0.75, 1]) { const rb = NG.rb[i], lb = NG.lb[i];
+        const X = nproj.x(rb[0] + t * (lb[0] - rb[0])), Y = nproj.y(rb[1] + t * (lb[1] - rb[1])); const dd = (X - p.x) ** 2 + (Y - p.y) ** 2; if (dd < bd) { bd = dd; best = i; } } });
+    if (best >= 0 && bd < 40 ** 2) { state.dist = Math.max(0.05, NG.x[best] / 1000); save(); renderPoint(); drawFarSel(); drawNearSel(); drawProfile(); }
+  });
+
+  // ---------- point inspector ----------
+  function arc(cx, cy, r, a0, a1) {
+    const p = a => [cx + r * Math.sin(a), cy - r * Math.cos(a)]; const [x0, y0] = p(a0), [x1, y1] = p(a1);
+    return `M${cx},${cy}L${x0.toFixed(2)},${y0.toFixed(2)}A${r},${r} 0 ${a1 - a0 > Math.PI ? 1 : 0} 1 ${x1.toFixed(2)},${y1.toFixed(2)}Z`;
+  }
+  function renderPoint() {
+    const v = farVar(), d = state.dist;
+    const sh = [interp(d, G, v.sh_e), interp(d, G, v.sh_c), interp(d, G, v.sh_r)];
+    const cols = [css("--evap"), css("--cond"), css("--rad")];
+    const pie = $("#pie"); pie.innerHTML = "";
+    let a = 0;
+    sh.forEach((s, k) => { const a1 = a + s * 2 * Math.PI; el("path", { d: arc(85, 85, 78, a, a1), fill: cols[k], stroke: css("--panel"), "stroke-width": 2 }, pie);
+      const am = (a + a1) / 2; const t = el("text", { x: 85 + 50 * Math.sin(am), y: 85 - 50 * Math.cos(am) + 5, "text-anchor": "middle", "font-size": 15, "font-weight": 700, fill: "#ffffff" }, pie);
+      t.textContent = Math.round(s * 100) + "%"; a = a1; });
+    const label = d < 1 ? `${Math.round(d * 1000)} m` : `${d < 10 ? d.toFixed(1) : Math.round(d)} km`;
+    $("#pt-title").textContent = `At ${label} below the outlet`;
+    $("#pt-season").textContent = state.month === "annual" ? "annual, heat-weighted" : MONTHS[+state.month];
+    const T = interp(d, G, v.T), cum = interp(d, G, v.cum), rate = interp(d, G, v.rate);
+    $("#pt-kv").innerHTML = `
+      <dt>Excess temperature, width average</dt><dd>${T < 0.1 ? T.toFixed(3) : T.toFixed(2)} K</dd>
+      <dt>Forced evaporation here</dt><dd>${rate.toFixed(2)} L/s per km</dd>
+      <dt>Total evaporation reached so far</dt><dd>${cum.toFixed(1)} %</dd>
+      <dt>Evaporation share of the heat loss</dt><dd>${Math.round(sh[0] * 100)} %</dd>`;
+    // months bars
+    const ms = $("#months"); ms.innerHTML = "";
+    const fv = D.far[`${state.wind}|${pyKey(state.area)}`];
+    const bw = 360 / 12;
+    for (let m = 0; m < 12; m++) {
+      const s = interp(d, G, fv[String(m)].sh_e); const h = s * 70;
+      const on = String(m) === state.month;
+      el("rect", { x: m * bw + 4, y: 78 - h, width: bw - 8, height: h, rx: 2, fill: css("--evap"), opacity: on || state.month === "annual" ? 1 : 0.45 }, ms);
+      const t = el("text", { x: m * bw + bw / 2, y: 92, "text-anchor": "middle", "font-size": 10.5, fill: css("--ink-2") }, ms); t.textContent = MONTHS[m][0];
+      if (m === 0 || m === 6) { const tv = el("text", { x: m * bw + bw / 2, y: 74 - h, "text-anchor": "middle", "font-size": 10.5, fill: css("--ink") }, ms); tv.textContent = Math.round(s * 100) + "%"; }
+    }
+  }
+
+  // ---------- profile chart ----------
+  const prof = $("#profile"); const PW = 640, PH = 300, ml = 58, mr = 14, mt = 18, mb = 40;
+  const px = d => ml + (Math.log10(Math.max(d, 0.05)) - Math.log10(0.05)) / (Math.log10(1530) - Math.log10(0.05)) * (PW - ml - mr);
+  function drawProfile() {
+    prof.innerHTML = "";
+    const v = farVar(), S0 = SCALES[state.layer];
+    const ys = v[state.layer];
+    const vals = G.map((d, i) => [d, ys[i]]).filter(p => p[0] >= 0.05);
+    const ymax = state.layer === "cum" ? 100 : Math.max(...vals.map(p => p[1])) * 1.1;
+    const py = y => PH - mb - (y / ymax) * (PH - mt - mb);
+    // grid + ticks
+    const yt = state.layer === "cum" ? [0, 25, 50, 75, 100] : niceTicks(ymax);
+    yt.forEach(t => { el("line", { x1: ml, x2: PW - mr, y1: py(t), y2: py(t), stroke: css("--rule"), "stroke-width": 1 }, prof);
+      const tx = el("text", { x: ml - 8, y: py(t) + 4, "text-anchor": "end", "font-size": 11, fill: css("--ink-2") }, prof); tx.textContent = t; });
+    [0.1, 1, 10, 100, 1000].forEach(t => { const tx = el("text", { x: px(t), y: PH - mb + 16, "text-anchor": "middle", "font-size": 11, fill: css("--ink-2") }, prof); tx.textContent = t >= 1 ? t : "0.1"; });
+    const xl = el("text", { x: (ml + PW - mr) / 2, y: PH - 6, "text-anchor": "middle", "font-size": 12, fill: css("--ink-2") }, prof); xl.textContent = "km below the outlet (log scale)";
+    const yl = el("text", { x: 14, y: (mt + PH - mb) / 2, "text-anchor": "middle", "font-size": 12, fill: css("--ink-2"), transform: `rotate(-90 14 ${(mt + PH - mb) / 2})` }, prof); yl.textContent = `${S0.label.split(",")[0]} (${S0.unit})`;
+    [["Drava", 144, 0], ["Tisza", 311, 1], ["Sava", 356, 2], ["Iron Gate I", 583, 3]].forEach(([n, d, k]) => {
+      el("line", { x1: px(d), x2: px(d), y1: mt, y2: PH - mb, stroke: css("--rule"), "stroke-dasharray": "2 3" }, prof);
+      const t = el("text", { x: px(d) - 3, y: mt + 2 + 11 * k, "text-anchor": "end", "font-size": 10.5, fill: css("--ink-3") }, prof); t.textContent = n; });
+    const pts = vals.map(p => `${px(p[0]).toFixed(1)},${py(p[1]).toFixed(1)}`).join(" ");
+    const lineCol = state.layer === "T" ? WARM[4] : state.layer === "cum" ? COOL[4] : TEAL[4];
+    el("polyline", { points: pts, fill: "none", stroke: lineCol, "stroke-width": 2.2 }, prof);
+    const yv = interp(state.dist, G, ys);
+    el("line", { x1: px(state.dist), x2: px(state.dist), y1: mt, y2: PH - mb, stroke: css("--sel"), "stroke-width": 1 }, prof);
+    el("circle", { cx: px(state.dist), cy: py(yv), r: 5, fill: lineCol, stroke: css("--panel"), "stroke-width": 2 }, prof);
+    const tv = el("text", { x: px(state.dist) + (state.dist > 300 ? -8 : 8), y: Math.max(mt + 12, py(yv) - 8), "text-anchor": state.dist > 300 ? "end" : "start", "font-size": 12, fill: css("--ink") }, prof);
+    tv.textContent = `${S0.fmt(yv)} ${S0.unit}`;
+  }
+  function niceTicks(max) { const step = Math.pow(10, Math.floor(Math.log10(max / 4))); const m = [1, 2, 2.5, 5, 10].find(k => max / (k * step) <= 5) * step; const out = []; for (let t = 0; t <= max + 1e-9; t += m) out.push(+t.toPrecision(3)); return out; }
+  prof.addEventListener("click", ev => { const p = svgPoint(prof, ev); if (p.x < ml || p.x > PW - mr) return;
+    const d = Math.pow(10, Math.log10(0.05) + (p.x - ml) / (PW - ml - mr) * (Math.log10(1530) - Math.log10(0.05)));
+    state.dist = Math.min(1525, Math.max(0.05, d)); save(); renderPoint(); drawFarSel(); drawNearSel(); drawProfile(); });
+
+  // ---------- tornado ----------
+  function drawTornado() {
+    const t = $("#tornado"); t.innerHTML = "";
+    const half = 490, rowH = 30, top = 42;
+    const panels = [["total", "All heat (incl. Black Sea)", 0], ["river", "Inside the Danube", 510]];
+    panels.forEach(([m, title, x0]) => {
+      const base = S.base[m];
+      const rows = [...S.cases].sort((a, b) => Math.abs(b.high[m] - b.low[m]) - Math.abs(a.high[m] - a.low[m]));
+      const all = S.cases.flatMap(c => [c.low[m], c.high[m]]);
+      const mn = Math.min(...all), mx = Math.max(...all), sp = mx - mn;
+      const lo = mn - 1.0 * sp, hi = mx + 1.15 * sp; const L = x0 + 175, R = x0 + half - 10;
+      const X = v => L + (v - lo) / (hi - lo) * (R - L);
+      const h = el("text", { x: x0, y: 16, "font-size": 13.5, "font-weight": 700, fill: css("--ink") }, t); h.textContent = `${title}: baseline ${base.toFixed(2)} L/kWh`;
+      [0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7].filter(v => v > lo && v < hi).forEach(v => { el("line", { x1: X(v), x2: X(v), y1: top - 6, y2: top + rows.length * rowH, stroke: css("--rule") }, t);
+        const tx = el("text", { x: X(v), y: top + rows.length * rowH + 14, "text-anchor": "middle", "font-size": 11, fill: css("--ink-2") }, t); tx.textContent = v.toFixed(1); });
+      rows.forEach((r, i) => {
+        const y = top + i * rowH;
+        const lab = el("text", { x: L - 8, y: y + 15, "text-anchor": "end", "font-size": 12, fill: css("--ink") }, t); lab.textContent = r.parameter;
+        [[r.low[m], css("--evap"), r.low_label], [r.high[m], css("--cond"), r.high_label]].forEach(([v, c, l]) => {
+          if (Math.abs(v - base) < 0.003) return;
+          el("rect", { x: Math.min(X(v), X(base)), y: y + 5, width: Math.abs(X(v) - X(base)), height: 14, fill: c, rx: 2 }, t);
+          const tx = el("text", { x: v > base ? X(v) + 5 : X(v) - 5, y: y + 16, "text-anchor": v > base ? "start" : "end", "font-size": 10.5, fill: css("--ink-2") }, t);
+          tx.textContent = `${l.replace(" forced", "").replace(" conv.", "")} ${v.toFixed(2)}`;
+        });
+        if (Math.abs(r.low[m] - base) < 0.003 && Math.abs(r.high[m] - base) < 0.003) { const tx = el("text", { x: X(base) + 6, y: y + 16, "font-size": 10.5, fill: css("--ink-3") }, t); tx.textContent = "no effect"; }
+      });
+      el("line", { x1: X(base), x2: X(base), y1: top - 6, y2: top + rows.length * rowH, stroke: css("--ink"), "stroke-width": 1.4 }, t);
+    });
+  }
+
+  // ---------- summary ----------
+  function renderSummary() {
+    const T = tot();
+    $("#s-lkwh").textContent = T.L_per_kWh.toFixed(2);
+    $("#s-m3s").textContent = T.m3s.toFixed(2);
+    $("#s-mm3").textContent = T.Mm3_yr.toFixed(1);
+    $("#s-river").textContent = Math.round(100 * T.L_per_kWh_river / T.L_per_kWh) + " %";
+    $("#s-100").textContent = T.share100.toFixed(0) + " %";
+  }
+
+  function render() {
+    renderSummary();
+    drawFarRiver(); legend($("#far-legend"), SCALES[state.layer]);
+    $("#far-hint").textContent = state.month === "annual" ? "annual mean, width-averaged" : `${MONTHS[+state.month]}, width-averaged`;
+    drawNear(); renderPoint(); drawProfile();
+  }
+  drawFarBase(); render(); drawTornado();
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { drawFarBase(); render(); drawTornado(); });
+  new MutationObserver(() => { drawFarBase(); render(); drawTornado(); }).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+})();
+</script>
+</body>
+</html>
