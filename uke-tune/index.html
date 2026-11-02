@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ukulele Tuner</title>
+<style>
+  :root{
+    --bg:#16130f; --ink:#f3ead8; --muted:#9c8f78;
+    --ok:#4cd07d; --warn:#e8a33d; --accent:#e8c27a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    display:flex; flex-direction:column; overflow:hidden;
+    -webkit-tap-highlight-color:transparent; user-select:none;
+  }
+
+  /* ---------- upper half: the neck ---------- */
+  .neck{
+    flex:1 1 50%; position:relative; margin:12px 12px 0; border-radius:14px; overflow:hidden;
+    display:flex; flex-direction:column; justify-content:space-around;
+    background:
+      linear-gradient(90deg,#efe6d0 0 14px,#b9ab8c 14px 18px,transparent 18px),
+      linear-gradient(180deg,rgba(0,0,0,.3),transparent 14%,transparent 86%,rgba(0,0,0,.4)),
+      repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0 3px,rgba(0,0,0,.035) 3px 7px),
+      linear-gradient(90deg,#4a2d1a,#3a2213);
+    box-shadow:inset 0 0 30px rgba(0,0,0,.55);
+  }
+  .fret{position:absolute;top:0;bottom:0;width:3px;
+    background:linear-gradient(90deg,#8d877b,#e6e0d4,#8d877b);opacity:.75}
+  .dot{position:absolute;top:50%;width:14px;height:14px;border-radius:50%;
+    transform:translate(-50%,-50%);background:#e9e2cf;opacity:.55}
+
+  .str{
+    position:relative; flex:1; border:0; background:transparent; color:inherit; font:inherit;
+    display:flex; align-items:center; padding:0 14px 0 30px; cursor:pointer;
+    transition:background .2s;
+  }
+  .str::before{ /* the string itself */
+    content:""; position:absolute; left:0; right:0; top:50%;
+    height:var(--t); transform:translateY(-50%); border-radius:2px;
+    background:linear-gradient(180deg,#fffaf0,#d9d0bd 45%,#8a816f);
+    box-shadow:0 1px 2px rgba(0,0,0,.7); transition:box-shadow .2s, background .2s;
+  }
+  .str.sel{background:rgba(232,194,122,.07)}
+  .str.sel::before{background:var(--accent);box-shadow:0 0 10px var(--accent)}
+  .str.sel.tuned::before{background:var(--ok);box-shadow:0 0 14px var(--ok)}
+  .str.sel.live::before{animation:buzz .07s linear infinite alternate}
+  @keyframes buzz{to{transform:translateY(calc(-50% + 1.2px))}}
+
+  .lab{
+    position:relative; z-index:1; display:flex; align-items:baseline; gap:9px;
+    background:rgba(20,14,9,.85); border:1px solid rgba(255,255,255,.1);
+    padding:6px 14px; border-radius:999px; transition:border-color .2s;
+  }
+  .lab b{font-size:1.55rem;line-height:1}
+  .lab b sub{font-size:.7rem;color:var(--muted);font-weight:500}
+  .lab span{font-size:.85rem;color:var(--muted);font-variant-numeric:tabular-nums}
+  .sel .lab{border-color:var(--accent)}
+  .sel.tuned .lab{border-color:var(--ok)}
+
+  /* ---------- lower half: the meter ---------- */
+  .meter{
+    flex:1 1 50%; min-height:0; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; padding:6px 12px 16px;
+  }
+  #gauge{width:100%; max-width:540px; flex:1; min-height:0}
+  #needle{transition:opacity .4s}
+  .read{text-align:center; min-height:3.4em}
+  #hint{font-size:1.35rem; font-weight:600; transition:color .2s}
+  #detail{font-size:.9rem; color:var(--muted); margin-top:4px; font-variant-numeric:tabular-nums}
+
+  /* ---------- info button + panel ---------- */
+  #infoBtn{
+    position:fixed; right:14px; bottom:14px; width:40px; height:40px; border-radius:50%;
+    border:1.5px solid var(--muted); background:rgba(30,24,18,.9); color:var(--ink);
+    font:italic 700 1.15rem Georgia,serif; cursor:pointer; z-index:5;
+  }
+  #infoBtn:active{border-color:var(--accent)}
+  #info{
+    position:fixed; inset:0; z-index:10; display:none;
+    background:rgba(0,0,0,.6); padding:16px; align-items:center; justify-content:center;
+  }
+  #info.open{display:flex}
+  #info .panel{
+    position:relative; background:#211b15; border:1px solid rgba(255,255,255,.1); border-radius:14px;
+    width:100%; max-width:620px; max-height:100%; overflow-y:auto; -webkit-overflow-scrolling:touch;
+    padding:22px 20px 26px; line-height:1.5; font-size:.95rem; user-select:text;
+  }
+  #info h2{font-size:1.25rem; margin-bottom:10px; padding-right:40px}
+  #info h3{font-size:1rem; color:var(--accent); margin:18px 0 6px}
+  #info p, #info li{color:#ddd3bf}
+  #info p + p{margin-top:8px}
+  #info ol, #info ul{padding-left:20px; margin-top:6px}
+  #info li{margin-top:4px}
+  #info .eq{
+    font-family:"Cambria Math","STIX Two Math",Georgia,serif; font-size:1.05rem;
+    background:rgba(255,255,255,.05); border-radius:8px; padding:8px 12px; margin:8px 0;
+    overflow-x:auto; white-space:nowrap; color:var(--ink);
+  }
+  #info code{font-size:.85em; background:rgba(255,255,255,.07); padding:1px 5px; border-radius:4px}
+  #closeInfo{
+    position:sticky; float:right; top:0; margin:-8px -6px 0 0; width:36px; height:36px;
+    border-radius:50%; border:0; background:rgba(255,255,255,.08); color:var(--ink);
+    font-size:1.3rem; cursor:pointer;
+  }
+</style>
+</head>
+<body>
+
+<div class="neck" id="neck"></div>
+
+<div class="meter">
+  <svg id="gauge" viewBox="0 18 320 182" aria-label="tuning meter">
+    <g id="scale"></g>
+    <text id="tnote" x="160" y="150" text-anchor="middle" font-size="58" font-weight="700" fill="#f3ead8" opacity=".12"></text>
+    <g id="needle" opacity=".3">
+      <line x1="160" y1="196" x2="160" y2="43" stroke="#f3ead8" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="160" cy="185" r="8" fill="#f3ead8"/>
+    </g>
+  </svg>
+  <div class="read">
+    <div id="hint">Tap a string to start</div>
+    <div id="detail">&nbsp;</div>
+  </div>
+</div>
+
+<button id="infoBtn" aria-label="How it works">i</button>
+
+<div id="info" role="dialog" aria-modal="true" aria-labelledby="infoTitle">
+  <div class="panel">
+    <button id="closeInfo" aria-label="Close">×</button>
+    <h2 id="infoTitle">How this tuner works</h2>
+
+    <h3>1. Getting the sound</h3>
+    <p>The browser's Web Audio API streams the microphone. The phone's echo cancellation, noise
+    suppression and automatic gain control are switched off: they're built for speech and can smear or
+    modulate a pitch. An 80&nbsp;Hz high-pass filter removes rumble and handling noise. Every screen
+    frame (~60×/s) the tuner takes the latest <b>N&nbsp;=&nbsp;4096</b> samples, about 85&nbsp;ms at
+    48&nbsp;kHz. That's enough for 20+ periods of the lowest string (C4, 3.8&nbsp;ms per period) while
+    still responding quickly.</p>
+
+    <h3>2. Why not simply pick the biggest FFT peak?</h3>
+    <p>The obvious approach is to FFT the signal and take the frequency of the highest bin. That has
+    two problems:</p>
+    <ul>
+      <li><b>Overtones.</b> A plucked string vibrates at f, 2f, 3f… at once, and on a nylon uke string
+      the 2nd or 3rd harmonic is often louder than the fundamental. The highest peak is then an octave
+      or a twelfth above the note.</li>
+      <li><b>Resolution.</b> FFT bins are <i>f<sub>s</sub>/N</i> apart: 11.7&nbsp;Hz for 4096 samples.
+      Near C4, one cent is only about 0.15&nbsp;Hz, so you'd need a window several seconds long
+      to resolve it directly.</li>
+    </ul>
+    <p>So the tuner asks a different question: <i>after what delay does the waveform repeat itself?</i>
+    The period is shared by every harmonic, and it can be measured very precisely.</p>
+
+    <h3>3. Autocorrelation, computed with the FFT</h3>
+    <p>The autocorrelation compares the signal with a copy of itself shifted by a lag τ:</p>
+    <div class="eq">r(τ) = Σ<sub>j</sub> x<sub>j</sub> · x<sub>j+τ</sub></div>
+    <p>It peaks when τ equals the period, and at multiples of it. Computing it directly costs
+    N² operations. The <b>Wiener–Khinchin theorem</b> gives a faster route, because the
+    autocorrelation is the inverse Fourier transform of the power spectrum:</p>
+    <div class="eq">r = IFFT( |FFT(x)|² )</div>
+    <p>That's two FFTs, O(N log N). This is where the FFT is used. The signal is
+    <b>zero-padded to 2N = 8192</b> before transforming. Without padding the FFT treats the
+    window as periodic, so the correlation would wrap around: the end of the buffer would be compared
+    with its beginning. Since |FFT(x)|² is real and symmetric, a second <i>forward</i> FFT gives the
+    same result as the inverse, up to a factor of 2N, so the code reuses one routine.</p>
+    <p>The mean is subtracted first so a DC offset doesn't add a constant to every lag.</p>
+
+    <h3>4. Normalising it (McLeod's NSDF)</h3>
+    <p>Raw autocorrelation shrinks at larger lags, simply because fewer samples overlap, and it
+    depends on loudness. The <b>normalised square difference function</b> (Philip McLeod, 2005) fixes
+    both:</p>
+    <div class="eq">n(τ) = 2·r(τ) / m(τ), &nbsp; m(τ) = Σ<sub>j=0</sub><sup>N−1−τ</sup> (x<sub>j</sub>² + x<sub>j+τ</sub>²)</div>
+    <p>n(τ) lies between −1 and +1, and +1 means a perfect repeat at that lag. m(τ) is updated
+    incrementally, subtracting two squared samples per step, so it's essentially free.</p>
+
+    <h3>5. Picking the period</h3>
+    <ol>
+      <li>Skip the initial positive lobe around τ = 0 (any signal resembles itself at tiny shifts).</li>
+      <li>In each following positive region, keep its highest point: a candidate period.</li>
+      <li>If the best candidate is below 0.7, the sound isn't periodic enough: it's noise, speech or
+      silence, and nothing is shown. A level gate also ignores very quiet input.</li>
+      <li>Candidates scoring at least 85% of the best are kept. Real periods at τ<sub>0</sub>,
+      2τ<sub>0</sub>, 3τ<sub>0</sub>… all score high, so this is where octave errors could still
+      happen. To prevent that, the tuner picks the candidate <b>closest to the string you selected</b>.
+      A string that's a few semitones off still lands far nearer its true period than its double.</li>
+    </ol>
+
+    <h3>6. Sub-sample precision</h3>
+    <p>The lag is a whole number of samples, and at 440&nbsp;Hz one sample step is about 16&nbsp;cents.
+    So a parabola is fitted through the peak and its two neighbours, and its vertex is used:</p>
+    <div class="eq">τ* = τ + ½ · (a − c) / (a − 2b + c)</div>
+    <p>where a, b, c are n(τ−1), n(τ), n(τ+1). On clean test tones this lands within a
+    fraction of a cent. The frequency is then <i>f = f<sub>s</sub> / τ*</i>.</p>
+
+    <h3>7. From frequency to needle</h3>
+    <p>Pitch is compared in <b>cents</b> (100 cents = 1 semitone), a logarithmic measure that means
+    the same at any pitch:</p>
+    <div class="eq">cents = 1200 · log₂( f / f<sub>target</sub> )</div>
+    <p>The needle covers ±50 cents across 100°. Anything beyond that holds it at the end stop.
+    Within ±5 cents counts as in tune (green). To steady the display, the reading is the
+    <b>median of the last 5 estimates</b>, which throws out one-off glitches, and the needle eases toward
+    it rather than jumping.</p>
+
+    <h3>8. Why a fresh pluck often reads sharp</h3>
+    <p>Plucking stretches the string, which briefly raises its tension and pitch. The pitch
+    then drops to its resting value within a fraction of a second, and harder plucks start sharper.
+    Add the noisy "click" of the attack and the smoothing delay, and the needle settles a moment after
+    the pluck. Trust the reading once it stops moving, and pluck gently.</p>
+
+    <h3>Settings in the code</h3>
+    <p><code>STRINGS</code> (tuning), <code>SCALE_CENTS</code> (needle range),
+    <code>IN_TUNE</code> (green tolerance) and <code>RMS_MIN</code> (silence gate) are at the top of
+    the script.</p>
+  </div>
+</div>
+
+<script>
+/* ================= settings ================= */
+// Standard (re-entrant) G C E A tuning, listed top-to-bottom as you hold the uke.
+// t = drawn string thickness in px.
+const STRINGS = [
+  { note:'G', oct:4, f:392.00, t:2.4 },
+  { note:'C', oct:4, f:261.63, t:3.8 },
+  { note:'E', oct:4, f:329.63, t:3.1 },
+  { note:'A', oct:4, f:440.00, t:2.1 },
+];
+const SCALE_CENTS = 50;   // needle hits the end stop at ±50 cents
+const SWEEP_DEG   = 50;   // ±50° → 100° total travel
+const IN_TUNE     = 5;    // |cents| below this counts as in tune
+const RMS_MIN     = 0.003;// input level gate (silence threshold)
+
+/* ================= DSP-START ================= */
+// Pitch detection: McLeod normalised square-difference function, with the
+// autocorrelation done via FFT (zero-padded, so it's linear not circular).
+// Raw FFT-peak picking is unreliable on a uke because overtones are often
+// louder than the fundamental; this approach is far more stable and precise.
+const N = 4096, M = 8192, LOGM = 13;
+const re = new Float64Array(M), im = new Float64Array(M);
+const xs = new Float64Array(N), nsdf = new Float64Array(N/2 + 2);
+const rev = new Uint32Array(M), cosT = new Float64Array(M/2), sinT = new Float64Array(M/2);
+for (let i = 0; i < M; i++) {
+  let r = 0; for (let b = 0; b < LOGM; b++) r = (r << 1) | ((i >> b) & 1);
+  rev[i] = r;
+}
+for (let k = 0; k < M/2; k++) { cosT[k] = Math.cos(2*Math.PI*k/M); sinT[k] = Math.sin(2*Math.PI*k/M); }
+
+function fft(re, im) {
+  for (let i = 0; i < M; i++) {
+    const j = rev[i];
+    if (j > i) { let t = re[i]; re[i] = re[j]; re[j] = t; t = im[i]; im[i] = im[j]; im[j] = t; }
+  }
+  for (let size = 2; size <= M; size <<= 1) {
+    const half = size >> 1, step = M / size;
+    for (let i = 0; i < M; i += size) {
+      for (let j = 0, k = 0; j < half; j++, k += step) {
+        const a = i + j, b = a + half;
+        const tr = re[b]*cosT[k] + im[b]*sinT[k];
+        const ti = im[b]*cosT[k] - re[b]*sinT[k];
+        re[b] = re[a] - tr; im[b] = im[a] - ti;
+        re[a] += tr;        im[a] += ti;
+      }
+    }
+  }
+}
+
+// Returns detected frequency in Hz, or null if no clear pitch.
+// target (Hz) is used only to resolve octave ambiguities between candidates.
+function detectPitch(x, sr, target) {
+  let mean = 0;
+  for (let i = 0; i < N; i++) mean += x[i];
+  mean /= N;
+  let ss = 0;
+  for (let i = 0; i < N; i++) { const v = x[i] - mean; xs[i] = v; re[i] = v; im[i] = 0; ss += v*v; }
+  for (let i = N; i < M; i++) { re[i] = 0; im[i] = 0; }
+  if (Math.sqrt(ss / N) < RMS_MIN) return null;
+
+  fft(re, im);                                   // spectrum
+  for (let i = 0; i < M; i++) { re[i] = re[i]*re[i] + im[i]*im[i]; im[i] = 0; }
+  fft(re, im);                                   // power spectrum → autocorrelation (×M)
+
+  const minLag = Math.max(2, Math.floor(sr / 1100));
+  const maxLag = Math.min(N/2, Math.ceil(sr / 65));
+  let m = 2 * ss;
+  for (let t = 0; t <= maxLag + 1; t++) {
+    if (t > 0) m -= xs[t-1]*xs[t-1] + xs[N-t]*xs[N-t];
+    nsdf[t] = m > 0 ? 2 * (re[t] / M) / m : 0;
+  }
+
+  // key maxima: highest point of each positive lobe after the first zero crossing
+  const peaks = [];
+  let t = 1;
+  while (t < maxLag && nsdf[t] > 0) t++;
+  while (t < maxLag) {
+    while (t < maxLag && nsdf[t] <= 0) t++;
+    let pk = -1, pv = -Infinity;
+    while (t < maxLag && nsdf[t] > 0) { if (nsdf[t] > pv) { pv = nsdf[t]; pk = t; } t++; }
+    if (pk >= minLag && pk < maxLag) peaks.push(pk);
+  }
+  if (!peaks.length) return null;
+
+  let best = 0;
+  for (const p of peaks) best = Math.max(best, nsdf[p]);
+  if (best < 0.7) return null;                   // not periodic enough → noise
+
+  // among strong candidates, take the one nearest the selected string
+  let chosen = -1, dist = Infinity;
+  for (const p of peaks) {
+    if (nsdf[p] < 0.85 * best) continue;
+    const d = Math.abs(Math.log2((sr / p) / target));
+    if (d < dist) { dist = d; chosen = p; }
+  }
+  const a = nsdf[chosen-1], b = nsdf[chosen], c = nsdf[chosen+1];
+  const den = a - 2*b + c;
+  const tau = chosen + (den !== 0 ? 0.5 * (a - c) / den : 0);   // parabolic interpolation
+  return sr / tau;
+}
+/* ================= DSP-END ================= */
+
+/* ================= UI ================= */
+const neck = document.getElementById('neck');
+const hint = document.getElementById('hint');
+const detail = document.getElementById('detail');
+const needle = document.getElementById('needle');
+const tnote = document.getElementById('tnote');
+const NAMES = ['C','C♯','D','D♯','E','F','F♯','G','G♯','A','A♯','B'];
+const noteName = f => { const n = Math.round(12*Math.log2(f/440)) + 69; return NAMES[n % 12] + (Math.floor(n/12) - 1); };
+
+// frets (positions follow real fret spacing for frets 1–5) + 5th-fret dot
+const fretPos = n => (1 - Math.pow(2, -n/12)) / (1 - Math.pow(2, -5/12));
+for (let n = 1; n <= 5; n++) {
+  const d = document.createElement('div');
+  d.className = 'fret';
+  d.style.left = `calc(18px + (100% - 21px) * ${fretPos(n)})`;
+  neck.appendChild(d);
+}
+const dot = document.createElement('div');
+dot.className = 'dot';
+dot.style.left = `calc(18px + (100% - 21px) * ${(fretPos(4) + fretPos(5)) / 2})`;
+neck.appendChild(dot);
+
+let sel = null;
+const rows = STRINGS.map((s, i) => {
+  const b = document.createElement('button');
+  b.className = 'str';
+  b.style.setProperty('--t', s.t + 'px');
+  b.innerHTML = `<div class="lab"><b>${s.note}<sub>${s.oct}</sub></b><span>${s.f.toFixed(2)} Hz</span></div>`;
+  b.addEventListener('click', () => select(i));
+  neck.appendChild(b);
+  return b;
+});
+
+// gauge scale
+(function buildScale() {
+  const g = document.getElementById('scale');
+  const CX = 160, CY = 185, R = 150;
+  const pt = (r, deg) => { const a = deg*Math.PI/180; return [CX + r*Math.sin(a), CY - r*Math.cos(a)]; };
+  const arc = (r, a0, a1) => { const [x0,y0] = pt(r,a0), [x1,y1] = pt(r,a1); return `M${x0} ${y0} A${r} ${r} 0 0 1 ${x1} ${y1}`; };
+  const k = SWEEP_DEG / SCALE_CENTS;
+  let h = '';
+  h += `<path d="${arc(R, -SWEEP_DEG, SWEEP_DEG)}" stroke="#9c8f78" stroke-width="2" fill="none"/>`;
+  h += `<path d="${arc(R, -SWEEP_DEG, -IN_TUNE*k)}" stroke="#e8a33d" stroke-opacity=".35" stroke-width="7" fill="none"/>`;
+  h += `<path d="${arc(R, IN_TUNE*k, SWEEP_DEG)}" stroke="#e8a33d" stroke-opacity=".35" stroke-width="7" fill="none"/>`;
+  h += `<path d="${arc(R, -IN_TUNE*k, IN_TUNE*k)}" stroke="#4cd07d" stroke-width="9" fill="none"/>`;
+  for (let c = -SCALE_CENTS; c <= SCALE_CENTS; c += 5) {
+    const len = c % 25 === 0 ? 16 : c % 10 === 0 ? 10 : 6;
+    const [x0,y0] = pt(R + 4, c*k), [x1,y1] = pt(R - len, c*k);
+    h += `<line x1="${x0}" y1="${y0}" x2="${x1}" y2="${y1}" stroke="#f3ead8" stroke-opacity="${c%25===0?.9:.5}" stroke-width="${c%25===0?2:1.2}"/>`;
+  }
+  for (const c of [-50, -25, 0, 25, 50]) {
+    if (Math.abs(c) > SCALE_CENTS) continue;
+    const [x,y] = pt(R - 30, c*k);
+    h += `<text x="${x}" y="${y+4}" text-anchor="middle" font-size="12" fill="#9c8f78">${c > 0 ? '+'+c : c < 0 ? '−'+(-c) : '0'}</text>`;
+  }
+  const [fx,fy] = pt(R + 2, -SWEEP_DEG - 9), [sx,sy] = pt(R + 2, SWEEP_DEG + 9);
+  h += `<text x="${fx}" y="${fy+8}" text-anchor="middle" font-size="22" fill="#9c8f78">♭</text>`;
+  h += `<text x="${sx}" y="${sy+8}" text-anchor="middle" font-size="22" fill="#9c8f78">♯</text>`;
+  g.innerHTML = h;
+})();
+
+// info panel
+const info = document.getElementById('info');
+document.getElementById('infoBtn').addEventListener('click', () => info.classList.add('open'));
+document.getElementById('closeInfo').addEventListener('click', () => info.classList.remove('open'));
+info.addEventListener('click', e => { if (e.target === info) info.classList.remove('open'); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') info.classList.remove('open'); });
+
+/* ================= audio ================= */
+let ctx = null, analyser = null, buf = null, starting = false;
+
+async function startAudio() {
+  if (ctx || starting) { if (ctx && ctx.state === 'suspended') ctx.resume(); return; }
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    hint.textContent = 'No microphone access here';
+    detail.textContent = 'Open the page over https (or as a local file in a desktop browser).';
+    return;
+  }
+  starting = true;
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({
+      audio: { echoCancellation:false, noiseSuppression:false, autoGainControl:false }
+    });
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const src = ctx.createMediaStreamSource(stream);
+    const hp = ctx.createBiquadFilter();
+    hp.type = 'highpass'; hp.frequency.value = 80;
+    analyser = ctx.createAnalyser();
+    analyser.fftSize = N;
+    src.connect(hp); hp.connect(analyser);
+    buf = new Float32Array(N);
+  } catch (e) {
+    hint.textContent = 'Microphone blocked';
+    detail.textContent = 'Allow microphone access for this page and tap a string again.';
+  }
+  starting = false;
+}
+
+function select(i) {
+  sel = i;
+  rows.forEach((r, j) => r.classList.toggle('sel', j === i));
+  const s = STRINGS[i];
+  tnote.textContent = s.note;
+  hist.length = 0; lastHeard = -1e9;
+  targetAngle = -SWEEP_DEG;
+  hint.style.color = '';
+  hint.textContent = `Pluck the ${s.note} string`;
+  detail.textContent = `target ${s.f.toFixed(2)} Hz`;
+  startAudio();
+}
+
+/* ================= main loop ================= */
+const hist = [];
+let lastHeard = -1e9, angle = -SWEEP_DEG, targetAngle = -SWEEP_DEG;
+const median = a => { const s = [...a].sort((x,y) => x-y); return s[s.length >> 1]; };
+
+function frame(now) {
+  requestAnimationFrame(frame);
+  if (analyser && sel !== null) {
+    const s = STRINGS[sel];
+    analyser.getFloatTimeDomainData(buf);
+    const f = detectPitch(buf, ctx.sampleRate, s.f);
+    if (f) { hist.push(f); if (hist.length > 5) hist.shift(); lastHeard = now; }
+    else if (now - lastHeard > 250) hist.length = 0;
+
+    if (hist.length >= 2 && f) {
+      const fm = median(hist);
+      const cents = 1200 * Math.log2(fm / s.f);
+      const c = Math.max(-SCALE_CENTS, Math.min(SCALE_CENTS, cents));
+      targetAngle = c * SWEEP_DEG / SCALE_CENTS;
+      const ok = Math.abs(cents) < IN_TUNE;
+      rows[sel].classList.toggle('tuned', ok);
+      needle.querySelector('line').setAttribute('stroke', ok ? '#4cd07d' : '#f3ead8');
+      needle.querySelector('circle').setAttribute('fill', ok ? '#4cd07d' : '#f3ead8');
+      if (ok)                 { hint.textContent = 'In tune ✓';               hint.style.color = 'var(--ok)'; }
+      else if (cents < -SCALE_CENTS) { hint.textContent = 'Way too low · tighten ↑'; hint.style.color = 'var(--warn)'; }
+      else if (cents >  SCALE_CENTS) { hint.textContent = 'Way too high · loosen ↓'; hint.style.color = 'var(--warn)'; }
+      else if (cents < 0)     { hint.textContent = 'Too low · tighten ↑';     hint.style.color = 'var(--warn)'; }
+      else                    { hint.textContent = 'Too high · loosen ↓';     hint.style.color = 'var(--warn)'; }
+      const sign = cents >= 0 ? '+' : '−';
+      detail.textContent = `hearing ${fm.toFixed(1)} Hz (${noteName(fm)}) · ${sign}${Math.abs(cents).toFixed(0)} ¢ · target ${s.f.toFixed(2)} Hz`;
+    }
+    const live = now - lastHeard < 1200;
+    needle.setAttribute('opacity', live ? 1 : .3);
+    rows[sel].classList.toggle('live', now - lastHeard < 150);
+    if (!live) rows[sel].classList.remove('tuned');
+  }
+  angle += (targetAngle - angle) * 0.25;
+  needle.setAttribute('transform', `rotate(${angle.toFixed(2)} 160 185)`);
+}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
