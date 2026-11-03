@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Paks Plume Explorer</title>
 <meta name="description" content="How much Danube water the Paks nuclear power plant evaporates through its warm cooling-water plume, and where along the river the heat leaves.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Where does the cooling water of Paks evaporate?">
+<meta property="og:description" content="A model of the forced evaporation caused by the Paks nuclear power plant's warm cooling water, from the outlet to the Black Sea.">
+<meta property="og:url" content="https://ezsolti.github.io/PaksPlume/">
+<meta property="og:image" content="https://ezsolti.github.io/PaksPlume/img/cover.png">
+<meta property="og:image:width" content="2400">
+<meta property="og:image:height" content="1254">
+<meta property="og:image:alt" content="Left: warm plume below the Paks outlet. Right: the Danube to the Black Sea coloured by the share of the forced evaporation; 91% happens beyond Mohács, about 1,340 litres per MWh.">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya:wght@500;600&family=Alegreya+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap">
@@ -226,7 +235,7 @@ svg text { font-family: var(--font-body); }
     <figure>
       <figcaption><h2>Which assumptions matter</h2><span class="hint">one parameter changed at a time, annual, litres per kWh</span></figcaption>
       <div class="scrollx"><svg id="tornado" viewBox="0 0 1000 330" role="img" aria-label="Sensitivity of the forced evaporation to model parameters"></svg></div>
-      <div class="note"><p>Only the surface exchange (wind function, wind speed) and the water temperature move the total. Mixing and the outlet ΔT shape the plume near Paks but not the total, because nearly all heat leaves far downstream. Air temperature and humidity drop out of the extra loss in this formulation. The river heat-loss rate and the Danube flow change where the water evaporates, so they matter for the part inside the Danube only.</p></div>
+      <div class="note"><p>Only the surface exchange (wind function, wind speed) and the water temperature move the total. Mixing and the outlet ΔT shape the plume near Paks but not the total, because nearly all heat leaves far downstream. Mixing is the most important setting near Paks: halving or doubling it moves the hottest point at the +500 m section between 3.8 and 2.0 K (see the outlet map). Air temperature and humidity drop out of the extra loss in this formulation. The river heat-loss rate and the Danube flow change where the water evaporates, so they matter for the part inside the Danube only.</p></div>
     </figure>
   </section>
 
@@ -269,7 +278,7 @@ Q_c(T_s) &amp;= \gamma\, f(U)\,(T_s - T_a) &amp;&amp; \text{conduction to the ai
 </tr>
 <tr>
 <td><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>e</mi><mi>s</mi></msub><mo stretchy="false">(</mo><mi>T</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">e_s(T)</annotation></semantics></math></span></td>
-<td>saturation vapour pressure</td>
+<td>saturation vapour pressure (August–Roche–Magnus formula, coefficients of the WMO CIMO Guide)</td>
 <td><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>6.112</mn><mtext> </mtext><mi>exp</mi><mo>⁡</mo><mtext> ⁣</mtext><mo fence="false" stretchy="true" minsize="1.2em" maxsize="1.2em">(</mo><mn>17.62</mn><mtext> </mtext><mi>T</mi><mi mathvariant="normal">/</mi><mo stretchy="false">(</mo><mn>243.12</mn><mo>+</mo><mi>T</mi><mo stretchy="false">)</mo><mo fence="false" stretchy="true" minsize="1.2em" maxsize="1.2em">)</mo></mrow><annotation encoding="application/x-tex">6.112\,\exp\!\big(17.62\,T/(243.12+T)\big)</annotation></semantics></math></span> mbar</td>
 </tr>
 <tr>
@@ -284,8 +293,8 @@ Q_c(T_s) &amp;= \gamma\, f(U)\,(T_s - T_a) &amp;&amp; \text{conduction to the ai
 </tr>
 <tr>
 <td><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>γ</mi></mrow><annotation encoding="application/x-tex">\gamma</annotation></semantics></math></span></td>
-<td>Bowen constant</td>
-<td>0.61 mbar K⁻¹</td>
+<td>Bowen coefficient: links conduction to evaporation, since both depend on the same wind-driven exchange (Bowen 1926)</td>
+<td>0.61 mbar K⁻¹ (close to the psychrometric constant, 0.66 at sea level)</td>
 </tr>
 <tr>
 <td><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>U</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f(U)</annotation></semantics></math></span></td>
@@ -294,7 +303,7 @@ Q_c(T_s) &amp;= \gamma\, f(U)\,(T_s - T_a) &amp;&amp; \text{conduction to the ai
 </tr>
 </tbody></table></div>
 <p>Sunlight and the long-wave radiation coming down from the sky do not depend on the water temperature, so they are the same with and without the plant and drop out of the difference.</p>
-<p><strong>Wind function.</strong> The default is the Edinger–Brady–Geyer formula, fitted to measurements on power-plant cooling lakes:</p>
+<p><strong>Wind function.</strong> The default is the cooling-lake formula of Brady, Graves and Geyer (1969), as used by Edinger, Brady and Geyer (1974) and in the QUAL2K river model (Chapra et al. 2008). It is called Edinger–Brady–Geyer in the explorer:</p>
 <div class="eq"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>U</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mrow><mn>9.2</mn><mo>+</mo><mn>0.46</mn><mtext> </mtext><msubsup><mi>U</mi><mn>7</mn><mn>2</mn></msubsup></mrow><mn>1.333</mn></mfrac><mo separator="true">,</mo><mspace width="2em"/><msub><mi>U</mi><mn>7</mn></msub><mo>≈</mo><mn>1.14</mn><mtext> </mtext><msub><mi>U</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">f(U) = \frac{9.2 + 0.46\,U_7^2}{1.333}, \qquad U_7 \approx 1.14\,U_2</annotation></semantics></math></span></div>
 <p>with <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>U</mi><mn>7</mn></msub></mrow><annotation encoding="application/x-tex">U_7</annotation></semantics></math></span> and <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>U</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">U_2</annotation></semantics></math></span> the wind speed at 7 m and 2 m (m/s). An alternative, the Ryan–Harleman formula with a free-convection term, can be selected in the explorer. It gives about 14% more evaporation, but it reproduces the measured heat budget of a heated lake less well (see Benchmarks).</p>
 <h2>The extra heat loss</h2>
@@ -307,7 +316,8 @@ Q_c(T_s) &amp;= \gamma\, f(U)\,(T_s - T_a) &amp;&amp; \text{conduction to the ai
 <div class="eq"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>K</mi><mo stretchy="false">(</mo><msub><mi>T</mi><mi>b</mi></msub><mo stretchy="false">)</mo><mo>=</mo><mn>4</mn><mi>ε</mi><mi>σ</mi><mtext> </mtext><mo stretchy="false">(</mo><msub><mi>T</mi><mi>b</mi></msub><mo>+</mo><mn>273.15</mn><msup><mo stretchy="false">)</mo><mn>3</mn></msup><mo>+</mo><mi>f</mi><mo stretchy="false">(</mo><mi>U</mi><mo stretchy="false">)</mo><mo fence="false" stretchy="true" minsize="1.8em" maxsize="1.8em">[</mo><mfrac><mrow><mi>d</mi><msub><mi>e</mi><mi>s</mi></msub></mrow><mrow><mi>d</mi><mi>T</mi></mrow></mfrac><msub><mo fence="false" stretchy="true" minsize="1.8em" maxsize="1.8em">∣</mo><msub><mi>T</mi><mi>b</mi></msub></msub><mo>+</mo><mi>γ</mi><mo fence="false" stretchy="true" minsize="1.8em" maxsize="1.8em">]</mo><mo separator="true">,</mo><mspace width="2em"/><mi>ϕ</mi><mo stretchy="false">(</mo><msub><mi>T</mi><mi>b</mi></msub><mo stretchy="false">)</mo><mo>≈</mo><mfrac><mrow><mi>f</mi><mtext> </mtext><msubsup><mi>e</mi><mi>s</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msubsup><mo stretchy="false">(</mo><msub><mi>T</mi><mi>b</mi></msub><mo stretchy="false">)</mo></mrow><mrow><mn>4</mn><mi>ε</mi><mi>σ</mi><msubsup><mi>T</mi><mi>b</mi><mn>3</mn></msubsup><mo>+</mo><mi>f</mi><mtext> </mtext><mo fence="false" stretchy="true" minsize="1.2em" maxsize="1.2em">[</mo><msubsup><mi>e</mi><mi>s</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msubsup><mo stretchy="false">(</mo><msub><mi>T</mi><mi>b</mi></msub><mo stretchy="false">)</mo><mo>+</mo><mi>γ</mi><mo fence="false" stretchy="true" minsize="1.2em" maxsize="1.2em">]</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">K(T_b) = 4\varepsilon\sigma\,(T_b+273.15)^3 + f(U)\Big[\frac{de_s}{dT}\Big|_{T_b} + \gamma\Big],
 \qquad
 \phi(T_b) \approx \frac{f\,e_s&#x27;(T_b)}{4\varepsilon\sigma T_b^3 + f\,\big[e_s&#x27;(T_b) + \gamma\big]}</annotation></semantics></math></span></div>
-<p>The slope <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>e</mi><mi>s</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msubsup><mo stretchy="false">(</mo><mi>T</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">e_s&#x27;(T)</annotation></semantics></math></span> roughly triples between 5 °C and 25 °C, so warm water evaporates far more per kelvin of excess than cold water. This makes the evaporation share strongly seasonal.</p>
+<p>The slope <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>e</mi><mi>s</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msubsup><mo stretchy="false">(</mo><mi>T</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">e_s&#x27;(T)</annotation></semantics></math></span> roughly triples between 5 °C and 25 °C, so warm water evaporates far more per kelvin of excess than cold water, while emission and conduction per kelvin barely change. This makes the evaporation share strongly seasonal. With this wind function the share depends only on the water temperature and the wind; air temperature and humidity cancel in the difference.</p>
+<p><img src="img/share_vs_T.png" alt="Extra heat loss per kelvin and its evaporation share versus water temperature"></p>
 <div class="tbl"><table>
 <thead>
 <tr>
@@ -416,7 +426,8 @@ Q_c(T_s) &amp;= \gamma\, f(U)\,(T_s - T_a) &amp;&amp; \text{conduction to the ai
 <td>0.52</td>
 </tr>
 </tbody></table></div>
-<p>The size of the excess matters much less. At 20 °C the evaporation share is 55.6% for a 0.1 K excess, 56.8% for 2 K and 60.4% for 8 K. Almost all the heat leaves where the excess is only a few tenths of a kelvin, so the hot core of the plume hardly affects the total. This is also why the outlet temperature and the mixing near Paks barely change the result: the same heat has to leave either way.</p>
+<p><em>Note on the inputs.</em> The monthly water temperatures, flows and weather are approximate long-term values for the Paks area, assembled for this model rather than taken from a single dataset. As a check, the flows are within 20% of the long-term monthly means measured at Mohács (GRDC station 6442600, 1931–1995: annual mean 2400 m³/s, against 2260 m³/s here), and on the low side in late summer. The flow does not affect the total: using the Mohács means instead changes only the part evaporating inside the Danube, from 1.07 to 1.04 L/kWh. The water temperature does matter: ±1.5 K changes the total by about ±4% (see Sensitivity). For scale, the 2026 drought brought the flow at Paks down to about 610–680 m³/s, a third of the values used here for August and October.</p>
+<p>The size of the excess matters much less. Warming water from <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mi>b</mi></msub></mrow><annotation encoding="application/x-tex">T_b</annotation></semantics></math></span> to <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mi>b</mi></msub><mo>+</mo><msup><mi>T</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup></mrow><annotation encoding="application/x-tex">T_b + T&#x27;</annotation></semantics></math></span> gives the per-kelvin share averaged over that range, which is close to its value at the midpoint <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mi>b</mi></msub><mo>+</mo><msup><mi>T</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">T_b + T&#x27;/2</annotation></semantics></math></span> (panel c). Warming 20 °C water by 0.1, 2 or 8 K gives 55.6%, 56.8% and 60.4%: the per-kelvin values at 20.05, 21 and 24 °C, not at 20.1, 22 and 28 °C. Almost all the heat leaves where the excess is only a few tenths of a kelvin, so the hot core of the plume hardly affects the total. This is also why the outlet temperature and the mixing near Paks barely change the result: the same heat has to leave either way.</p>
 <h2>Heat transport in the river</h2>
 <p><strong>Near Paks (first 150 km): a two-dimensional plume.</strong> The warm water enters along the right bank and spreads across the river while it is carried downstream:</p>
 <div class="eq"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>u</mi><mtext> </mtext><mi>h</mi><mtext> </mtext><mfrac><mrow><mi mathvariant="normal">∂</mi><msup><mi>T</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup></mrow><mrow><mi mathvariant="normal">∂</mi><mi>x</mi></mrow></mfrac><mo>=</mo><mfrac><mi mathvariant="normal">∂</mi><mrow><mi mathvariant="normal">∂</mi><mi>y</mi></mrow></mfrac><mtext> ⁣</mtext><mrow><mo fence="true">(</mo><mi>h</mi><mtext> </mtext><msub><mi>D</mi><mi>y</mi></msub><mtext> </mtext><mfrac><mrow><mi mathvariant="normal">∂</mi><msup><mi>T</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup></mrow><mrow><mi mathvariant="normal">∂</mi><mi>y</mi></mrow></mfrac><mo fence="true">)</mo></mrow><mo>−</mo><mfrac><mrow><mi mathvariant="normal">Δ</mi><mi>H</mi><mo stretchy="false">(</mo><msup><mi>T</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mo separator="true">;</mo><mtext> </mtext><msub><mi>T</mi><mi>b</mi></msub><mo stretchy="false">)</mo></mrow><mrow><mi>ρ</mi><mtext> </mtext><msub><mi>c</mi><mi>p</mi></msub></mrow></mfrac></mrow><annotation encoding="application/x-tex">u\,h\,\frac{\partial T&#x27;}{\partial x}
@@ -442,7 +453,7 @@ Q_c(T_s) &amp;= \gamma\, f(U)\,(T_s - T_a) &amp;&amp; \text{conduction to the ai
 </tr>
 <tr>
 <td><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mi>y</mi></msub></mrow><annotation encoding="application/x-tex">D_y</annotation></semantics></math></span></td>
-<td>cross-river mixing coefficient</td>
+<td>cross-river mixing coefficient (effective, fitted to the Paks plume)</td>
 <td>2.5 m²/s in the first km, 1.0 m²/s beyond</td>
 </tr>
 <tr>
@@ -456,7 +467,9 @@ Q_c(T_s) &amp;= \gamma\, f(U)\,(T_s - T_a) &amp;&amp; \text{conduction to the ai
 <li><strong>Banks:</strong> no heat crosses them.</li>
 <li><strong>Solution:</strong> stepped downstream in <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span>, with steps growing from 5 m near the outlet to 500 m.</li>
 </ul>
-<p>A plume released at one bank spreads over the whole width after roughly <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.4</mn><mtext> </mtext><mi>u</mi><msup><mi>B</mi><mn>2</mn></msup><mi mathvariant="normal">/</mi><msub><mi>D</mi><mi>y</mi></msub><mo>≈</mo><mn>65</mn></mrow><annotation encoding="application/x-tex">0.4\,u B^2/D_y \approx 65</annotation></semantics></math></span> km. The 2D model runs to 150 km, well past that point.</p>
+<p><strong>Where the mixing values come from.</strong> <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mi>y</mi></msub></mrow><annotation encoding="application/x-tex">D_y</annotation></semantics></math></span> is an effective value fitted to the Paks plume, not taken from a formula. Two observations pin it down separately: the peak excess at the +500 m section mostly sets the value in the first kilometre, and the length of the +2.5 K zone in the impact study&#39;s 3D model sets the value beyond (see Benchmarks). Textbook estimates are much lower. The usual formulas, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mi>y</mi></msub><mo>≈</mo><mn>0.15</mn></mrow><annotation encoding="application/x-tex">D_y \approx 0.15</annotation></semantics></math></span>–<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.6</mn><mtext> </mtext><mi>h</mi><mtext> </mtext><msub><mi>u</mi><mo>∗</mo></msub></mrow><annotation encoding="application/x-tex">0.6\,h\,u_*</annotation></semantics></math></span> from straight to meandering channels with <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mo>∗</mo></msub></mrow><annotation encoding="application/x-tex">u_*</annotation></semantics></math></span> the shear velocity, give 0.03–0.2 m²/s here (Fischer et al. 1979). A tracer study on a straight Danube branch near Vác measured 0.04 m²/s (Somlyódy 1982). With such values the model&#39;s plume would stay far too hot: about 6–7 K at +500 m against 3.4 K measured, and a +2.5 K zone of about 40 km against the 11–12 km used as the impact study&#39;s value (its source passage still has to be confirmed, see Benchmarks). The fitted values stand in for what the model leaves out: the mixing of the outfall jet itself, groynes and bends, and the uneven current across the river. They shape the plume near Paks but do not change the evaporation total.</p>
+<p><strong>How far until the river is mixed.</strong> With the fitted <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mi>y</mi></msub></mrow><annotation encoding="application/x-tex">D_y</annotation></semantics></math></span> the plume first reaches the far bank about 5–10 km below Paks, where the excess there is still only 1–10% of the width average. It reaches half the width average at the far bank after about 20 km. The river is fully mixed, meaning within 5% of the average everywhere across, after about 70 km. This matches the textbook estimate for a release at one bank, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.4</mn><mtext> </mtext><mi>u</mi><msup><mi>B</mi><mn>2</mn></msup><mi mathvariant="normal">/</mi><msub><mi>D</mi><mi>y</mi></msub><mo>≈</mo><mn>65</mn></mrow><annotation encoding="application/x-tex">0.4\,u B^2/D_y \approx 65</annotation></semantics></math></span> km (Fischer et al. 1979). The banks reflect heat back into the river, like the ground in a Gaussian plume model: a release at one bank behaves like a release at the centre of a river twice as wide, which is why the factor is <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.4</mn><mo>=</mo><mn>0.1</mn><mo>×</mo><msup><mn>2</mn><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">0.4 = 0.1 \times 2^2</annotation></semantics></math></span>. The 2D model runs to 150 km, well past full mixing.</p>
+<p><img src="img/cross_mixing.png" alt="How the model plume spreads across the river"></p>
 <p><strong>From 2D to 1D at 150 km.</strong> The heat still in the river is the rejected heat minus what has left through the surface so far:</p>
 <div class="eq"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>F</mi><mn>150</mn></msub><mo>=</mo><msub><mi>P</mi><mtext>rej</mtext></msub><mo>−</mo><msubsup><mo>∫</mo><mn>0</mn><mrow><mn>150</mn><mtext> km</mtext></mrow></msubsup><mtext> ⁣</mtext><mtext> ⁣</mtext><msubsup><mo>∫</mo><mn>0</mn><mi>B</mi></msubsup><mi mathvariant="normal">Δ</mi><mi>H</mi><mo fence="false" stretchy="true" minsize="1.2em" maxsize="1.2em">(</mo><msup><mi>T</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo><mo separator="true">;</mo><mtext> </mtext><msub><mi>T</mi><mi>b</mi></msub><mo fence="false" stretchy="true" minsize="1.2em" maxsize="1.2em">)</mo><mtext> </mtext><mi>d</mi><mi>y</mi><mtext> </mtext><mi>d</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">F_{150} = P_\text{rej} - \int_0^{150\ \text{km}}\!\!\int_0^{B} \Delta H\big(T&#x27;(x,y);\,T_b\big)\,dy\,dx</annotation></semantics></math></span></div>
 <p>From there on the river is treated as fully mixed, with <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>T</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mo>=</mo><mi>F</mi><mi mathvariant="normal">/</mi><mo stretchy="false">(</mo><mi>ρ</mi><mtext> </mtext><msub><mi>c</mi><mi>p</mi></msub><mtext> </mtext><mi>Q</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">T&#x27; = F/(\rho\, c_p\, Q)</annotation></semantics></math></span>. The cross-river shape of the plume is lost, but none of its heat.</p>
@@ -506,6 +519,43 @@ Q_c(T_s) &amp;= \gamma\, f(U)\,(T_s - T_a) &amp;&amp; \text{conduction to the ai
 <td>1100</td>
 </tr>
 </tbody></table></div>
+<p><strong>Where the tributary flows come from.</strong> The flow factors are ratios of long-term mean flows along the Danube, taking 2400 m³/s at Mohács (GRDC) as 1. For example, the factor 1.27 below the Drava means the model&#39;s flow there is 1.27 × 2400 = 3050 m³/s, against about 2950 m³/s measured. Overall they agree with the measured means within a few percent:</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Point on the Danube</th>
+<th>Flow factor</th>
+<th>Model flow: factor × 2400 m³/s</th>
+<th>Measured long-term mean (m³/s)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Below the Drava (km 1382)</td>
+<td>1.27</td>
+<td>3050</td>
+<td>about 2950: Mohács plus the Drava at Osijek, 552</td>
+</tr>
+<tr>
+<td>Below the Tisza (km 1215)</td>
+<td>1.62</td>
+<td>3890</td>
+<td>about 3870, adding the Tisza at Novi Slankamen, 920 (1971–2000)</td>
+</tr>
+<tr>
+<td>Below the Sava (km 1170)</td>
+<td>2.30</td>
+<td>5520</td>
+<td>5523 at Baziaș, 1931–2020 (Sava about 1560–1610, Velika Morava included)</td>
+</tr>
+<tr>
+<td>Above the delta</td>
+<td>2.75</td>
+<td>6600</td>
+<td>6488 at Ceatal Izmail, 1921–1985 (GRDC)</td>
+</tr>
+</tbody></table></div>
+<p>Each tributary is assumed to mix completely at its mouth, to carry no plant heat, and to have the same background temperature as the Danube. The factors are applied to each month&#39;s flow at Paks, so the tributaries follow the Danube&#39;s seasonal pattern. The smaller lower-Danube tributaries (Jiu, Olt, Argeș, Siret, Prut and others) are lumped together at Iron Gate II.</p>
+<p>Tributaries change where the heat leaves, not how much water evaporates in total. More water means a smaller excess temperature, so the heat leaves more slowly and travels further. Without tributaries only 3% of the heat would reach the Black Sea and 1.30 L/kWh would evaporate inside the Danube. With them it is 21% and 1.07 L/kWh. Tributary flows 20% higher or lower move this to 1.03–1.12 L/kWh, while the total stays at 1.34.</p>
 <p>For a small excess the decay is exponential, with a length scale</p>
 <div class="eq"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>L</mi><mtext>decay</mtext></msub><mo>=</mo><mfrac><mrow><mi>ρ</mi><mtext> </mtext><msub><mi>c</mi><mi>p</mi></msub><mtext> </mtext><mi>Q</mi></mrow><mrow><mi>K</mi><mtext> </mtext><mi>B</mi></mrow></mfrac><mo>≈</mo><mn>400</mn><mtext>–</mtext><mn>500</mn><mtext> km at Paks</mtext></mrow><annotation encoding="application/x-tex">L_\text{decay} = \frac{\rho\, c_p\, Q}{K\,B} \approx 400\text{–}500\ \text{km at Paks}</annotation></semantics></math></span></div>
 <p>So most of the heat, and most of the forced evaporation, leaves the river hundreds of kilometres below Paks.</p>
@@ -552,7 +602,7 @@ Q_c(T_s) &amp;= \gamma\, f(U)\,(T_s - T_a) &amp;&amp; \text{conduction to the ai
 <td>1.27–1.52 L/kWh</td>
 </tr>
 </tbody></table></div>
-<p>For comparison, published values for once-through nuclear plants are 1.51 L/kWh (US DOE) and a median of 1.02 L/kWh with a range of 0.38–1.51 (NREL review). Plants with wet cooling towers evaporate about 2.3–3.4 L/kWh.</p>
+<p>For comparison, published values for once-through nuclear plants are about 1.5 L/kWh (EPRI 2002 and US DOE 2006: ~400 gal/MWh, explicitly the evaporation from the warm discharge plume) and a median of 1.02 L/kWh with a range of 0.38–1.51 (NREL review, Macknick et al. 2012). Nuclear plants with wet cooling towers consume 2.2–3.2 L/kWh (median 2.5, same review).</p>
 <p>Even in a dry summer the forced evaporation is only about 0.1% of the lower Danube&#39;s flow, so it does not measurably affect water levels downstream.</p>
 <h2>Sensitivity</h2>
 <p><img src="img/sensitivity.png" alt="Sensitivity of the result to the model parameters"></p>
@@ -576,7 +626,7 @@ Q_c(T_s) &amp;= \gamma\, f(U)\,(T_s - T_a) &amp;&amp; \text{conduction to the ai
 <td>1.28–1.39 L/kWh</td>
 </tr>
 <tr>
-<td>Danube flow ±30%, river heat-loss rate</td>
+<td>Danube flow ±30%, tributary flows ±20%, river heat-loss rate</td>
 <td>total unchanged; only the part inside the Danube changes (0.96–1.30 L/kWh)</td>
 </tr>
 <tr>
@@ -584,6 +634,32 @@ Q_c(T_s) &amp;= \gamma\, f(U)\,(T_s - T_a) &amp;&amp; \text{conduction to the ai
 <td>no effect</td>
 </tr>
 </tbody></table></div>
+<p>The total and the plume near Paks respond to different things. Cross-river mixing has no effect on the total, but it is the single most important setting for the plume near Paks:</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Peak excess at the +500 m section (annual mean conditions)</th>
+<th>Effect on the total</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Cross-river mixing ×0.5 / ×1 / ×2</td>
+<td>3.8 / 2.7 / 2.0 K</td>
+<td>none</td>
+</tr>
+<tr>
+<td>Mixing at literature values (0.04–0.2 m²/s)</td>
+<td>6–7 K in the 10 Aug 2013 case (measured 3.4 K)</td>
+<td>+0.04%</td>
+</tr>
+<tr>
+<td>Outlet warming 6 / 8.7 / 11 K, same heat</td>
+<td>2.6 / 2.7 / 2.8 K</td>
+<td>none</td>
+</tr>
+</tbody></table></div>
+<p>The fitted mixing values are effective values: they stand in for the turbulence and eddies the depth-averaged model does not resolve, such as the outfall jet, the recirculation eddy at the outfall, groynes, bends and the uneven current across the river.</p>
 <h2>Benchmarks</h2>
 <div class="tbl"><table>
 <thead>
@@ -607,7 +683,7 @@ Q_c(T_s) &amp;= \gamma\, f(U)\,(T_s - T_a) &amp;&amp; \text{conduction to the ai
 <td>mixing near the outlet</td>
 </tr>
 <tr>
-<td>Length of the +2.5 K zone in the impact study</td>
+<td>Length of the +2.5 K zone in the impact study (source passage to be confirmed)</td>
 <td>11–12 km</td>
 <td>9.9 km</td>
 <td>mixing further down</td>
@@ -620,7 +696,7 @@ Q_c(T_s) &amp;= \gamma\, f(U)\,(T_s - T_a) &amp;&amp; \text{conduction to the ai
 </tr>
 <tr>
 <td>Rhône warming left below three nuclear plants</td>
-<td>0.5 / 0.5–0.7 / 1.0–1.2 °C</td>
+<td>0.5 / 0.5–0.6 / 1.0–1.2 °C</td>
 <td>0.69 / 0.90 / 1.60 °C</td>
 <td>how fast heat leaves</td>
 </tr>
@@ -634,7 +710,7 @@ Q_c(T_s) &amp;= \gamma\, f(U)\,(T_s - T_a) &amp;&amp; \text{conduction to the ai
 <p>The measured lake heat budget supports the evaporation share, and with it the total. The Rhône and Rhine lose heat about twice as fast as the model with its estimated river widths. That moves the evaporation closer to Paks but does not change the total.</p>
 <p><img src="img/eia_vs_model.png" alt="Paks II impact-study plume next to this model on the real river"></p>
 <p><em>Panel a: figure from the Paks II environmental impact study supplement, as reproduced by nuklearis.hu. Panels b and c: this model on the OpenStreetMap river outline, same scale and colour levels.</em></p>
-<p>Near the outlet the model&#39;s plume is wider and smoother than in the impact study&#39;s 3D model, and it does not resolve the eddy at the outfall. The model assumes the same current speed and depth across the river, while the impact study reports the fastest current along the Paks bank. This matters for the 30 °C limit at the +500 m section, but not for the evaporation total: the first 10 km carry about 1% of it.</p>
+<p>Near the outlet the model&#39;s plume is wider and smoother than in the impact study&#39;s 3D model, and it does not resolve the eddy at the outfall. The model assumes the same current speed and depth across the river, which the real river does not have. This matters for the 30 °C limit at the +500 m section, but not for the evaporation total: the first 10 km carry about 1% of it.</p>
 <h2>Limitations</h2>
 <ul>
 <li><strong>Climate:</strong> monthly averages of air temperature, humidity, wind, water temperature and flow at Paks, applied along the whole Danube. The warmer lower Danube would raise the evaporation share slightly.</li>
@@ -643,16 +719,49 @@ Q_c(T_s) &amp;= \gamma\, f(U)\,(T_s - T_a) &amp;&amp; \text{conduction to the ai
 <li><strong>Missing test:</strong> comparing daily water temperatures at Paks and Baja. The model predicts an annual-mean plant signal of 0.38 K at Baja.</li>
 </ul>
 <h2>References</h2>
+<p>All sources below were checked for access and content in October 2026.</p>
+<p><strong>Surface heat exchange</strong></p>
 <ul>
-<li>Edinger, J.E., Brady, D.K., Geyer, J.C. (1974). <em>Heat exchange and transport in the environment.</em> EEI/EPRI Report 14.</li>
-<li>Ryan, P.J., Harleman, D.R.F. (1973). <em>An analytical and experimental study of transient cooling pond behavior.</em> MIT Parsons Laboratory Report 161.</li>
-<li>Texas Water Development Board (1966). <em>Effect of an increased heat load on the thermal structure and evaporation of Lake Colorado City, Texas.</em> Report 24.</li>
-<li>EDF / Agence de l&#39;eau Rhône Méditerranée Corse. <em>Étude thermique du Rhône</em>, phases 2–4 (2006–2016).</li>
-<li>International Commission for the Protection of the Rhine. Report 209, Rhine water temperatures 1978–2011.</li>
-<li>MVM Paks II (2015). <em>Environmental Impact Study</em>, chapter 11 and supplements.</li>
-<li>Macknick, J. et al. (2012). Operational water consumption and withdrawal factors for electricity generating technologies. <em>Environmental Research Letters</em> 7, 045802.</li>
+<li>Bowen, I.S. (1926). The ratio of heat losses by conduction and by evaporation from any water surface. <em>Physical Review</em> 27, 779–787. <a href="https://doi.org/10.1103/PhysRev.27.779">doi:10.1103/PhysRev.27.779</a>; free copy in the Caltech authors repository.</li>
+<li>Brady, D.K., Graves, W.L., Geyer, J.C. (1969). Cooling-lake study for the Edison Electric Institute, as cited in Chapra et al. (2008). Not openly available; formula as given there.</li>
+<li>Edinger, J.E., Brady, D.K., Geyer, J.C. (1974). <em>Heat exchange and transport in the environment.</em> EEI/EPRI Report 14. Not openly available.</li>
+<li>Chapra, S.C., Pelletier, G.J., Tao, H. (2008). <em>QUAL2K: A modeling framework for simulating river and stream water quality, version 2.11, documentation.</em> Section 4.1.4 (Bowen coefficient 0.47 mmHg/°C, wind functions).</li>
+<li>Ryan, P.J., Harleman, D.R.F. (1973). <em>An analytical and experimental study of transient cooling pond behavior.</em> MIT Parsons Laboratory Report 161 (MIT DSpace).</li>
+<li>WMO (2008). <em>Guide to Meteorological Instruments and Methods of Observation</em> (WMO-No. 8), Annex 4.B: <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>e</mi><mi>w</mi></msub><mo>=</mo><mn>6.112</mn><mi>exp</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>17.62</mn><mtext> </mtext><mi>t</mi><mi mathvariant="normal">/</mi><mo stretchy="false">(</mo><mn>243.12</mn><mo>+</mo><mi>t</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">e_w = 6.112\exp(17.62\,t/(243.12+t))</annotation></semantics></math></span> hPa.</li>
+<li>Alduchov, O.A., Eskridge, R.E. (1996). Improved Magnus form approximation of saturation vapor pressure. <em>Journal of Applied Meteorology</em> 35, 601–609.</li>
+</ul>
+<p><strong>Mixing</strong></p>
+<ul>
+<li>Fischer, H.B., List, E.J., Koh, R.C.Y., Imberger, J., Brooks, N.H. (1979). <em>Mixing in Inland and Coastal Waters.</em> Academic Press, chapter 5. Not openly available; the formulas used here are reproduced in open lecture notes (Seoul National University OpenCourseWare, &quot;Mixing in Rivers&quot;, chapter 5).</li>
+<li>Somlyódy, L. (1982). An approach to the study of transverse mixing in streams. <em>Journal of Hydraulic Research</em> 20(2), 203–220; reprinted as IIASA Research Report RR-82-44 (IIASA repository).</li>
+</ul>
+<p><strong>River flows</strong></p>
+<ul>
+<li>Global Runoff Data Centre (GRDC): Danube at Mohács (6442600, 1931–1995, mean 2401 m³/s) and at Ceatal Izmail (6742900, 1921–1985, mean 6488 m³/s), as published in the UNH/GRDC Composite Runoff Fields station pages.</li>
+<li>Gâștescu, P., Țuchiu, E. (2022). The Danube and its delta: hydrogeographic characteristics. <em>Riscuri și Catastrofe</em> 31(2), 9–30 (Danube at Budapest 2350 m³/s, at Baziaș 5523 m³/s, 1931–2020).</li>
+<li>Tributary mean flows as compiled in the Wikipedia articles on the rivers: Drava at Osijek 552 m³/s (Joint Drava River Corridor Analysis Report, 2014); Tisza at Novi Slankamen 920 m³/s (1971–2000); Sava at Belgrade 1564 m³/s (International Sava River Basin Commission, 2009).</li>
+</ul>
+<p><strong>Benchmarks and comparisons</strong></p>
+<ul>
+<li>Harbeck, G.E., Meyers, J.S., Hughes, G.H. (1966). <em>Effect of an increased heat load on the thermal structure and evaporation of Lake Colorado City, Texas.</em> Texas Water Development Board Report 24 (prepared by the USGS), p. 27.</li>
+<li>Harbeck, G.E., Koberg, G.E., Hughes, G.H. (1959). <em>The effect of the addition of heat from a powerplant on the thermal structure and evaporation of Lake Colorado City, Texas.</em> USGS Professional Paper 272-B.</li>
+<li>Carrel, G. et al. (2006). <em>Étude thermique globale du Rhône, phase III, lot 4: synthèse et conclusions.</em> Cemagref, Université Lyon 1, ARALEP, EDF.</li>
+<li>ARALEP, INRA, IRSTEA, CNRS-UCBL, EDF (2015). <em>Étude thermique du Rhône, phase 4: synthèse.</em> pp. 12–13.</li>
+<li>ICPR (2013). <em>Development of Rhine water temperatures based on validated temperature measurements between 1978 and 2011.</em> Report 209, section 5.7.</li>
+<li>MVM Paks II. Zrt. (2015). <em>Environmental Impact Study: clarification of facts based on the order Ref. No 35700/4299-4/2015</em>, pp. 12–14 (10 August 2013 measurement; 950 m³/s design case).</li>
+<li>MVM Paks II. Zrt. (2014–2015). <em>Környezeti hatástanulmány</em>, chapter 11 (Danube heat-load modelling) and supplements; plume figure as reproduced by nuklearis.hu.</li>
+<li>EPRI (2002). <em>Water &amp; Sustainability (Volume 3): U.S. Water Consumption for Power Production — The Next Half Century.</em> p. 3-1 (once-through: about 1% of withdrawal &quot;consumed via increased evaporation to the atmosphere from the warm discharge water plume&quot;), p. 3-2 (nuclear ~400 gal/MWh).</li>
+<li>NETL (2010). <em>Estimating Freshwater Needs to Meet Future Thermoelectric Generation Requirements, 2010 update.</em> DOE/NETL-400/2010/1339, p. 22 (EIA-based once-through consumption excludes the downstream evaporation).</li>
+<li>US DOE (2006). <em>Energy demands on water resources: report to Congress on the interdependency of energy and water.</em> Table V-1, p. 38.</li>
+<li>Macknick, J., Newmark, R., Heath, G., Hallett, K.C. (2012). Operational water consumption and withdrawal factors for electricity generating technologies: a review of existing literature. <em>Environmental Research Letters</em> 7, 045802, Table 2.</li>
 <li>Diehl, T.H. et al. (2013). <em>Methods for estimating water consumption for thermoelectric power plants in the United States.</em> USGS SIR 2013-5188.</li>
-<li>River geometry: Natural Earth; outlet reach © OpenStreetMap contributors.</li>
+</ul>
+<p><strong>Plant and river data</strong></p>
+<ul>
+<li>MVM Paksi Atomerőmű, press release, 30 January 2026: 16,097.9 GWh generated in 2025.</li>
+<li>World Nuclear News (25 May 2007), &quot;More power for Paks&quot;: units uprated to 500 MWe with thermal power +8%; 1485 MWt per uprated unit as listed in the FlexRISK site database (BOKU Vienna).</li>
+<li>HUN-REN Centre for Energy Research, press release, 10 August 2026: cooling water about 100 m³/s for four units.</li>
+<li>River geometry: Natural Earth (public domain); outlet reach © OpenStreetMap contributors (ODbL).</li>
 </ul>
 
   </article>
@@ -660,6 +769,7 @@ Q_c(T_s) &amp;= \gamma\, f(U)\,(T_s - T_a) &amp;&amp; \text{conduction to the ai
   <footer class="foot">
     <span>Paks at its 2025 output, monthly climate averages. Method, assumptions and sources: <a href="#model" style="color:inherit">How the model works</a>.</span>
     <span>Maps: Natural Earth; outlet reach © OpenStreetMap contributors.</span>
+    <span>Analysis and site made with the help of Claude Opus 5.5 (Anthropic). The model, inputs and references were checked, but the work has not been peer-reviewed.</span>
   </footer>
 </div>
 
