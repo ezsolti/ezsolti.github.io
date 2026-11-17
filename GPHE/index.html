@@ -9,262 +9,232 @@
 <meta property="og:title" content="How does a plate heat exchanger work?">
 <meta property="og:description" content="An interactive teaching model of a gasketed plate heat exchanger: duty, temperatures, pressure drop, passes and flow distribution, with a 3D view of the plate pack.">
 <meta name="twitter:card" content="summary">
-<meta name="theme-color" content="#0f6b7a">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@500;600&family=Alegreya+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
 <style>
-/* Layout: control rail on the left, live results on the right, physics notes below. */
+/* Layout: survey sheet — summary strip, input panels, 3D plate pack, then charts and tables;
+   the model description is a second page behind the tabs. */
 :root {
-  --bg: #f3f5f6;
-  --surface: #ffffff;
-  --ink: #17232b;
-  --muted: #5b6b75;
-  --line: #d6dde1;
-  --accent: #0f6b7a;
-  --hot: #c8443a;
-  --cold: #2a6fb5;
-  --mid: #8b55b0;
-  --hot-soft: #f6dcd8;
-  --cold-soft: #d9e6f4;
-  --warn: #a8670a;
-  --warn-soft: #fbefd9;
-  --info-soft: #e3eef0;
-  --font-display: "Barlow Semi Condensed", "Arial Narrow", system-ui, sans-serif;
-  --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
-  color-scheme: light;
+  --paper: #f5f6f2;
+  --panel: #fbfbf8;
+  --water-edge: #8fb0c6;
+  --ink: #1d2a33;
+  --ink-2: #4f5e68;
+  --ink-3: #7d8a92;
+  --rule: #dfe2d8;
+  --accent: #2b6a93;
+  --hot: #d4572a;
+  --cold: #2a78d6;
+  --mid: #8a6fa8;
+  --hot-soft: #f5ddd2;
+  --cold-soft: #d9e6f6;
+  --warn: #a8680c;
+  --warn-soft: #f6ead3;
+  --info-soft: #e2ebf1;
+  /* names used by the charts and the 3D model */
+  --bg: var(--paper); --surface: var(--panel); --line: var(--rule); --muted: var(--ink-2);
+  --font-display: "Alegreya", Georgia, "Times New Roman", serif;
+  --font-body: "Alegreya Sans", "Gill Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: var(--font-body);
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #11181c;
-    --surface: #1a2328;
-    --ink: #e4eaed;
-    --muted: #93a3ac;
-    --line: #2d3a41;
-    --accent: #4fb3c2;
-    --hot: #ef7a6c;
-    --cold: #6fa8e6;
-    --mid: #b98be0;
-    --hot-soft: #3d2420;
-    --cold-soft: #1e2f43;
-    --warn: #e6a94a;
-    --warn-soft: #3a2c14;
-    --info-soft: #1c3036;
+    --paper: #171c1f; --panel: #1d2327; --water-edge: #44657c; --ink: #e7ebe9; --ink-2: #b7c0c3; --ink-3: #8a959a;
+    --rule: #30393e; --accent: #7fb3d6; --hot: #e8743f; --cold: #3987e5; --mid: #a58cc4;
+    --hot-soft: #3a2a22; --cold-soft: #1f3044; --warn: #e0a54a; --warn-soft: #382c17; --info-soft: #1e2d38;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #11181c;
-  --surface: #1a2328;
-  --ink: #e4eaed;
-  --muted: #93a3ac;
-  --line: #2d3a41;
-  --accent: #4fb3c2;
-  --hot: #ef7a6c;
-  --cold: #6fa8e6;
-  --mid: #b98be0;
-  --hot-soft: #3d2420;
-  --cold-soft: #1e2f43;
-  --warn: #e6a94a;
-  --warn-soft: #3a2c14;
-  --info-soft: #1c3036;
+  --paper: #171c1f; --panel: #1d2327; --water-edge: #44657c; --ink: #e7ebe9; --ink-2: #b7c0c3; --ink-3: #8a959a;
+  --rule: #30393e; --accent: #7fb3d6; --hot: #e8743f; --cold: #3987e5; --mid: #a58cc4;
+  --hot-soft: #3a2a22; --cold-soft: #1f3044; --warn: #e0a54a; --warn-soft: #382c17; --info-soft: #1e2d38;
   color-scheme: dark;
 }
-
 * { box-sizing: border-box; }
-html, body { margin: 0; }
-body {
-  background: var(--bg);
-  color: var(--ink);
-  font-family: var(--font-body);
-  font-size: 15px;
-  line-height: 1.5;
-}
-h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; letter-spacing: 0.01em; }
-h1 { font-size: 30px; font-weight: 700; }
-h2 { font-size: 21px; font-weight: 600; }
-h3 { font-size: 16px; font-weight: 600; }
-.num, .mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+html, body { background: var(--paper); color: var(--ink); margin: 0; }
+body { font-family: var(--font-body); font-size: 16px; line-height: 1.45;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 20px 40px; }
+.wrap { max-width: 1240px; margin: 0 auto; display: grid; gap: 18px; }
+h1 { font-family: var(--font-display); font-weight: 600; font-size: clamp(26px, 3.2vw, 36px); margin: 0; letter-spacing: 0.005em; text-wrap: balance; }
+h2 { font-family: var(--font-display); font-weight: 600; font-size: 20px; margin: 0; text-wrap: balance; }
+h3 { font-family: var(--font-display); font-weight: 600; font-size: 18px; margin: 0 0 6px; }
+.lede { color: var(--ink-2); max-width: 70ch; margin: 4px 0 0; }
+.eyebrow { font-size: 12px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--ink-3); }
+.num { font-variant-numeric: tabular-nums; }
+[hidden] { display: none !important; }
+a { color: var(--accent); }
 
-.wrap { max-width: 1320px; margin: 0 auto; padding: max(20px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) max(48px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left)); }
-header.top { padding: 8px 0 18px; border-bottom: 1px solid var(--line); margin-bottom: 18px; }
-.kicker { margin: 0 0 6px; font-size: 13px; letter-spacing: 0.04em; color: var(--accent); font-weight: 500; }
-.topnav { display: flex; gap: 18px; margin: 10px 0 0; font-size: 14px; }
-.topnav a, footer a { color: var(--accent); font-weight: 500; text-decoration: none; border-bottom: 1px solid currentColor; }
-.intro { margin: 14px 0 0; color: var(--ink); max-width: 75ch; font-size: 16px; }
+/* tabs */
+.top { display: flex; justify-content: space-between; align-items: end; gap: 12px 24px; flex-wrap: wrap; }
+.tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--rule); }
+.tabs a { font-size: 15px; color: var(--ink-2); text-decoration: none; padding: 6px 12px 7px; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+.tabs a:hover { color: var(--ink); }
+.tabs a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--accent); font-weight: 500; }
+.tabs a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+#page-explorer { display: grid; gap: 18px; min-width: 0; }
 
-.layout { display: block; }
-.controls { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-areas: "duty pack pack hot" "duty pack pack cold"; grid-template-rows: auto 1fr; gap: 12px; align-items: start; }
-.controls > .panel:nth-child(1) { grid-area: duty; }
-.controls > .panel:nth-child(2) { grid-area: pack; }
-.controls > .panel:nth-child(3) { grid-area: hot; }
-.controls > .panel:nth-child(4) { grid-area: cold; }
+/* summary strip */
+.summary { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.summary > div { padding: 10px 14px; display: grid; gap: 2px; align-content: start; }
+.summary > div + div { border-left: 1px solid var(--rule); }
+.summary .v { font-family: var(--font-display); font-size: 26px; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.summary .u { font-size: 13px; color: var(--ink-2); }
+.sw { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 6px; vertical-align: 0; }
+.sw.hot { background: var(--hot); }
+.sw.cold { background: var(--cold); }
+@media (max-width: 1000px) { .summary { grid-template-columns: repeat(3, minmax(0, 1fr)); } .summary > div:nth-child(4) { border-left: 0; } .summary > div:nth-child(-n+3) { border-bottom: 1px solid var(--rule); } }
+@media (max-width: 560px) { .summary { grid-template-columns: repeat(2, minmax(0, 1fr)); } .summary > div { border-left: 0 !important; border-bottom: 1px solid var(--rule); } }
+
+/* flags under the summary */
+.chips { display: grid; gap: 6px; }
+.chip { font-size: 14px; color: var(--ink-2); padding: 1px 0 1px 10px; border-left: 3px solid var(--accent); max-width: 110ch; }
+.chip.warn { border-left-color: var(--warn); }
+.chip b { color: var(--ink); font-weight: 500; }
+
+/* panels */
+.panel, figure { margin: 0; background: var(--panel); border: 1px solid var(--rule); border-radius: 8px; padding: 12px 14px; min-width: 0; }
+.panel > h2 + .sub, .modelhead .sub { margin-top: 2px; }
+.sub, .hint { color: var(--ink-3); font-size: 13px; margin: 0 0 8px; max-width: 95ch; }
+.grid2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; align-items: start; }
+@media (max-width: 900px) { .grid2 { grid-template-columns: minmax(0, 1fr); } }
+
+/* inputs */
+.inputs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-areas: "duty pack pack hot" "duty pack pack cold"; grid-template-rows: auto 1fr; gap: 12px 18px; align-items: start; }
+.inputs > .panel:nth-child(1) { grid-area: duty; }
+.inputs > .panel:nth-child(2) { grid-area: pack; }
+.inputs > .panel:nth-child(3) { grid-area: hot; }
+.inputs > .panel:nth-child(4) { grid-area: cold; }
 #geom-fields { display: grid; grid-template-columns: 1fr 1fr; column-gap: 22px; }
-@media (max-width: 1150px) { .controls { grid-template-columns: 1fr 1fr; grid-template-areas: "duty duty" "pack pack" "hot cold"; } }
-@media (max-width: 620px) { .controls { grid-template-columns: 1fr; grid-template-areas: "duty" "pack" "hot" "cold"; } #geom-fields { grid-template-columns: 1fr; } }
-.controls .panel h3 { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
-
-.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; }
-.rail { display: flex; flex-direction: column; gap: 12px; }
-.rail .panel h3 { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
-.swatch { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
-.swatch.hot { background: var(--hot); }
-.swatch.cold { background: var(--cold); }
-
-.seg { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
-.seg button { font: inherit; font-size: 14px; padding: 7px 8px; border: 0; background: transparent; color: var(--ink); cursor: pointer; }
-.seg button[aria-pressed="true"] { background: var(--accent); color: var(--surface); font-weight: 600; }
-.seg button + button { border-left: 1px solid var(--line); }
-
+@media (max-width: 1100px) { .inputs { grid-template-columns: 1fr 1fr; grid-template-areas: "duty duty" "pack pack" "hot cold"; grid-template-rows: auto; } }
+@media (max-width: 620px) { .inputs { grid-template-columns: 1fr; grid-template-areas: "duty" "pack" "hot" "cold"; } #geom-fields { grid-template-columns: 1fr; } }
 .field { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; align-items: center; padding: 6px 0; }
-.field label { font-size: 13.5px; color: var(--ink); }
-.field .val { display: flex; align-items: center; gap: 4px; }
-.field input[type="number"] { width: 74px; font: inherit; font-family: var(--font-mono); font-size: 13.5px; padding: 3px 6px; border: 1px solid var(--line); border-radius: 4px; background: var(--bg); color: var(--ink); text-align: right; }
-.field .unit { font-size: 12.5px; color: var(--muted); min-width: 44px; }
+.field label, .selrow label, .ctl .lab { font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); }
+.sym { text-transform: none; letter-spacing: 0; font-style: italic; font-size: 13.5px; color: var(--ink-2); }
+.field .val { display: flex; align-items: center; gap: 5px; }
+.field input[type="number"] { width: 72px; font: inherit; font-size: 15px; font-variant-numeric: tabular-nums; padding: 2px 6px; border: 1px solid var(--water-edge); border-radius: 6px; background: var(--paper); color: var(--ink); text-align: right; }
+.field .unit { font-size: 13px; color: var(--ink-2); min-width: 46px; }
 .field input[type="range"] { grid-column: 1 / -1; width: 100%; accent-color: var(--accent); margin: 2px 0 0; }
 .field.hot input[type="range"] { accent-color: var(--hot); }
 .field.cold input[type="range"] { accent-color: var(--cold); }
 .field.disabled { opacity: 0.55; }
-.field .help { grid-column: 1 / -1; font-size: 12px; color: var(--muted); }
-select { font: inherit; font-size: 13.5px; padding: 4px 6px; border: 1px solid var(--line); border-radius: 4px; background: var(--bg); color: var(--ink); }
-.selrow { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center; padding: 6px 0; font-size: 13.5px; }
-:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.field .help { grid-column: 1 / -1; font-size: 12.5px; color: var(--ink-3); }
+.selrow { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center; padding: 6px 0; }
+select { font: inherit; font-size: 14px; color: var(--ink); background: var(--panel); border: 1px solid var(--water-edge); border-radius: 6px; padding: 5px 8px; max-width: 100%; }
+.seg { display: inline-flex; border: 1px solid var(--water-edge); border-radius: 6px; overflow: hidden; background: var(--panel); }
+.seg button { font: inherit; font-size: 14px; color: var(--ink); background: transparent; border: 0; padding: 5px 10px; cursor: pointer; }
+.seg button + button { border-left: 1px solid var(--water-edge); }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--paper); }
+.btn { font: inherit; font-size: 14px; color: var(--ink); background: var(--panel); border: 1px solid var(--water-edge); border-radius: 6px; padding: 5px 10px; cursor: pointer; }
+.seg button:focus-visible, select:focus-visible, .btn:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.ctl { display: grid; gap: 4px; }
 
-.main { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
-.tiles { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; }
-@media (max-width: 1150px) { .tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-@media (max-width: 480px) { .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-.tile { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; border-top: 3px solid var(--line); }
-.tile.hot { border-top-color: var(--hot); }
-.tile.cold { border-top-color: var(--cold); }
-.tile.acc { border-top-color: var(--accent); }
-.tile .k { font-size: 12px; color: var(--muted); }
-.tile .v { font-family: var(--font-mono); font-size: 22px; font-weight: 500; font-variant-numeric: tabular-nums; line-height: 1.25; }
-.tile .s { font-size: 12px; color: var(--muted); }
-
-.chips { display: flex; flex-wrap: wrap; gap: 8px; }
-.chip { font-size: 13px; padding: 5px 10px; border-radius: 6px; border-left: 3px solid; }
-.chip.warn { background: var(--warn-soft); border-color: var(--warn); }
-.chip.info { background: var(--info-soft); border-color: var(--accent); }
-.chip.ok { background: var(--info-soft); border-color: var(--accent); }
-
-.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-@media (max-width: 1150px) { .grid2 { grid-template-columns: 1fr; } }
-.panel h2 { margin-bottom: 2px; }
-.panel .sub { font-size: 13px; color: var(--muted); margin: 0 0 8px; }
-svg { display: block; width: 100%; height: auto; }
-svg text { font-family: var(--font-body); fill: var(--muted); font-size: 12px; }
-svg .lbl { fill: var(--ink); font-weight: 500; }
-svg .axis { stroke: var(--line); stroke-width: 1; }
-svg .grid { stroke: var(--line); stroke-width: 1; stroke-dasharray: 2 4; }
-svg .hot-s { stroke: var(--hot); }
-svg .cold-s { stroke: var(--cold); }
-svg .hot-f { fill: var(--hot); }
-svg .cold-f { fill: var(--cold); }
-svg .hot-soft { fill: var(--hot-soft); }
-svg .cold-soft { fill: var(--cold-soft); }
-svg .acc-s { stroke: var(--accent); }
-svg .acc-f { fill: var(--accent); }
-svg .ink-s { stroke: var(--ink); }
-svg .muted-s { stroke: var(--muted); }
-svg .surf-f { fill: var(--surface); }
-svg .bg-f { fill: var(--bg); }
-
-.modelhead { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 10px; }
-.modelctl { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-.seg3 { grid-template-columns: repeat(3, auto); }
-.seg2 { grid-template-columns: repeat(2, auto); }
-.seg2 button { padding: 6px 12px; }
-.seg3 button { padding: 6px 12px; }
-.btn { font: inherit; font-size: 14px; padding: 6px 12px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); color: var(--ink); cursor: pointer; }
-.btn:hover, .seg button:hover { border-color: var(--accent); }
-.model3d { position: relative; height: 480px; border-radius: 6px; background: var(--bg); overflow: hidden; touch-action: none; }
+/* 3D model */
+.modelhead { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 10px 18px; margin-bottom: 8px; }
+.modelctl { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: end; }
+.model3d { position: relative; height: 480px; border-radius: 6px; background: var(--paper); overflow: hidden; touch-action: none; }
 @media (max-width: 600px) { .model3d { height: 360px; } }
 .model3d canvas { display: block; width: 100%; height: 100%; cursor: grab; }
 .model3d canvas:active { cursor: grabbing; }
-.modelmsg { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 14px; padding: 20px; text-align: center; }
-.tag { position: absolute; left: 0; top: 0; pointer-events: none; font-size: 12px; font-weight: 600; padding: 2px 7px; border-radius: 4px; background: var(--surface); border: 1px solid var(--line); color: var(--ink); white-space: nowrap; transform: translate(-50%, -50%); }
+.modelmsg { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--ink-3); font-size: 14px; padding: 20px; text-align: center; }
+.tag { position: absolute; left: 0; top: 0; pointer-events: none; font-size: 12.5px; font-weight: 500; padding: 1px 7px; border-radius: 4px; background: var(--panel); border: 1px solid var(--rule); color: var(--ink); white-space: nowrap; }
 .tag.hot { color: var(--hot); border-color: var(--hot); }
 .tag.cold { color: var(--cold); border-color: var(--cold); }
-.tag.part { font-weight: 500; color: var(--muted); }
+.tag.part { color: var(--ink-2); }
 .tag.turn { color: var(--warn); border-color: var(--warn); }
 .legend { margin: 12px 0 0; max-width: 560px; padding-top: 18px; }
-.lg-bar { position: relative; height: 12px; border-radius: 3px; background: linear-gradient(to right, var(--cold), var(--mid), var(--hot)); }
-.lg-mark { position: absolute; top: -4px; width: 2px; height: 20px; background: var(--ink); }
-.lg-mark b { position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%); font-size: 12px; font-weight: 600; white-space: nowrap; }
-.lg-mark.low b { bottom: auto; top: 22px; }
+.lg-bar { position: relative; height: 10px; border-radius: 2px; background: linear-gradient(to right, var(--cold), var(--mid), var(--hot)); }
+.lg-mark { position: absolute; top: -4px; width: 2px; height: 18px; background: var(--ink); }
+.lg-mark b { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); font-size: 12.5px; font-weight: 500; white-space: nowrap; }
+.lg-mark.low b { bottom: auto; top: 20px; }
 .hot-t { color: var(--hot); }
 .cold-t { color: var(--cold); }
-.lg-ends { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-top: 22px; }
-.splitgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-@media (max-width: 800px) { .splitgrid { grid-template-columns: 1fr; } }
-.splitgrid .stat { font-size: 13px; color: var(--muted); margin: 4px 0 0; }
-.resbar { display: flex; height: 26px; border-radius: 5px; overflow: hidden; border: 1px solid var(--line); }
-.resbar div { display: flex; align-items: center; justify-content: center; font-size: 12px; font-family: var(--font-mono); white-space: nowrap; overflow: hidden; color: var(--ink); }
-.reslegend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12.5px; color: var(--muted); margin-top: 8px; }
+.lg-ends { display: flex; justify-content: space-between; font-size: 12.5px; color: var(--ink-2); margin-top: 22px; }
+
+/* charts */
+svg { display: block; width: 100%; height: auto; }
+svg text { font-family: var(--font-body); fill: var(--ink-3); font-size: 12.5px; }
+svg .lbl { fill: var(--ink); font-weight: 500; }
+svg .axis { stroke: var(--rule); stroke-width: 1; }
+svg .grid { stroke: var(--rule); stroke-width: 1; stroke-dasharray: 2 4; }
+svg .hot-s { stroke: var(--hot); } svg .cold-s { stroke: var(--cold); }
+svg .hot-f { fill: var(--hot); } svg .cold-f { fill: var(--cold); }
+svg .hot-soft { fill: var(--hot-soft); } svg .cold-soft { fill: var(--cold-soft); }
+svg .acc-s { stroke: var(--accent); } svg .acc-f { fill: var(--accent); }
+svg .ink-s { stroke: var(--ink); } svg .muted-s { stroke: var(--ink-3); }
+svg .surf-f { fill: var(--panel); } svg .bg-f { fill: var(--paper); }
+.resbar { display: flex; height: 24px; border-radius: 4px; overflow: hidden; border: 1px solid var(--rule); }
+.resbar div { display: flex; align-items: center; justify-content: center; font-size: 12.5px; font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; color: var(--ink); }
+.reslegend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13px; color: var(--ink-2); margin-top: 8px; }
 .reslegend span i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
-
+.mono { font-variant-numeric: tabular-nums; }
 .tablewrap { overflow-x: auto; }
-table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
-th, td { padding: 6px 8px; text-align: right; border-bottom: 1px solid var(--line); white-space: nowrap; }
-th:first-child, td:first-child { text-align: left; }
-thead th { font-weight: 600; color: var(--muted); font-size: 12.5px; }
-td.num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
-td .hint { color: var(--muted); font-family: var(--font-body); font-size: 12px; display: block; }
+table { border-collapse: collapse; width: 100%; font-size: 14.5px; }
+th, td { padding: 5px 10px; text-align: right; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+th:first-child, td:first-child { text-align: left; padding-left: 0; }
+thead th { font-weight: 500; color: var(--ink-2); border-bottom-color: var(--ink-3); }
+td.num { font-variant-numeric: tabular-nums; }
+.splitgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+@media (max-width: 800px) { .splitgrid { grid-template-columns: 1fr; } }
+.splitgrid .stat { font-size: 13.5px; color: var(--ink-2); margin: 4px 0 0; }
 
-.notes { margin-top: 28px; }
-.notes > h2 { font-size: 26px; margin-bottom: 4px; }
-.notes > p.lead { color: var(--muted); max-width: 75ch; margin: 0 0 16px; }
-.notegrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
-@media (max-width: 900px) { .notegrid { grid-template-columns: 1fr; } }
-.note { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 14px 18px; }
-.note h3 { font-size: 18px; margin-bottom: 6px; }
-.note h3 .n { font-family: var(--font-mono); font-size: 13px; color: var(--accent); margin-right: 8px; font-weight: 500; }
-.note p, .note li { max-width: 68ch; font-size: 14.5px; }
-.note ul { padding-left: 18px; margin: 6px 0; }
-.eq { display: block; font-family: "Cambria Math", "STIX Two Math", "Times New Roman", serif; font-size: 17px; background: var(--bg); border-radius: 6px; padding: 8px 12px; margin: 8px 0; overflow-x: auto; white-space: nowrap; }
-.eq i { font-style: italic; }
-.note .where { font-size: 13px; color: var(--muted); }
-footer { margin-top: 28px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
-footer p { max-width: 90ch; margin: 0 0 8px; }
+/* model description */
+.doc { max-width: 78ch; min-width: 0; width: 100%; margin: 0 auto; font-size: 17px; line-height: 1.6; }
+.doc h1 { margin: 6px 0 14px; }
+.doc h2 { font-size: 23px; margin: 34px 0 10px; padding-top: 12px; border-top: 1px solid var(--rule); }
+.doc p, .doc ul, .doc ol { margin: 0 0 12px; }
+.doc li { margin-bottom: 5px; }
+.doc .eq { overflow-x: auto; margin: 6px 0 16px; padding: 4px 0; }
+.doc math { font-size: 1.08em; }
+.doc math[display="block"] { margin: 0; }
+.doc .tbl { overflow-x: auto; margin: 4px 0 18px; }
+.doc table { border-collapse: collapse; font-size: 15px; min-width: 100%; width: auto; }
+.doc th, .doc td { text-align: left; padding: 5px 12px 5px 0; border-bottom: 1px solid var(--rule); vertical-align: top; white-space: normal; }
+.doc th { font-weight: 500; color: var(--ink-2); border-bottom-color: var(--ink-3); }
+.doc td { font-variant-numeric: tabular-nums; }
+.doc em { color: var(--ink-2); font-size: 14.5px; }
+@media (max-width: 600px) { .doc { font-size: 16px; } .doc table { font-size: 13.5px; } .doc .eq math { font-size: 0.9em; } }
+
+.foot { color: var(--ink-3); font-size: 13px; border-top: 1px solid var(--rule); padding-top: 10px; display: grid; gap: 4px; }
+.foot p { margin: 0; max-width: 110ch; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="top">
-    <p class="kicker">Gasketed plate heat exchangers · food-industry sizes · counter-current flow</p>
-    <h1>Plate Heat Exchanger Explorer</h1>
-    <nav class="topnav" aria-label="Sections"><a href="#explorer">Explorer</a><a href="#model">How the model works</a></nav>
-    <p class="intro">A plate heat exchanger moves heat from one liquid to another through thin pressed stainless steel plates. This page shows how the number of plates, the plate geometry, the flows and the inlet temperatures set the duty, the outlet temperatures and the pressure drop, for units in the size range used for milk, juice and similar food duties. Change any input and every number, chart and the 3D model update together.</p>
+    <div>
+      <div class="eyebrow">Gasketed plate heat exchangers · food-industry sizes · counter-current flow</div>
+      <h1>Plate Heat Exchanger Explorer</h1>
+      <p class="lede">A plate heat exchanger moves heat from one liquid to another through thin pressed stainless steel plates. This page shows how the number of plates, the plate geometry, the flows and the inlet temperatures set the duty, the outlet temperatures and the pressure drop, for units in the size range used for milk, juice and similar food duties.</p>
+    </div>
+    <nav class="tabs" aria-label="Pages"><a href="#explorer" aria-current="page">Explorer</a><a href="#model">How the model works</a></nav>
   </header>
 
-  <div class="layout" id="explorer">
+  <div id="page-explorer">
+    <section class="summary" id="tiles" aria-label="Key results"></section>
+    <section class="chips" id="chips" aria-label="Notes on this operating point"></section>
 
-
-    <main class="main">
-      <section class="tiles" id="tiles" aria-label="Key results"></section>
-      <section class="chips" id="chips" aria-label="Notes on this operating point"></section>
-
-      <section class="controls" aria-label="Inputs">
+    <section class="inputs" aria-label="Inputs">
       <div class="panel">
-        <h3>Example duty</h3>
-        <div class="selrow"><label for="scenario">Load a scenario</label>
+        <h3>Duty</h3>
+        <div class="selrow"><label for="scenario">Example</label>
           <select id="scenario">
             <option value="heat">Milk heating with hot water</option>
             <option value="cool">Milk cooling with ice water</option>
             <option value="juice">Juice heating with hot water</option>
           </select>
         </div>
-        <div style="margin-top:8px">
+        <div class="ctl" style="margin-top:6px">
+          <span class="lab">Calculation</span>
           <div class="seg" role="group" aria-label="Calculation mode">
             <button type="button" id="mode-rate" aria-pressed="true">Rate a unit</button>
             <button type="button" id="mode-size" aria-pressed="false">Size for a target</button>
           </div>
         </div>
         <div id="target-box" hidden>
-          <div class="selrow"><label for="target-side">Target outlet</label>
+          <div class="selrow"><label for="target-side">Target</label>
             <select id="target-side"><option value="cold">Cold side reaches at least</option><option value="hot">Hot side cools to at most</option></select>
           </div>
           <div id="target-field"></div>
@@ -285,179 +255,213 @@ footer p { max-width: 90ch; margin: 0 0 8px; }
       </div>
 
       <div class="panel">
-        <h3><span class="swatch hot"></span>Hot side</h3>
+        <h3><i class="sw hot"></i>Hot side</h3>
         <div class="selrow"><label for="hot-fluid">Fluid</label><select id="hot-fluid"></select></div>
         <div id="hot-fields"></div>
       </div>
 
       <div class="panel">
-        <h3><span class="swatch cold"></span>Cold side</h3>
+        <h3><i class="sw cold"></i>Cold side</h3>
         <div class="selrow"><label for="cold-fluid">Fluid</label><select id="cold-fluid"></select></div>
         <div id="cold-fields"></div>
       </div>
-      </section>
+    </section>
 
-      <section class="panel">
-        <div class="modelhead">
-          <div>
-            <h2>How the fluids move through the pack</h2>
-            <p class="sub" id="model-sub">Drag to turn the model, scroll or pinch to zoom.</p>
-          </div>
-          <div class="modelctl">
-            <div class="seg seg2" role="group" aria-label="Model detail">
+    <section class="panel">
+      <div class="modelhead">
+        <div>
+          <h2>How the fluids move through the pack</h2>
+          <p class="sub" id="model-sub">Drag to turn the model; scroll or pinch to zoom.</p>
+        </div>
+        <div class="modelctl">
+          <div class="ctl"><span class="lab">View</span>
+            <div class="seg" role="group" aria-label="Model detail">
               <button type="button" id="view-simple" aria-pressed="true">Simplified</button>
               <button type="button" id="view-full" aria-pressed="false">Full pack</button>
             </div>
-            <div class="seg seg2" role="group" aria-label="Colour">
+          </div>
+          <div class="ctl"><span class="lab">Colour</span>
+            <div class="seg" role="group" aria-label="Colour">
               <button type="button" id="color-temp" aria-pressed="true">Temperature</button>
               <button type="button" id="color-fluid" aria-pressed="false">Fluid</button>
             </div>
-            <div class="seg seg3" role="group" aria-label="Which fluid to show">
+          </div>
+          <div class="ctl"><span class="lab">Show</span>
+            <div class="seg" role="group" aria-label="Which fluid to show">
               <button type="button" id="show-both" aria-pressed="true">Both</button>
               <button type="button" id="show-hot" aria-pressed="false">Hot</button>
               <button type="button" id="show-cold" aria-pressed="false">Cold</button>
             </div>
-            <button type="button" class="btn" id="model-pause">Pause</button>
-            <button type="button" class="btn" id="model-reset">Reset view</button>
           </div>
+          <button type="button" class="btn" id="model-pause">Pause</button>
+          <button type="button" class="btn" id="model-reset">Reset view</button>
         </div>
-        <div id="model3d" class="model3d">
-          <div class="modelmsg" id="model-msg">Loading the 3D model…</div>
-        </div>
-        <div class="legend" id="model-legend" hidden></div>
-        <p class="sub" id="model-note" style="margin-top:8px"></p>
-      </section>
-
-      <div class="grid2">
-        <section class="panel">
-          <h2>Temperatures along the plate</h2>
-          <p class="sub">The two fluids flow in opposite directions. The gap between the curves drives the heat flow.</p>
-          <svg id="profile" viewBox="0 0 560 300" role="img" aria-label="Temperature profile of the hot and cold streams along the plate"></svg>
-        </section>
-        <section class="panel">
-          <h2>The plate pack in 2D</h2>
-          <p class="sub">Every other channel carries the hot fluid. One plate seen from the front, with its chevron pattern.</p>
-          <svg id="pack" viewBox="0 0 560 310" role="img" aria-label="Side view of the plate pack and front view of one plate"></svg>
-        </section>
       </div>
+      <div id="model3d" class="model3d">
+        <div class="modelmsg" id="model-msg">Loading the 3D model…</div>
+      </div>
+      <div class="legend" id="model-legend" hidden></div>
+      <p class="sub" id="model-note" style="margin-top:8px"></p>
+    </section>
 
+    <div class="grid2">
       <section class="panel">
-        <h2>Where the thermal resistance sits</h2>
-        <p class="sub">1/U is the sum of four resistances in series. The largest one is the place to improve.</p>
-        <div class="resbar" id="resbar"></div>
-        <div class="reslegend" id="reslegend"></div>
+        <h2>Temperatures along the plate</h2>
+        <p class="sub">The two fluids flow in opposite directions. The gap between the curves drives the heat flow.</p>
+        <svg id="profile" viewBox="0 0 560 300" role="img" aria-label="Temperature profile of the hot and cold streams along the plate"></svg>
       </section>
+      <section class="panel">
+        <h2>The plate pack in 2D</h2>
+        <p class="sub">Every other channel carries the hot fluid. One plate seen from the front, with its chevron pattern.</p>
+        <svg id="pack" viewBox="0 0 560 310" role="img" aria-label="Side view of the plate pack and front view of one plate"></svg>
+      </section>
+    </div>
 
-      <section class="panel">
-        <h2>Flow in the channels</h2>
-        <p class="sub">Each side's flow is split over its channels. Velocity sets turbulence, heat transfer, pressure drop and wall shear.</p>
-        <div class="tablewrap"><table id="hydro"></table></div>
-      </section>
+    <section class="panel">
+      <h2>Where the thermal resistance sits</h2>
+      <p class="sub">1/U is the sum of four resistances in series. The largest one is the place to improve.</p>
+      <div class="resbar" id="resbar"></div>
+      <div class="reslegend" id="reslegend"></div>
+    </section>
 
-      <section class="panel">
-        <h2>How the flow splits between channels</h2>
-        <p class="sub">The ports feed the channels one after another, so the channels do not all see the same driving pressure. Bars show each channel's flow relative to an even split, counted from the inlet end of the pass. Try 151 plates with 60 m³/h on both sides.</p>
-        <div class="chips" id="split-chips" style="margin-bottom:10px"></div>
-        <div class="splitgrid">
-          <div><svg id="split-hot" viewBox="0 0 440 190" role="img" aria-label="Flow per hot channel relative to an even split"></svg><p class="stat" id="split-hot-stat"></p></div>
-          <div><svg id="split-cold" viewBox="0 0 440 190" role="img" aria-label="Flow per cold channel relative to an even split"></svg><p class="stat" id="split-cold-stat"></p></div>
-        </div>
-      </section>
+    <section class="panel">
+      <h2>Flow in the channels</h2>
+      <p class="sub">Each side's flow is split over its channels. Velocity sets turbulence, heat transfer, pressure drop and wall shear.</p>
+      <div class="tablewrap"><table id="hydro"></table></div>
+    </section>
 
-      <section class="panel">
-        <h2>What more plates buy you</h2>
-        <p class="sub">Same flows and inlet temperatures, plate count swept. More plates add area but slow the flow in each channel, so U falls. The dot is the current unit.</p>
-        <svg id="sweep" viewBox="0 0 900 240" role="img" aria-label="Duty, overall heat transfer coefficient and pressure drop as functions of plate count"></svg>
-      </section>
-    </main>
+    <section class="panel">
+      <h2>How the flow splits between channels</h2>
+      <p class="sub">The ports feed the channels one after another, so the channels do not all see the same driving pressure. Bars show each channel's flow relative to an even split, counted from the inlet end of the pass. Try 151 plates with 60 m³/h on both sides.</p>
+      <div class="chips" id="split-chips" style="margin-bottom:10px"></div>
+      <div class="splitgrid">
+        <div><svg id="split-hot" viewBox="0 0 440 190" role="img" aria-label="Flow per hot channel relative to an even split"></svg><p class="stat" id="split-hot-stat"></p></div>
+        <div><svg id="split-cold" viewBox="0 0 440 190" role="img" aria-label="Flow per cold channel relative to an even split"></svg><p class="stat" id="split-cold-stat"></p></div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>What more plates buy you</h2>
+      <p class="sub">Same flows and inlet temperatures, plate count swept. More plates add area but slow the flow in each channel, so U falls. The dot is the current unit.</p>
+      <svg id="sweep" viewBox="0 0 900 240" role="img" aria-label="Duty, overall heat transfer coefficient and pressure drop as functions of plate count"></svg>
+    </section>
+
+    <footer class="foot">
+      <p>Heat transfer and friction follow Martin (1996) as given in the VDI Heat Atlas; port losses follow Shah and Focke; the flow split uses a one-dimensional port model after Bassiouny and Martin (1984). Fluid properties are approximate, and the plate sizes are generic and do not describe any manufacturer's product. See <a href="#model">How the model works</a>.</p>
+      <p>The model, its inputs and its references were only partly checked, and the work has not been peer-reviewed. It is meant for learning and first estimates, not for equipment selection.</p>
+      <p>Model, analysis and site construction: Claude Opus 5.5 (Anthropic). 3D rendering with three.js (MIT licence).</p>
+    </footer>
   </div>
 
-  <section class="notes" id="model">
-    <h2>How the model works</h2>
-    <p class="lead">The calculation behind the numbers above, in the order it runs. It is a teaching model: equal passes on both sides, ideal flow distribution, approximate fluid properties.</p>
-    <div class="notegrid">
-      <article class="note">
-        <h3><span class="n">01</span>Energy balance</h3>
-        <p>Whatever heat leaves the hot fluid enters the cold fluid. With heat capacity rates <i>C</i> = <i>ṁ c<sub>p</sub></i>:</p>
-        <span class="eq"><i>Q</i> = <i>C</i><sub>h</sub>(<i>T</i><sub>h,in</sub> − <i>T</i><sub>h,out</sub>) = <i>C</i><sub>c</sub>(<i>T</i><sub>c,out</sub> − <i>T</i><sub>c,in</sub>)</span>
-        <p>The side with the smaller <i>C</i> changes temperature the most. In food duties the product and the service water often have similar <i>C</i>, which gives the parallel curves you see in the profile.</p>
-      </article>
-      <article class="note">
-        <h3><span class="n">02</span>Rate equation and LMTD</h3>
-        <p>How fast heat flows depends on the overall coefficient <i>U</i>, the area <i>A</i> and the mean temperature difference. For pure counter-current flow it is the log-mean of the two end differences:</p>
-        <span class="eq"><i>Q</i> = <i>U A</i> ΔT<sub>lm</sub>, &nbsp; ΔT<sub>lm</sub> = (ΔT<sub>1</sub> − ΔT<sub>2</sub>) / ln(ΔT<sub>1</sub>/ΔT<sub>2</sub>)</span>
-        <p class="where">ΔT<sub>1</sub> = T<sub>h,in</sub> − T<sub>c,out</sub>, ΔT<sub>2</sub> = T<sub>h,out</sub> − T<sub>c,in</sub>. Plate units are close to ideal counter-current, which is why they can reach temperature approaches of 1 to 2 K and even a temperature cross.</p>
-      </article>
-      <article class="note">
-        <h3><span class="n">03</span>Plates, channels and area</h3>
-        <p><i>N</i> plates form <i>N</i> − 1 channels, shared alternately between the two fluids. The two end plates do not transfer heat, so the area is</p>
-        <span class="eq"><i>A</i> = (<i>N</i> − 2) · Φ · <i>W</i> · <i>L</i></span>
-        <p class="where"><i>W</i> is the plate width, <i>L</i> the port-to-port length and Φ the enlargement factor, the ratio of the corrugated surface to its flat projection (typically 1.15 to 1.25).</p>
-      </article>
-      <article class="note">
-        <h3><span class="n">04</span>Velocity, Reynolds and Prandtl numbers</h3>
-        <p>The channel is a narrow slot of gap <i>b</i>. Its hydraulic diameter is about twice the gap:</p>
-        <span class="eq"><i>u</i> = <i>V̇</i> / (<i>n</i><sub>ch</sub> <i>W b</i>), &nbsp; <i>d</i><sub>h</sub> = 2<i>b</i>/Φ, &nbsp; Re = ρ<i>u d</i><sub>h</sub>/μ, &nbsp; Pr = <i>c</i><sub>p</sub>μ/<i>k</i></span>
-        <p>The corrugations break up the flow, so plate channels become turbulent at Reynolds numbers of a few hundred, far below the 2300 of a smooth pipe. Viscous products like milk have higher Pr and lower Re than water at the same velocity.</p>
-      </article>
-      <article class="note">
-        <h3><span class="n">05</span>Chevron angle and the Martin correlation</h3>
-        <p>The angle φ between the corrugations and the main flow direction sets the character of the plate. A low angle gives long, open channels with low pressure drop. A high angle forces the flow to cross the furrows, which gives more turbulence, more heat transfer and more pressure drop. Holger Martin derived both friction and heat transfer from this geometry:</p>
-        <span class="eq">1/√ξ = cos φ / √(0.045 tan φ + 0.09 sin φ + ξ<sub>0</sub>/cos φ) + (1 − cos φ)/√(3.8 ξ<sub>1</sub>)</span>
-        <span class="eq">Nu = 0.122 Pr<sup>1/3</sup> (μ/μ<sub>w</sub>)<sup>1/6</sup> [ξ Re<sup>2</sup> sin 2φ]<sup>0.374</sup>, &nbsp; <i>h</i> = Nu <i>k</i>/<i>d</i><sub>h</sub></span>
-        <p class="where">ξ<sub>0</sub> and ξ<sub>1</sub> are friction factors for straight channels (φ = 0°) and fully crossed ones, laminar below Re = 2000 and turbulent above. The link between ξ and Nu is the Lévêque analogy: heat transfer follows wall shear. Mixing a low-angle and a high-angle plate in one pack gives an intermediate angle, which is how manufacturers offer several thermal lengths with one plate design.</p>
-      </article>
-      <article class="note">
-        <h3><span class="n">06</span>Overall heat transfer coefficient</h3>
-        <span class="eq">1/<i>U</i> = 1/<i>h</i><sub>h</sub> + <i>t</i>/<i>k</i><sub>w</sub> + 1/<i>h</i><sub>c</sub> + <i>R</i><sub>f</sub></span>
-        <p>Plates are thin (0.4 to 0.6 mm) so the wall adds little, even in stainless steel. Film coefficients of 5,000 to 15,000 W/m²K are common, which is why plate units are compact. A fouling allowance <i>R</i><sub>f</sub> of only 0.05 m²K/kW can take 10 to 20% off <i>U</i>; you can try it in the inputs.</p>
-      </article>
-      <article class="note">
-        <h3><span class="n">07</span>The ε-NTU method</h3>
-        <p>For rating, the outlet temperatures are unknown, so LMTD cannot be used directly. Instead:</p>
-        <span class="eq">NTU = <i>UA</i>/<i>C</i><sub>min</sub>, &nbsp; <i>C</i><sub>r</sub> = <i>C</i><sub>min</sub>/<i>C</i><sub>max</sub>, &nbsp; ε = (1 − e<sup>−NTU(1−C<sub>r</sub>)</sup>) / (1 − <i>C</i><sub>r</sub> e<sup>−NTU(1−C<sub>r</sub>)</sup>)</span>
-        <span class="eq"><i>Q</i> = ε <i>C</i><sub>min</sub> (<i>T</i><sub>h,in</sub> − <i>T</i><sub>c,in</sub>)</span>
-        <p>NTU is the thermal length of the unit: how many times the temperature change of the weaker stream fits into the mean temperature difference. Fluid properties depend on temperature, so the app repeats the calculation a few times until the outlet temperatures settle.</p>
-      </article>
-      <article class="note">
-        <h3><span class="n">08</span>Pressure drop</h3>
-        <span class="eq">Δ<i>p</i> = ξ (<i>L</i>/<i>d</i><sub>h</sub>) ρ<i>u</i><sup>2</sup>/2 + 1.4 ρ<i>u</i><sub>port</sub><sup>2</sup>/2</span>
-        <p>The first term is friction in the channels, the second the losses in the inlet and outlet ports. Pressure drop grows roughly with the square of velocity, heat transfer only with about the 0.7th power. That trade-off is the core of plate heat exchanger design: you buy heat transfer with pump energy.</p>
-      </article>
-      <article class="note">
-        <h3><span class="n">09</span>Passes and turning plates</h3>
-        <p>In a single-pass unit the flow splits over all its channels at once, and every channel sees the full temperature change. With <i>p</i> passes, a turning plate with one port hole left blind closes the port channel, so the fluid has to come back through the next group of channels. The passes run in series, all inside the same frame.</p>
-        <span class="eq"><i>u</i> = <i>p V̇</i> / (<i>n</i><sub>ch</sub> <i>W b</i>), &nbsp; Δ<i>p</i><sub>channels</sub> ∝ <i>p</i> · <i>u</i><sup>2</sup></span>
-        <p>Two passes double the velocity and the flow length, so heat transfer improves but pressure drop rises six- to eightfold. Multi-pass units also need connections on the movable pressure plate. Try it in the model above.</p>
-        <p>What makes a fluid enter one channel and skip the next is the gasket. On each plate the gasket encloses the heat transfer area together with two of the four port holes; the other two holes get ring gaskets that seal them off. Alternate plates are turned, so the channels alternate between the two fluids.</p>
-      </article>
-      <article class="note">
-        <h3><span class="n">10</span>What changes in food duties</h3>
-        <ul>
-          <li><b>Fouling.</b> Milk proteins deposit on hot walls, mostly above about 75 °C. Higher wall shear stress slows the build-up, so channel velocity matters beyond heat transfer.</li>
-          <li><b>Hygiene.</b> Gaskets, port design and surface finish must allow cleaning in place. Wider gaps are used for products with pulp or fibres.</li>
-          <li><b>Regeneration.</b> In a pasteuriser the hot pasteurised milk preheats the cold incoming milk in a regenerative section, often recovering over 90% of the heat. Each section is a plate pack like the one modelled here.</li>
-          <li><b>Holding time.</b> The residence time in the table is the time a fluid particle spends in one channel, a few seconds. The legal holding time (for example 15 s at 72 °C for milk) happens in a separate holding tube.</li>
-        </ul>
-      </article>
-      <article class="note">
-        <h3><span class="n">11</span>Assumptions and limits</h3>
-        <ul>
-          <li>The same number of passes on both sides, arranged so the passes meet counter-currently. The whole unit is then treated as pure counter-current (correction factor F = 1). Equal flow in every channel.</li>
-          <li>Fluid properties are evaluated at the mean bulk temperature of each side. Milk and juice properties are scaled from water and are approximate.</li>
-          <li>The Martin correlation is for chevron angles between about 10° and 80°. Its laminar and turbulent branches meet with a small jump at Re = 2000.</li>
-          <li>Port pressure loss uses the common 1.4 velocity heads per pass. Real plates have distribution areas that this model does not resolve.</li>
-          <li>The flow split model is one-dimensional, with momentum coefficients of 0.7 in the inlet port and 1.0 in the outlet port. The main results above assume an even split; the split panel shows how far that holds.</li>
-          <li>Plate sizes are generic and do not describe any specific product.</li>
-        </ul>
-      </article>
-    </div>
-  </section>
-  <footer>
-    <p>Heat transfer and friction in the channels follow H. Martin, "A theoretical approach to predict the performance of chevron-type plate heat exchangers", Chemical Engineering and Processing 35 (1996) 301–310, as given in the VDI Heat Atlas. Port pressure losses follow Shah and Focke; the flow split between channels uses a one-dimensional port model in the spirit of Bassiouny and Martin (1984). Fluid properties are approximate, and plate sizes are generic and do not describe any manufacturer's product. Details are in <a href="#model">How the model works</a>.</p>
-    <p>The model, its inputs and its references were only partly checked, and the work has not been peer-reviewed. It is meant for learning and first estimates, not for equipment selection.</p>
-    <p>Model, analysis and site construction: Claude Opus 5.5 (Anthropic). 3D rendering with three.js (MIT licence).</p>
-  </footer>
+  <article id="page-model" class="doc" hidden>
+    <div class="eyebrow">Plate Heat Exchanger Explorer</div>
+    <h1>How the model works</h1>
+    <p>The explorer models a gasketed plate heat exchanger with chevron-corrugated plates, carrying two liquids in counter-current flow. Each side may make one or more passes; both sides have the same number of passes, arranged so that the passes meet counter-currently. The calculation runs in the order of the sections below: geometry, channel flow, heat transfer coefficients, outlet temperatures, pressure drop, and finally the flow split between channels.</p>
+    <p>All quantities are in SI units, except flows (m³/h), temperatures (°C) and pressure drops (kPa) as shown on the explorer.</p>
+
+    <h2>Plates, channels and area</h2>
+    <p><em>N</em> plates form <em>N</em> − 1 channels. The channels alternate between the two fluids, so the hot side gets ⌈(<em>N</em> − 1)/2⌉ channels and the cold side the rest. The two end plates touch the frame and the pressure plate and do not transfer heat, which gives the heat transfer area</p>
+    <div class="eq"><math display="block"><mi>A</mi><mo>=</mo><mo>(</mo><mi>N</mi><mo>−</mo><mn>2</mn><mo>)</mo><mspace width="0.2em"/><mi>Φ</mi><mspace width="0.2em"/><mi>W</mi><mspace width="0.2em"/><mi>L</mi></math></div>
+    <p>where <em>W</em> is the plate width, <em>L</em> the port-to-port length and Φ the enlargement factor, the ratio of the corrugated surface to its flat projection. The three plate sizes offered on the explorer are generic:</p>
+    <div class="tbl"><table>
+      <thead><tr><th>Plate size</th><th>W (m)</th><th>L (m)</th><th>Port (mm)</th><th>Area per plate (m²)</th></tr></thead>
+      <tbody>
+        <tr><td>Small</td><td>0.20</td><td>0.55</td><td>50</td><td>0.129</td></tr>
+        <tr><td>Medium</td><td>0.35</td><td>0.80</td><td>100</td><td>0.328</td></tr>
+        <tr><td>Large</td><td>0.50</td><td>1.15</td><td>150</td><td>0.673</td></tr>
+      </tbody>
+    </table></div>
+    <p>All three use a channel gap of 3 mm, a plate thickness of 0.5 mm, a chevron angle of 60° and Φ = 1.17 unless changed.</p>
+
+    <h2>Channel flow</h2>
+    <p>Within one pass the flow of a side divides evenly over its channels. With <em>p</em> passes and <em>n</em><sub>ch</sub> channels on a side, the mean channel velocity and the hydraulic diameter of the narrow slot are</p>
+    <div class="eq"><math display="block"><mi>u</mi><mo>=</mo><mfrac><mrow><mi>p</mi><mspace width="0.15em"/><mover><mi>V</mi><mo>˙</mo></mover></mrow><mrow><msub><mi>n</mi><mtext>ch</mtext></msub><mspace width="0.15em"/><mi>W</mi><mspace width="0.15em"/><mi>b</mi></mrow></mfrac><mo>,</mo><mspace width="1.5em"/><msub><mi>d</mi><mtext>h</mtext></msub><mo>=</mo><mfrac><mrow><mn>2</mn><mi>b</mi></mrow><mi>Φ</mi></mfrac></math></div>
+    <p>with <em>b</em> the channel gap. The Reynolds and Prandtl numbers are formed with properties at the mean bulk temperature of each side:</p>
+    <div class="eq"><math display="block"><mi>Re</mi><mo>=</mo><mfrac><mrow><mi>ρ</mi><mi>u</mi><msub><mi>d</mi><mtext>h</mtext></msub></mrow><mi>μ</mi></mfrac><mo>,</mo><mspace width="1.5em"/><mi>Pr</mi><mo>=</mo><mfrac><mrow><msub><mi>c</mi><mi>p</mi></msub><mi>μ</mi></mrow><mi>k</mi></mfrac></math></div>
+    <p>The corrugations break up the flow, so plate channels become turbulent at Reynolds numbers of a few hundred, far below the 2,300 of a smooth pipe.</p>
+
+    <h2>Heat transfer and friction: the Martin correlation</h2>
+    <p>The chevron angle φ is measured between the corrugation furrows and the main flow direction. A low angle gives long, open channels; a high angle forces the flow to cross the furrows. Martin (1996) derived the friction factor ξ of a chevron channel from the friction factors of the two limiting geometries, straight channels (ξ<sub>0</sub>) and fully crossed ones (ξ<sub>1</sub>):</p>
+    <div class="eq"><math display="block"><mfrac><mn>1</mn><msqrt><mi>ξ</mi></msqrt></mfrac><mo>=</mo><mfrac><mrow><mi>cos</mi><mi>φ</mi></mrow><msqrt><mrow><mn>0.045</mn><mi>tan</mi><mi>φ</mi><mo>+</mo><mn>0.09</mn><mi>sin</mi><mi>φ</mi><mo>+</mo><msub><mi>ξ</mi><mn>0</mn></msub><mo>/</mo><mi>cos</mi><mi>φ</mi></mrow></msqrt></mfrac><mo>+</mo><mfrac><mrow><mn>1</mn><mo>−</mo><mi>cos</mi><mi>φ</mi></mrow><msqrt><mrow><mn>3.8</mn><msub><mi>ξ</mi><mn>1</mn></msub></mrow></msqrt></mfrac></math></div>
+    <div class="tbl"><table>
+      <thead><tr><th></th><th>Re &lt; 2,000</th><th>Re ≥ 2,000</th></tr></thead>
+      <tbody>
+        <tr><td>ξ<sub>0</sub></td><td>64 / Re</td><td>(1.8 log<sub>10</sub> Re − 1.5)<sup>−2</sup></td></tr>
+        <tr><td>ξ<sub>1</sub></td><td>597 / Re + 3.85</td><td>39 / Re<sup>0.289</sup></td></tr>
+      </tbody>
+    </table></div>
+    <p>Heat transfer follows from friction through the Lévêque analogy, which ties the heat transfer coefficient to the wall shear stress:</p>
+    <div class="eq"><math display="block"><mi>Nu</mi><mo>=</mo><mn>0.122</mn><mspace width="0.15em"/><msup><mi>Pr</mi><mrow><mn>1</mn><mo>/</mo><mn>3</mn></mrow></msup><msup><mrow><mo>(</mo><mfrac><mi>μ</mi><msub><mi>μ</mi><mtext>w</mtext></msub></mfrac><mo>)</mo></mrow><mrow><mn>1</mn><mo>/</mo><mn>6</mn></mrow></msup><msup><mrow><mo>[</mo><mi>ξ</mi><mspace width="0.1em"/><msup><mi>Re</mi><mn>2</mn></msup><mi>sin</mi><mn>2</mn><mi>φ</mi><mo>]</mo></mrow><mn>0.374</mn></msup><mo>,</mo><mspace width="1.5em"/><mi>h</mi><mo>=</mo><mfrac><mrow><mi>Nu</mi><mspace width="0.1em"/><mi>k</mi></mrow><msub><mi>d</mi><mtext>h</mtext></msub></mfrac></math></div>
+    <p>The wall viscosity μ<sub>w</sub> is evaluated at an estimated wall temperature, the film-coefficient-weighted mean of the two bulk temperatures. The correlation holds for chevron angles between about 10° and 80°; its laminar and turbulent branches meet with a small step at Re = 2,000.</p>
+
+    <h2>Overall heat transfer coefficient</h2>
+    <p>The two film resistances, the plate wall and a fouling allowance act in series:</p>
+    <div class="eq"><math display="block"><mfrac><mn>1</mn><mi>U</mi></mfrac><mo>=</mo><mfrac><mn>1</mn><msub><mi>h</mi><mtext>h</mtext></msub></mfrac><mo>+</mo><mfrac><mi>t</mi><msub><mi>k</mi><mtext>w</mtext></msub></mfrac><mo>+</mo><mfrac><mn>1</mn><msub><mi>h</mi><mtext>c</mtext></msub></mfrac><mo>+</mo><msub><mi>R</mi><mtext>f</mtext></msub></math></div>
+    <p>Plates are thin, so the wall adds little even in stainless steel (<em>k</em><sub>w</sub> ≈ 16 W/m·K). Film coefficients of 5,000 to 15,000 W/m²K are common, which is why plate units are compact. A fouling allowance of 0.05 m²K/kW can remove 10 to 20% of <em>U</em>.</p>
+
+    <h2>Outlet temperatures: the ε-NTU method</h2>
+    <p>For rating, the outlet temperatures are unknown, so the log-mean temperature difference cannot be used directly. With heat capacity rates <em>C</em> = <em>ṁ c</em><sub>p</sub>:</p>
+    <div class="eq"><math display="block"><mi>NTU</mi><mo>=</mo><mfrac><mrow><mi>U</mi><mi>A</mi></mrow><msub><mi>C</mi><mtext>min</mtext></msub></mfrac><mo>,</mo><mspace width="1.2em"/><msub><mi>C</mi><mtext>r</mtext></msub><mo>=</mo><mfrac><msub><mi>C</mi><mtext>min</mtext></msub><msub><mi>C</mi><mtext>max</mtext></msub></mfrac><mo>,</mo><mspace width="1.2em"/><mi>ε</mi><mo>=</mo><mfrac><mrow><mn>1</mn><mo>−</mo><msup><mi>e</mi><mrow><mo>−</mo><mi>NTU</mi><mo>(</mo><mn>1</mn><mo>−</mo><msub><mi>C</mi><mtext>r</mtext></msub><mo>)</mo></mrow></msup></mrow><mrow><mn>1</mn><mo>−</mo><msub><mi>C</mi><mtext>r</mtext></msub><msup><mi>e</mi><mrow><mo>−</mo><mi>NTU</mi><mo>(</mo><mn>1</mn><mo>−</mo><msub><mi>C</mi><mtext>r</mtext></msub><mo>)</mo></mrow></msup></mrow></mfrac></math></div>
+    <div class="eq"><math display="block"><mi>Q</mi><mo>=</mo><mi>ε</mi><mspace width="0.15em"/><msub><mi>C</mi><mtext>min</mtext></msub><mo>(</mo><msub><mi>T</mi><mtext>h,in</mtext></msub><mo>−</mo><msub><mi>T</mi><mtext>c,in</mtext></msub><mo>)</mo><mo>,</mo><mspace width="1.2em"/><msub><mi>T</mi><mtext>h,out</mtext></msub><mo>=</mo><msub><mi>T</mi><mtext>h,in</mtext></msub><mo>−</mo><mfrac><mi>Q</mi><msub><mi>C</mi><mtext>h</mtext></msub></mfrac><mo>,</mo><mspace width="1.2em"/><msub><mi>T</mi><mtext>c,out</mtext></msub><mo>=</mo><msub><mi>T</mi><mtext>c,in</mtext></msub><mo>+</mo><mfrac><mi>Q</mi><msub><mi>C</mi><mtext>c</mtext></msub></mfrac></math></div>
+    <p>Because the fluid properties depend on temperature, the calculation repeats eight times, each time with properties at the new mean temperatures. The result is checked against the rate equation <em>Q</em> = <em>U A</em> ΔT<sub>lm</sub>, with ΔT<sub>lm</sub> the log-mean of the two end temperature differences. The temperature profile along the plate is the analytical solution of the counter-current energy balance for constant <em>U</em>.</p>
+    <p>In sizing mode the explorer increases the plate count one plate at a time from 2<em>p</em> + 1 and stops at the first unit whose outlet meets the target, up to 700 plates.</p>
+
+    <h2>Pressure drop</h2>
+    <p>The pressure drop of a side is channel friction over the full flow path plus the inlet and outlet port losses of each pass, taken as 1.4 velocity heads per pass:</p>
+    <div class="eq"><math display="block"><mi>Δ</mi><mi>p</mi><mo>=</mo><mi>ξ</mi><mfrac><mrow><mi>p</mi><mi>L</mi></mrow><msub><mi>d</mi><mtext>h</mtext></msub></mfrac><mfrac><mrow><mi>ρ</mi><msup><mi>u</mi><mn>2</mn></msup></mrow><mn>2</mn></mfrac><mo>+</mo><mn>1.4</mn><mspace width="0.1em"/><mi>p</mi><mfrac><mrow><mi>ρ</mi><msubsup><mi>u</mi><mtext>port</mtext><mn>2</mn></msubsup></mrow><mn>2</mn></mfrac></math></div>
+    <p>Pressure drop grows roughly with the square of velocity, heat transfer only with about its 0.7th power. That trade-off is the core of plate heat exchanger design. The table on the explorer also gives the mean wall shear stress τ<sub>w</sub> = ξρ<em>u</em>²/8 and the residence time <em>pL</em>/<em>u</em>.</p>
+
+    <h2>Passes and turning plates</h2>
+    <p>In a single-pass unit the flow of a side splits over all its channels at once, and all four connections sit on the fixed frame plate. With <em>p</em> passes, turning plates with one port hole left unpunched close the port channel, so the fluid has to come back through the next group of channels. The passes run in series inside the same frame, and connections move to the pressure plate. Two passes double both the channel velocity and the flow length: heat transfer improves, and pressure drop rises six- to eightfold.</p>
+    <p>The model treats a multi-pass unit as pure counter-current (correction factor <em>F</em> = 1), which holds when both sides have the same number of passes arranged against each other.</p>
+
+    <h2>How the flow splits between channels</h2>
+    <p>The ports are long manifolds that feed the channels one after another. Along the inlet port the flow slows down as each channel takes its share, and the pressure recovers; along the outlet port the flow speeds up and the pressure falls. Friction acts in both. Between channel <em>i</em> and <em>i</em> + 1 of the inlet port:</p>
+    <div class="eq"><math display="block"><msub><mi>p</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>p</mi><mi>i</mi></msub><mo>+</mo><msub><mi>β</mi><mtext>in</mtext></msub><mi>ρ</mi><mo>(</mo><msubsup><mi>u</mi><mi>i</mi><mn>2</mn></msubsup><mo>−</mo><msubsup><mi>u</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow><mn>2</mn></msubsup><mo>)</mo><mo>−</mo><mi>Δ</mi><msub><mi>p</mi><mtext>f</mtext></msub></math></div>
+    <p>with momentum coefficients β<sub>in</sub> = 0.7 and β<sub>out</sub> = 1.0, and port friction from the Blasius or laminar pipe friction factor over one plate pitch. Each channel takes the flow that its pressure difference drives through it, using the Martin friction law; the inlet pressure is adjusted until the channels carry the full flow, and the procedure repeats until the split converges. A single-pass unit is a U-arrangement, with inlet and outlet at the same end; each pass of a multi-pass unit is a Z-arrangement.</p>
+    <p>The effect on the duty is estimated by treating each channel of the uneven side as its own small counter-current exchanger with its share of the area and its own film coefficient, the other side flowing evenly. The main results on the explorer assume an even split.</p>
+
+    <h2>Fluid properties</h2>
+    <div class="tbl"><table>
+      <thead><tr><th>Fluid</th><th>Density ρ</th><th>Viscosity μ</th><th>c<sub>p</sub> (J/kg·K)</th><th>k (W/m·K)</th></tr></thead>
+      <tbody>
+        <tr><td>Water</td><td>Thiesen equation</td><td>2.414·10<sup>−5</sup> · 10<sup>247.8/(T+133.15)</sup> Pa·s</td><td>polynomial in T, about 4,180</td><td>0.5706 + 0.001756 T − 6.46·10<sup>−6</sup> T²</td></tr>
+        <tr><td>Whole milk</td><td>1033 − 0.25 T</td><td>1.9 × water</td><td>3,930</td><td>0.53 + 0.0012 T</td></tr>
+        <tr><td>Fruit juice, 12 °Brix</td><td>1050 − 0.3 T</td><td>1.6 × water</td><td>3,850</td><td>0.95 × water</td></tr>
+      </tbody>
+    </table></div>
+    <p><em>T in °C. Milk and juice properties are scaled from water and are approximate.</em></p>
+
+    <h2>Food duties</h2>
+    <ul>
+      <li><strong>Fouling.</strong> Milk proteins deposit on hot walls, mostly above about 75 °C. Higher wall shear stress slows the build-up, so channel velocity matters beyond heat transfer.</li>
+      <li><strong>Hygiene.</strong> Gaskets, port design and surface finish must allow cleaning in place. The ports have double seals with a vented space between them, so a failing seal leaks to the outside instead of into the other fluid. Wider gaps are used for products with pulp or fibres.</li>
+      <li><strong>Regeneration.</strong> In a pasteuriser the hot pasteurised milk preheats the cold incoming milk in a regenerative section, recovering 85 to 95% of the heat. Each section is a plate pack like the one modelled here.</li>
+      <li><strong>Holding time.</strong> The residence time in the plates is a few seconds. The legal holding time, for example 15 s at 72 °C for milk, happens in a separate holding tube.</li>
+    </ul>
+
+    <h2>Assumptions and limits</h2>
+    <ul>
+      <li>Equal passes on both sides, arranged counter-currently; the unit is treated as pure counter-current.</li>
+      <li>Properties at the mean bulk temperature of each side; no phase change.</li>
+      <li>Even flow split in the main results; the flow split model is one-dimensional with fixed momentum coefficients.</li>
+      <li>Port losses as 1.4 velocity heads per pass; the distribution areas of real plates are not resolved.</li>
+      <li>Plate sizes are generic and do not describe any manufacturer's product.</li>
+    </ul>
+
+    <h2>References</h2>
+    <ul>
+      <li>H. Martin, "A theoretical approach to predict the performance of chevron-type plate heat exchangers", <em>Chemical Engineering and Processing</em> 35 (1996) 301–310.</li>
+      <li>VDI Heat Atlas, 2nd edition, Springer (2010), section on pressure drop and heat transfer in plate heat exchangers.</li>
+      <li>M. K. Bassiouny and H. Martin, "Flow distribution and pressure drop in plate heat exchangers", <em>Chemical Engineering Science</em> 39 (1984).</li>
+      <li>R. K. Shah and W. W. Focke, "Plate heat exchangers and their design theory", in <em>Heat Transfer Equipment Design</em>, Hemisphere (1988).</li>
+    </ul>
+
+    <footer class="foot" style="margin-top:28px">
+      <p>The model, its inputs and its references were only partly checked, and the work has not been peer-reviewed.</p>
+      <p>Model, analysis and site construction: Claude Opus 5.5 (Anthropic). <a href="#explorer">Back to the explorer</a>.</p>
+    </footer>
+  </article>
 </div>
 
 <script>
@@ -2261,7 +2265,7 @@ const Model3D = (() => {
     wrap.innerHTML =
       `<label for="${id}">${o.label}</label>` +
       `<span class="val"><input type="number" id="${id}" min="${o.min}" max="${o.max}" step="${o.step}"><span class="unit">${o.unit}</span></span>` +
-      `<input type="range" id="${id}-r" aria-label="${o.label}" min="${o.min}" max="${o.max}" step="${o.step}">` +
+      `<input type="range" id="${id}-r" aria-label="${o.label.replace(/<[^>]+>/g, "")}" min="${o.min}" max="${o.max}" step="${o.step}">` +
       (o.help ? `<span class="help">${o.help}</span>` : "");
     parent.appendChild(wrap);
     const num = wrap.querySelector('input[type="number"]');
@@ -2291,15 +2295,15 @@ const Model3D = (() => {
   const gf = $("geom-fields");
   const platesCtl = field(gf, { key: "plates", label: "Number of plates", unit: "plates", min: 3, max: 301, step: 1, digits: 0 });
   field(gf, { key: "passes", label: "Passes per side", unit: "passes", min: 1, max: 4, step: 1, digits: 0, help: "Each fluid crosses the pack this many times. Turning plates send it back through the next group of channels." });
-  field(gf, { key: "geom.width", label: "Plate width W", unit: "m", min: 0.10, max: 0.80, step: 0.01, digits: 2, onSet: toCustom });
-  field(gf, { key: "geom.length", label: "Port-to-port length L", unit: "m", min: 0.30, max: 2.0, step: 0.01, digits: 2, onSet: toCustom });
-  field(gf, { key: "geom.gap_mm", label: "Channel gap b", unit: "mm", min: 1.5, max: 8, step: 0.1, digits: 1, help: "Pressing depth. Wider gaps suit products with pulp or fibres." });
-  field(gf, { key: "geom.chevron_deg", label: "Chevron angle φ", unit: "°", min: 20, max: 75, step: 1, digits: 0, help: "From the flow direction. Low angle: open channel, low Δp. High angle: more turbulence." });
-  field(gf, { key: "geom.enlargement", label: "Enlargement factor Φ", unit: "", min: 1.10, max: 1.30, step: 0.01, digits: 2 });
-  field(gf, { key: "geom.thickness_mm", label: "Plate thickness t", unit: "mm", min: 0.3, max: 1.0, step: 0.05, digits: 2 });
-  field(gf, { key: "geom.kWall", label: "Plate conductivity k", unit: "W/m·K", min: 10, max: 25, step: 0.5, digits: 1, help: "Stainless steel AISI 316 ≈ 16, titanium ≈ 21." });
+  field(gf, { key: "geom.width", label: "Plate width <span class=\"sym\">W</span>", unit: "m", min: 0.10, max: 0.80, step: 0.01, digits: 2, onSet: toCustom });
+  field(gf, { key: "geom.length", label: "Port-to-port length <span class=\"sym\">L</span>", unit: "m", min: 0.30, max: 2.0, step: 0.01, digits: 2, onSet: toCustom });
+  field(gf, { key: "geom.gap_mm", label: "Channel gap <span class=\"sym\">b</span>", unit: "mm", min: 1.5, max: 8, step: 0.1, digits: 1, help: "Pressing depth. Wider gaps suit products with pulp or fibres." });
+  field(gf, { key: "geom.chevron_deg", label: "Chevron angle <span class=\"sym\">φ</span>", unit: "°", min: 20, max: 75, step: 1, digits: 0, help: "From the flow direction. Low angle: open channel, low Δp. High angle: more turbulence." });
+  field(gf, { key: "geom.enlargement", label: "Enlargement factor <span class=\"sym\">Φ</span>", unit: "", min: 1.10, max: 1.30, step: 0.01, digits: 2 });
+  field(gf, { key: "geom.thickness_mm", label: "Plate thickness <span class=\"sym\">t</span>", unit: "mm", min: 0.3, max: 1.0, step: 0.05, digits: 2 });
+  field(gf, { key: "geom.kWall", label: "Plate conductivity <span class=\"sym\">k</span>", unit: "W/m·K", min: 10, max: 25, step: 0.5, digits: 1, help: "Stainless steel AISI 316 ≈ 16, titanium ≈ 21." });
   field(gf, { key: "geom.port_mm", label: "Port diameter", unit: "mm", min: 25, max: 250, step: 5, digits: 0, onSet: toCustom });
-  field(gf, { key: "fouling_m2K_kW", label: "Fouling allowance R_f", unit: "m²K/kW", min: 0, max: 0.3, step: 0.005, digits: 3 });
+  field(gf, { key: "fouling_m2K_kW", label: "Fouling allowance <span class=\"sym\">R<sub>f</sub></span>", unit: "m²K/kW", min: 0, max: 0.3, step: 0.005, digits: 3 });
 
   for (const s of ["hot", "cold"]) {
     const sel = $(s + "-fluid");
@@ -2367,14 +2371,14 @@ const Model3D = (() => {
 
   function renderTiles(r) {
     const t = [
-      { k: "Duty", v: fmt(r.Q / 1000, 0), u: "kW", s: `ε = ${fmt(r.eps, 2)}, NTU = ${fmt(r.NTU, 2)}`, c: "acc" },
-      { k: "Hot outlet", v: fmt(r.ThOut, 1), u: "°C", s: `from ${fmt(state.hot.Tin, 1)} °C`, c: "hot" },
-      { k: "Cold outlet", v: fmt(r.TcOut, 1), u: "°C", s: `from ${fmt(state.cold.Tin, 1)} °C`, c: "cold" },
-      { k: "Overall U", v: fmt(r.U, 0), u: "W/m²K", s: `ΔT<sub>lm</sub> = ${fmt(r.LMTD, 1)} K`, c: "" },
-      { k: "Heat transfer area", v: fmt(r.A, 1), u: "m²", s: `${r.N} plates × ${fmt(r.Aplate, 3)} m², ${r.passes} pass${r.passes > 1 ? "es" : ""}`, c: "" },
-      { k: "Pressure drop", v: `${fmt(r.hot.dp / 1000, 0)} / ${fmt(r.cold.dp / 1000, 0)}`, u: "kPa", s: "hot / cold", c: "" },
+      { k: "Duty", v: fmt(r.Q / 1000, 0), u: `kW · ε ${fmt(r.eps, 2)}, NTU ${fmt(r.NTU, 2)}`, c: "" },
+      { k: "Hot outlet", v: fmt(r.ThOut, 1), u: `°C · in at ${fmt(state.hot.Tin, 1)} °C`, c: "hot" },
+      { k: "Cold outlet", v: fmt(r.TcOut, 1), u: `°C · in at ${fmt(state.cold.Tin, 1)} °C`, c: "cold" },
+      { k: "Overall U", v: fmt(r.U, 0), u: `W/m²K · ΔT<sub>lm</sub> ${fmt(r.LMTD, 1)} K`, c: "" },
+      { k: "Heat transfer area", v: fmt(r.A, 1), u: `m² · ${r.N} plates, ${r.passes} pass${r.passes > 1 ? "es" : ""}`, c: "" },
+      { k: "Pressure drop", v: `${fmt(r.hot.dp / 1000, 0)} / ${fmt(r.cold.dp / 1000, 0)}`, u: "kPa · hot / cold", c: "" },
     ];
-    $("tiles").innerHTML = t.map((x) => `<div class="tile ${x.c}"><div class="k">${x.k}</div><div class="v">${x.v} <span style="font-size:13px;color:var(--muted)">${x.u}</span></div><div class="s">${x.s}</div></div>`).join("");
+    $("tiles").innerHTML = t.map((x) => `<div><span class="eyebrow">${x.c ? `<i class="sw ${x.c}"></i>` : ""}${x.k}</span><span class="v">${x.v}</span><span class="u">${x.u}</span></div>`).join("");
   }
 
   function renderChips(r, sizing) {
@@ -2622,8 +2626,22 @@ const Model3D = (() => {
     $("sweep").innerHTML = s;
   }
 
+  // Two pages on one file: the explorer and the model description, switched by the URL hash
+  function route() {
+    const model = location.hash === "#model";
+    $("page-explorer").hidden = model;
+    $("page-model").hidden = !model;
+    document.querySelectorAll(".tabs a").forEach((a) => {
+      if ((a.getAttribute("href") === "#model") === model) a.setAttribute("aria-current", "page");
+      else a.removeAttribute("aria-current");
+    });
+  }
+  window.addEventListener("hashchange", () => { route(); window.scrollTo(0, 0); });
+  route();
+
   update();
 })();
+
 </script>
 </body>
 </html>
